@@ -1,6 +1,6 @@
 package br.ufc.mdcc.pargo.safe.port;
 
-public interface IHStormPort {
+public interface IHPCStormPort {
 
 	public String getName();
 }
