@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tns:architecture xmlns:tns="http://www.example.org/SAFe_architecture" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.example.org/SAFe_architecture SAFe_architecture.xsd ">
+  
+  <tns:application name="application_01_comp" id="1">
+  	<tns:uses_port name="app_uses_01" id="1"/>
+  	<tns:uses_port name="app_uses_02" id="2"/>
+  	<tns:provides_port name="app_provides_01" id="3"/>
+  	<tns:provides_port name="app_provides_02" id="4"/>	
+  </tns:application>
+  
+  <tns:workflow name="workflow_01_comp" id="2">
+  	<tns:uses_port name="wf_uses_01" id="5"/>
+  	<tns:uses_port name="wf_uses_02" id="6"/>
+  	<tns:provides_port name="wf_provides_01" id="7"/>
+  	<tns:provides_port name="wf_provides_02" id="8"/>
+  </tns:workflow>
+  
+  <tns:body>
+  	<tns:computation name="comp_01" id="3">
+  		<tns:uses_port name="uses_comp_01" id="9"/>
+  		<tns:provides_port name="provides_comp_01" id="10"/>
+  	</tns:computation>
+  	<tns:computation name="comp_02" id="4">
+  		<tns:uses_port name="uses_comp_02" id="11"/>
+  		<tns:provides_port name="provides_comp_02" id="12"/>
+  	</tns:computation>
+  	<tns:computation name="comp_03" id="5">
+  		<tns:uses_port name="uses_comp_03" id="13"/>
+  		<tns:provides_port name="provides_comp_03" id="14"/>
+  	</tns:computation>
+  	
+  	
+  	
+  	<tns:connector name="conn_01" id="6">
+  		<tns:uses_port name="uses_conn_01" id="15"/>
+  		<tns:provides_port name="provides_conn_01" id="16"/>
+  	</tns:connector>
+  	<tns:connector name="conn_02" id="7">
+  		<tns:uses_port name="uses_conn_02" id="17"/>
+  		<tns:provides_port name="provides_conn_02" id="18"/>
+  	</tns:connector>
+  	<tns:connector name="conn_03" id="8">
+  		<tns:uses_port name="uses_conn_03" id="19"/>
+  		<tns:provides_port name="provides_conn_03" id="20"/>
+  	</tns:connector>
+  	
+  	<tns:platform name="plat_01" id="9">
+  		<tns:uses_port name="uses_plat_01" id="21"/>
+  		<tns:provides_port name="provides_plat_01" id="22"/>
+  		<tns:provides_port name="provides_plat_02" id="23"/>
+  		<tns:provides_port name="provides_plat_03" id="24"/>
+  	</tns:platform>
+  </tns:body>
+  
+  <tns:attachment>
+    <tns:uses_port name="uses_comp_01" id="9"/>
+    <tns:provides_port name="provides_plat_01" id="22"/>
+  </tns:attachment>
+  <tns:attachment>
+    <tns:uses_port name="uses_comp_02" id="11"/>
+    <tns:provides_port name="provides_plat_02" id="23"/>
+  </tns:attachment>
+  <tns:attachment>
+    <tns:uses_port name="uses_comp_03" id="13"/>
+    <tns:provides_port name="provides_plat_01" id="24"/>
+  </tns:attachment>
+
+</tns:architecture>

@@ -1,9 +1,8 @@
 package br.ufc.mdcc.pargo.safe.application;
 
-import br.ufc.mdcc.pargo.safe.port.IHPCStormPort;
+import br.ufc.mdcc.pargo.safe.framework.IHPCStormServices;
 
-public interface IHPCStormApplicationServices {
+public interface IHPCStormApplicationServices extends IHPCStormServices{
 
-	 public IHPCStormPort getUsesPort();
-	 public void setProvidesPort(IHPCStormPort provides);
+	 
 }
