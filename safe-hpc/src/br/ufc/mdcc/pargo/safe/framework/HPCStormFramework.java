@@ -4,28 +4,27 @@ import br.ufc.mdcc.pargo.safe.application.HPCStormApplicationFramework;
 import br.ufc.mdcc.pargo.safe.application.IHPCStormApplicationServices;
 import br.ufc.mdcc.pargo.safe.factory.HPCStormServicesFactory;
 import br.ufc.mdcc.pargo.safe.factory.HPCStormWorkflowFactory;
+import br.ufc.mdcc.pargo.safe.util.SAFeConsoleLogger;
 
 
 
 
 public class HPCStormFramework extends Thread{
 
-	
-
+	//application component parent
 	private HPCStormApplicationFramework applicationComponent;
+	//workflow component
 	private HPCStormWorkflowComponent workflowComponent;
+	//the services object, shared among other SAFe entities
 	private IHPCStormServices applicationServices;
 	
 	public HPCStormFramework(){
+		SAFeConsoleLogger.write("Framework created.");
 		this.applicationComponent = null;
 		this.workflowComponent = HPCStormWorkflowFactory.createWorkflowComponent();
+		SAFeConsoleLogger.write("Workflow Component created.");
 		this.applicationServices = HPCStormServicesFactory.createApplicationServices();
-	}
-	
-	public HPCStormFramework(HPCStormApplicationFramework application,
-							  HPCStormWorkflowComponent workflow){
-		this.setApplicationComponent(application);
-		this.setWorkflowComponent(workflow);
+		SAFeConsoleLogger.write("Services created.");
 	}
 	
 	public void setWorkflowComponent(HPCStormWorkflowComponent workflowComponent) {
@@ -40,13 +39,22 @@ public class HPCStormFramework extends Thread{
 	public void setApplicationComponent(
 			HPCStormApplicationFramework applicationComponent) {
 		this.applicationComponent = applicationComponent;
+		SAFeConsoleLogger.write("Application parent set in Framework.");
 		if(this.applicationComponent!=null)
 			this.applicationComponent.setServices((IHPCStormApplicationServices)this.applicationServices);
+		SAFeConsoleLogger.write("Services set in Application.");
 		if(this.workflowComponent!=null)
 			this.workflowComponent.setServices((IHPCStormApplicationServices)this.applicationServices);
-		
+		SAFeConsoleLogger.write("Services set in Workflow Component.");
 	}
 	
-	
+	/**
+	 * Runs the framework and begins the orchestration.
+	 */
+	@Override
+	public void run() {
+		SAFeConsoleLogger.write("Framework Thread started.");
+		super.run();
+	}
 	
 }
