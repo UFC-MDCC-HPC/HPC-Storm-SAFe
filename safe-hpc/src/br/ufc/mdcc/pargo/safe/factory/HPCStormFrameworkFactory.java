@@ -1,12 +1,13 @@
 package br.ufc.mdcc.pargo.safe.factory;
 
 import br.ufc.mdcc.pargo.safe.framework.HPCStormFramework;
+import br.ufc.mdcc.pargo.safe.framework.IHPCStormFramework;
 
 public class HPCStormFrameworkFactory {
 	
-	private static HPCStormFramework framework = null;
+	private static IHPCStormFramework framework = null;
 	
-	public static HPCStormFramework getFramework(){
+	public static IHPCStormFramework getFramework(){
 		if(framework!=null)
 			return framework;
 		

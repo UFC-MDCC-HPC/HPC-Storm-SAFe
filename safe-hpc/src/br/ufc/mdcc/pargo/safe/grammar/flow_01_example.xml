@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tns:workflow xmlns:tns="http://www.example.org/SAFe_workflow" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.example.org/SAFe_workflow SAFe_workflow.xsd ">
+  <tns:sequence>
+    <tns:do>
+    	<tns:start type="resolution" id=""/>
+    </tns:do>
+    <tns:then>
+    	<tns:fire type="instantiation" id=""/>
+    </tns:then>
+    <tns:then>
+    	<tns:fire type="instantiation" id=""/>
+    </tns:then>
+    <tns:then>
+    	<tns:parallel>
+    		<tns:fork>
+    			<tns:stop type="resolution" id=""/>
+    		</tns:fork>
+    		<tns:fork>
+    			<tns:start type="resolution" id=""/>
+    		</tns:fork>
+    		<tns:fork>
+    			<tns:pause type="resolution" id=""/>
+    		</tns:fork>
+    	</tns:parallel>
+    </tns:then>
+    <tns:then>
+    	<tns:guard id="" type="test"/>
+    	<tns:choice>
+    	</tns:choice>
+    </tns:then>
+  </tns:sequence>
+</tns:workflow>

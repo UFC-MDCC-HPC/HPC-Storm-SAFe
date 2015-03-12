@@ -1,123 +1,210 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.example.org/SAFe_workflow" xmlns:tns="http://www.example.org/SAFe_workflow" elementFormDefault="qualified">
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.example.org/SAFe_workflow"
+	xmlns:tns="http://www.example.org/SAFe_workflow" elementFormDefault="qualified">
 
-    <element name="workflow" type="tns:XML_SAFe_Stmt"></element>
-    
-    <complexType name="XML_SAFe_Stmt">
-    <sequence>
-            <element name="guard" type="tns:XML_SAFe_Guard" maxOccurs="1" minOccurs="0"></element>
-            <choice>
-    		<element name="sequence">
-                    <annotation>
-                    	<documentation>sequence [[<guard>]? <operation>]+</documentation>
-                    </annotation>
-                    <complexType>
-    				<sequence>
-    					<element name="do" type="tns:XML_SAFe_Stmt"></element>
-    					<element name="then" type="tns:XML_SAFe_Stmt"
-    						maxOccurs="unbounded" minOccurs="0">
-    					</element>
-    				</sequence>
-    			</complexType>
-    		</element>
-    		<element name="parallel">
-                    <annotation>
-                    	<documentation>parallel [[<guard>]? <operation>]+</documentation>
-                    </annotation>
-                    <complexType>
-    				<sequence>
-    					<element name="fork" type="tns:XML_SAFe_Stmt"
-    						maxOccurs="unbounded" minOccurs="1">
-    					</element>
-    				</sequence>
-    			</complexType>
-    		</element>
-    		<element name="choice">
-                    <annotation>
-                    	<documentation>choice [[<guard>]? <operation>]+</documentation>
-                    </annotation>
-                    <complexType>
-    				<sequence>
-    					<element name="branch" type="tns:XML_SAFe_Stmt" maxOccurs="unbounded" minOccurs="1"></element>
-    				</sequence>
-    			</complexType>
-    		</element>
-    		<element name="repeat" type="tns:XML_SAFe_Stmt">
-    			<annotation>
-    				<documentation>repeat [<guard>]? <operation></documentation>
-    			</annotation></element>
-    		<element name="start" type="tns:XML_SAFe_PrimOper">
-    			<annotation>
-    				<documentation>start [resolution <component identifier> | instantiation <component_identifier> | action <action_identifier>]</documentation>
-    			</annotation></element>
-    		<element name="pause" type="tns:XML_SAFe_PrimOper">
-    			<annotation>
-    				<documentation>pause [resolution <component identifier> | instantiation <component_identifier> | action <action_identifier>]</documentation>
-    			</annotation></element>
-    		<element name="resume" type="tns:XML_SAFe_PrimOper">
-    			<annotation>
-    				<documentation>resume [resolution <component identifier> | instantiation <component_identifier> | action <action_identifier>]</documentation>
-    			</annotation></element>
-    		<element name="stop" type="tns:XML_SAFe_PrimOper">
-    			<annotation>
-    				<documentation>stop [resolution <component identifier> | instantiation <component_identifier> | action <action_identifier>]</documentation>
-    			</annotation></element>
-    		<element name="do" type="tns:XML_SAFe_PrimOper">
-    			<annotation>
-    				<documentation>do [resolution <component identifier> | instantiation <component_identifier> | action <action_identifier>]
+	<element name="workflow" type="tns:XML_SAFe_Stmt"></element>
 
-</documentation>
-    			</annotation></element>
-    		<element name="test" type="string">
-    			<annotation>
-    				<documentation>test <condition identifier></documentation>
-    			</annotation></element>
-    		<element name="wait" type="string">
-    			<annotation>
-    				<documentation>wait <condition identifier></documentation>
-    			</annotation></element>
-    		<element name="acquire" type="string">
-    			<annotation>
-    				<documentation>acquire <semaphore identifier></documentation>
-    			</annotation></element>
-    		<element name="release" type="string">
-    			<annotation>
-    				<documentation>release <semaphore identifier></documentation>
-    			</annotation></element>
-    	</choice>
-    </sequence>
-    >
-    </complexType>
+	<complexType name="XML_SAFe_Stmt">
+		<sequence>
+			<element name="guard" type="tns:XML_SAFe_Guard" maxOccurs="1"
+				minOccurs="0"></element>
+			<choice>
+				<element name="sequence">
+					<annotation>
+						<documentation>
+							sequence [[
+							<guard />
+							]?
+							<operation />
+							]+
+						</documentation>
+					</annotation>
+					<complexType>
+						<sequence>
+							<element name="do" type="tns:XML_SAFe_Stmt"></element>
+							<element name="then" type="tns:XML_SAFe_Stmt" maxOccurs="unbounded"
+								minOccurs="0">
+							</element>
+						</sequence>
+					</complexType>
+				</element>
+				<element name="parallel">
+					<annotation>
+						<documentation>
+							parallel [[
+							<guard />
+							]?
+							<operation />
+							]+
+						</documentation>
+					</annotation>
+					<complexType>
+						<sequence>
+							<element name="fork" type="tns:XML_SAFe_Stmt" maxOccurs="unbounded"
+								minOccurs="1">
+							</element>
+						</sequence>
+					</complexType>
+				</element>
+				<element name="choice">
+					<annotation>
+						<documentation>
+							choice [[
+							<guard />
+							]?
+							<operation />
+							]+
+						</documentation>
+					</annotation>
+					<complexType>
+						<sequence>
+							<element name="branch" type="tns:XML_SAFe_Stmt"
+								maxOccurs="unbounded" minOccurs="1"></element>
+						</sequence>
+					</complexType>
+				</element>
+				<element name="repeat" type="tns:XML_SAFe_Stmt">
+					<annotation>
+						<documentation>
+							repeat [
+							<guard />
+							]?
+							<operation />
+						</documentation>
+					</annotation>
+				</element>
+				<element name="start" type="tns:XML_SAFe_PrimOper">
+					<annotation>
+						<documentation>
+							start [resolution
+							<component_identifier />
+							| instantiation
+							<component_identifier />
+							| action
+							<action_identifier />
+							]
+						</documentation>
+					</annotation>
+				</element>
+				<element name="pause" type="tns:XML_SAFe_PrimOper">
+					<annotation>
+						<documentation>
+							pause [resolution
+							<component_identifier />
+							| instantiation
+							<component_identifier />
+							| action
+							<action_identifier />
+							]
+						</documentation>
+					</annotation>
+				</element>
+				<element name="resume" type="tns:XML_SAFe_PrimOper">
+					<annotation>
+						<documentation>
+							resume [resolution
+							<component_identifier />
+							| instantiation
+							<component_identifier />
+							| action
+							<action_identifier />
+							]
+						</documentation>
+					</annotation>
+				</element>
+				<element name="stop" type="tns:XML_SAFe_PrimOper">
+					<annotation>
+						<documentation>
+							stop [resolution
+							<component_identifier />
+							| instantiation
+							<component_identifier />
+							| action
+							<action_identifier />
+							]
+						</documentation>
+					</annotation>
+				</element>
+				<element name="fire" type="tns:XML_SAFe_PrimOper">
+					<annotation>
+						<documentation>
+							fire [resolution
+							<component_identifier />
+							| instantiation
+							<component_identifier />
+							| action
+							<action_identifier />
+							]
+
+						</documentation>
+					</annotation>
+				</element>
+				<element name="test" type="string">
+					<annotation>
+						<documentation>
+							test
+							<condition_identifier />
+						</documentation>
+					</annotation>
+				</element>
+				<element name="wait" type="string">
+					<annotation>
+						<documentation>
+							wait
+							<condition_identifier />
+						</documentation>
+					</annotation>
+				</element>
+				<element name="acquire" type="string">
+					<annotation>
+						<documentation>
+							acquire
+							<semaphore-identifier />
+						</documentation>
+					</annotation>
+				</element>
+				<element name="release" type="string">
+					<annotation>
+						<documentation>
+							release
+							<semaphore_identifier />
+						</documentation>
+					</annotation>
+				</element>
+			</choice>
+		</sequence>
+
+	</complexType>
 
 
 
-    <complexType name="XML_SAFe_PrimOper">
-    	<attribute name="type" type="tns:XML_SAFe_OperType" use="required"></attribute>
-    	<attribute name="id" type="string" use="required"></attribute>
-    </complexType>
+	<complexType name="XML_SAFe_PrimOper">
+		<attribute name="type" type="tns:XML_SAFe_OperType" use="required"></attribute>
+		<attribute name="id" type="string" use="required"></attribute>
+	</complexType>
 
 
-    
-    <simpleType name="XML_SAFe_OperType">
-    	<restriction base="string">
-    		<enumeration value="resolution"></enumeration>
-    		<enumeration value="instantiation"></enumeration>
-    		<enumeration value="action"></enumeration>
-    	</restriction>
-    </simpleType>
 
-    <complexType name="XML_SAFe_Guard">
-    	<attribute name="type" type="tns:XML_SAFe_GuardType"></attribute>
-    	<attribute name="id" type="string"></attribute>
-    </complexType>
-    
+	<simpleType name="XML_SAFe_OperType">
+		<restriction base="string">
+			<enumeration value="resolution"></enumeration>
+			<enumeration value="instantiation"></enumeration>
+			<enumeration value="action"></enumeration>
+		</restriction>
+	</simpleType>
+
+	<complexType name="XML_SAFe_Guard">
+		<attribute name="type" type="tns:XML_SAFe_GuardType"></attribute>
+		<attribute name="id" type="string"></attribute>
+	</complexType>
 
 
-    <simpleType name="XML_SAFe_GuardType">
-   	<restriction base="string">
-    		<enumeration value="test"></enumeration>
-    		<enumeration value="wait"></enumeration>
-    		<enumeration value="acquire"></enumeration>
-    	</restriction>
-    </simpleType>
+
+	<simpleType name="XML_SAFe_GuardType">
+		<restriction base="string">
+			<enumeration value="test"></enumeration>
+			<enumeration value="wait"></enumeration>
+			<enumeration value="acquire"></enumeration>
+		</restriction>
+	</simpleType>
 </schema>

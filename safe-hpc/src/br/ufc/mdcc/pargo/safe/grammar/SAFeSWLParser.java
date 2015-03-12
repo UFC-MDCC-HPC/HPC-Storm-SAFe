@@ -25,6 +25,7 @@ import br.ufc.mdcc.pargo.safe.grammar.arch.ArchitectureMain;
 public class SAFeSWLParser {
 
 	private ArchitectureMain architectureMain;
+	 
 	
 	public SAFeSWLParser() {
 		this.architectureMain = new ArchitectureMain();

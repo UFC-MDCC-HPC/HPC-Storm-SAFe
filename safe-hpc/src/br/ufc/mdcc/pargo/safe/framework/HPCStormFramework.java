@@ -9,28 +9,25 @@ import br.ufc.mdcc.pargo.safe.util.SAFeConsoleLogger;
 
 
 
-public class HPCStormFramework extends Thread{
+public class HPCStormFramework implements IHPCStormFramework{
 
 	//application component parent
 	private HPCStormApplicationFramework applicationComponent;
 	//workflow component
-	private HPCStormWorkflowComponent workflowComponent;
+	private IHPCStormWorkflowComponent workflowComponent;
 	//the services object, shared among other SAFe entities
 	private IHPCStormServices applicationServices;
+	 
 	
 	public HPCStormFramework(){
-		SAFeConsoleLogger.write("Framework created.");
 		this.applicationComponent = null;
 		this.workflowComponent = HPCStormWorkflowFactory.createWorkflowComponent();
 		SAFeConsoleLogger.write("Workflow Component created.");
 		this.applicationServices = HPCStormServicesFactory.createApplicationServices();
 		SAFeConsoleLogger.write("Services created.");
+		
 	}
 	
-	public void setWorkflowComponent(HPCStormWorkflowComponent workflowComponent) {
-		this.workflowComponent = workflowComponent;
-	}
-
 	/**
 	 * Informs to the framework which application it belongs to. Also sets the services 
 	 * object to the application and workflow component.
@@ -54,7 +51,7 @@ public class HPCStormFramework extends Thread{
 	@Override
 	public void run() {
 		SAFeConsoleLogger.write("Framework Thread started.");
-		super.run();
+		
 	}
 	
 }

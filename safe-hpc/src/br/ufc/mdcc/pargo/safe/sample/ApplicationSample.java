@@ -14,7 +14,7 @@ public class ApplicationSample extends HPCStormApplicationFramework{
 
 	public static void main(String[] args) {
 		
-		new ApplicationSample();
+		new ApplicationSample().run();
 	}
 	
 }

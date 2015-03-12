@@ -2,6 +2,7 @@ package br.ufc.mdcc.pargo.safe.application;
 
 import br.ufc.mdcc.pargo.safe.factory.HPCStormFrameworkFactory;
 import br.ufc.mdcc.pargo.safe.framework.HPCStormFramework;
+import br.ufc.mdcc.pargo.safe.framework.IHPCStormFramework;
 import br.ufc.mdcc.pargo.safe.util.SAFeConsoleLogger;
 
 
@@ -13,16 +14,26 @@ import br.ufc.mdcc.pargo.safe.util.SAFeConsoleLogger;
  */
 public abstract class HPCStormApplicationFramework {
 	
-	private HPCStormFramework framework = null;
+	private IHPCStormFramework framework = null;
 	
 	public HPCStormApplicationFramework() {
 		SAFeConsoleLogger.write("Application created.");
-		//createing the framework for this application
+		this.init();
+	}
+	
+	protected void init(){
+		
+		//creating the framework for this application
 		this.framework = HPCStormFrameworkFactory.getFramework();
+		SAFeConsoleLogger.write("Framework created.");
 		//setting the framework application parent. 
 		this.framework.setApplicationComponent(this);
+	}
+	
+	public void run(){
 		//starts the framework
-		this.framework.start();
+		Thread frameworkThread = new Thread(this.framework);
+		frameworkThread.start();
 	}
 	
 	/**
