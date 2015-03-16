@@ -1,10 +1,10 @@
 package br.ufc.mdcc.pargo.safe.framework;
 
-import br.ufc.mdcc.pargo.safe.application.IHPCStormApplicationServices;
+import br.ufc.mdcc.pargo.safe.application.IHPCStormServices;
 
 public class HPCStormWorkflowComponent implements IHPCStormWorkflowComponent{
 
-	private IHPCStormApplicationServices services;
+	private IHPCStormServices services;
 	private HPCStormSAFeSWL saFeSWL;
 	private HPCStormWorkflowEngine engine;
 	
@@ -14,7 +14,7 @@ public class HPCStormWorkflowComponent implements IHPCStormWorkflowComponent{
 		
 	}
 	
-	public void setServices(IHPCStormApplicationServices services){
+	public void setServices(IHPCStormServices services){
 		this.services = services;
 	}
 	

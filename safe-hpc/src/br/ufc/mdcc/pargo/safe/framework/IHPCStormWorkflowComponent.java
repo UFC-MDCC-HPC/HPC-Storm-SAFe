@@ -1,8 +1,8 @@
 package br.ufc.mdcc.pargo.safe.framework;
 
-import br.ufc.mdcc.pargo.safe.application.IHPCStormApplicationServices;
 
-public interface IHPCStormWorkflowComponent {
+import br.ufc.mdcc.pargo.safe.component.IHPCStormComponent;
 
-	public void setServices(IHPCStormApplicationServices services);
+public interface IHPCStormWorkflowComponent extends IHPCStormComponent{
+
 }

@@ -1,14 +1,14 @@
 package br.ufc.mdcc.pargo.safe.sample;
 
 import br.ufc.mdcc.pargo.safe.application.HPCStormApplicationFramework;
-import br.ufc.mdcc.pargo.safe.application.IHPCStormApplicationServices;
+import br.ufc.mdcc.pargo.safe.application.IHPCStormServices;
 
 public class ApplicationSample extends HPCStormApplicationFramework{
 
-	IHPCStormApplicationServices services;
+	IHPCStormServices services;
 	
 	@Override
-	public void setServices(IHPCStormApplicationServices services) {
+	public void setServices(IHPCStormServices services) {
 		this.services = services;
 	}
 

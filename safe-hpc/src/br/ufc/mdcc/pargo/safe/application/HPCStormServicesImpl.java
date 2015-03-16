@@ -5,13 +5,13 @@ import java.util.List;
 
 import br.ufc.mdcc.pargo.safe.port.IHPCStormPort;
 
-public class HPCStormAplicationServicesImpl 
-implements IHPCStormApplicationServices{
+public class HPCStormServicesImpl 
+implements IHPCStormServices{
 
 	private List<IHPCStormPort> usesPorts;
 	private List<IHPCStormPort> providesPorts;
 	
-	public HPCStormAplicationServicesImpl() {
+	public HPCStormServicesImpl() {
 		this.usesPorts = new ArrayList<IHPCStormPort>();
 		this.providesPorts = new ArrayList<IHPCStormPort>();
 	}

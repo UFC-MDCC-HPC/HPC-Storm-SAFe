@@ -1,17 +1,16 @@
 package br.ufc.mdcc.pargo.safe.factory;
 
-import br.ufc.mdcc.pargo.safe.application.HPCStormAplicationServicesImpl;
-import br.ufc.mdcc.pargo.safe.application.IHPCStormApplicationServices;
-import br.ufc.mdcc.pargo.safe.framework.IHPCStormServices;
+import br.ufc.mdcc.pargo.safe.application.HPCStormServicesImpl;
+import br.ufc.mdcc.pargo.safe.application.IHPCStormServices;
+
 
 public class HPCStormServicesFactory {
 
-	private static IHPCStormApplicationServices applicationServices;
-	private static IHPCStormServices services;
+	private static IHPCStormServices applicationServices;
 	
-	public static IHPCStormApplicationServices createApplicationServices(){
+	public static IHPCStormServices createApplicationServices(){
 		if(applicationServices == null)
-			applicationServices = new HPCStormAplicationServicesImpl();
+			applicationServices = new HPCStormServicesImpl();
 		return applicationServices;
 	}
 	

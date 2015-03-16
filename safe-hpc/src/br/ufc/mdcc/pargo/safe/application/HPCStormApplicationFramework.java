@@ -1,5 +1,6 @@
 package br.ufc.mdcc.pargo.safe.application;
 
+import br.ufc.mdcc.pargo.safe.component.IHPCStormComponent;
 import br.ufc.mdcc.pargo.safe.factory.HPCStormFrameworkFactory;
 import br.ufc.mdcc.pargo.safe.framework.HPCStormFramework;
 import br.ufc.mdcc.pargo.safe.framework.IHPCStormFramework;
@@ -12,7 +13,7 @@ import br.ufc.mdcc.pargo.safe.util.SAFeConsoleLogger;
  * @author jefferson
  *
  */
-public abstract class HPCStormApplicationFramework {
+public abstract class HPCStormApplicationFramework implements IHPCStormComponent{
 	
 	private IHPCStormFramework framework = null;
 	
@@ -36,11 +37,7 @@ public abstract class HPCStormApplicationFramework {
 		frameworkThread.start();
 	}
 	
-	/**
-	 * The services object is created by the framework and then assigned to the application.
-	 * It is a singleton object shared by the other SAFe entities.
-	 * @param services
-	 */
-	public abstract void setServices(IHPCStormApplicationServices services);
+	
+	public abstract void setServices(IHPCStormServices services);
 	
 }
