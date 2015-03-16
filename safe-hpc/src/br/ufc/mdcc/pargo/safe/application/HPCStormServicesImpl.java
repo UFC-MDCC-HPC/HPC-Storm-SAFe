@@ -5,6 +5,11 @@ import java.util.List;
 
 import br.ufc.mdcc.pargo.safe.port.IHPCStormPort;
 
+/**
+ * First Services implementation. 
+ * @author jefferson
+ *
+ */
 public class HPCStormServicesImpl 
 implements IHPCStormServices{
 
