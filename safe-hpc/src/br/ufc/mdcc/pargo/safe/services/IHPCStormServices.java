@@ -1,4 +1,4 @@
-package br.ufc.mdcc.pargo.safe.application;
+package br.ufc.mdcc.pargo.safe.services;
 
 import br.ufc.mdcc.pargo.safe.port.IHPCStormPort;
 

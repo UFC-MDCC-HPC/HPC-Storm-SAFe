@@ -1,4 +1,4 @@
-package br.ufc.mdcc.pargo.safe.application;
+package br.ufc.mdcc.pargo.safe.services;
 
 import java.util.ArrayList;
 import java.util.List;

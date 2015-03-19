@@ -1,7 +1,7 @@
 package br.ufc.mdcc.pargo.safe.factory;
 
-import br.ufc.mdcc.pargo.safe.application.HPCStormServicesImpl;
-import br.ufc.mdcc.pargo.safe.application.IHPCStormServices;
+import br.ufc.mdcc.pargo.safe.services.HPCStormServicesImpl;
+import br.ufc.mdcc.pargo.safe.services.IHPCStormServices;
 
 
 public class HPCStormServicesFactory {

@@ -1,9 +1,9 @@
 package br.ufc.mdcc.pargo.safe.framework;
 
 import br.ufc.mdcc.pargo.safe.application.HPCStormApplicationFramework;
-import br.ufc.mdcc.pargo.safe.application.IHPCStormServices;
 import br.ufc.mdcc.pargo.safe.factory.HPCStormServicesFactory;
 import br.ufc.mdcc.pargo.safe.factory.HPCStormWorkflowFactory;
+import br.ufc.mdcc.pargo.safe.services.IHPCStormServices;
 import br.ufc.mdcc.pargo.safe.util.SAFeConsoleLogger;
 
 
@@ -25,6 +25,8 @@ public class HPCStormFramework implements IHPCStormFramework{
 		SAFeConsoleLogger.write("Workflow Component created.");
 		this.applicationServices = HPCStormServicesFactory.createApplicationServices();
 		SAFeConsoleLogger.write("Services created.");
+		
+		//adding predefined ports TODO
 		
 	}
 	
