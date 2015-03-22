@@ -21,11 +21,8 @@ implements IHPCStormServices{
 		this.providesPorts = new ArrayList<IHPCStormPort>();
 	}
 	
-	
-	
 	@Override
 	public IHPCStormPort getUsesPort(IHPCStormPort uses) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

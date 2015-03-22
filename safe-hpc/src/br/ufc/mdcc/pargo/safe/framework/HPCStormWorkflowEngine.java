@@ -21,6 +21,7 @@ public class HPCStormWorkflowEngine {
 	
 	public void setSafeSWL(HPCStormSAFeSWL safeSWL){
 		this.safeSWL = safeSWL;
+		SAFeConsoleLogger.write("SAFeSWL receveid on Engine.");
 	}
 
 	 

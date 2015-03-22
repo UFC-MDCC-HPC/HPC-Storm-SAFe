@@ -2,6 +2,7 @@ package br.ufc.mdcc.pargo.safe.port.predefined;
 
 import br.ufc.mdcc.pargo.safe.framework.HPCStormSAFeSWL;
 import br.ufc.mdcc.pargo.safe.port.IHPCStormPort;
+import br.ufc.mdcc.pargo.safe.port.annotations.UsesProvidesAnnotation;
 import br.ufc.mdcc.pargo.safe.util.SAFeConsoleLogger;
 
 public class WorkflowPredefinedPortImpl implements IWorkflowPredefinedPort{
@@ -25,8 +26,9 @@ public class WorkflowPredefinedPortImpl implements IWorkflowPredefinedPort{
 	}
 
 	@Override
+	@UsesProvidesAnnotation(key=1)
 	public void usesSAFeSWL(HPCStormSAFeSWL safeSWL) {
-		// TODO Auto-generated method stub
+
 		SAFeConsoleLogger.write("Using safeSWL object...");
 	}
 

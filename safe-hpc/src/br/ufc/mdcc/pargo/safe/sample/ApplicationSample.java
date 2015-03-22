@@ -6,7 +6,7 @@ import br.ufc.mdcc.pargo.safe.services.IHPCStormServices;
 import br.ufc.mdcc.pargo.safe.util.SAFeConsoleLogger;
 
 /**
- * A Sample application. 
+ * Just a sample application.
  * @author jefferson
  *
  */
@@ -15,6 +15,7 @@ public class ApplicationSample extends HPCStormApplicationFramework{
 	private IHPCStormServices services;
 	
 	public ApplicationSample() {
+		//this is a simple pre-def port. Real users must specialize this class. 
 		this.applicationPredefinedPort = new ApplicationPredefinedPortImpl("pre-def-provides");
 	}
 	
