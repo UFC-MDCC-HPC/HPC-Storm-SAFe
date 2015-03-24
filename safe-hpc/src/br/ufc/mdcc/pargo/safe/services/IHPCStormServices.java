@@ -10,4 +10,5 @@ public interface IHPCStormServices{
 	public void registerUsesPort(IHPCStormPort uses);
 	
 	//utilitary classes... TODO
+	//coloque aqui as assinaturas de chamada das classes necessários do Matcher...
 }

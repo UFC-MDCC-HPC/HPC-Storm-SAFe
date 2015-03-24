@@ -2,10 +2,9 @@ package br.ufc.mdcc.pargo.safe.application;
 
 import br.ufc.mdcc.pargo.safe.component.IHPCStormComponent;
 import br.ufc.mdcc.pargo.safe.factory.HPCStormFrameworkFactory;
-import br.ufc.mdcc.pargo.safe.framework.HPCStormFramework;
 import br.ufc.mdcc.pargo.safe.framework.IHPCStormFramework;
-import br.ufc.mdcc.pargo.safe.port.predefined.ApplicationPredefinedPortImpl;
-import br.ufc.mdcc.pargo.safe.port.predefined.IApplicationPredefinedPort;
+import br.ufc.mdcc.pargo.safe.port.predefined.environment.ApplicationPredefinedPortProvides;
+import br.ufc.mdcc.pargo.safe.port.predefined.environment.ApplicationPredefinedPortUses;
 import br.ufc.mdcc.pargo.safe.services.IHPCStormServices;
 import br.ufc.mdcc.pargo.safe.util.SAFeConsoleLogger;
 
@@ -19,7 +18,8 @@ import br.ufc.mdcc.pargo.safe.util.SAFeConsoleLogger;
 public abstract class HPCStormApplicationFramework implements IHPCStormComponent{
 	
 	private IHPCStormFramework framework = null;
-	protected IApplicationPredefinedPort applicationPredefinedPort;
+	protected ApplicationPredefinedPortUses applicationPredefinedPortUses;
+	protected ApplicationPredefinedPortProvides applicationPredefinedPortProvides;
 	
 	public HPCStormApplicationFramework() {
 		SAFeConsoleLogger.write("Application created.");
@@ -27,8 +27,7 @@ public abstract class HPCStormApplicationFramework implements IHPCStormComponent
 	}
 	
 	protected void init(){
-		//predefined port
-		this.applicationPredefinedPort = new ApplicationPredefinedPortImpl("app_predef");
+		
 		//creating the framework for this application
 		this.framework = HPCStormFrameworkFactory.getFramework();
 		SAFeConsoleLogger.write("Framework created.");
@@ -45,7 +44,5 @@ public abstract class HPCStormApplicationFramework implements IHPCStormComponent
 	
 	public abstract void setServices(IHPCStormServices services);
 	
-	public IApplicationPredefinedPort getApplicationPredefinedPort() {
-		return applicationPredefinedPort;
-	}
+	
 }
