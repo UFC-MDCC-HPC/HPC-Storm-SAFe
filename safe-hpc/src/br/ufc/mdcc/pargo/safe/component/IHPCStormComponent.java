@@ -1,6 +1,6 @@
 package br.ufc.mdcc.pargo.safe.component;
 
-import br.ufc.mdcc.pargo.safe.services.IHPCStormServices;
+import br.ufc.mdcc.pargo.safe.service.IHPCStormServices;
 
 
 

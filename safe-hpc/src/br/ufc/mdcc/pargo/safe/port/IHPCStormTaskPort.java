@@ -1,5 +1,5 @@
 package br.ufc.mdcc.pargo.safe.port;
 
-public interface IHPCStormTaskPort extends IHPCStormPort{
+public interface IHPCStormTaskPort<T> extends IHPCStormPort<T>{
 
 }

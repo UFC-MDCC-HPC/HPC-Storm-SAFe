@@ -3,7 +3,7 @@ package br.ufc.mdcc.pargo.safe.framework;
 import br.ufc.mdcc.pargo.safe.application.HPCStormApplicationFramework;
 import br.ufc.mdcc.pargo.safe.factory.HPCStormServicesFactory;
 import br.ufc.mdcc.pargo.safe.factory.HPCStormWorkflowFactory;
-import br.ufc.mdcc.pargo.safe.services.IHPCStormServices;
+import br.ufc.mdcc.pargo.safe.service.IHPCStormServices;
 import br.ufc.mdcc.pargo.safe.util.SAFeConsoleLogger;
 
 
@@ -46,6 +46,8 @@ public class HPCStormFramework implements IHPCStormFramework{
 			this.workflowComponent.setServices((IHPCStormServices)this.applicationServices);
 		SAFeConsoleLogger.write("Services set in Workflow Component.");
 	}
+	
+	 
 	
 	/**
 	 * Runs the framework and begins the orchestration.

@@ -1,11 +1,14 @@
 package br.ufc.mdcc.pargo.safe.port;
 
-public interface IHPCStormPort {
+import br.ufc.mdcc.pargo.safe.component.IHPCStormComponent;
 
-	public static final String provides = "PROVIDES";
-	public static final String uses = "USES";
+public interface IHPCStormPort<T> {
 	
-	public String getType();
+	public String getId();
+	public Class<T> getType();
 	public String getName();
-	
+	public void action(); 
+	public boolean isConnected();
+	public void setConnected(boolean value);
+	public void setComponent(IHPCStormComponent parent);
 }
