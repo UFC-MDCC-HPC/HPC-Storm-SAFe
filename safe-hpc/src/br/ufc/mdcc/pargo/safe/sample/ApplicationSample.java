@@ -15,23 +15,24 @@ public class ApplicationSample extends HPCStormApplicationFramework{
 
 	private IHPCStormServices services;
 	
-	
 	public ApplicationSample() {
-		//this is a simple pre-def port. Real users must specialize this class. 
-		this.saFeSWLProvidesPort = new SAFeSWLProvidesPort<HPCStormSAFeSWL>(HPCStormSAFeSWL.class);
-		this.saFeSWLProvidesPort.setComponent(this);
+		super();
 	}
 	
 	@Override
 	public void setServices(IHPCStormServices services) {
 		this.services = services;
+		//this is a simple pre-def port. Real users must specialize this class. 
+		this.saFeSWLProvidesPort = new SAFeSWLProvidesPort<HPCStormSAFeSWL>(HPCStormSAFeSWL.class);
+		this.saFeSWLProvidesPort.setComponent(this);
 		SAFeConsoleLogger.write("Registering predef application port.");
 		this.services.setProvidesPort(saFeSWLProvidesPort);
 	}
 
 	public static void main(String[] args) {
 		
-		new ApplicationSample().run();
+		HPCStormApplicationFramework app = new ApplicationSample();
+		app.run();
 	}
 
 	@Override

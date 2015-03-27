@@ -10,18 +10,18 @@ import br.ufc.mdcc.pargo.safe.port.IHPCStormUses;
  */
 public class UsesProvidesConnection {
 
-	private IHPCStormUses<Object> uses;
-	private IHPCStormProvides<Object> provides;
+	private IHPCStormUses<?> uses;
+	private IHPCStormProvides<?> provides;
 	private String id;
 	
-	public UsesProvidesConnection(IHPCStormUses<Object> uses, IHPCStormProvides<Object> provides) {
+	public UsesProvidesConnection(IHPCStormUses<?> uses, IHPCStormProvides<?> provides) {
 		this.uses = uses;
 		this.provides = provides;
 		
 		this.setId(uses, provides);
 	}
 	
-	private void setId(IHPCStormUses<Object> uses, IHPCStormProvides<Object> provides){
+	private void setId(IHPCStormUses<?> uses, IHPCStormProvides<?> provides){
 		this.id = uses.getId()+"-"+provides.getId();
 	}
 	

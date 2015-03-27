@@ -6,8 +6,8 @@ import br.ufc.mdcc.pargo.safe.port.IHPCStormUses;
 
 public interface IHPCStormConnectionRepository {
 
-	public String createConnection(IHPCStormUses<Object> uses,
-			IHPCStormProvides<Object> provides) throws HPCStormException;
+	public String createConnection(IHPCStormUses<?> uses,
+			IHPCStormProvides<?> provides) throws HPCStormException;
 
 	public UsesProvidesConnection getConnection(String id);
 

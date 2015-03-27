@@ -5,4 +5,5 @@ import br.ufc.mdcc.pargo.safe.application.HPCStormApplicationFramework;
 public interface IHPCStormFramework extends Runnable{
 
 	public void setApplicationComponent(HPCStormApplicationFramework applicationComponent);
+	public String connectPorts(String usesId, String providesId);
 }
