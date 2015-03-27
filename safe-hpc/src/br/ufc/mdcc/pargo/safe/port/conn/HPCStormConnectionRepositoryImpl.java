@@ -15,7 +15,7 @@ public class HPCStormConnectionRepositoryImpl implements IHPCStormConnectionRepo
 		this.connections = new HashMap<String,UsesProvidesConnection>();
 	}
 	
-	public String createConnection(IHPCStormUses<?> uses, IHPCStormProvides<?> provides) throws HPCStormException
+	public String createConnection(IHPCStormUses uses, IHPCStormProvides provides) throws HPCStormException
 	{ 
 		
 		UsesProvidesConnection mupc = new UsesProvidesConnection

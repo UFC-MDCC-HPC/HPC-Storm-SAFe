@@ -41,6 +41,7 @@ public class SAFeSWLUsesPort<In> extends HPCStormEnvPortUses<In>{
 		SAFeConsoleLogger.write("Calling pre-def uses port for safeswl...");
 		HPCStormSAFeSWL swl = (HPCStormSAFeSWL)data;
 		((IHPCStormWorkflowComponent)this.parent).setSAFeSWL(swl);
+		SAFeConsoleLogger.write("Object "+swl+" sent to parent component in uses port.");
 	}
 
 	@Override

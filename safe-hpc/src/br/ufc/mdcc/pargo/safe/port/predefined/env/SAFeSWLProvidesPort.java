@@ -38,6 +38,7 @@ public class SAFeSWLProvidesPort<Out> extends HPCStormEnvPortProvides<Out>{
 		return this.name;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void action() {
 		// TODO Auto-generated method stub
