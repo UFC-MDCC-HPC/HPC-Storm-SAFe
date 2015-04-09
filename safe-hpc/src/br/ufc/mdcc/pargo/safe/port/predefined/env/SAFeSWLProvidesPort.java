@@ -43,7 +43,7 @@ public class SAFeSWLProvidesPort<Out> extends HPCStormEnvPortProvides<Out>{
 	public void action() {
 		// TODO Auto-generated method stub
 		//CALL COMPONENT PARENT METHOD THAT FEED data (a lot of casts)
-		SAFeConsoleLogger.write("Calling pre-def provides port for safeswl...");
+		SAFeConsoleLogger.write("Calling pre-def provides port for safeswl..."+this.type);
 		HPCStormSAFeSWL safeSWL = ((HPCStormApplicationFramework)this.parent).createSAFeSWL();
 		this.data = (Out)safeSWL;
 	}

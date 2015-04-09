@@ -1,32 +1,70 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tns:workflow xmlns:tns="http://www.example.org/SAFe_workflow" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.example.org/SAFe_workflow SAFe_workflow.xsd ">
-  <tns:sequence>
-    <tns:do>
-    	<tns:start type="resolution" id=""/>
-    </tns:do>
-    <tns:then>
-    	<tns:fire type="instantiation" id=""/>
-    </tns:then>
-    <tns:then>
-    	<tns:fire type="instantiation" id=""/>
-    </tns:then>
-    <tns:then>
-    	<tns:parallel>
-    		<tns:fork>
-    			<tns:stop type="resolution" id=""/>
-    		</tns:fork>
-    		<tns:fork>
-    			<tns:start type="resolution" id=""/>
-    		</tns:fork>
-    		<tns:fork>
-    			<tns:pause type="resolution" id=""/>
-    		</tns:fork>
-    	</tns:parallel>
-    </tns:then>
-    <tns:then>
-    	<tns:guard id="" type="test"/>
-    	<tns:choice>
-    	</tns:choice>
-    </tns:then>
-  </tns:sequence>
+<tns:workflow xmlns:tns="http://www.example.org/SAFE_workflow_V2"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.example.org/SAFE_workflow_V2 SAFE_workflow_V2.xsd ">
+
+	<tns:sequence_oper>
+
+		<tns:operation>
+			<tns:start_oper>
+				<tns:action>
+					<tns:instantiate component_id="10" />
+				</tns:action>
+				<tns:id value="0"/>
+			</tns:start_oper>
+		</tns:operation>
+
+		<tns:operation>
+
+			<tns:start_oper>
+				<tns:action>
+					<tns:resolve component_id="11" />
+				</tns:action>
+				<tns:id value="1"/>
+			</tns:start_oper>
+
+		</tns:operation>
+		
+		<tns:operation>
+			<tns:parallel_oper>
+				
+				<tns:operation>
+					<tns:invoke_oper>
+						<tns:action>
+							<tns:compute action_id="12"/>
+						</tns:action>
+						<tns:id value="5"/>
+					</tns:invoke_oper>
+				</tns:operation>
+				
+				<tns:operation>
+					<tns:wait_oper>
+						<tns:action>
+							<tns:resolve component_id="22"/>
+						</tns:action>
+						<tns:id value="45"/>
+					</tns:wait_oper>
+				</tns:operation>
+			</tns:parallel_oper>
+		</tns:operation>
+		
+		<tns:operation>
+			<tns:choice_oper>
+				<tns:alt>
+					<tns:action_id value="20"/>
+					<tns:operation>
+						<tns:repeat_oper>
+							<tns:repeat>
+								<tns:skip_oper/>
+							</tns:repeat>
+							 <tns:continue action_id="4"/>
+							 <tns:stop action_id="8"/>
+						</tns:repeat_oper>
+					</tns:operation>
+				</tns:alt>
+			</tns:choice_oper>
+		</tns:operation>
+		
+	</tns:sequence_oper>
+
 </tns:workflow>

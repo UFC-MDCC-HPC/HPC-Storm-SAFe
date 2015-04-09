@@ -8,7 +8,6 @@ import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
-import org.jdom2.output.XMLOutputter;
 
 import br.ufc.mdcc.pargo.safe.grammar.arch.ArchApplication;
 import br.ufc.mdcc.pargo.safe.grammar.arch.ArchAttachment;
@@ -16,19 +15,19 @@ import br.ufc.mdcc.pargo.safe.grammar.arch.ArchBody;
 import br.ufc.mdcc.pargo.safe.grammar.arch.ArchComponent;
 import br.ufc.mdcc.pargo.safe.grammar.arch.ArchComputation;
 import br.ufc.mdcc.pargo.safe.grammar.arch.ArchConnector;
+import br.ufc.mdcc.pargo.safe.grammar.arch.ArchMain;
 import br.ufc.mdcc.pargo.safe.grammar.arch.ArchPlatform;
 import br.ufc.mdcc.pargo.safe.grammar.arch.ArchProvides;
 import br.ufc.mdcc.pargo.safe.grammar.arch.ArchUses;
 import br.ufc.mdcc.pargo.safe.grammar.arch.ArchWorkflow;
-import br.ufc.mdcc.pargo.safe.grammar.arch.ArchitectureMain;
 
-public class SAFeSWLParser {
+public class SAFeSWLArchParser {
 
-	private ArchitectureMain architectureMain;
+	private ArchMain architectureMain;
 	 
 	
-	public SAFeSWLParser() {
-		this.architectureMain = new ArchitectureMain();
+	public SAFeSWLArchParser() {
+		this.architectureMain = new ArchMain();
 	}
 	
 	/**
@@ -48,22 +47,22 @@ public class SAFeSWLParser {
 				
 				//choosing parent element
 				//USES
-				if(elementName.equalsIgnoreCase(ArchitectureMain.APPLICATION)){
+				if(elementName.equalsIgnoreCase(ArchMain.APPLICATION)){
 					ArchApplication archApp = this.architectureMain.createArchApplication(child);
 					this.readComponentPorts(child, archApp);
 					this.architectureMain.setArchApplication(archApp);
 				//PROVIDES
-				}else if(elementName.equalsIgnoreCase(ArchitectureMain.WORKFLOW)){
+				}else if(elementName.equalsIgnoreCase(ArchMain.WORKFLOW)){
 					ArchWorkflow archWorkflow = this.architectureMain.createArchWorkflow(child);
 					this.readComponentPorts(child, archWorkflow);
 					this.architectureMain.setArchWorkflow(archWorkflow);
 				//BODY
-				}else if(elementName.equalsIgnoreCase(ArchitectureMain.BODY)){
+				}else if(elementName.equalsIgnoreCase(ArchMain.BODY)){
 					ArchBody body = this.architectureMain.createArchBody(child);
 					this.readArchBody(child, body);
 					this.architectureMain.setArchBody(body);
 				//BINDING	
-				}else if(elementName.equalsIgnoreCase(ArchitectureMain.ATTACHMENT)){
+				}else if(elementName.equalsIgnoreCase(ArchMain.ATTACHMENT)){
 					ArchAttachment att = this.architectureMain.createArchAttachement(child);
 					this.readAttchment(child,att);
 					this.architectureMain.addArchAttachment(att);
@@ -84,11 +83,11 @@ public class SAFeSWLParser {
 	private void readComponentPorts(Element element, ArchComponent comp) {
 		 for(Element child:element.getChildren()){
 			 
-			 if(child.getName().equalsIgnoreCase(ArchitectureMain.USES)){
+			 if(child.getName().equalsIgnoreCase(ArchMain.USES)){
 				 ArchUses uses = this.architectureMain.createArchUses(child);
 				 comp.addUsesPort(uses);
 				 this.architectureMain.addArchUses(uses);
-			 }else if(child.getName().equalsIgnoreCase(ArchitectureMain.PROVIDES)){
+			 }else if(child.getName().equalsIgnoreCase(ArchMain.PROVIDES)){
 				 ArchProvides provides = this.architectureMain.createArchProvides(child);
 				comp.addProvidesPort(provides); 
 				this.architectureMain.addArchProvides(provides);
@@ -100,12 +99,12 @@ public class SAFeSWLParser {
 	private void readAttchment(Element element, ArchAttachment att) {
 		 for(Element child:element.getChildren()){
 			 
-			 if(child.getName().equalsIgnoreCase(ArchitectureMain.USES)){
+			 if(child.getName().equalsIgnoreCase(ArchMain.USES)){
 				 Integer id = Integer.parseInt(child.getAttributeValue("id"));
 				 ArchUses uses = this.architectureMain.getArchUsesById(id);
 				 if(uses!=null) att.setUses(uses);
 				 
-			 }else if(child.getName().equalsIgnoreCase(ArchitectureMain.PROVIDES)){
+			 }else if(child.getName().equalsIgnoreCase(ArchMain.PROVIDES)){
 				 Integer id = Integer.parseInt(child.getAttributeValue("id"));
 				 ArchProvides provides = this.architectureMain.getArchProvidesById(id);
 				 if(provides!=null) att.setProvides(provides);
@@ -116,15 +115,15 @@ public class SAFeSWLParser {
 
 	private void readArchBody(Element element, ArchBody body){
 		for(Element child:element.getChildren()){
-			if(child.getName().equalsIgnoreCase(ArchitectureMain.COMPUTATION)){
+			if(child.getName().equalsIgnoreCase(ArchMain.COMPUTATION)){
 				ArchComputation comp = (ArchComputation)this.architectureMain.createArchComputation(child);
 				this.readComponentPorts(child, comp);
 				body.addArchComponent(comp);
-			}else if(child.getName().equalsIgnoreCase(ArchitectureMain.CONNECTOR)){
+			}else if(child.getName().equalsIgnoreCase(ArchMain.CONNECTOR)){
 				ArchConnector conn = (ArchConnector)this.architectureMain.createArchConnector(child);
 				this.readComponentPorts(child, conn);
 				body.addArchComponent(conn);
-			}else if(child.getName().equalsIgnoreCase(ArchitectureMain.PLATFORM)){
+			}else if(child.getName().equalsIgnoreCase(ArchMain.PLATFORM)){
 				ArchPlatform plat = (ArchPlatform)this.architectureMain.createArchPlatform(child);
 				this.readComponentPorts(child, plat);
 				body.addArchComponent(plat);
@@ -132,7 +131,7 @@ public class SAFeSWLParser {
 		}
 	}
 	
-	public ArchitectureMain getArchitectureMain(){
+	public ArchMain getArchitectureMain(){
 		return this.architectureMain;
 	}
 	

@@ -4,6 +4,7 @@ public abstract class HPCStormTaskProvides<Out> implements
 		IHPCStormTaskPort<Out>, IHPCStormProvides<Out> {
 
 	protected final Class<Out> type;
+	protected Out out;
 
 	public HPCStormTaskProvides(Class<Out> type) {
 		this.type = type;

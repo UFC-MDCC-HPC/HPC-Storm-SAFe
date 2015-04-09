@@ -208,3 +208,5 @@
 		</restriction>
 	</simpleType>
 </schema>
+
+<!-- xjc -p br.ufc.mdcc.pargo.safe.grammar.flow SAFe_workflow.xsd -d ../../../../../../  -->

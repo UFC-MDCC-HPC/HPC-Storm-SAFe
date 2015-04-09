@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.jdom2.Element;
 
-public class ArchitectureMain {
+public class ArchMain {
 		
 		//Application Component
 		private ArchApplication archApplication;
@@ -33,7 +33,7 @@ public class ArchitectureMain {
 		public static final String USES = "uses_port";
 		public static final String PROVIDES = "provides_port";
 		
-		public ArchitectureMain(){
+		public ArchMain(){
 			this.usesList = new ArrayList<ArchUses>();
 			this.providesList = new ArrayList<ArchProvides>();
 			this.body = new ArchBody();

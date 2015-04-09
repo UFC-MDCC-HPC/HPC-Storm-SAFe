@@ -38,7 +38,7 @@ public class SAFeSWLUsesPort<In> extends HPCStormEnvPortUses<In>{
 	public void action() {
 		// TODO Auto-generated method stub
 		//IN THIS CASE, YOU HAVE TO PUT data INTO parent
-		SAFeConsoleLogger.write("Calling pre-def uses port for safeswl...");
+		SAFeConsoleLogger.write("Calling pre-def uses port for safeswl..."+this.type);
 		HPCStormSAFeSWL swl = (HPCStormSAFeSWL)data;
 		((IHPCStormWorkflowComponent)this.parent).setSAFeSWL(swl);
 		SAFeConsoleLogger.write("Object "+swl+" sent to parent component in uses port.");
