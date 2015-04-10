@@ -19,6 +19,7 @@ public class FlowMain {
 
 	//private XMLSAFeStmt workflow;
 	private XMLSAFeOperation workflow;
+	private WorkflowElement root;
 	
 	public FlowMain(){
 		//this.workflow = null;
@@ -53,23 +54,33 @@ public class FlowMain {
 	
 	public void navigate(){
 		if(this.workflow==null) return;
+		this.root = new WorkflowElement();
 		int level=1;
 		int order = 100;
 		
 		//Queue<Object> elementsQueue = new LinkedList<Object>();
 		Stack<Object> elementsStack = new Stack<Object>();
+		Stack<WorkflowElement> wfElements = new Stack<WorkflowElement>();
 		//elementsQueue.add(this.workflow);
 		elementsStack.push(this.workflow);
 		
 		((XMLSAFeBase)this.workflow).setLevel(level); //for fun
 		((XMLSAFeBase)this.workflow).setOrder(order); 
 		((XMLSAFeBase)this.workflow).setOperName("workflow");
+		
+		this.root.setElement(this.workflow);
+		this.root.setOperation(((XMLSAFeBase)this.workflow).getOperName());
+		wfElements.push(this.root);
+	
+		
 		//while(!elementsQueue.isEmpty()){
 		while(!elementsStack.isEmpty()){	
 			Object element = elementsStack.pop();
+			WorkflowElement wfElement = wfElements.pop();
+			
 			//Object element = elementsQueue.remove();
 			//printing logic...
-			//if(!((XMLSAFeBase)element).getOperName().equalsIgnoreCase("operation")){
+			/*if(!((XMLSAFeBase)element).getOperName().equalsIgnoreCase("operation")){
 				String tabs="";
 				for(int i=0;i<=((XMLSAFeBase)element).getLevel();i++)
 					tabs+="    ";
@@ -77,7 +88,7 @@ public class FlowMain {
 						+"["+((XMLSAFeBase)element).getLevel()+"]"
 						+"["+((XMLSAFeBase)element).getOrder()+"]"
 						+((XMLSAFeBase)element).getOperName());
-			//}
+			}*/
 			
 			int myLevel = ((XMLSAFeBase)element).getLevel();
 			List<Object> children = this.getChildren(element);
@@ -90,6 +101,13 @@ public class FlowMain {
 				//elementsQueue.add(child);
 				elementsStack.push(child);
 				orderCounter--;
+				
+				//wfElement
+				WorkflowElement wfChild = new WorkflowElement();
+				wfChild.setElement((XMLSAFeBase)child);
+				wfChild.setOperation(((XMLSAFeBase)child).getOperName());
+				wfElement.addWorflowElement(wfChild);
+				wfElements.push(wfChild);
 			}
 		}
 		
@@ -149,13 +167,33 @@ public class FlowMain {
 		return children;
 	}
 	
-	/*
+	
 	public String toString(){
 		String res = "";
 		if(this.workflow==null) return "";
 		
+		Stack<WorkflowElement> nodes = new Stack<WorkflowElement>();
+		nodes.push(this.root);
+		
+		
+		
+		
+		while(!nodes.isEmpty()){
+			
+			WorkflowElement e = nodes.pop();
+			String space = "";
+			for(int i=0; i<=e.getElement().getLevel();i++){
+				space+="    ";
+			}
+			
+			res+=space+e+"\n";
+			for(WorkflowElement child: e.getChildren()){
+				nodes.push(child);
+			}
+		}
+		
 		return res;
-	}*/
+	}
 }
 
 /*

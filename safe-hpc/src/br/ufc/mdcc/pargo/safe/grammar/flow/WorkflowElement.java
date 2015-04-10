@@ -5,7 +5,8 @@ import java.util.List;
 
 public class WorkflowElement {
 
-	private Object element;
+	private XMLSAFeBase element;
+	private WorkflowOperation operation;
 	private List<WorkflowElement> children;
 	
 	public WorkflowElement() {
@@ -16,12 +17,34 @@ public class WorkflowElement {
 		this.children.add(wf);
 	}
 	
-	public Object getElement() {
+	public XMLSAFeBase getElement() {
 		return element;
 	}
 
-	public void setElement(Object element) {
+	public void setElement(XMLSAFeBase element) {
 		this.element = element;
 	}
 	
+	public WorkflowOperation getOperation() {
+		return operation;
+	}
+
+	public void setOperation(String oper) {
+		oper = oper.toUpperCase();
+		this.operation = WorkflowOperation.valueOf(oper);
+	}
+	
+	public List<WorkflowElement> getChildren() {
+		return children;
+	}
+
+	@Override
+	public String toString() {
+		String res="";
+		res+=
+				"["+(element).getLevel()+"]"
+				+"["+(element).getOrder()+"]"
+				+(element).getOperName();
+		return res;
+	}
 }
