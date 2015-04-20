@@ -3,11 +3,16 @@ package br.ufc.mdcc.pargo.safe.grammar.flow;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Tree-based workflow. 
+ * @author jefferson
+ *
+ */
 public class WorkflowElement {
 
-	private XMLSAFeBase element;
-	private WorkflowOperation operation;
-	private List<WorkflowElement> children;
+	private XMLSAFeBase element; //Value of the node. This object is JAXB auto generated.
+	private WorkflowOperation operation; //operation related to the node
+	private List<WorkflowElement> children; //list o children node
 	
 	public WorkflowElement() {
 		this.children = new ArrayList<WorkflowElement>();
@@ -45,6 +50,9 @@ public class WorkflowElement {
 				"["+(element).getLevel()+"]"
 				+"["+(element).getOrder()+"]"
 				+(element).getOperName();
+		if(this.element.getValue()!=null){
+			res+="[value="+this.element.getValue()+"]";
+		}
 		return res;
 	}
 }

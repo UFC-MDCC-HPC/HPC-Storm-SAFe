@@ -10,7 +10,7 @@
 				<tns:action>
 					<tns:instantiate component_id="10" />
 				</tns:action>
-				<tns:id value="0"/>
+				<tns:id value="0" />
 			</tns:start_oper>
 		</tns:operation>
 
@@ -20,51 +20,67 @@
 				<tns:action>
 					<tns:resolve component_id="11" />
 				</tns:action>
-				<tns:id value="1"/>
+				<tns:id value="1" />
 			</tns:start_oper>
 
 		</tns:operation>
-		
+
 		<tns:operation>
 			<tns:parallel_oper>
-				
+
 				<tns:operation>
 					<tns:invoke_oper>
 						<tns:action>
-							<tns:compute action_id="12"/>
+							<tns:compute action_id="12" />
 						</tns:action>
-						<tns:id value="5"/>
+						<tns:id value="5" />
 					</tns:invoke_oper>
 				</tns:operation>
-				
+
 				<tns:operation>
 					<tns:wait_oper>
 						<tns:action>
-							<tns:resolve component_id="22"/>
+							<tns:resolve component_id="22" />
 						</tns:action>
-						<tns:id value="45"/>
+						<tns:id value="45" />
 					</tns:wait_oper>
 				</tns:operation>
 			</tns:parallel_oper>
 		</tns:operation>
-		
+
 		<tns:operation>
 			<tns:choice_oper>
 				<tns:alt>
-					<tns:action_id value="20"/>
+					<tns:action_id value="20" />
+					<tns:action_id value="30" />
+					<tns:action_id value="40" />
+
 					<tns:operation>
-						<tns:repeat_oper>
-							<tns:repeat>
-								<tns:skip_oper/>
-							</tns:repeat>
-							 <tns:continue action_id="4"/>
-							 <tns:stop action_id="8"/>
-						</tns:repeat_oper>
+						<tns:parallel_oper>
+							<tns:operation>
+								<tns:repeat_oper>
+									<tns:repeat>
+										<tns:skip_oper />
+									</tns:repeat>
+									<tns:continue action_id="4" />
+									<tns:stop action_id="8" />
+								</tns:repeat_oper>
+							</tns:operation>
+							<tns:operation>
+								<tns:invoke_oper>
+									<tns:action>
+										<tns:compute action_id="12" />
+									</tns:action>
+									<tns:id value="5" />
+								</tns:invoke_oper>
+							</tns:operation>
+						</tns:parallel_oper>
 					</tns:operation>
+
 				</tns:alt>
 			</tns:choice_oper>
 		</tns:operation>
-		
+
 	</tns:sequence_oper>
 
 </tns:workflow>

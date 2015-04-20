@@ -37,11 +37,12 @@ public class FlowMain {
 			Unmarshaller unmarshaller = jc.createUnmarshaller();
 			Object out = unmarshaller.unmarshal(new File( fileName));
 			JAXBElement<?> je = (JAXBElement<?>)out;
+			
 			//System.out.println(je.getValue());
 			
 			this.workflow = (XMLSAFeOperation)je.getValue();
 			
-			this.navigate();
+			this.navigate(); // this method constructs the tree node workflow
 		} catch (JAXBException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -52,7 +53,7 @@ public class FlowMain {
 		return this.workflow;
 	}*/
 	
-	public void navigate(){
+	private void navigate(){
 		if(this.workflow==null) return;
 		this.root = new WorkflowElement();
 		int level=1;
@@ -90,11 +91,22 @@ public class FlowMain {
 						+((XMLSAFeBase)element).getOperName());
 			}*/
 			
+			
+			
 			int myLevel = ((XMLSAFeBase)element).getLevel();
 			List<Object> children = this.getChildren(element);
 			int orderCounter = children.size();
 			for(int i = children.size()-1;i>=0;i--){
 				Object child = children.get(i);
+				
+				if(((XMLSAFeBase)child).getOperName().equalsIgnoreCase(WorkflowOperation.OPERATION.name())){
+					//System.out.println(child);
+					child = this.getChildren(child).get(0);
+				}
+				
+				
+				
+				
 				((XMLSAFeBase)child).setLevel(myLevel+1); //for fun
 				((XMLSAFeBase)child).setOrder((myLevel+1)*100+orderCounter);
 				
@@ -115,19 +127,18 @@ public class FlowMain {
 		
 	}
 	
-	private String printElement(Object o){
-		String res = "";
-		/*if(o instanceof XMLSAFeOperation){
-			XMLSAFeOperation xso = ((XMLSAFeOperation)o).get
-		}else
-			res=o.getClass().getSimpleName();*/
-		return res;
-	}
+	
 	
 	private List<Object> getChildren(Object element){
 		Method[] workflowMethods = element.getClass().getMethods();
 		List<Object> children = new ArrayList<Object>();
 		for(Method method:workflowMethods){
+			
+			/*if(((XMLSAFeBase)element).getOperName().equalsIgnoreCase("alt")){
+				
+				System.out.println(method);
+			}*/
+			
 			if(method.getName().startsWith("get") && !method.getName().startsWith("getClass")){
 				try {
 					
