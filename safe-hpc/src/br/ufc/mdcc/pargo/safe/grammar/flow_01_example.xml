@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- This is an example of workflow... -->
 <tns:workflow xmlns:tns="http://www.example.org/SAFE_workflow_V2"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.example.org/SAFE_workflow_V2 SAFE_workflow_V2.xsd ">
+
 
 	<tns:sequence_oper>
 
