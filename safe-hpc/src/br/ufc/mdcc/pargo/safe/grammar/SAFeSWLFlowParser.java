@@ -1,16 +1,25 @@
 package br.ufc.mdcc.pargo.safe.grammar;
 
-import br.ufc.mdcc.pargo.safe.grammar.flow.FlowMain;
+import br.ufc.mdcc.pargo.safe.grammar.flow.SAFeOrchestrationWorkflow;
 
+/**
+ * From this class, I create the SAFeOrchestrationWorkflow object via XML file.
+ * @author jefferson
+ *
+ */
 public class SAFeSWLFlowParser {
 
-	private FlowMain flowMain;
+	private SAFeOrchestrationWorkflow safeOrchestrationWorkflow;
 	
-	public SAFeSWLFlowParser(){
-		this.flowMain = new FlowMain();
+	public SAFeSWLFlowParser(String fileName){
+		this.safeOrchestrationWorkflow = new SAFeOrchestrationWorkflow(fileName);
+	}
+
+	public SAFeOrchestrationWorkflow getSafeOrchestrationWorkflow() {
+		return safeOrchestrationWorkflow;
 	}
 	
-	public void readFlowXML(String fileName){
+	/*public void readFlowXML(String fileName){
 		this.flowMain.parseWorkflow(fileName);
-	}
+	}*/
 }

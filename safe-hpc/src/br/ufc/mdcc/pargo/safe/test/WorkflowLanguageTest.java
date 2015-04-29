@@ -1,6 +1,6 @@
 package br.ufc.mdcc.pargo.safe.test;
 
-import br.ufc.mdcc.pargo.safe.grammar.flow.FlowMain;
+import br.ufc.mdcc.pargo.safe.grammar.SAFeSWLFlowParser;
  
 
 public class WorkflowLanguageTest {
@@ -8,9 +8,12 @@ public class WorkflowLanguageTest {
 	public static void testParser(){
 		
 		String fileName = "src/br/ufc/mdcc/pargo/safe/grammar/flow_01_example.xml";
-		FlowMain flowMain = new FlowMain(fileName);
 		
-		System.out.println(flowMain);
+		SAFeSWLFlowParser parser = new SAFeSWLFlowParser(fileName);
+		
+		System.out.println(parser.getSafeOrchestrationWorkflow());
+		
+		parser.getSafeOrchestrationWorkflow().run();
 		
 	}
 

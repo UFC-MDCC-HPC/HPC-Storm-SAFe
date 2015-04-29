@@ -51,7 +51,7 @@ import javax.xml.bind.annotation.XmlType;
     XMLSAFeAction.class,
     XMLSAFePrimOper.class
 })
-public class XMLSAFeBase {
+public class XMLSAFeBase{
 
     @XmlAttribute(name = "order")
     protected Integer order;

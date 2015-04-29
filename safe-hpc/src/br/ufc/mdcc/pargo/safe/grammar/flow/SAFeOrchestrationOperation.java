@@ -1,6 +1,6 @@
 package br.ufc.mdcc.pargo.safe.grammar.flow;
 
-public enum WorkflowOperation {
+public enum SAFeOrchestrationOperation {
 
 	WORKFLOW,
 	SEQUENCEOPER, PARALLELOPER, CHOICEOPER, REPEATOPER,
