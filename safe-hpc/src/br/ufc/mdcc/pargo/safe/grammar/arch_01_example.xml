@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tns:architecture xmlns:tns="http://www.example.org/SAFe_architecture" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.example.org/SAFe_architecture SAFe_architecture.xsd ">
+<tns:architecture xmlns:tns="http://www.example.org/SAFe_architecture_V1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.example.org/SAFe_architecture SAFe_architecture.xsd ">
   
   <tns:application name="application_01_comp" id="1">
   	<tns:uses_port name="app_uses_01" id="1"/>

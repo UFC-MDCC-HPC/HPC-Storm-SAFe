@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.example.org/SAFE_workflow_V2"
-	xmlns:tns="http://www.example.org/SAFE_workflow_V2" elementFormDefault="qualified">
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.example.org/SAFe_workflow_V2"
+	xmlns:tns="http://www.example.org/SAFe_workflow_V2" elementFormDefault="qualified">
 
 	<element name="workflow" type="tns:XML_SAFe_Operation"></element>
 

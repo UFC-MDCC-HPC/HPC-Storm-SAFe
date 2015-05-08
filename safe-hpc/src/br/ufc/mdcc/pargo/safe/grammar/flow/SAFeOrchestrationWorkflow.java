@@ -89,6 +89,7 @@ public class SAFeOrchestrationWorkflow {
 
 				// wfElement
 				SAFeOrchestrationElement wfChild = new SAFeOrchestrationElement();
+				//adding visitor
 				wfChild.accept(this.safeVisitor);
 				wfChild.setElement((XMLSAFeBase) child);
 				wfChild.setOperation(((XMLSAFeBase) child).getOperName());
@@ -180,7 +181,6 @@ public class SAFeOrchestrationWorkflow {
 	}
 }
 
-/*
- * xjc -p br.ufc.mdcc.pargo.safe.grammar.flow SAFe_workflow.xsd -d
- * ../../../../../../
+/* HOW TO COMPILE THE XSD FILE
+ * xjc -p br.ufc.mdcc.pargo.safe.grammar.flow SAFe_workflow.xsd -d ../../../../../../
  */

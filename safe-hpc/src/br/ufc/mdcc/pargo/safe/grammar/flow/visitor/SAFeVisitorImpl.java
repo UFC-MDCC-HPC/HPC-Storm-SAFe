@@ -11,7 +11,7 @@ public class SAFeVisitorImpl implements ISAFeVisitor{
 	@Override
 	public void visit(SAFeOrchestrationElement element) {
 		 
-		System.out.println("Enter visit for " + element.getOperationStr());
+		SAFeConsoleLogger.write("Enter visit for " + element.getOperationStr());
 		
 		//first case, the workflow element
 		if(element.getOperation().equals(SAFeOrchestrationOperation.WORKFLOW))
@@ -22,7 +22,7 @@ public class SAFeVisitorImpl implements ISAFeVisitor{
 			//calling logic for this type of operation via reflection
 			String logicFullClassName = this.logicPkg+".Logic"+element.getOperationStr();
 			try {
-				Class c = Class.forName(logicFullClassName);
+				Class<?> c = Class.forName(logicFullClassName);
 				ISAFeElementLogic logicClass = (ISAFeElementLogic)c.newInstance();
 				logicClass.logic(element);
 			} catch (ClassNotFoundException e) {

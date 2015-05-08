@@ -12,7 +12,7 @@ public class ArchLanguageTest {
 		SAFeSWLValidator validator = new SAFeSWLValidator();
 		String xmlFile = "src/br/ufc/mdcc/pargo/safe/grammar/arch_01_example.xml";
 		
-		boolean res = validator.validateXMLArch(xmlFile);
+		boolean res = validator.validateXMLArchitecture(xmlFile);
 		System.out.println(res);
 	}
 	

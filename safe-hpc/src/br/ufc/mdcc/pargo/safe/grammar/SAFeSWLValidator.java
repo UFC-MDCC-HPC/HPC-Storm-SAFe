@@ -16,10 +16,37 @@ import org.xml.sax.SAXException;
 
 public class SAFeSWLValidator {
 
-	public boolean validateXMLArch(String xmlFile){
+	private String archXSD = "/br/ufc/mdcc/pargo/safe/grammar/SAFe_architecture_V1.xsd";
+	//private String orchesXSD = "/br/ufc/mdcc/pargo/safe/grammar/SAFe_workflow_V2.xsd";
+	private String orchesXSD = "/br/ufc/mdcc/pargo/safe/grammar/SAFe_workflow_V3.xsd";
+	
+	public boolean validateXMLArchitecture(String xmlFile){
 		boolean result = true;
 		try {
-			URL schemaFile = this.getClass().getResource("/br/ufc/mdcc/pargo/safe/grammar/SAFe_architecture.xsd");
+			URL schemaFile = this.getClass().getResource(archXSD);
+			Source xmlFileSrc = new StreamSource(new File(xmlFile));
+			SchemaFactory schemaFactory = SchemaFactory
+					.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+			Schema schema = schemaFactory.newSchema(schemaFile);
+			Validator validator = schema.newValidator();
+			validator.validate(xmlFileSrc);
+		} catch (MalformedURLException e) {
+			result = false;
+			e.printStackTrace();
+		} catch (SAXException e) {
+			result = false;
+			e.printStackTrace();
+		} catch (IOException e) {
+			result = false;
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	public boolean validateXMLOrchestration(String xmlFile){
+		boolean result = true;
+		try {
+			URL schemaFile = this.getClass().getResource(orchesXSD);
 			Source xmlFileSrc = new StreamSource(new File(xmlFile));
 			SchemaFactory schemaFactory = SchemaFactory
 					.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
