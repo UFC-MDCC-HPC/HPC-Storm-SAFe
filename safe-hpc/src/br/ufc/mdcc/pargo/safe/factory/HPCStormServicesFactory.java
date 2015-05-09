@@ -7,7 +7,8 @@ import br.ufc.mdcc.pargo.safe.service.IHPCStormServices;
 public class HPCStormServicesFactory {
 
 	//private static IHPCStormServices applicationServices = null; 
-	
+	private static int port = 7888;
+	private static final String host = "http://localhost"; 
 	/**
 	 * Creates a new Services object
 	 * @return a new Services objetc
@@ -16,7 +17,9 @@ public class HPCStormServicesFactory {
 		/*if(applicationServices == null)
 			applicationServices = new HPCStormServicesImpl();
 		return applicationServices;*/
-		return new HPCStormServicesImpl();
+		
+		return new HPCStormServicesImpl(host,port+=1000);
+		
 	}
 	
 }

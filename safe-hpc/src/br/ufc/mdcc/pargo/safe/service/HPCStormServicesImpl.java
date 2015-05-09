@@ -4,9 +4,12 @@ package br.ufc.mdcc.pargo.safe.service;
 import java.util.HashMap;
 import java.util.Map;
 
-import br.ufc.mdcc.pargo.safe.port.HPCStormEnvProvidesPort;
-import br.ufc.mdcc.pargo.safe.port.HPCStormEnvUsesPort;
+import javax.xml.ws.Endpoint;
+
+import br.ufc.mdcc.pargo.safe.port.IHPCStormEnvProvidesPort;
+import br.ufc.mdcc.pargo.safe.port.IHPCStormEnvUsesPort;
 import br.ufc.mdcc.pargo.safe.port.IHPCStormTaskPort;
+import br.ufc.mdcc.pargo.safe.util.SAFeConsoleLogger;
 
 
 
@@ -17,36 +20,45 @@ import br.ufc.mdcc.pargo.safe.port.IHPCStormTaskPort;
  */
 public class HPCStormServicesImpl implements IHPCStormServices{
 
-	private Map<String, HPCStormEnvUsesPort> envUsesMap;
-	private Map<String, HPCStormEnvProvidesPort> envProvMap;
+	private Map<String, IHPCStormEnvUsesPort> envUsesMap;
+	private Map<String, IHPCStormEnvProvidesPort> envProvMap;
 	private Map<String, IHPCStormTaskPort> taskMap;
 	
-	public HPCStormServicesImpl() {
-		this.envUsesMap = new HashMap<String,HPCStormEnvUsesPort>();
-		this.envProvMap = new HashMap<String,HPCStormEnvProvidesPort>();
+	private String host;
+	private int port;
+	
+	public HPCStormServicesImpl(String host, int port) {
+		this.envUsesMap = new HashMap<String,IHPCStormEnvUsesPort>();
+		this.envProvMap = new HashMap<String,IHPCStormEnvProvidesPort>();
 		this.taskMap = new HashMap<String,IHPCStormTaskPort>();
+		
+		this.host = host;
+		this.port = port;
 	}
 	
 	@Override
-	public HPCStormEnvUsesPort getUsesPort(String id) {
+	public IHPCStormEnvUsesPort getUsesPort(String id) {
 		
 		return this.envUsesMap.get(id);
 	}
 
 	@Override
-	public HPCStormEnvProvidesPort getProvidesPort(String id) {
+	public IHPCStormEnvProvidesPort getProvidesPort(String id) {
 		
 		return this.envProvMap.get(id);
 	}
 
 	@Override
-	public void registerUsesPort(HPCStormEnvUsesPort uses) {
+	public void registerUsesPort(IHPCStormEnvUsesPort uses) {
 		this.envUsesMap.put(uses.getId(), uses);
 	}
 
 	@Override
-	public void registerProvidesPort(HPCStormEnvProvidesPort provides) {
+	public void registerProvidesPort(IHPCStormEnvProvidesPort provides) {
 		this.envProvMap.put(provides.getId(), provides);
+		final String url = this.host+":"+this.port+"/"+provides.getName();
+		RunService rs = new RunService(provides, url);
+		rs.start();
 	}
 
 	@Override
@@ -60,4 +72,22 @@ public class HPCStormServicesImpl implements IHPCStormServices{
 	}
 
 	
+}
+
+class RunService extends Thread{
+	
+	private IHPCStormEnvProvidesPort service;
+	private String url;
+	
+	public RunService(IHPCStormEnvProvidesPort service, String url) {
+		this.service = service;
+		this.url = url;
+	}
+	
+	@Override
+	public void run() {
+		System.out.println(url);
+		Endpoint.publish(url, service);
+		SAFeConsoleLogger.write("Publishing "+service.getName()+" at endpoint " + url);
+	}
 }

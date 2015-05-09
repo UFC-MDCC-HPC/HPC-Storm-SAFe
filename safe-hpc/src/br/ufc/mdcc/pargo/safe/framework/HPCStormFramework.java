@@ -16,15 +16,14 @@ public class HPCStormFramework implements IHPCStormFramework{
 	//workflow component
 	private IHPCStormWorkflowComponent workflowComponent;
 	//the services object, shared among other SAFe entities
-	private IHPCStormServices services;
+	
 	
 	
 	public HPCStormFramework(){
 		this.applicationComponent = null;
 		this.workflowComponent = HPCStormWorkflowFactory.createWorkflowComponent();
 		SAFeConsoleLogger.write("Workflow Component created.");
-		this.services = HPCStormServicesFactory.createApplicationServices();
-		SAFeConsoleLogger.write("Services created.");
+		
 	}
 	
 	/**
@@ -36,11 +35,16 @@ public class HPCStormFramework implements IHPCStormFramework{
 			HPCStormApplication applicationComponent) {
 		this.applicationComponent = applicationComponent;
 		SAFeConsoleLogger.write("Application parent set in Framework.");
+		
+		IHPCStormServices servicesA = HPCStormServicesFactory.createApplicationServices();
+		IHPCStormServices servicesW = HPCStormServicesFactory.createApplicationServices();
+		SAFeConsoleLogger.write("Services created.");
+		
 		if(this.applicationComponent!=null)
-			this.applicationComponent.setServices((IHPCStormServices)this.services);
+			this.applicationComponent.setServices((IHPCStormServices)servicesA);
 		SAFeConsoleLogger.write("Services set in Application.");
 		if(this.workflowComponent!=null)
-			this.workflowComponent.setServices((IHPCStormServices)this.services);
+			this.workflowComponent.setServices((IHPCStormServices)servicesW);
 		SAFeConsoleLogger.write("Services set in Workflow Component.");
 	}
 	
