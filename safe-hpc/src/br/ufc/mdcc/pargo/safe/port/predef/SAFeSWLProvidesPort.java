@@ -3,7 +3,11 @@ package br.ufc.mdcc.pargo.safe.port.predef;
 import javax.jws.WebService;
 
 import br.ufc.mdcc.pargo.safe.port.IHPCStormEnvProvidesPort;
-
+/**
+ * This port belong to the application. 
+ * @author jefferson
+ *
+ */
 @WebService(endpointInterface="br.ufc.mdcc.pargo.safe.port.predef.ISAFeSWLPort")
 public class SAFeSWLProvidesPort 
 	implements ISAFeSWLPort,IHPCStormEnvProvidesPort{
@@ -36,9 +40,15 @@ public class SAFeSWLProvidesPort
 	public void setURL(String url) {
 		this.url = url;
 	}
+	
+	@Override
+	public String getArchXMLLocation() {
+		String fileName = "src/br/ufc/mdcc/pargo/safe/grammar/arch_01_example.xml";
+		return fileName;
+	}
 
 	@Override
-	public String getXMLLocation() {
+	public String getFlowXMLLocation() {
 		String fileName = "src/br/ufc/mdcc/pargo/safe/grammar/flow_02_example.xml";
 		return fileName;
 	}
@@ -46,3 +56,9 @@ public class SAFeSWLProvidesPort
 	
 
 }
+
+/* IMPORTANT!
+ * Generate client for this using cmd (run service first!):
+ * $SAFE_HOME/src$ wsimport -p br.ufc.mdcc.pargo.safe.port.predef.client.safeswl -keep http://localhost:8888/safeswl_provides?wsdl
+ * 
+ */

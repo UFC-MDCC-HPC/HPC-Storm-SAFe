@@ -15,6 +15,7 @@ public class ApplicationSample extends HPCStormApplication{
 
 	//services object
 	private IHPCStormServices services;
+	
 	//pre def port
 	private IHPCStormEnvProvidesPort safeFeSWLPort;
 	
@@ -35,6 +36,7 @@ public class ApplicationSample extends HPCStormApplication{
 	public static void main(String[] args) {
 		
 		HPCStormApplication app = new ApplicationSample();
+		//calls framework.start...
 		app.run();
 	}
 	

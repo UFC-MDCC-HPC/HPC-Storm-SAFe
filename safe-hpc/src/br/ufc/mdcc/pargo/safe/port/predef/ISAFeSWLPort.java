@@ -9,6 +9,8 @@ import br.ufc.mdcc.pargo.safe.port.IHPCStormPort;
 public interface ISAFeSWLPort extends IHPCStormPort{
 
 	@WebMethod
-	public String getXMLLocation();
+	public String getArchXMLLocation();
+	@WebMethod
+	public String getFlowXMLLocation();
 	
 }

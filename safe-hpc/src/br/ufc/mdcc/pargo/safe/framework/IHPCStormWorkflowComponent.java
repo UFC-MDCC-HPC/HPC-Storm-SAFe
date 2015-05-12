@@ -5,5 +5,5 @@ import br.ufc.mdcc.pargo.safe.component.IHPCStormComponent;
 
 public interface IHPCStormWorkflowComponent extends IHPCStormComponent{
 
-	public void setSAFeSWL(HPCStormSAFeSWL in);
+	public void run();
 }

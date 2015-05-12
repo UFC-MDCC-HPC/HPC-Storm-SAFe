@@ -27,8 +27,8 @@ public class HPCStormFramework implements IHPCStormFramework{
 	}
 	
 	/**
-	 * Informs to the framework which application it belongs to. Also sets the services 
-	 * object to the application and workflow component.
+	 * Informs to the framework which application it belongs to. Also sets different services 
+	 * objects to the application and workflow component.
 	 * @param applicationComponent
 	 */
 	public void setApplicationComponent(
@@ -36,6 +36,7 @@ public class HPCStormFramework implements IHPCStormFramework{
 		this.applicationComponent = applicationComponent;
 		SAFeConsoleLogger.write("Application parent set in Framework.");
 		
+		//create two different object for each unique component: Application and Workflow
 		IHPCStormServices servicesA = HPCStormServicesFactory.createApplicationServices();
 		IHPCStormServices servicesW = HPCStormServicesFactory.createApplicationServices();
 		SAFeConsoleLogger.write("Services created.");
@@ -54,9 +55,10 @@ public class HPCStormFramework implements IHPCStormFramework{
 	 */
 	@Override
 	public void run() {
+		
 		SAFeConsoleLogger.write("Framework Thread started.");
-		
-		
+		//running Workflow...
+		this.workflowComponent.run();
 	}
 
 }

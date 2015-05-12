@@ -53,12 +53,22 @@ public class HPCStormServicesImpl implements IHPCStormServices{
 		this.envUsesMap.put(uses.getId(), uses);
 	}
 
+	/**
+	 * This method registers a provides environment port and run its service as a web service.
+	 */
 	@Override
 	public void registerProvidesPort(IHPCStormEnvProvidesPort provides) {
 		this.envProvMap.put(provides.getId(), provides);
 		final String url = this.host+":"+this.port+"/"+provides.getName();
-		RunService rs = new RunService(provides, url);
+		//run port as a web service. Much better than RMI.
+		RunServiceAsWebService rs = new RunServiceAsWebService(provides, url);
 		rs.start();
+		try {
+			rs.join();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -74,20 +84,20 @@ public class HPCStormServicesImpl implements IHPCStormServices{
 	
 }
 
-class RunService extends Thread{
+class RunServiceAsWebService extends Thread{
 	
 	private IHPCStormEnvProvidesPort service;
 	private String url;
 	
-	public RunService(IHPCStormEnvProvidesPort service, String url) {
+	public RunServiceAsWebService(IHPCStormEnvProvidesPort service, String url) {
 		this.service = service;
 		this.url = url;
 	}
 	
 	@Override
 	public void run() {
-		System.out.println(url);
+		SAFeConsoleLogger.write("INIT: Publishing "+service.getName()+" at endpoint " + url);
 		Endpoint.publish(url, service);
-		SAFeConsoleLogger.write("Publishing "+service.getName()+" at endpoint " + url);
+		SAFeConsoleLogger.write("END: Publishing "+service.getName()+" at endpoint " + url);
 	}
 }
