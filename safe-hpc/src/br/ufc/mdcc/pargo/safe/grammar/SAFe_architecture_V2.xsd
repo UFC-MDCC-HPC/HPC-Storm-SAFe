@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schema xmlns="http://www.w3.org/2001/XMLSchema"
-	 	targetNamespace="http://www.example.org/SAFe_architecture_V1"
-	 	xmlns:tns="http://www.example.org/SAFe_architecture_V1"
+	 	targetNamespace="http://www.example.org/SAFe_architecture_V2"
+	 	xmlns:tns="http://www.example.org/SAFe_architecture_V2"
 	    elementFormDefault="qualified">
 
 
@@ -86,20 +86,29 @@
 
     <complexType name="attachmentType">
     	<sequence>
-    		<element name="uses_port" type="tns:PortUses" maxOccurs="1" minOccurs="1"></element>
-    		<element name="provides_port" type="tns:PortProvides" maxOccurs="1" minOccurs="1"></element>
+    		<element name="uses" type="tns:PortUses" maxOccurs="1" minOccurs="1"></element>
+    		<element name="provides" type="tns:PortProvides" maxOccurs="1" minOccurs="1"></element>
     	</sequence>
     </complexType>
 
     <complexType name="Component">
-    	<sequence>
-    		<element name="uses_port" type="tns:PortUses"
-    			maxOccurs="unbounded" minOccurs="0">
+    	<choice maxOccurs="unbounded" minOccurs="1">
+    		<element name="env_ports" maxOccurs="1" minOccurs="0">
+    			<complexType>
+    				<choice maxOccurs="unbounded" minOccurs="1">
+    					<element name="uses" type="tns:PortUses" maxOccurs="unbounded" minOccurs="0"></element>
+    					<element name="provides" type="tns:PortProvides" maxOccurs="unbounded" minOccurs="0"></element>
+    				</choice>
+    			</complexType>
     		</element>
-    		<element name="provides_port" type="tns:PortProvides"
-    			maxOccurs="unbounded" minOccurs="0">
+    		<element name="task_ports" maxOccurs="1" minOccurs="0">
+    			<complexType>
+    				<sequence>
+    					<element name="task_port" type="tns:Port" maxOccurs="unbounded" minOccurs="1"></element>
+    				</sequence>
+    			</complexType>
     		</element>
-    	</sequence>
+    	</choice>
     	<attribute name="name" type="string"></attribute>
     	<attribute name="id" type="int" use="required"></attribute>
     </complexType>

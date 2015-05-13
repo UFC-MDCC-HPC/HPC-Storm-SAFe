@@ -16,7 +16,7 @@ import org.xml.sax.SAXException;
 
 public class SAFeSWLValidator {
 
-	private String archXSD = "/br/ufc/mdcc/pargo/safe/grammar/SAFe_architecture_V1.xsd";
+	private String archXSD = "/br/ufc/mdcc/pargo/safe/grammar/SAFe_architecture_V2.xsd";
 	//private String orchesXSD = "/br/ufc/mdcc/pargo/safe/grammar/SAFe_workflow_V2.xsd";
 	private String orchesXSD = "/br/ufc/mdcc/pargo/safe/grammar/SAFe_workflow_V3.xsd";
 	

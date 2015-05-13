@@ -52,6 +52,13 @@
   		<tns:provides_port name="provides_plat_02" id="23"/>
   		<tns:provides_port name="provides_plat_03" id="24"/>
   	</tns:platform>
+  	
+  	<tns:repository name="rep_master" id="300">
+  		<tns:uses_port name="rep_master_uses_01" id="301"/>
+  		<tns:provides_port name="rep_master_prov_02" id="302"/>
+  		<tns:provides_port name="rep_master_prov_03" id="303"/>
+  	</tns:repository>
+  	
   </tns:body>
   
   <tns:attachment>

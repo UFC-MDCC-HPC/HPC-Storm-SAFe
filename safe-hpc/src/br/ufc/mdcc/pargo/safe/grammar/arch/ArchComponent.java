@@ -9,10 +9,12 @@ public class ArchComponent {
 	private Integer id;
 	private List<ArchUses> usesList;
 	private List<ArchProvides> providesList;
+	private List<ArchTask> taskList;
 	
 	public ArchComponent() {
 		this.usesList = new ArrayList<ArchUses>();
 		this.providesList = new ArrayList<ArchProvides>();
+		this.taskList = new ArrayList<ArchTask>();
 	}
 	
 	public void addUsesPort(ArchUses uses){
@@ -23,6 +25,10 @@ public class ArchComponent {
 		this.providesList.add(provides);
 	}
 	
+	public void addTaskPort(ArchTask task){
+		this.taskList.add(task);
+	}
+	
 	public String getName() {
 		return name;
 	}
@@ -30,7 +36,7 @@ public class ArchComponent {
 	public void setName(String name) {
 		this.name = name;
 	}
-
+	
 	public Integer getId() {
 		return id;
 	}
