@@ -10,19 +10,9 @@ import br.ufc.mdcc.pargo.safe.grammar.flow.SAFeOrchestrationWorkflow;
 public class SAFeSWLFlowParser {
 
 	private SAFeOrchestrationWorkflow safeOrchestrationWorkflow;
-	private SAFeSWLValidator safeSWLValidator;
 	
-	public SAFeSWLFlowParser() {
-		this.safeSWLValidator = new SAFeSWLValidator();
-	}
-	
-	public SAFeSWLFlowParser(String fileName){
-		this.safeSWLValidator = new SAFeSWLValidator();
-		//validate XML with XSD before parsing.
-		if(this.safeSWLValidator.validateXMLOrchestration(fileName)){
-			//parsing, generates the SAFeOrchestrationWorkflow object.
-			this.safeOrchestrationWorkflow = new SAFeOrchestrationWorkflow(fileName);
-		}
+	public void readFlowXML(String fileName){
+		this.safeOrchestrationWorkflow = new SAFeOrchestrationWorkflow(fileName);	
 	}
 
 	public SAFeOrchestrationWorkflow getSafeOrchestrationWorkflow() {

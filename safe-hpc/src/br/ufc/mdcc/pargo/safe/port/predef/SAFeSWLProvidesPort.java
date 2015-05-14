@@ -43,13 +43,13 @@ public class SAFeSWLProvidesPort
 	
 	@Override
 	public String getArchXMLLocation() {
-		String fileName = "src/br/ufc/mdcc/pargo/safe/grammar/arch_01_example.xml";
+		String fileName = "src/br/ufc/mdcc/pargo/safe/grammar/arch_03_example.xml";
 		return fileName;
 	}
 
 	@Override
 	public String getFlowXMLLocation() {
-		String fileName = "src/br/ufc/mdcc/pargo/safe/grammar/flow_02_example.xml";
+		String fileName = "src/br/ufc/mdcc/pargo/safe/grammar/flow_04_example.xml";
 		return fileName;
 	}
 

@@ -32,12 +32,5 @@ public class ApplicationSample extends HPCStormApplication{
 			this.services.registerProvidesPort(this.safeFeSWLPort);
 		}
 	}
-
-	public static void main(String[] args) {
-		
-		HPCStormApplication app = new ApplicationSample();
-		//calls framework.start...
-		app.run();
-	}
 	
 }

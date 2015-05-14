@@ -2,6 +2,7 @@ package br.ufc.mdcc.pargo.safe.framework;
 
 
 
+import br.ufc.mdcc.pargo.safe.exception.HPCStormException;
 import br.ufc.mdcc.pargo.safe.port.IHPCStormEnvUsesPort;
 import br.ufc.mdcc.pargo.safe.port.predef.ISAFeSWLPort;
 import br.ufc.mdcc.pargo.safe.port.predef.SAFeSWLUsesPort;
@@ -12,6 +13,7 @@ public class HPCStormWorkflowComponent implements IHPCStormWorkflowComponent{
 
 	private IHPCStormServices services;
 	private HPCStormWorkflowEngine engine;
+	private HPCStormSAFeSWL safeSWL;
 	/*PREDEF PORTS*/
 	private IHPCStormEnvUsesPort safeSWLPort;
 	
@@ -20,7 +22,7 @@ public class HPCStormWorkflowComponent implements IHPCStormWorkflowComponent{
 	public HPCStormWorkflowComponent() {
 		
 		this.engine = new HPCStormWorkflowEngine();
-		
+		this.safeSWL = new HPCStormSAFeSWL();
 
 	}
 	
@@ -40,11 +42,27 @@ public class HPCStormWorkflowComponent implements IHPCStormWorkflowComponent{
 	 * Runs workflow component
 	 */
 	public void run(){
-		String flowFile = ((ISAFeSWLPort)this.safeSWLPort).getFlowXMLLocation();
-		String archFile = ((ISAFeSWLPort)this.safeSWLPort).getArchXMLLocation();
 		
-		System.out.println("FLOW: " + flowFile);
-		System.out.println("ARCH: " + archFile);
+		//getting information form predef ports
+		String flowFileName = ((ISAFeSWLPort)this.safeSWLPort).getFlowXMLLocation();
+		String archFileName = ((ISAFeSWLPort)this.safeSWLPort).getArchXMLLocation();
+		
+		//creating safeSWL objetc
+		this.safeSWL.setFlowFileName(flowFileName);
+		this.safeSWL.setArchFileName(archFileName);
+		
+		//Engine...
+		this.engine.setSafeSWL(this.safeSWL);
+		
+		try {
+			SAFeConsoleLogger.write("Starting engines...");
+			this.engine.run();
+		} catch (HPCStormException e) {
+			 
+			e.printStackTrace();
+		}
+		
+		
 	}
 
 	//testing
