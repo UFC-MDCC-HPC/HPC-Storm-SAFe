@@ -9,7 +9,8 @@ public class WorkflowLanguageTest {
 		
 		//String fileName = "src/br/ufc/mdcc/pargo/safe/grammar/flow_01_example.xml";
 		//String fileName = "src/br/ufc/mdcc/pargo/safe/grammar/flow_02_example.xml";
-		String fileName = "src/br/ufc/mdcc/pargo/safe/grammar/flow_03_example.xml";
+		//String fileName = "src/br/ufc/mdcc/pargo/safe/grammar/flow_03_example.xml";
+		String fileName = "src/br/ufc/mdcc/pargo/safe/grammar/flow_04_example.xml";
 		
 		SAFeSWLFlowParser parser = new SAFeSWLFlowParser();
 		parser.readFlowXML(fileName);

@@ -8,14 +8,14 @@
 	<tns:sequence_oper>
 
 		<tns:operation>
-			<tns:start_oper handle_id="">
+			<tns:start_oper handle_id="60">
 				<tns:action action="resolve" id="0"/>
 			</tns:start_oper>
 		</tns:operation>
 
 		<tns:operation>
 
-			 <tns:start_oper handle_id="">
+			 <tns:start_oper handle_id="70">
 				<tns:action action="compute" id="100"/>
 			</tns:start_oper>
 
@@ -30,7 +30,7 @@
 
 				<tns:operation>
 					<tns:wait_oper handle_id="25">
-						<tns:action action="instantiate" id=""/>
+						<tns:action action="instantiate" id="66"/>
 					</tns:wait_oper>
 				</tns:operation>
 			</tns:parallel_oper>
@@ -45,7 +45,9 @@
 				</tns:select_operation>
 				<tns:select_operation action_id="43">
 					<tns:operation>
-						<tns:break_oper/>
+						<tns:cancel_oper handle_id="48748">
+							<tns:action action="instantiate" id="66"/>
+						</tns:cancel_oper>
 					</tns:operation>
 				</tns:select_operation>
 				<tns:select_operation action_id="44">
@@ -55,7 +57,7 @@
 				</tns:select_operation>
 				<tns:select_operation action_id="45">
 					<tns:operation>
-						<tns:break_oper/>
+						<tns:skip_oper/>
 					</tns:operation>
 				</tns:select_operation>
 			</tns:choice_oper>

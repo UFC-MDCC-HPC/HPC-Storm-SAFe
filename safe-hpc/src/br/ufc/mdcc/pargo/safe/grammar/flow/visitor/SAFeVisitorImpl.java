@@ -6,7 +6,7 @@ import br.ufc.mdcc.pargo.safe.util.SAFeConsoleLogger;
 
 public class SAFeVisitorImpl implements ISAFeVisitor{
 
-	private String logicPkg = "br.ufc.mdcc.pargo.safe.grammar.flow.visitor";
+	private String logicPkg = "br.ufc.mdcc.pargo.safe.grammar.flow.visitor.logic";
 	
 	@Override
 	public void visit(SAFeOrchestrationElement element) {
