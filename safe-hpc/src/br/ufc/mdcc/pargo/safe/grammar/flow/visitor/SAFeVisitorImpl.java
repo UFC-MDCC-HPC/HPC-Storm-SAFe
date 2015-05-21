@@ -6,6 +6,7 @@ import br.ufc.mdcc.pargo.safe.util.SAFeConsoleLogger;
 
 public class SAFeVisitorImpl implements ISAFeVisitor{
 
+	//logic package.
 	private String logicPkg = "br.ufc.mdcc.pargo.safe.grammar.flow.visitor.logic";
 	
 	@Override
@@ -13,7 +14,7 @@ public class SAFeVisitorImpl implements ISAFeVisitor{
 		 
 		SAFeConsoleLogger.write("Enter visit for " + element.getOperationStr());
 		
-		//first case, the workflow element
+		//first case, the workflow element. Justo go on...
 		if(element.getOperation().equals(SAFeOrchestrationOperation.WORKFLOW))
 			for(SAFeOrchestrationElement child:element.getChildren()){
 				child.run();

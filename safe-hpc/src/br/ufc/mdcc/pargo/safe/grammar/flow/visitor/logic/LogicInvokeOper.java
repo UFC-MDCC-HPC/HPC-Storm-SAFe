@@ -16,7 +16,7 @@ public class LogicInvokeOper implements ISAFeElementLogic{
 		action_id = action.getId();
 		action_oper = action.getAction().value();
 		
-		System.out.println("action_id: " + action_id);
-		System.out.println("action_oper: " + action_oper);
+		System.out.println("\taction_id: " + action_id);
+		System.out.println("\taction_oper: " + action_oper);
 	}
 }

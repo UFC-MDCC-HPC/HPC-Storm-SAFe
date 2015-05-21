@@ -40,9 +40,9 @@ public class LogicStartOper implements ISAFeElementLogic{
 			}
 		}
 			
-		System.out.println("handle_id: " + handle_id);
-		System.out.println("action_id: " + action_id);
-		System.out.println("action_oper: " + action_oper);
+		System.out.println("\thandle_id: " + handle_id);
+		System.out.println("\taction_id: " + action_id);
+		System.out.println("\taction_oper: " + action_oper);
 		
 	}
 

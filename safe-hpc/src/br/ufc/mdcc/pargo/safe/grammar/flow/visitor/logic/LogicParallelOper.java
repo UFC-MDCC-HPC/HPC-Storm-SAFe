@@ -51,5 +51,6 @@ class ParallelJob extends Thread{
 	@Override
 	public void run() {
 		this.child.run();
+		
 	}
 }

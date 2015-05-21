@@ -1,0 +1,13 @@
+------------------------------------------
+/* HOW TO COMPILE THE XSD FILE
+ * go to XSD folder and do: 
+ * xjc -p br.ufc.mdcc.pargo.safe.grammar.flow SAFe_workflow_V4.xsd -d ../../../../../../
+ */
+ 
+ -----------------------------------------
+ /* IMPORTANT!
+ * Generate client for this using cmd (run service first!):
+ * $SAFE_HOME/src$ wsimport -p br.ufc.mdcc.pargo.safe.port.predef.client.safeswl -keep http://localhost:8888/safeswl_provides?wsdl
+ * 
+ */
+ 

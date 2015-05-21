@@ -40,6 +40,8 @@ public class SAFeOrchestrationWorkflow {
 			e.printStackTrace();
 		}
 	}
+	
+	
 
 	private void navigate() {
 		if (this.workflow == null)
@@ -72,7 +74,8 @@ public class SAFeOrchestrationWorkflow {
 			int orderCounter = children.size();
 			for (int i = children.size() - 1; i >= 0; i--) {
 				Object child = children.get(i);
-
+				
+				 
 				if (((XMLSAFeBase) child).getOperName().equalsIgnoreCase(
 						SAFeOrchestrationOperation.OPERATION.name())) {
 
@@ -113,16 +116,21 @@ public class SAFeOrchestrationWorkflow {
 
 					if (child != null) {
 						String operName = method.getName().replace("get", "");
-
+						
+						
+						
 						if (child instanceof List) {
+							
 							List l = (List) child;
-							for (Object o : l)
+							for (Object o : l){
 								if (o instanceof XMLSAFeBase) {
 									((XMLSAFeBase) o).setOperName(operName);
 									children.add(o);
 								}
+							}
 
 						} else if (child instanceof XMLSAFeBase) {
+							
 							((XMLSAFeBase) child).setOperName(operName);
 							children.add(child);
 						}
