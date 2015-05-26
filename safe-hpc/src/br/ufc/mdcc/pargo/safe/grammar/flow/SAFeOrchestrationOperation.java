@@ -8,5 +8,6 @@ public enum SAFeOrchestrationOperation {
 	ACTION, ID,
 	OPERATION,
 	RESOLVE, INSTANTIATE, COMPUTE,
-	ACTIONID
+	ACTIONID,
+	SELECT
 }

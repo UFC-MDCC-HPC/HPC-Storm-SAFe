@@ -3,7 +3,7 @@ package br.ufc.mdcc.pargo.safe.grammar.flow.visitor.logic;
 import br.ufc.mdcc.pargo.safe.grammar.flow.SAFeOrchestrationElement;
 import br.ufc.mdcc.pargo.safe.grammar.flow.XMLSAFeAction;
 import br.ufc.mdcc.pargo.safe.grammar.flow.XMLSAFePrimOper;
-import br.ufc.mdcc.pargo.safe.grammar.flow.visitor.ISAFeElementLogic;
+import br.ufc.mdcc.pargo.safe.grammar.flow.visitor.AbstractSAFeElementLogic;
 
 /**
  * Implements the logic for START operation.
@@ -16,7 +16,7 @@ import br.ufc.mdcc.pargo.safe.grammar.flow.visitor.ISAFeElementLogic;
  * @author jefferson
  *
  */
-public class LogicStartOper implements ISAFeElementLogic{
+public class LogicStartOper extends AbstractSAFeElementLogic{
 	
 	@Override
 	public void logic(SAFeOrchestrationElement element) {

@@ -3,9 +3,9 @@ package br.ufc.mdcc.pargo.safe.grammar.flow.visitor.logic;
 import br.ufc.mdcc.pargo.safe.grammar.flow.SAFeOrchestrationElement;
 import br.ufc.mdcc.pargo.safe.grammar.flow.XMLSAFeAction;
 import br.ufc.mdcc.pargo.safe.grammar.flow.XMLSAFePrimOper;
-import br.ufc.mdcc.pargo.safe.grammar.flow.visitor.ISAFeElementLogic;
+import br.ufc.mdcc.pargo.safe.grammar.flow.visitor.AbstractSAFeElementLogic;
 
-public class LogicCancelOper implements ISAFeElementLogic{
+public class LogicCancelOper extends AbstractSAFeElementLogic{
 
 	@Override
 	public void logic(SAFeOrchestrationElement element) {

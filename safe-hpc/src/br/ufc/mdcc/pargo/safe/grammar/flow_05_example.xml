@@ -19,17 +19,27 @@
 					</tns:start_oper>
 				</tns:operation>
 				<tns:operation>
-					<tns:invoke_oper action="instantiate" id="3" />
+					<tns:invoke_oper action="instantiate" id="2" />
 				</tns:operation>
-				<tns:operation>
-					<tns:break_oper />
-				</tns:operation>
+				
 				<tns:operation>
 					<tns:parallel_oper>
 						<tns:operation>
 							<tns:start_oper handle_id="100">
 								<tns:action action="compute" id="1" />
 							</tns:start_oper>
+						</tns:operation>
+						<tns:operation>
+							<tns:sequence_oper>
+								<tns:operation>
+									<tns:cancel_oper>
+										<tns:action action="resolve" id="454545"/>
+									</tns:cancel_oper>
+								</tns:operation>
+								<tns:operation>
+									<tns:skip_oper/>
+								</tns:operation>
+							</tns:sequence_oper>
 						</tns:operation>
 						<tns:operation>
 							<tns:start_oper handle_id="102">
@@ -43,11 +53,11 @@
 						<tns:action action="compute" id="1" />
 					</tns:start_oper>
 				</tns:operation>
-				<tns:operation>
-					<tns:continue_oper />
-				</tns:operation>
 			</tns:iterate_oper>
 		</tns:operation>
+		
+		
+		
 	</tns:sequence_oper>
 
 

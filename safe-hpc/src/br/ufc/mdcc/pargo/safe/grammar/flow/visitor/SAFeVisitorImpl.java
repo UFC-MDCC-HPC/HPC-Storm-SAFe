@@ -24,7 +24,7 @@ public class SAFeVisitorImpl implements ISAFeVisitor{
 			String logicFullClassName = this.logicPkg+".Logic"+element.getOperationStr();
 			try {
 				Class<?> c = Class.forName(logicFullClassName);
-				ISAFeElementLogic logicClass = (ISAFeElementLogic)c.newInstance();
+				AbstractSAFeElementLogic logicClass = (AbstractSAFeElementLogic)c.newInstance();
 				logicClass.logic(element);
 			} catch (ClassNotFoundException e) {
 				SAFeConsoleLogger.write(logicFullClassName+" NOT FOUND");

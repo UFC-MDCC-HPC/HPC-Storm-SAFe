@@ -111,7 +111,7 @@
 			<extension base="tns:XML_SAFe_Base">
 				<sequence>
 					<element minOccurs="1" maxOccurs="unbounded"
-						name="operation">
+						name="select">
 						<complexType>
 							<complexContent>
 								<extension base="tns:XML_SAFe_Base">
@@ -129,6 +129,7 @@
 						</complexType>
 					</element>
 				</sequence>
+				<attribute name="chosen" type="string"></attribute>
 			</extension>
 		</complexContent>
 	</complexType>
