@@ -10,7 +10,7 @@ import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
 
 import br.ufc.mdcc.pargo.safe.grammar.arch.ArchApplication;
-import br.ufc.mdcc.pargo.safe.grammar.arch.ArchAttachment;
+import br.ufc.mdcc.pargo.safe.grammar.arch.ArchEnvAttachment;
 import br.ufc.mdcc.pargo.safe.grammar.arch.ArchBody;
 import br.ufc.mdcc.pargo.safe.grammar.arch.ArchComponent;
 import br.ufc.mdcc.pargo.safe.grammar.arch.ArchComputation;
@@ -20,6 +20,7 @@ import br.ufc.mdcc.pargo.safe.grammar.arch.ArchPlatform;
 import br.ufc.mdcc.pargo.safe.grammar.arch.ArchProvides;
 import br.ufc.mdcc.pargo.safe.grammar.arch.ArchRepository;
 import br.ufc.mdcc.pargo.safe.grammar.arch.ArchTask;
+import br.ufc.mdcc.pargo.safe.grammar.arch.ArchTaskAttachment;
 import br.ufc.mdcc.pargo.safe.grammar.arch.ArchUses;
 import br.ufc.mdcc.pargo.safe.grammar.arch.ArchWorkflow;
 
@@ -66,11 +67,16 @@ public class SAFeSWLArchParser {
 					this.readArchBody(child, body);
 					this.architectureMain.setArchBody(body);
 					// BINDING
-				} else if (elementName.equalsIgnoreCase(ArchMain.ATTACHMENT)) {
-					ArchAttachment att = this.architectureMain
-							.createArchAttachement();
-					this.readAttchment(child, att);
-					this.architectureMain.addArchAttachment(att);
+				} else if (elementName.equalsIgnoreCase(ArchMain.ENV_ATTACHMENT)) {
+					ArchEnvAttachment att = this.architectureMain
+							.createArchEnvAttachement();
+					this.readEnvAttchment(child, att);
+					this.architectureMain.addArchEnvAttachment(att);
+				} else if (elementName.equalsIgnoreCase(ArchMain.TSK_ATTACHMENT)) {
+					ArchTaskAttachment att = this.architectureMain
+							.createArchTaskAttachement();
+					this.readTaskAttchment(child, att);
+					this.architectureMain.addArchTaskAttachment(att);
 				}
 			}
 
@@ -85,6 +91,7 @@ public class SAFeSWLArchParser {
 
 	private void readComponentPorts(Element element, ArchComponent comp) {
 		for (Element child : element.getChildren()) {
+			
 			if (child.getName().equalsIgnoreCase(ArchMain.ENV_PORTS)) {
 
 				for (Element child2 : child.getChildren()) {
@@ -104,12 +111,13 @@ public class SAFeSWLArchParser {
 						this.architectureMain.addArchProvides(provides);
 					}
 				}
-
+				
 			} else if (child.getName().equalsIgnoreCase(ArchMain.TASK_PORTS)) {
-
+				
 				for (Element child2 : child.getChildren()) {
+					
 					if (child2.getName().equalsIgnoreCase(ArchMain.TASK_PORT)) {
-
+						
 						ArchTask task = this.architectureMain
 								.createArchTask(child2);
 						comp.addTaskPort(task);
@@ -121,11 +129,8 @@ public class SAFeSWLArchParser {
 
 	}
 
-	private void readAttchment(Element element, ArchAttachment att) {
+	private void readEnvAttchment(Element element, ArchEnvAttachment att) {
 		for (Element child : element.getChildren()) {
-			
-			System.out.println(child.getName()+ " = " + ArchMain.USES + "-" +ArchMain.PROVIDES);
-			
 			if (child.getName().equalsIgnoreCase(ArchMain.USES)) {
 				
 				Integer id = Integer.parseInt(child.getAttributeValue(ArchMain.att_id));
@@ -142,7 +147,26 @@ public class SAFeSWLArchParser {
 					att.setProvides(provides);
 			}
 		}
+	}
+	
+	private void readTaskAttchment(Element element, ArchTaskAttachment att) {
+		for (Element child : element.getChildren()) {
+			if (child.getName().equalsIgnoreCase(ArchMain.TASK_A)) {
+				
+				Integer id = Integer.parseInt(child.getAttributeValue(ArchMain.att_id));
+				ArchTask tsk_a = this.architectureMain.getArchTaskById(id);
+				
+				if (tsk_a != null)
+					att.setTaskA(tsk_a);
 
+			} else if (child.getName().equalsIgnoreCase(ArchMain.TASK_B)) {
+				Integer id = Integer.parseInt(child.getAttributeValue(ArchMain.att_id));
+				ArchTask tsk_b = this.architectureMain
+						.getArchTaskById(id);
+				if (tsk_b != null)
+					att.setTaskB(tsk_b);
+			}
+		}
 	}
 
 	private void readArchBody(Element element, ArchBody body) {

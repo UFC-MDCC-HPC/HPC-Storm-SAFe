@@ -111,8 +111,8 @@ public class SAFeOrchestrationWorkflow {
 			if (method.getName().startsWith("get")
 					&& !method.getName().startsWith("getClass")) {
 				try {
-
-					Object child = method.invoke(element, null);
+					Object args[] = new Object[0]; //useless..
+					Object child = method.invoke(element, args);
 
 					if (child != null) {
 						String operName = method.getName().replace("get", "");
@@ -121,7 +121,7 @@ public class SAFeOrchestrationWorkflow {
 						
 						if (child instanceof List) {
 							
-							List l = (List) child;
+							List<?> l = (List<?>) child;
 							for (Object o : l){
 								if (o instanceof XMLSAFeBase) {
 									((XMLSAFeBase) o).setOperName(operName);

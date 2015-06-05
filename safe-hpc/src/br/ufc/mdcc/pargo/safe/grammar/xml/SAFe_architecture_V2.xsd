@@ -7,15 +7,26 @@
 
     <complexType name="Architecture">
     	<sequence>
-            <element name="application" type="tns:Application" maxOccurs="1" minOccurs="1"></element>
-            <element name="workflow" type="tns:Workflow" maxOccurs="1"
+    		<element name="application" type="tns:Application"
+    			maxOccurs="1" minOccurs="1">
+    		</element>
+    		<element name="workflow" type="tns:Workflow" maxOccurs="1"
     			minOccurs="1">
     		</element>
     		<element name="body" type="tns:kindSetType" maxOccurs="1"
     			minOccurs="1">
     		</element>
-    		<element name="attachment" type="tns:attachmentType"
+    		<element name="env_attachment" type="tns:attachmentType"
     			maxOccurs="unbounded" minOccurs="1">
+    		</element>
+    		<element name="tsk_attachment" maxOccurs="unbounded"
+    			minOccurs="1">
+    			<complexType>
+    				<sequence>
+    					<element name="task_A" type="tns:Port"></element>
+    					<element name="task_B" type="tns:Port"></element>
+    				</sequence>
+    			</complexType>
     		</element>
     	</sequence>
     </complexType>

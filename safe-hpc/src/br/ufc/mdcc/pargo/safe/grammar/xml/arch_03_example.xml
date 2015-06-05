@@ -5,7 +5,11 @@
   		<tns:provides name="app_env_port_a" id="01"/>
   		<tns:provides name="app_env_port_b" id="02"/>
   		<tns:uses name="app_uses_port_a" id="03"/>
-  	</tns:env_ports> 
+  	</tns:env_ports>
+  		
+  	<tns:task_ports>
+  		<tns:task_port name="task_a" id="2434"/>
+  	</tns:task_ports> 
   </tns:application>
   	
   <tns:workflow id="1">

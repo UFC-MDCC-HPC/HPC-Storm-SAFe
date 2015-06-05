@@ -2,7 +2,6 @@ package br.ufc.mdcc.pargo.safe.sample;
 
 import br.ufc.mdcc.pargo.safe.application.HPCStormApplication;
 import br.ufc.mdcc.pargo.safe.port.IHPCStormEnvProvidesPort;
-import br.ufc.mdcc.pargo.safe.port.predef.ISAFeSWLPort;
 import br.ufc.mdcc.pargo.safe.port.predef.SAFeSWLProvidesPort;
 import br.ufc.mdcc.pargo.safe.service.IHPCStormServices;
 

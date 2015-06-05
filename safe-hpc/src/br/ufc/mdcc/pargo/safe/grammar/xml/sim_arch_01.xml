@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tns:architecture xmlns:tns="http://www.example.org/SAFe_architecture_V2"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.example.org/SAFe_architecture_V2 SAFe_architecture_V2.xsd ">
+
+	<tns:application name="app_component" id="1">
+		<tns:env_ports>
+			<tns:uses name="app_uses_A" id="10" />
+			<tns:uses name="app_uses_B" id="11" />
+			<tns:uses name="app_uses_C" id="12" />
+			<tns:uses name="app_uses_wf" id="13" />
+			<tns:provides name="app_prv_wf" id="14" />
+		</tns:env_ports>
+	</tns:application>
+
+	<tns:workflow id="2">
+		<tns:env_ports>
+			<tns:uses name="wf_uses_app" id="21" />
+			<tns:provides name="wf_prv_app" id="22" />
+		</tns:env_ports>
+		<tns:task_ports>
+			<tns:task_port name="wf_task_conn" id="23" />
+		</tns:task_ports>
+	</tns:workflow>
+
+	<tns:body>
+		<tns:connector name="conn" id="3">
+			<tns:task_ports>
+				<tns:task_port name="task_conn_wf" id="31" />
+				<tns:task_port name="task_conn_A" id="32" />
+				<tns:task_port name="task_conn_B" id="33" />
+				<tns:task_port name="task_conn_C" id="34" />
+			</tns:task_ports>
+		</tns:connector>
+
+		<tns:computation name="comp_A" id="4">
+			<tns:env_ports>
+				<tns:provides name="A_prv_app" id="41" />
+			</tns:env_ports>
+			<tns:task_ports>
+				<tns:task_port name="task_A_conn" id="42" />
+			</tns:task_ports>
+		</tns:computation>
+
+		<tns:computation name="comp_B" id="5">
+			<tns:env_ports>
+				<tns:provides name="B_prv_app" id="51" />
+			</tns:env_ports>
+			<tns:task_ports>
+				<tns:task_port name="task_B_conn" id="52" />
+			</tns:task_ports>
+		</tns:computation>
+
+		<tns:computation name="comp_C" id="6">
+			<tns:env_ports>
+				<tns:provides name="C_prv_app" id="61" />
+			</tns:env_ports>
+			<tns:task_ports>
+				<tns:task_port name="task_C_conn" id="62" />
+			</tns:task_ports>
+		</tns:computation>
+	</tns:body>
+
+	<tns:env_attachment>
+		<tns:uses id="10" />
+		<tns:provides id="41" />
+	</tns:env_attachment>
+	<tns:env_attachment>
+		<tns:uses id="11" />
+		<tns:provides id="51" />
+	</tns:env_attachment>
+	<tns:env_attachment>
+		<tns:uses id="12" />
+		<tns:provides id="61" />
+	</tns:env_attachment>
+	<tns:env_attachment>
+		<tns:uses id="13" />
+		<tns:provides id="22" />
+	</tns:env_attachment>
+	<tns:env_attachment>
+		<tns:uses id="21" />
+		<tns:provides id="14" />
+	</tns:env_attachment>
+	
+	<tns:tsk_attachment>
+		<tns:task_A id="23"/>
+		<tns:task_B id="31"/>
+	</tns:tsk_attachment>
+	<tns:tsk_attachment>
+		<tns:task_A id="32"/>
+		<tns:task_B id="42"/>
+	</tns:tsk_attachment>
+	<tns:tsk_attachment>
+		<tns:task_A id="33"/>
+		<tns:task_B id="52"/>
+	</tns:tsk_attachment>
+	<tns:tsk_attachment>
+		<tns:task_A id="34"/>
+		<tns:task_B id="62"/>
+	</tns:tsk_attachment>
+
+</tns:architecture>

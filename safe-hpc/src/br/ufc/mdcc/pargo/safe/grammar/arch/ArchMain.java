@@ -20,13 +20,15 @@ public class ArchMain {
 		//List of Task Ports
 		private List<ArchTask> taskList;
 		//List of Binding elements
-		private List<ArchAttachment> attachmentList;
+		private List<ArchEnvAttachment> attachmentEnvList;
+		private List<ArchTaskAttachment> attachmentTaskList; 
 		
 		//list of reserved words in XML
 		public static final String APPLICATION = "application";
 		public static final String WORKFLOW = "workflow";
 		public static final String BODY = "body";
-		public static final String ATTACHMENT = "attachment";
+		public static final String ENV_ATTACHMENT = "env_attachment";
+		public static final String TSK_ATTACHMENT = "tsk_attachment";
 		
 		public static final String COMPUTATION = "computation";
 		public static final String PLATFORM = "platform";
@@ -34,12 +36,15 @@ public class ArchMain {
 		public static final String REPOSITORY = "repository";
 		
 		public static final String ENV_PORTS = "env_ports";
-		public static final String TASK_PORTS = "task_port";
+		public static final String TASK_PORTS = "task_ports";
 		
 		public static final String USES = "uses";
 		public static final String PROVIDES = "provides";
 		
 		public static final String TASK_PORT = "task_port";
+		
+		public static final String TASK_A = "task_A";
+		public static final String TASK_B = "task_B";
 		
 		public static final String att_name = "name";
 		public static final String att_id = "id";
@@ -49,7 +54,8 @@ public class ArchMain {
 			this.providesList = new ArrayList<ArchProvides>();
 			this.taskList = new ArrayList<ArchTask>();
 			this.body = new ArchBody();
-			this.attachmentList = new ArrayList<ArchAttachment>();
+			this.attachmentEnvList = new ArrayList<ArchEnvAttachment>();
+			this.attachmentTaskList = new ArrayList<ArchTaskAttachment>();
 		}
 		
 		//create methods
@@ -65,8 +71,13 @@ public class ArchMain {
 			return archWf;
 		}
 		
-		public ArchAttachment createArchAttachement(){
-			ArchAttachment archAtt = new ArchAttachment();
+		public ArchEnvAttachment createArchEnvAttachement(){
+			ArchEnvAttachment archAtt = new ArchEnvAttachment();
+			return archAtt;
+		}
+		
+		public ArchTaskAttachment createArchTaskAttachement(){
+			ArchTaskAttachment archAtt = new ArchTaskAttachment();
 			return archAtt;
 		}
 		
@@ -134,10 +145,12 @@ public class ArchMain {
 		public void addArchTask(ArchTask task){
 			this.taskList.add(task);
 		}
-		public void addArchAttachment(ArchAttachment binding){
-			this.attachmentList.add(binding);
+		public void addArchEnvAttachment(ArchEnvAttachment binding){
+			this.attachmentEnvList.add(binding);
 		}
-
+		public void addArchTaskAttachment(ArchTaskAttachment binding){
+			this.attachmentTaskList.add(binding);
+		}
 		
 		//setting
 		public void setArchBody(ArchBody body){
@@ -166,6 +179,14 @@ public class ArchMain {
 			if(index<0) return null;
 			else return this.providesList.get(index);
 		}
+		
+		public ArchTask getArchTaskById(Integer id){
+			ArchProvides provides = new ArchProvides();
+			provides.setId(id);
+			int index = this.taskList.indexOf(provides);
+			if(index<0) return null;
+			else return this.taskList.get(index);
+		}
 	
 		@Override
 		public String toString() {
@@ -177,8 +198,11 @@ public class ArchMain {
 				res+=this.archWorkflow;
 				res+="\nBody:\n";
 				res+=this.body;
-				res+="\nAttachments:\n";
-				for(ArchAttachment att:attachmentList)
+				res+="\n\nEnv Attachments:";
+				for(ArchEnvAttachment att:attachmentEnvList)
+					res+="\n"+att.toString();
+				res+="\n\nTask Attachments:";
+				for(ArchTaskAttachment att:attachmentTaskList)
 					res+="\n"+att.toString();
 				return res;
 		}

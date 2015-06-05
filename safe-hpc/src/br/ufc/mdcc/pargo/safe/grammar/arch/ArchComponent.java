@@ -63,6 +63,9 @@ public class ArchComponent {
 		for(ArchPort port:this.providesList){
 			res += "\n\t"+port.toString();
 		}
+		for(ArchPort port:this.taskList){
+			res += "\n\t"+port.toString();
+		}
 		return res;
 	}
 	

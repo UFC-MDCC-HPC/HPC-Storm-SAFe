@@ -22,6 +22,8 @@ public class SAFeSWLValidator {
 	private String orchesXSD = SAFeConstants.FLOW_XSD;
 	
 	public boolean validateXMLArchitecture(String xmlFile){
+		System.out.println(xmlFile);
+		System.out.println(archXSD);
 		boolean result = true;
 		try {
 			URL schemaFile = this.getClass().getResource(archXSD);

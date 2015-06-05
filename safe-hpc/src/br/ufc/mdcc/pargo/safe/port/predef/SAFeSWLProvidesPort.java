@@ -3,6 +3,7 @@ package br.ufc.mdcc.pargo.safe.port.predef;
 import javax.jws.WebService;
 
 import br.ufc.mdcc.pargo.safe.port.IHPCStormEnvProvidesPort;
+import br.ufc.mdcc.pargo.safe.util.SAFeConstants;
 /**
  * This port belong to the application. 
  * @author jefferson
@@ -43,13 +44,13 @@ public class SAFeSWLProvidesPort
 	
 	@Override
 	public String getArchXMLLocation() {
-		String fileName = "src/br/ufc/mdcc/pargo/safe/grammar/arch_03_example.xml";
+		String fileName = SAFeConstants.ARCH_FILE_TEST;
 		return fileName;
 	}
 
 	@Override
 	public String getFlowXMLLocation() {
-		String fileName = "src/br/ufc/mdcc/pargo/safe/grammar/flow_04_example.xml";
+		String fileName = SAFeConstants.FLOW_FILE_TEST;
 		return fileName;
 	}
 

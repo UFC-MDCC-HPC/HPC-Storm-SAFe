@@ -1,6 +1,6 @@
 package br.ufc.mdcc.pargo.safe.grammar.arch;
 
-public class ArchAttachment {
+public class ArchEnvAttachment {
 
 	private ArchUses uses;
 	private ArchProvides provides;

@@ -55,6 +55,7 @@ public class HPCStormServicesImpl implements IHPCStormServices{
 
 	/**
 	 * This method registers a provides environment port and run its service as a web service.
+	 * NEM SEMPRE SERÁ UM WEB SERVICE! ESSE MÉTODO NÃO PODE CONTAR COM A PORTA SENDO UM WEB SERVICE.
 	 */
 	@Override
 	public void registerProvidesPort(IHPCStormEnvProvidesPort provides) {
