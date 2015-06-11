@@ -3,20 +3,109 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.example.org/SAFe_workflow_V4 SAFe_workflow_V4.xsd ">
 
-<tns:sequence_oper>
-	
-	<tns:operation>
-		<tns:start_oper handle_id="1">
-			<tns:action action="resolve" id="3"/>
-		</tns:start_oper>
-	</tns:operation>
-	
-	<tns:operation>
-		<tns:wait_oper>
-			<tns:action action="resolve" id="3"/>
-		</tns:wait_oper>
-	</tns:operation>
-	
-</tns:sequence_oper>
+	<tns:sequence_oper>
 
+		<tns:operation>
+			<tns:start_oper handle_id="1">
+				<tns:action action="resolve" id="3" />
+			</tns:start_oper>
+		</tns:operation>
+
+		<tns:operation>
+			<tns:wait_oper handle_id="2">
+				<tns:action action="resolve" id="3" />
+			</tns:wait_oper>
+		</tns:operation>
+
+		<tns:operation>
+			<tns:parallel_oper>
+				<tns:operation>
+					<tns:start_oper handle_id="3">
+						<tns:action action="resolve" id="4" />
+					</tns:start_oper>
+				</tns:operation>
+				<tns:operation>
+					<tns:start_oper handle_id="4">
+						<tns:action action="resolve" id="5" />
+					</tns:start_oper>
+				</tns:operation>
+				<tns:operation>
+					<tns:start_oper handle_id="5">
+						<tns:action action="resolve" id="6" />
+					</tns:start_oper>
+				</tns:operation>
+			</tns:parallel_oper>
+		</tns:operation>
+		
+		<tns:operation>
+			<tns:wait_oper handle_id="6">
+				<tns:action action="resolve" id="4" />
+			</tns:wait_oper>
+		</tns:operation>
+		<tns:operation>
+			<tns:wait_oper handle_id="7">
+				<tns:action action="resolve" id="5" />
+			</tns:wait_oper>
+		</tns:operation>
+		<tns:operation>
+			<tns:wait_oper handle_id="8">
+				<tns:action action="resolve" id="6" />
+			</tns:wait_oper>
+		</tns:operation>
+		
+		
+		<tns:operation>
+			<tns:parallel_oper>
+				<tns:operation>
+					<tns:start_oper>
+						<tns:action action="instantiate" id="3"/>	
+					</tns:start_oper>
+				</tns:operation>
+				<tns:operation>
+					<tns:start_oper>
+						<tns:action action="instantiate" id="4"/>	
+					</tns:start_oper>
+				</tns:operation>
+				<tns:operation>
+					<tns:start_oper>
+						<tns:action action="instantiate" id="5"/>	
+					</tns:start_oper>
+				</tns:operation>
+				<tns:operation>
+					<tns:start_oper>
+						<tns:action action="instantiate" id="6"/>	
+					</tns:start_oper>
+				</tns:operation>
+			</tns:parallel_oper>
+		</tns:operation>
+		
+		<tns:operation>
+			<tns:parallel_oper>
+				<tns:operation>
+					<tns:start_oper>
+						<tns:action action="compute" id="3"/>	
+					</tns:start_oper>
+				</tns:operation>
+				<tns:operation>
+					<tns:start_oper>
+						<tns:action action="compute" id="4"/>	
+					</tns:start_oper>
+				</tns:operation>
+				<tns:operation>
+					<tns:start_oper>
+						<tns:action action="compute" id="5"/>	
+					</tns:start_oper>
+				</tns:operation>
+				<tns:operation>
+					<tns:start_oper>
+						<tns:action action="compute" id="6"/>	
+					</tns:start_oper>
+				</tns:operation>
+			</tns:parallel_oper>
+		</tns:operation>
+		
+	</tns:sequence_oper>
+
+	
+	
 </tns:workflow>

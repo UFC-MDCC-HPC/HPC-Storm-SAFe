@@ -1,6 +1,6 @@
 package br.ufc.mdcc.pargo.safe.grammar.arch;
 
-public class ArchTaskAttachment {
+public class ArchTaskBinding extends ArchBinding{
 
 	private ArchTask taskA;
 	private ArchTask taskB;
@@ -20,7 +20,7 @@ public class ArchTaskAttachment {
 	
 	@Override
 	public String toString() {
-		String res="";
+		String res=super.toString();
 		res+="\n"+this.taskA;
 		res+="\n"+this.taskB;
 		return res;

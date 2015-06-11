@@ -9,9 +9,9 @@ import br.ufc.mdcc.pargo.safe.grammar.flow.visitor.AbstractSAFeElementLogic;
  * Implements the logic for START operation.
  * [start]
  *  |
- *  |---handle_id---|--resolve [comp_id]
- *  				|--instantiate [comp_id]
- *  				|--compute [comp_id]
+ *  |---handle_id(?)---|--resolve [comp_id]
+ *  				   |--instantiate [comp_id]
+ *  				   |--compute [comp_id]
  *  
  * @author jefferson
  *

@@ -1,9 +1,12 @@
 package br.ufc.mdcc.pargo.safe.grammar.arch;
 
+import java.util.List;
+
 public class ArchPort {
 
 	private String name;
 	private Integer id;
+	private List<ArchAction> actions;
 	
 	public ArchPort(){
 		this.name = "";
@@ -30,6 +33,14 @@ public class ArchPort {
 		this.id = id;
 	}
 	
+	public List<ArchAction> getActions() {
+		return actions;
+	}
+
+	public void setActions(List<ArchAction> actions) {
+		this.actions = actions;
+	}
+
 	@Override
 	public boolean equals(Object obj) {
 		
@@ -44,7 +55,13 @@ public class ArchPort {
 
 	@Override
 	public String toString() {
-		return "ArchPort [name=" + name + ", id=" + id + "]";
+		String res;
+		res = "ArchPort [name=" + name + ", id=" + id + "]";
+		if(this.actions!=null)
+		for(ArchAction action:this.actions)
+			res+="\n\t\t"+action;
+		return res;
+		
 	}
 	
 }

@@ -1,6 +1,6 @@
 package br.ufc.mdcc.pargo.safe.grammar.arch;
 
-public class ArchEnvAttachment {
+public class ArchEnvBinding extends ArchBinding{
 
 	private ArchUses uses;
 	private ArchProvides provides;
@@ -21,7 +21,7 @@ public class ArchEnvAttachment {
 	
 	@Override
 	public String toString() {
-		String res="";
+		String res=super.toString();
 		res+="\n"+this.uses;
 		res+="\n"+this.provides;
 		return res;
