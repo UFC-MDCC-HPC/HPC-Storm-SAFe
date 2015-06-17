@@ -48,8 +48,11 @@ public class ArchMain {
 		
 		public static final String ACTION = "action";
 		
+		public static final String CONTRACT = "contract";
+		
 		public static final String att_name = "name";
 		public static final String att_id = "id";
+		public static final String att_url = "url";
 		
 		public ArchMain(){
 			this.usesList = new ArrayList<ArchUses>();

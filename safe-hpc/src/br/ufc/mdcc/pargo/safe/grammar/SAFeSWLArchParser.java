@@ -12,6 +12,7 @@ import org.jdom2.input.SAXBuilder;
 
 import br.ufc.mdcc.pargo.safe.grammar.arch.ArchAction;
 import br.ufc.mdcc.pargo.safe.grammar.arch.ArchApplication;
+import br.ufc.mdcc.pargo.safe.grammar.arch.ArchContract;
 import br.ufc.mdcc.pargo.safe.grammar.arch.ArchEnvBinding;
 import br.ufc.mdcc.pargo.safe.grammar.arch.ArchBody;
 import br.ufc.mdcc.pargo.safe.grammar.arch.ArchComponent;
@@ -137,6 +138,25 @@ public class SAFeSWLArchParser {
 		}
 
 	}
+	
+	private void readComponentContrac(Element element, ArchComponent comp){
+		for (Element child : element.getChildren()){
+			if (child.getName().equalsIgnoreCase(ArchMain.CONTRACT)) {
+				Long id = Long.parseLong(child.getAttributeValue(ArchMain.att_id));
+				String name = child.getAttributeValue(ArchMain.att_name);
+				String url = child.getAttributeValue(ArchMain.att_url);
+				
+				ArchContract contract = new ArchContract();
+				contract.setId(id);
+				contract.setName(name);
+				contract.setUrl(url);
+				
+				comp.setContract(contract);
+				
+			}
+		}
+		
+	}
 
 	private List<ArchAction> readAction(Element port){
 		List<ArchAction> actions = new ArrayList<ArchAction>();
@@ -195,21 +215,25 @@ public class SAFeSWLArchParser {
 				ArchComputation comp = (ArchComputation) this.architectureMain
 						.createArchComputation(child);
 				this.readComponentPorts(child, comp);
+				this.readComponentContrac(child, comp);
 				body.addArchComponent(comp);
 			} else if (child.getName().equalsIgnoreCase(ArchMain.CONNECTOR)) {
 				ArchConnector conn = (ArchConnector) this.architectureMain
 						.createArchConnector(child);
 				this.readComponentPorts(child, conn);
+				this.readComponentContrac(child, conn);
 				body.addArchComponent(conn);
 			} else if (child.getName().equalsIgnoreCase(ArchMain.PLATFORM)) {
 				ArchPlatform plat = (ArchPlatform) this.architectureMain
 						.createArchPlatform(child);
 				this.readComponentPorts(child, plat);
+				this.readComponentContrac(child, plat);
 				body.addArchComponent(plat);
 			} else if (child.getName().equalsIgnoreCase(ArchMain.REPOSITORY)) {
 				ArchRepository rep = (ArchRepository) this.architectureMain
 						.createArchRepository(child);
 				this.readComponentPorts(child, rep);
+				this.readComponentContrac(child, rep);
 				body.addArchComponent(rep);
 			}
 

@@ -48,6 +48,13 @@
 					<tns:action id="342" name="conn_action_342" />
 				</tns:task_port>
 			</tns:task_ports>
+			
+			<tns:contract
+				id="35"
+				name="conn_contract"
+				url="http://contract.com.br?conn.wsdl" 
+			/>
+			
 		</tns:connector>
 
 		<tns:computation name="comp_A" id="4">
@@ -60,6 +67,11 @@
 					<tns:action id="422" name="comp_B_action_422" />
 				</tns:task_port>
 			</tns:task_ports>
+			<tns:contract
+				id="43"
+				name="compA_contract"
+				url="http://contract.com.br?comp_A.wsdl" 
+			/>
 		</tns:computation>
 
 		<tns:computation name="comp_B" id="5">
@@ -72,6 +84,11 @@
 					<tns:action id="522" name="comp_B_action_522" />
 				</tns:task_port>
 			</tns:task_ports>
+			<tns:contract
+				id="53"
+				name="compB_contract"
+				url="http://contract.com.br?comp_B.wsdl" 
+			/>
 		</tns:computation>
 
 		<tns:computation name="comp_C" id="6">
@@ -84,6 +101,11 @@
 					<tns:action id="622" name="comp_C_action_622" />
 				</tns:task_port>
 			</tns:task_ports>
+			<tns:contract
+				id="63"
+				name="compC_contract"
+				url="http://contract.com.br?comp_C.wsdl" 
+			/>
 		</tns:computation>
 	</tns:body>
 

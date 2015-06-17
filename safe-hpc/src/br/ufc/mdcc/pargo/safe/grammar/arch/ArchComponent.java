@@ -7,9 +7,11 @@ public class ArchComponent {
 
 	private String name;
 	private Integer id;
+	private ArchContract contract;
 	private List<ArchUses> usesList;
 	private List<ArchProvides> providesList;
 	private List<ArchTask> taskList;
+	
 	
 	public ArchComponent() {
 		this.usesList = new ArrayList<ArchUses>();
@@ -45,6 +47,14 @@ public class ArchComponent {
 		this.id = id;
 	}
 	
+	public ArchContract getContract() {
+		return contract;
+	}
+
+	public void setContract(ArchContract contract) {
+		this.contract = contract;
+	}
+
 	@Override
 	public boolean equals(Object obj) {
 		
@@ -57,6 +67,8 @@ public class ArchComponent {
 	@Override
 	public String toString() {
 		String res = "ArchComponent [name=" + name + ", id=" + id + "]";
+		if(contract!=null)
+			res += this.contract;
 		for(ArchPort port:this.usesList){
 			res += "\n\t"+port.toString();
 		}
