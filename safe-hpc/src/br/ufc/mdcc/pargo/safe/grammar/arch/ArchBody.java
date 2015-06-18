@@ -15,6 +15,23 @@ public class ArchBody {
 		this.components.add(comp);
 	}
 	
+	public ArchComponent getArchComponentById(Integer id){
+		ArchComponent ac = new ArchComponent();
+		ac.setId(id);
+		int indexOf = this.components.indexOf(ac);
+		ArchComponent archComponent = this.components.get(indexOf);
+		return archComponent;
+	}
+	
+	public ArchAction getArchActionById(Integer id){
+		ArchAction action = null;
+		for(ArchComponent comp:this.components){
+			action = comp.getArchActionById(id);
+			if(action!=null) return action;
+		}
+		return action;
+	}
+	
 	@Override
 	public String toString() {
 		String res="";

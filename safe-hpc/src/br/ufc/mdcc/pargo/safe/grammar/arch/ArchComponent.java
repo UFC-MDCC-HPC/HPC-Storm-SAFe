@@ -55,6 +55,29 @@ public class ArchComponent {
 		this.contract = contract;
 	}
 
+	public ArchAction getArchActionById(Integer id){
+		
+		ArchAction action = null;
+		
+		for(ArchTask task:this.taskList){
+			action = task.getArchActionById(id);
+			if(action!=null) return action;
+		}
+		
+		for(ArchUses uses:this.usesList){
+			action = uses.getArchActionById(id);
+			if(action!=null) return action;
+		}
+		
+		for(ArchProvides provides:this.providesList){
+			action = provides.getArchActionById(id);
+			if(action!=null) return action;
+		}
+		
+		
+		return action;
+	}
+	
 	@Override
 	public boolean equals(Object obj) {
 		

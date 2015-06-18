@@ -1,37 +1,76 @@
 package br.ufc.mdcc.pargo.safe.grammar.flow.visitor.logic;
 
+import br.ufc.mdcc.pargo.safe.framework.HPCStormObjectRepository;
+import br.ufc.mdcc.pargo.safe.grammar.arch.ArchAction;
+import br.ufc.mdcc.pargo.safe.grammar.arch.ArchComponent;
 import br.ufc.mdcc.pargo.safe.grammar.flow.SAFeOrchestrationElement;
 import br.ufc.mdcc.pargo.safe.grammar.flow.XMLSAFeAction;
 import br.ufc.mdcc.pargo.safe.grammar.flow.XMLSAFePrimOper;
 import br.ufc.mdcc.pargo.safe.grammar.flow.visitor.AbstractSAFeElementLogic;
 
-public class LogicWaitOper extends AbstractSAFeElementLogic{
+/**
+ * Implements the logic for WAIT operation.
+ * [wait]
+ *  |
+ *  |---handle_id(?)---|--resolve [comp_id]
+ *  				   |--instantiate [comp_id]
+ *  				   |--compute [action_id]
+ *  
+ * @author jefferson
+ *
+ */
+public class LogicWaitOper extends AbstractSAFeElementLogic {
 
 	@Override
 	public void logic(SAFeOrchestrationElement element) {
 		String handle_id = null;
-		String  action_id = null;
+		String subject_id = null; // action_id or component_id
 		String action_oper = null;
-		
-		if(element.getElement() instanceof XMLSAFePrimOper){
-			XMLSAFePrimOper wait_oper = (XMLSAFePrimOper)element.getElement();
+
+		if (element.getElement() instanceof XMLSAFePrimOper) {
+			XMLSAFePrimOper wait_oper = (XMLSAFePrimOper) element.getElement();
 			handle_id = wait_oper.getHandleId();
 		}
-		
-		
-		for(int i=element.getChildren().size()-1;i>=0;i--){
+
+		for (int i = element.getChildren().size() - 1; i >= 0; i--) {
 			SAFeOrchestrationElement child = element.getChildren().get(i);
-			if(child.getElement() instanceof XMLSAFeAction){
-				XMLSAFeAction safe_action = (XMLSAFeAction)child.getElement();
-				action_id = safe_action.getId();
+			if (child.getElement() instanceof XMLSAFeAction) {
+				XMLSAFeAction safe_action = (XMLSAFeAction) child.getElement();
+				subject_id = safe_action.getId();
 				action_oper = safe_action.getAction().value();
 			}
 		}
-			
-		System.out.println("\thandle_id: " + handle_id);
-		System.out.println("\taction_id: " + action_id);
-		System.out.println("\taction_oper: " + action_oper);
-		
+
+		if (action_oper.equals("resolve")) {
+			this.resolveOper(subject_id);
+		} else if (action_oper.equals("instantiate")) {
+			this.instatiateOper(subject_id);
+		} else if (action_oper.equals("compute")) {
+			this.computeOper(subject_id);
+		}
+
+	}
+
+	private void instatiateOper(String compId) {
+
+		ArchComponent archComponent = HPCStormObjectRepository
+				.getWorkflowEngine().getArchComponentByID(
+						Integer.parseInt(compId));
+		System.out.println("ACTION: " + archComponent);
+	}
+
+	private void resolveOper(String compId) {
+
+		ArchComponent archComponent = HPCStormObjectRepository
+				.getWorkflowEngine().getArchComponentByID(
+						Integer.parseInt(compId));
+		System.out.println("ACTION: " + archComponent);
+
+	}
+
+	private void computeOper(String actionId) {
+		ArchAction archAction = HPCStormObjectRepository.getWorkflowEngine()
+				.getArchActionId(Integer.parseInt(actionId));
+		System.out.println("ACTION: " + archAction);
 	}
 }
-

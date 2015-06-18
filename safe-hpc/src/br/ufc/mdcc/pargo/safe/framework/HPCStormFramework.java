@@ -15,7 +15,7 @@ public class HPCStormFramework implements IHPCStormFramework{
 	private HPCStormApplication applicationComponent;
 	//workflow component
 	private IHPCStormWorkflowComponent workflowComponent;
-	//the services object, shared among other SAFe entities
+	
 	
 	
 	

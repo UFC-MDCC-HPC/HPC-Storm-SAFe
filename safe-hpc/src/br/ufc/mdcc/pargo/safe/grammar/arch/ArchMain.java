@@ -205,6 +205,15 @@ public class ArchMain {
 			if(index<0) return null;
 			else return this.taskList.get(index);
 		}
+		
+		//some services...
+		public ArchComponent getArchComponentByID(Integer id){
+			return this.body.getArchComponentById(id);
+		}
+		
+		public ArchAction getArchActionBy(Integer id){
+			return this.body.getArchActionById(id);
+		}
 	
 		@Override
 		public String toString() {

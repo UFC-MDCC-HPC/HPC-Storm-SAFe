@@ -22,6 +22,7 @@ public class HPCStormWorkflowComponent implements IHPCStormWorkflowComponent{
 	public HPCStormWorkflowComponent() {
 		
 		this.engine = new HPCStormWorkflowEngine();
+		HPCStormObjectRepository.setWorkflowEngine(this.engine);
 		this.safeSWL = new HPCStormSAFeSWL();
 
 	}

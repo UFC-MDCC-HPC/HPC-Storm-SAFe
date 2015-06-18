@@ -19,6 +19,15 @@ public class ArchAction {
 	}
 	
 	@Override
+	public boolean equals(Object obj) {
+		if(!(obj instanceof ArchAction))
+			return false;
+		ArchAction actionTemp = (ArchAction)obj;
+		if(this.id.intValue()==actionTemp.id.intValue()) return true;
+		return false;
+	}
+	
+	@Override
 	public String toString() {
 		return "ArchAction [name=" + name + ", id=" + id + "]";
 	}

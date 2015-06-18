@@ -40,6 +40,16 @@ public class ArchPort {
 	public void setActions(List<ArchAction> actions) {
 		this.actions = actions;
 	}
+	
+	public ArchAction getArchActionById(Integer id){
+		ArchAction action = new ArchAction();
+		action.setId(id);
+		
+		int indexOf =  this.actions.indexOf(action);
+		if(indexOf>=0)
+			return this.actions.get(indexOf);
+		return null;
+	}
 
 	@Override
 	public boolean equals(Object obj) {

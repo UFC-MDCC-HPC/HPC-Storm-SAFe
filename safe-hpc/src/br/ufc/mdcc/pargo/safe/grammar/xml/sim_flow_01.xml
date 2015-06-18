@@ -57,22 +57,22 @@
 		<tns:operation>
 			<tns:parallel_oper>
 				<tns:operation>
-					<tns:start_oper>
+					<tns:start_oper handle_id="9">
 						<tns:action action="instantiate" id="3"/>	
 					</tns:start_oper>
 				</tns:operation>
 				<tns:operation>
-					<tns:start_oper>
+					<tns:start_oper handle_id="10">
 						<tns:action action="instantiate" id="4"/>	
 					</tns:start_oper>
 				</tns:operation>
 				<tns:operation>
-					<tns:start_oper>
+					<tns:start_oper handle_id="11">
 						<tns:action action="instantiate" id="5"/>	
 					</tns:start_oper>
 				</tns:operation>
 				<tns:operation>
-					<tns:start_oper>
+					<tns:start_oper handle_id="12">
 						<tns:action action="instantiate" id="6"/>	
 					</tns:start_oper>
 				</tns:operation>
@@ -82,23 +82,23 @@
 		<tns:operation>
 			<tns:parallel_oper>
 				<tns:operation>
-					<tns:start_oper>
-						<tns:action action="compute" id="3"/>	
+					<tns:start_oper handle_id="13">
+						<tns:action action="compute" id="311"/>	
 					</tns:start_oper>
 				</tns:operation>
 				<tns:operation>
-					<tns:start_oper>
-						<tns:action action="compute" id="4"/>	
+					<tns:start_oper handle_id="14">
+						<tns:action action="compute" id="421"/>	
 					</tns:start_oper>
 				</tns:operation>
 				<tns:operation>
-					<tns:start_oper>
-						<tns:action action="compute" id="5"/>	
+					<tns:start_oper handle_id="15">
+						<tns:action action="compute" id="521"/>	
 					</tns:start_oper>
 				</tns:operation>
 				<tns:operation>
-					<tns:start_oper>
-						<tns:action action="compute" id="6"/>	
+					<tns:start_oper handle_id="16">
+						<tns:action action="compute" id="621"/>	
 					</tns:start_oper>
 				</tns:operation>
 			</tns:parallel_oper>

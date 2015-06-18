@@ -5,10 +5,7 @@
 
 	<tns:application name="app_component" id="1">
 		<tns:env_ports>
-			<tns:uses name="app_uses_A" id="10">
-				<tns:action id="101" name="app_uses_A_101" />
-				<tns:action id="102" name="app_uses_A_102" />
-			</tns:uses>
+			<tns:uses name="app_uses_A" id="10"/>
 			<tns:uses name="app_uses_B" id="11" />
 			<tns:uses name="app_uses_C" id="12" />
 			<tns:uses name="app_uses_wf" id="13" />

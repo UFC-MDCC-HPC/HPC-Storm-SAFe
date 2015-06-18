@@ -4,6 +4,8 @@ import br.ufc.mdcc.pargo.safe.exception.HPCStormException;
 import br.ufc.mdcc.pargo.safe.grammar.SAFeSWLArchParser;
 import br.ufc.mdcc.pargo.safe.grammar.SAFeSWLFlowParser;
 import br.ufc.mdcc.pargo.safe.grammar.SAFeSWLValidator;
+import br.ufc.mdcc.pargo.safe.grammar.arch.ArchAction;
+import br.ufc.mdcc.pargo.safe.grammar.arch.ArchComponent;
 import br.ufc.mdcc.pargo.safe.grammar.arch.ArchMain;
 import br.ufc.mdcc.pargo.safe.grammar.flow.SAFeOrchestrationWorkflow;
 import br.ufc.mdcc.pargo.safe.util.SAFeConsoleLogger;
@@ -36,6 +38,14 @@ public class HPCStormWorkflowEngine {
 		
 	}
 	
+	public ArchMain getArchMain() {
+		return archMain;
+	}
+
+	public void setFlowMain(SAFeOrchestrationWorkflow flowMain) {
+		this.flowMain = flowMain;
+	}
+
 	public void run() throws HPCStormException{
 		
 		if(this.safeSWL!=null){
@@ -60,11 +70,17 @@ public class HPCStormWorkflowEngine {
 			System.out.println(this.flowMain);
 			this.flowMain.run();
 			
-			
 		}
 		
 	}
-
-	 
+	
+	public ArchComponent getArchComponentByID(Integer id){
+		return this.archMain.getArchComponentByID(id);
+	}
+	
+	public ArchAction getArchActionId(Integer id){
+		return this.archMain.getArchActionBy(id);
+	}
+	
 }
 
