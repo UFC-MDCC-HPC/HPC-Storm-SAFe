@@ -56,19 +56,19 @@ public class LogicStartOper extends AbstractSAFeElementLogic{
 	private void instatiateOper(String compId){
 		
 		ArchComponent archComponent = HPCStormObjectRepository.getWorkflowEngine().getArchComponentByID(Integer.parseInt(compId));
-		System.out.println("ACTION: " +archComponent);
+		System.out.println("start instantiate=> archComponent: ["+archComponent.getId()+"]" + archComponent.getName());
 	}
 	
 	private void resolveOper(String compId){
 		
 		ArchComponent archComponent = HPCStormObjectRepository.getWorkflowEngine().getArchComponentByID(Integer.parseInt(compId));
-		System.out.println("ACTION: " +archComponent);
+		System.out.println("start resolve=> archComponent: ["+archComponent.getId()+"]" + archComponent.getName());
 
 	}
 	
 	private void computeOper(String actionId){
 		ArchAction archAction = HPCStormObjectRepository.getWorkflowEngine().getArchActionId(Integer.parseInt(actionId));
-		System.out.println("ACTION: " + archAction);
+		System.out.println("start compute=> archAction: ["+archAction.getId()+"]" + archAction.getName());
 	}
 
 }

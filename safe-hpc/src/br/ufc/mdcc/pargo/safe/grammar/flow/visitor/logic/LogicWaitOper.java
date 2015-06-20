@@ -56,7 +56,7 @@ public class LogicWaitOper extends AbstractSAFeElementLogic {
 		ArchComponent archComponent = HPCStormObjectRepository
 				.getWorkflowEngine().getArchComponentByID(
 						Integer.parseInt(compId));
-		System.out.println("ACTION: " + archComponent);
+		System.out.println("wait instantiate=> archComponent: ["+archComponent.getId()+"]" + archComponent.getName());
 	}
 
 	private void resolveOper(String compId) {
@@ -64,13 +64,13 @@ public class LogicWaitOper extends AbstractSAFeElementLogic {
 		ArchComponent archComponent = HPCStormObjectRepository
 				.getWorkflowEngine().getArchComponentByID(
 						Integer.parseInt(compId));
-		System.out.println("ACTION: " + archComponent);
+		System.out.println("wait resolve=> archComponent: ["+archComponent.getId()+"]" + archComponent.getName());
 
 	}
 
 	private void computeOper(String actionId) {
 		ArchAction archAction = HPCStormObjectRepository.getWorkflowEngine()
 				.getArchActionId(Integer.parseInt(actionId));
-		System.out.println("ACTION: " + archAction);
+		System.out.println("wait compute=> archAction: ["+archAction.getId()+"]" + archAction.getName());
 	}
 }

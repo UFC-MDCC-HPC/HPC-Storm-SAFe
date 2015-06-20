@@ -44,7 +44,7 @@ public class LogicInvokeOper extends AbstractSAFeElementLogic{
 		ArchComponent archComponent = HPCStormObjectRepository
 				.getWorkflowEngine().getArchComponentByID(
 						Integer.parseInt(compId));
-		System.out.println("ACTION: " + archComponent);
+		System.out.println("invoke instantiate=> archComponent: ["+archComponent.getId()+"]" + archComponent.getName());
 	}
 
 	private void resolveOper(String compId) {
@@ -52,13 +52,13 @@ public class LogicInvokeOper extends AbstractSAFeElementLogic{
 		ArchComponent archComponent = HPCStormObjectRepository
 				.getWorkflowEngine().getArchComponentByID(
 						Integer.parseInt(compId));
-		System.out.println("ACTION: " + archComponent);
+		System.out.println("invoke resolve=> archComponent: ["+archComponent.getId()+"]" + archComponent.getName());
 
 	}
 
 	private void computeOper(String actionId) {
 		ArchAction archAction = HPCStormObjectRepository.getWorkflowEngine()
 				.getArchActionId(Integer.parseInt(actionId));
-		System.out.println("ACTION: " + archAction);
+		System.out.println("invoke compute=> archAction: ["+archAction.getId()+"]" + archAction.getName());
 	}
 }
