@@ -1,8 +1,10 @@
 package br.ufc.mdcc.pargo.safe.port.predef;
 
+import javax.jws.WebMethod;
 import javax.jws.WebService;
 
 import br.ufc.mdcc.pargo.safe.port.IHPCStormEnvProvidesPort;
+import br.ufc.mdcc.pargo.safe.util.FileUtil;
 import br.ufc.mdcc.pargo.safe.util.SAFeConstants;
 /**
  * This port belong to the application. 
@@ -52,6 +54,20 @@ public class SAFeSWLProvidesPort
 	public String getFlowXMLLocation() {
 		String fileName = SAFeConstants.FLOW_FILE_TEST;
 		return fileName;
+	}
+
+	@Override
+	@WebMethod
+	public String getArchXMLSourceCode() {
+		String res = FileUtil.readFileAsString(SAFeConstants.ARCH_FILE_TEST);
+		return res;
+	}
+
+	@Override
+	@WebMethod
+	public String getFlowXMLSourceCode() {
+		String res = FileUtil.readFileAsString(SAFeConstants.FLOW_FILE_TEST);
+		return res;
 	}
 
 	

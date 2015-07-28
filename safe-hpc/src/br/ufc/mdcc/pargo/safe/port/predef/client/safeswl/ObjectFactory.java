@@ -30,14 +30,42 @@ public class ObjectFactory {
     private final static QName _GetFlowXMLLocation_QNAME = new QName("http://predef.port.safe.pargo.mdcc.ufc.br/", "getFlowXMLLocation");
     private final static QName _GetArchXMLLocation_QNAME = new QName("http://predef.port.safe.pargo.mdcc.ufc.br/", "getArchXMLLocation");
     private final static QName _GetId_QNAME = new QName("http://predef.port.safe.pargo.mdcc.ufc.br/", "getId");
+    private final static QName _GetArchXMLSourceCodeResponse_QNAME = new QName("http://predef.port.safe.pargo.mdcc.ufc.br/", "getArchXMLSourceCodeResponse");
+    private final static QName _GetFlowXMLSourceCode_QNAME = new QName("http://predef.port.safe.pargo.mdcc.ufc.br/", "getFlowXMLSourceCode");
+    private final static QName _GetFlowXMLSourceCodeResponse_QNAME = new QName("http://predef.port.safe.pargo.mdcc.ufc.br/", "getFlowXMLSourceCodeResponse");
     private final static QName _GetName_QNAME = new QName("http://predef.port.safe.pargo.mdcc.ufc.br/", "getName");
     private final static QName _GetNameResponse_QNAME = new QName("http://predef.port.safe.pargo.mdcc.ufc.br/", "getNameResponse");
+    private final static QName _GetArchXMLSourceCode_QNAME = new QName("http://predef.port.safe.pargo.mdcc.ufc.br/", "getArchXMLSourceCode");
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: br.ufc.mdcc.pargo.safe.port.predef.client.safeswl
      * 
      */
     public ObjectFactory() {
+    }
+
+    /**
+     * Create an instance of {@link GetArchXMLSourceCodeResponse }
+     * 
+     */
+    public GetArchXMLSourceCodeResponse createGetArchXMLSourceCodeResponse() {
+        return new GetArchXMLSourceCodeResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetFlowXMLSourceCode }
+     * 
+     */
+    public GetFlowXMLSourceCode createGetFlowXMLSourceCode() {
+        return new GetFlowXMLSourceCode();
+    }
+
+    /**
+     * Create an instance of {@link GetArchXMLSourceCode }
+     * 
+     */
+    public GetArchXMLSourceCode createGetArchXMLSourceCode() {
+        return new GetArchXMLSourceCode();
     }
 
     /**
@@ -54,6 +82,14 @@ public class ObjectFactory {
      */
     public GetName createGetName() {
         return new GetName();
+    }
+
+    /**
+     * Create an instance of {@link GetFlowXMLSourceCodeResponse }
+     * 
+     */
+    public GetFlowXMLSourceCodeResponse createGetFlowXMLSourceCodeResponse() {
+        return new GetFlowXMLSourceCodeResponse();
     }
 
     /**
@@ -159,6 +195,33 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetArchXMLSourceCodeResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://predef.port.safe.pargo.mdcc.ufc.br/", name = "getArchXMLSourceCodeResponse")
+    public JAXBElement<GetArchXMLSourceCodeResponse> createGetArchXMLSourceCodeResponse(GetArchXMLSourceCodeResponse value) {
+        return new JAXBElement<GetArchXMLSourceCodeResponse>(_GetArchXMLSourceCodeResponse_QNAME, GetArchXMLSourceCodeResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetFlowXMLSourceCode }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://predef.port.safe.pargo.mdcc.ufc.br/", name = "getFlowXMLSourceCode")
+    public JAXBElement<GetFlowXMLSourceCode> createGetFlowXMLSourceCode(GetFlowXMLSourceCode value) {
+        return new JAXBElement<GetFlowXMLSourceCode>(_GetFlowXMLSourceCode_QNAME, GetFlowXMLSourceCode.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetFlowXMLSourceCodeResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://predef.port.safe.pargo.mdcc.ufc.br/", name = "getFlowXMLSourceCodeResponse")
+    public JAXBElement<GetFlowXMLSourceCodeResponse> createGetFlowXMLSourceCodeResponse(GetFlowXMLSourceCodeResponse value) {
+        return new JAXBElement<GetFlowXMLSourceCodeResponse>(_GetFlowXMLSourceCodeResponse_QNAME, GetFlowXMLSourceCodeResponse.class, null, value);
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link GetName }{@code >}}
      * 
      */
@@ -174,6 +237,15 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://predef.port.safe.pargo.mdcc.ufc.br/", name = "getNameResponse")
     public JAXBElement<GetNameResponse> createGetNameResponse(GetNameResponse value) {
         return new JAXBElement<GetNameResponse>(_GetNameResponse_QNAME, GetNameResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetArchXMLSourceCode }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://predef.port.safe.pargo.mdcc.ufc.br/", name = "getArchXMLSourceCode")
+    public JAXBElement<GetArchXMLSourceCode> createGetArchXMLSourceCode(GetArchXMLSourceCode value) {
+        return new JAXBElement<GetArchXMLSourceCode>(_GetArchXMLSourceCode_QNAME, GetArchXMLSourceCode.class, null, value);
     }
 
 }

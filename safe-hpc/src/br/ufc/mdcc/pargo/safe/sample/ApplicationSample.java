@@ -1,7 +1,6 @@
 package br.ufc.mdcc.pargo.safe.sample;
 
 import br.ufc.mdcc.pargo.safe.application.HPCStormApplication;
-import br.ufc.mdcc.pargo.safe.port.IHPCStormEnvProvidesPort;
 import br.ufc.mdcc.pargo.safe.port.predef.SAFeSWLProvidesPort;
 import br.ufc.mdcc.pargo.safe.service.IHPCStormServices;
 
@@ -12,11 +11,7 @@ import br.ufc.mdcc.pargo.safe.service.IHPCStormServices;
  */
 public class ApplicationSample extends HPCStormApplication{
 
-	//services object
-	private IHPCStormServices services;
 	
-	//pre def port
-	private IHPCStormEnvProvidesPort safeFeSWLPort;
 	
 	public ApplicationSample() {
 		super();

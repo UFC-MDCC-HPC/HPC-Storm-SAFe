@@ -1,5 +1,7 @@
 package br.ufc.mdcc.pargo.safe.port.predef;
 
+import javax.jws.WebMethod;
+
 import br.ufc.mdcc.pargo.safe.port.IHPCStormEnvUsesPort;
 import br.ufc.mdcc.pargo.safe.port.predef.client.safeswl.SAFeSWLProvidesPortService;
 import br.ufc.mdcc.pargo.safe.util.SAFeConsoleLogger;
@@ -46,6 +48,20 @@ public class SAFeSWLUsesPort
 		br.ufc.mdcc.pargo.safe.port.predef.client.safeswl.ISAFeSWLPort port = service.getSAFeSWLProvidesPortPort();
 		SAFeConsoleLogger.write("SAFeSWLUsesPort connected");
 		return port.getArchXMLLocation();
+	}
+
+	@Override
+	@WebMethod
+	public String getArchXMLSourceCode() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	@WebMethod
+	public String getFlowXMLSourceCode() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }

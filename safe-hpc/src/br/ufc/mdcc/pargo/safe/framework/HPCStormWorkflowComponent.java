@@ -22,6 +22,7 @@ public class HPCStormWorkflowComponent implements IHPCStormWorkflowComponent{
 	public HPCStormWorkflowComponent() {
 		
 		this.engine = new HPCStormWorkflowEngine();
+		//SESSION? PLEASE, SEARCH FOR BETTER ALTERNATIVES...
 		HPCStormObjectRepository.setWorkflowEngine(this.engine);
 		this.safeSWL = new HPCStormSAFeSWL();
 
@@ -44,7 +45,7 @@ public class HPCStormWorkflowComponent implements IHPCStormWorkflowComponent{
 	 */
 	public void run(){
 		
-		//getting information form predef ports
+		//getting information form predef ports (WEB SERVICES)
 		String flowFileName = ((ISAFeSWLPort)this.safeSWLPort).getFlowXMLLocation();
 		String archFileName = ((ISAFeSWLPort)this.safeSWLPort).getArchXMLLocation();
 		

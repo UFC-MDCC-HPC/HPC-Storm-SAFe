@@ -3,6 +3,7 @@ package br.ufc.mdcc.pargo.safe.application;
 import br.ufc.mdcc.pargo.safe.component.IHPCStormComponent;
 import br.ufc.mdcc.pargo.safe.factory.HPCStormFrameworkFactory;
 import br.ufc.mdcc.pargo.safe.framework.IHPCStormFramework;
+import br.ufc.mdcc.pargo.safe.port.IHPCStormEnvProvidesPort;
 import br.ufc.mdcc.pargo.safe.service.IHPCStormServices;
 import br.ufc.mdcc.pargo.safe.util.SAFeConsoleLogger;
 
@@ -16,6 +17,10 @@ import br.ufc.mdcc.pargo.safe.util.SAFeConsoleLogger;
 public abstract class HPCStormApplication implements IHPCStormComponent{
 	
 	private IHPCStormFramework framework = null;
+	//services object
+	protected IHPCStormServices services;	
+	//pre def port
+	protected IHPCStormEnvProvidesPort safeFeSWLPort; //ACHO QUE DEVEM SER DEFINIDAS NA CLASSE MÃE
 	
 	
 	public HPCStormApplication() {

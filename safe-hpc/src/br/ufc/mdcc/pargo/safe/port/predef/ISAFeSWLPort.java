@@ -12,5 +12,8 @@ public interface ISAFeSWLPort extends IHPCStormPort{
 	public String getArchXMLLocation();
 	@WebMethod
 	public String getFlowXMLLocation();
-	
+	@WebMethod
+	public String getArchXMLSourceCode();
+	@WebMethod
+	public String getFlowXMLSourceCode();
 }

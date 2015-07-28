@@ -10,4 +10,5 @@ import java.util.List;
 public interface ICoreRemoteServices {
 
 	public List<String> resolveComponent(Integer compId, Integer contractId);
+	public Boolean instantiate(Integer compId);
 }

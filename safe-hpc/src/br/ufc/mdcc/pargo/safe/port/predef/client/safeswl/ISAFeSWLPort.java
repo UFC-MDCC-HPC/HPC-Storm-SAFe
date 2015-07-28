@@ -54,6 +54,30 @@ public interface ISAFeSWLPort {
      */
     @WebMethod
     @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "getArchXMLSourceCode", targetNamespace = "http://predef.port.safe.pargo.mdcc.ufc.br/", className = "br.ufc.mdcc.pargo.safe.port.predef.client.safeswl.GetArchXMLSourceCode")
+    @ResponseWrapper(localName = "getArchXMLSourceCodeResponse", targetNamespace = "http://predef.port.safe.pargo.mdcc.ufc.br/", className = "br.ufc.mdcc.pargo.safe.port.predef.client.safeswl.GetArchXMLSourceCodeResponse")
+    @Action(input = "http://predef.port.safe.pargo.mdcc.ufc.br/ISAFeSWLPort/getArchXMLSourceCodeRequest", output = "http://predef.port.safe.pargo.mdcc.ufc.br/ISAFeSWLPort/getArchXMLSourceCodeResponse")
+    public String getArchXMLSourceCode();
+
+    /**
+     * 
+     * @return
+     *     returns java.lang.String
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "getFlowXMLSourceCode", targetNamespace = "http://predef.port.safe.pargo.mdcc.ufc.br/", className = "br.ufc.mdcc.pargo.safe.port.predef.client.safeswl.GetFlowXMLSourceCode")
+    @ResponseWrapper(localName = "getFlowXMLSourceCodeResponse", targetNamespace = "http://predef.port.safe.pargo.mdcc.ufc.br/", className = "br.ufc.mdcc.pargo.safe.port.predef.client.safeswl.GetFlowXMLSourceCodeResponse")
+    @Action(input = "http://predef.port.safe.pargo.mdcc.ufc.br/ISAFeSWLPort/getFlowXMLSourceCodeRequest", output = "http://predef.port.safe.pargo.mdcc.ufc.br/ISAFeSWLPort/getFlowXMLSourceCodeResponse")
+    public String getFlowXMLSourceCode();
+
+    /**
+     * 
+     * @return
+     *     returns java.lang.String
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
     @RequestWrapper(localName = "getName", targetNamespace = "http://predef.port.safe.pargo.mdcc.ufc.br/", className = "br.ufc.mdcc.pargo.safe.port.predef.client.safeswl.GetName")
     @ResponseWrapper(localName = "getNameResponse", targetNamespace = "http://predef.port.safe.pargo.mdcc.ufc.br/", className = "br.ufc.mdcc.pargo.safe.port.predef.client.safeswl.GetNameResponse")
     @Action(input = "http://predef.port.safe.pargo.mdcc.ufc.br/ISAFeSWLPort/getNameRequest", output = "http://predef.port.safe.pargo.mdcc.ufc.br/ISAFeSWLPort/getNameResponse")
