@@ -7,6 +7,8 @@ import org.jdom2.Element;
 
 public class ArchMain {
 		
+		//whole application name
+		private String applicationName;
 		//Application Component
 		private ArchApplication archApplication;
 		//Workflow Component
@@ -24,6 +26,7 @@ public class ArchMain {
 		private List<ArchTaskBinding> attachmentTaskList; 
 		
 		//list of reserved words in XML
+		public static final String APPLICATION_NAME = "application_name";
 		public static final String APPLICATION = "application";
 		public static final String WORKFLOW = "workflow";
 		public static final String BODY = "body";
@@ -38,21 +41,38 @@ public class ArchMain {
 		public static final String ENV_PORTS = "env_ports";
 		public static final String TASK_PORTS = "task_ports";
 		
-		public static final String USES = "uses";
-		public static final String PROVIDES = "provides";
+		public static final String USES = "uses_port";
+		public static final String PROVIDES = "provides_port";
 		
 		public static final String TASK_PORT = "task_port";
 		
-		public static final String TASK_A = "task_A";
-		public static final String TASK_B = "task_B";
+		public static final String TASK_LEFT_PEER = "left_peer";
+		public static final String TASK_RIGHT_PEER = "right_peer";
 		
 		public static final String ACTION = "action";
 		
 		public static final String CONTRACT = "contract";
+		public static final String URI = "uri";
+		public static final String INSTANTIATION_TYPE = "instantiation_type";
+		public static final String CONTEXTUAL_TYPE = "contextual_type";
+		public static final String UNIT_MAPPING = "unit_mapping";
+		public static final String FACET_ADDRESS = "facet_address";
+		public static final String NODE = "node";
+		public static final String VARIABLE = "variable";
+		public static final String TYPE = "type";
+		public static final String ARGUMENT = "argument";
 		
 		public static final String att_name = "name";
 		public static final String att_id = "id";
 		public static final String att_url = "url";
+		public static final String att_instance_ref = "instance_ref";
+		public static final String att_unit_id = "unit_id"; 
+		public static final String att_unit_index = "unit_index";
+		public static final String att_address = "address";
+		public static final String att_port = "port";
+		public static final String att_comp_ref = "component_ref";
+		public static final String att_parameter_id = "parameter_id";
+		
 		
 		public ArchMain(){
 			this.usesList = new ArrayList<ArchUses>();
@@ -67,12 +87,14 @@ public class ArchMain {
 		public ArchApplication createArchApplication(Element appElement){
 			ArchApplication archApp = new ArchApplication();
 			archApp.setName(appElement.getAttributeValue(att_name));
+			archApp.setId(Integer.parseInt(appElement.getAttributeValue(att_id)));
 			return archApp;
 		}
 		
 		public ArchWorkflow createArchWorkflow(Element wfElement){
 			ArchWorkflow archWf = new ArchWorkflow();
 			archWf.setName(wfElement.getAttributeValue(att_name));
+			archWf.setId(Integer.parseInt(wfElement.getAttributeValue(att_id)));
 			return archWf;
 		}
 		
@@ -94,21 +116,21 @@ public class ArchMain {
 		
 		public ArchUses createArchUses(Element usesElement){
 			ArchUses archUses = new ArchUses();
-			archUses.setName(usesElement.getAttributeValue(att_name));
+			//archUses.setName(usesElement.getAttributeValue(att_name));
 			archUses.setId(Integer.parseInt((usesElement.getAttributeValue(att_id))));
 			return archUses;
 		}
 		
 		public ArchProvides createArchProvides(Element providesElement){
 			ArchProvides archProvides = new ArchProvides();
-			archProvides.setName(providesElement.getAttributeValue(att_name));
+			//archProvides.setName(providesElement.getAttributeValue(att_name));
 			archProvides.setId(Integer.parseInt((providesElement.getAttributeValue(att_id))));
 			return archProvides;
 		}
 		
 		public ArchTask createArchTask(Element providesElement){
 			ArchTask archTask = new ArchTask();
-			archTask.setName(providesElement.getAttributeValue(att_name));
+			//archTask.setName(providesElement.getAttributeValue(att_name));
 			archTask.setId(Integer.parseInt((providesElement.getAttributeValue(att_id))));
 			return archTask;
 		}
@@ -215,6 +237,14 @@ public class ArchMain {
 			return this.body.getArchActionById(id);
 		}
 	
+		public String getApplicationName() {
+			return applicationName;
+		}
+
+		public void setApplicationName(String applicationName) {
+			this.applicationName = applicationName;
+		}
+
 		@Override
 		public String toString() {
 		

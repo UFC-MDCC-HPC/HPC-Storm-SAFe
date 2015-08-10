@@ -6,13 +6,13 @@ import br.ufc.mdcc.pargo.safe.util.SAFeConstants;
 
 public class ArchitectureLanguageTest {
 
-	public static void testValidator(){
+	public static boolean testValidator(){
 		
 		SAFeSWLValidator validator = new SAFeSWLValidator();
 		String xmlFile = SAFeConstants.ARCH_FILE_TEST;
 		
 		boolean res = validator.validateXMLArchitecture(xmlFile);
-		System.out.println(res);
+		return res;
 	}
 	
 	public static void testParser(){
@@ -24,7 +24,7 @@ public class ArchitectureLanguageTest {
 	}
 	
 	public static void main(String[] args) {
-		ArchitectureLanguageTest.testValidator();
+		if(ArchitectureLanguageTest.testValidator())
 		ArchitectureLanguageTest.testParser();
 	}
 }

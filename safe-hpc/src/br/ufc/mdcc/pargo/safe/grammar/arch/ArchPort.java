@@ -66,7 +66,7 @@ public class ArchPort {
 	@Override
 	public String toString() {
 		String res;
-		res = "ArchPort [name=" + name + ", id=" + id + "]";
+		res = "ArchPort [id=" + id + "]";
 		if(this.actions!=null)
 		for(ArchAction action:this.actions)
 			res+="\n\t\t"+action;
