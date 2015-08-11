@@ -17,5 +17,11 @@ public class ArchFacetAddressType {
 	public void setPort(Integer port) {
 		this.port = port;
 	}
+	@Override
+	public String toString() {
+		return "ArchFacetAddressType [address=" + address + ", port=" + port
+				+ "]";
+	}
+	
 	
 }

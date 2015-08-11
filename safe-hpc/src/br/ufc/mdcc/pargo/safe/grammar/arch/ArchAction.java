@@ -1,6 +1,6 @@
 package br.ufc.mdcc.pargo.safe.grammar.arch;
 
-public class ArchAction {
+public class ArchAction implements IArchObject{
 
 	private Integer id;
 	private String name;

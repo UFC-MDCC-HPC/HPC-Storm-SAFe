@@ -3,7 +3,7 @@ package br.ufc.mdcc.pargo.safe.grammar.arch;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ArchComponent {
+public class ArchComponent implements IArchObject{
 
 	private String name;
 	private Integer id;
@@ -101,6 +101,8 @@ public class ArchComponent {
 		for(ArchPort port:this.taskList){
 			res += "\n\t"+port.toString();
 		}
+		if(this.contract!=null)
+			res+=this.contract;
 		return res;
 	}
 	

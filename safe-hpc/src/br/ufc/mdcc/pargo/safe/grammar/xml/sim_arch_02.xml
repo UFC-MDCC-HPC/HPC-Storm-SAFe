@@ -9,7 +9,7 @@
 		<tns:uses_port id="12" />
 		<tns:uses_port id="13" />
 		<tns:provides_port id="14" />
-		<tns:contract>
+		<tns:contract id="0" name="contract_0">
 			<tns:uri>http://tempuri.org1</tns:uri>
 		</tns:contract>
 	</tns:application>
@@ -17,7 +17,7 @@
 	<tns:workflow id="2" name="wf_uses_app">
 		<tns:uses_port id="21" />
 		<tns:provides_port id="22" />
-		<tns:contract>
+		<tns:contract id="1" name="contract_1">
 			<tns:uri>http://tempuri.org1</tns:uri>
 		</tns:contract>
 	</tns:workflow>
@@ -25,7 +25,7 @@
 	<tns:body>
 		<tns:connector name="conn" id="3">
 			<tns:provides_port id="36" />
-			<tns:contract>
+			<tns:contract id="2" name="contract_2">
 				<tns:instantiation_type instance_ref="ref_app">
 					<tns1:contextual_type component_ref="ZZZ">
 						<tns1:argument parameter_id="001">
@@ -38,6 +38,9 @@
 									</tns1:type>
 								</tns1:argument>
 							</tns1:type>
+						</tns1:argument>
+						<tns1:argument>
+							<tns1:variable>FIM2</tns1:variable>
 						</tns1:argument>
 					</tns1:contextual_type>
 					<tns1:unit_mapping unit_id="0" unit_index="0">
@@ -54,34 +57,54 @@
 					<tns1:facet_address address="127.0.0.2" port="8080" />
 				</tns:instantiation_type>
 			</tns:contract>
-			<tns:task_port id="31" />
-			<tns:task_port id="32" />
-			<tns:task_port id="33" />
+			<tns:task_port id="31">
+				<tns:action id="310" name="action0" />
+				<tns:action id="311" name="action1" />
+			</tns:task_port>
+			<tns:task_port id="32">
+				<tns:action id="320" name="action0" />
+				<tns:action id="321" name="action1" />
+			</tns:task_port>
+			<tns:task_port id="33">
+				<tns:action id="330" name="action0" />
+				<tns:action id="331" name="action1" />
+			</tns:task_port>
+
 		</tns:connector>
 
 
 		<tns:computation name="comp_A" id="4">
 			<tns:provides_port id="41" />
-			<tns:contract>
+			<tns:contract id="3" name="contract_3">
 				<tns:uri>http://tempuri.org4</tns:uri>
 			</tns:contract>
-			<tns:task_port id="42" />
+			<tns:task_port id="42">
+				<tns:action id="420" name="action0" />
+				<tns:action id="421" name="action1" />
+			</tns:task_port>
+
 		</tns:computation>
 
 		<tns:computation name="comp_A" id="5">
 			<tns:provides_port id="51" />
-			<tns:contract>
+			<tns:contract id="4" name="contract_4">
 				<tns:uri>http://tempuri.org5</tns:uri>
 			</tns:contract>
-			<tns:task_port id="52" />
+			<tns:task_port id="52">
+				<tns:action id="520" name="action0" />
+				<tns:action id="521" name="action1" />
+			</tns:task_port>
 		</tns:computation>
 
 		<tns:computation name="comp_A" id="6">
 			<tns:provides_port id="61" />
-			<tns:contract>
+			<tns:contract id="5" name="contract_5">
 				<tns:uri>http://tempuri.org6</tns:uri>
 			</tns:contract>
-			<tns:task_port id="62" />
+			<tns:task_port id="62">
+				<tns:action id="620" name="action0" />
+				<tns:action id="621" name="action1" />
+			</tns:task_port>
 		</tns:computation>
 	</tns:body>
 
@@ -111,18 +134,37 @@
 	</tns:env_binding>
 
 	<tns:task_binding>
-		<tns:left_peer id="31" />
-		<tns:right_peer id="42" />
+		<tns:left_peer id="31">
+			<tns:action id="310" name="action0" />
+			<tns:action id="311" name="action1" />
+		</tns:left_peer>
+		<tns:right_peer id="42">
+			<tns:action id="420" name="action0" />
+			<tns:action id="421" name="action1" />
+		</tns:right_peer>
 	</tns:task_binding>
 
 	<tns:task_binding>
-		<tns:left_peer id="32" />
-		<tns:right_peer id="52" />
+		<tns:left_peer id="32">
+			<tns:action id="320" name="action0" />
+			<tns:action id="321" name="action1" />
+		</tns:left_peer>
+
+		<tns:right_peer id="52">
+			<tns:action id="520" name="action0" />
+			<tns:action id="521" name="action1" />
+		</tns:right_peer>
 	</tns:task_binding>
 
 	<tns:task_binding>
-		<tns:left_peer id="33" />
-		<tns:right_peer id="62" />
+		<tns:left_peer id="33">
+			<tns:action id="330" name="action0" />
+			<tns:action id="331" name="action1" />
+		</tns:left_peer>
+		<tns:right_peer id="62">
+			<tns:action id="620" name="action0" />
+			<tns:action id="621" name="action1" />
+		</tns:right_peer>
 	</tns:task_binding>
 
 

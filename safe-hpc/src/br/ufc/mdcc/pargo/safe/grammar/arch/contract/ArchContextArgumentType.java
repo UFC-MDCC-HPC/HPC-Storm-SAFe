@@ -25,6 +25,11 @@ public class ArchContextArgumentType {
 	public void setType(ArchComponentFunctorApplicationType type) {
 		this.type = type;
 	}
+	@Override
+	public String toString() {
+		return "ArchContextArgumentType [parameterId=" + parameterId
+				+ ", variable=" + variable + ", type=" + type + "]";
+	}
 	
 	
 }

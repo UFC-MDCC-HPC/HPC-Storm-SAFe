@@ -27,4 +27,12 @@ public class ArchComponentFunctorApplicationType {
 	public List<ArchContextArgumentType> getContextArgumentList() {
 		return contextArgumentList;
 	}
+
+	@Override
+	public String toString() {
+		return "ArchComponentFunctorApplicationType [componentRef="
+				+ componentRef + ", contextArgumentList=" + contextArgumentList
+				+ "]";
+	}
+	
 }

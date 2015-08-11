@@ -1,7 +1,9 @@
 package br.ufc.mdcc.pargo.safe.grammar.arch;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.jdom2.Element;
 
@@ -23,7 +25,9 @@ public class ArchMain {
 		private List<ArchTask> taskList;
 		//List of Binding elements
 		private List<ArchEnvBinding> attachmentEnvList;
-		private List<ArchTaskBinding> attachmentTaskList; 
+		private List<ArchTaskBinding> attachmentTaskList;
+		//List of Contracts
+		private List<ArchContract> contractList;
 		
 		//list of reserved words in XML
 		public static final String APPLICATION_NAME = "application_name";
@@ -81,6 +85,7 @@ public class ArchMain {
 			this.body = new ArchBody();
 			this.attachmentEnvList = new ArrayList<ArchEnvBinding>();
 			this.attachmentTaskList = new ArrayList<ArchTaskBinding>();
+			this.contractList = new ArrayList<ArchContract>();
 		}
 		
 		//create methods
@@ -128,10 +133,17 @@ public class ArchMain {
 			return archProvides;
 		}
 		
-		public ArchTask createArchTask(Element providesElement){
+		public ArchTask createArchTask(Element element){
 			ArchTask archTask = new ArchTask();
 			//archTask.setName(providesElement.getAttributeValue(att_name));
-			archTask.setId(Integer.parseInt((providesElement.getAttributeValue(att_id))));
+			archTask.setId(Integer.parseInt((element.getAttributeValue(att_id))));
+			for(Element child:element.getChildren()){
+				if(child.getName().equalsIgnoreCase(ArchMain.ACTION)){
+					ArchAction action = this.createArchAction(child);
+					archTask.addArchAction(action);
+				}
+			}
+			
 			return archTask;
 		}
 		
@@ -175,7 +187,7 @@ public class ArchMain {
 			return archAction;
 		}
 		
-		//adding methods
+		//adding methods (these methods are used for query purposes only)
 		public void addArchUses(ArchUses uses){
 			this.usesList.add(uses);
 		}
@@ -190,6 +202,9 @@ public class ArchMain {
 		}
 		public void addArchTaskAttachment(ArchTaskBinding binding){
 			this.attachmentTaskList.add(binding);
+		}
+		public void addArchContract(ArchContract contract){
+			this.contractList.add(contract);
 		}
 		
 		//setting
@@ -226,6 +241,14 @@ public class ArchMain {
 			int index = this.taskList.indexOf(provides);
 			if(index<0) return null;
 			else return this.taskList.get(index);
+		}
+		
+		public ArchContract getArchContractById(Integer id){
+			ArchContract contract = new ArchContract();
+			contract.setId(id);
+			int index = this.contractList.indexOf(contract);
+			if(index<0) return null;
+			else return this.contractList.get(index);
 		}
 		
 		//some services...

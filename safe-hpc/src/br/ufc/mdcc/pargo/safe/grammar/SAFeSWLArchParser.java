@@ -9,6 +9,7 @@ import org.jdom2.Element;
 import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
 
+import br.ufc.mdcc.pargo.safe.grammar.arch.ArchAction;
 import br.ufc.mdcc.pargo.safe.grammar.arch.ArchApplication;
 import br.ufc.mdcc.pargo.safe.grammar.arch.ArchBody;
 import br.ufc.mdcc.pargo.safe.grammar.arch.ArchComponent;
@@ -56,8 +57,6 @@ public class SAFeSWLArchParser {
 			for (Element child : children) {
 				String elementName = child.getName();
 
-				// choosing parent element
-				// 
 				if (elementName.equalsIgnoreCase(ArchMain.APPLICATION)) {
 					ArchApplication archApp = this.architectureMain
 							.createArchApplication(child);
@@ -120,12 +119,15 @@ public class SAFeSWLArchParser {
 					ArchMain.CONTRACT)){
 				ArchContract contract = this.createComponentContract(child);
 				comp.setContract(contract);
+				this.architectureMain.addArchContract(contract);
 			}
 		}
 	}
 	
 	private ArchContract createComponentContract(Element element){
 		ArchContract contract = new ArchContract();
+		contract.setId(Integer.parseInt(element.getAttributeValue(ArchMain.att_id)));
+		contract.setName(element.getAttributeValue(ArchMain.att_name));
 		for (Element child : element.getChildren()) { //exclusive OR
 			if(child.getName().equalsIgnoreCase(
 					ArchMain.URI)){
@@ -200,6 +202,13 @@ public class SAFeSWLArchParser {
 		facet.setAddress(e.getAttributeValue(ArchMain.att_address));
 		facet.setPort(Integer.parseInt(e.getAttributeValue(ArchMain.att_port)));
 		return facet;
+	}
+	
+	private ArchAction createArchAction(Element e){
+		ArchAction action = new ArchAction();
+		action.setId(Integer.parseInt(e.getAttributeValue(ArchMain.att_id)));
+		action.setName(e.getAttributeValue(ArchMain.att_name));
+		return action;
 	}
 	
 	private void readEnvAttchment(Element element, ArchEnvBinding att) {

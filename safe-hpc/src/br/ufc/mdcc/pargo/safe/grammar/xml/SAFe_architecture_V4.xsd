@@ -127,7 +127,13 @@
 
 	<complexType name="PortTask">
 		<complexContent>
-			<extension base="tns:Port"></extension>
+			<extension base="tns:Port">
+				<sequence>
+					<element name="action" type="tns:Action"
+						maxOccurs="unbounded" minOccurs="1">
+					</element>
+				</sequence>
+			</extension>
 		</complexContent>
 	</complexType>
 
@@ -153,5 +159,12 @@
 			<element name="uri" type="anyURI"></element>
 			<element name="instantiation_type" type="Q1:InstanceType"></element>
 		</choice>
+		<attribute name="id" type="int" use="required"></attribute>
+		<attribute name="name" type="string"></attribute>
+	</complexType>
+
+	<complexType name="Action">
+		<attribute name="id" type="int"></attribute>
+		<attribute name="name" type="string"></attribute>
 	</complexType>
 </schema>

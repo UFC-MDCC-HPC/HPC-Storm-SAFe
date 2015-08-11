@@ -1,6 +1,6 @@
 package br.ufc.mdcc.pargo.safe.grammar.arch;
 
-public class ArchBinding {
+public class ArchBinding implements IArchObject{
 
 	protected Integer id;
 	protected String name;

@@ -2,7 +2,7 @@ package br.ufc.mdcc.pargo.safe.grammar.arch;
 
 import java.util.List;
 
-public class ArchPort {
+public class ArchPort implements IArchObject{
 
 	private String name;
 	private Integer id;

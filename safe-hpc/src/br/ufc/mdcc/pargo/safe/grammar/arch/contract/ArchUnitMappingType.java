@@ -34,4 +34,10 @@ public class ArchUnitMappingType {
 		return nodes;
 	}
 	
+	@Override
+	public String toString() {
+		return "ArchUnitMappingType [unitId=" + unitId + ", unitIndex="
+				+ unitIndex + ", nodes=" + nodes + "]";
+	}
+	
 }

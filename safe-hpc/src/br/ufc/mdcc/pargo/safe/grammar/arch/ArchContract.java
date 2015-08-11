@@ -2,17 +2,17 @@ package br.ufc.mdcc.pargo.safe.grammar.arch;
 
 import br.ufc.mdcc.pargo.safe.grammar.arch.contract.ArchInstanceType;
 
-public class ArchContract {
+public class ArchContract implements IArchObject{
 
-	private Long id;
+	private Integer id;
 	private String name;
 	private String uri;
 	private ArchInstanceType instanceType;
 	
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 	public String getName() {
@@ -36,7 +36,18 @@ public class ArchContract {
 	@Override
 	public String toString() {
 		return "ArchContract [id=" + id + ", name=" + name + ", uri=" + uri
-				+ "]";
+				+ "]" +
+				"\nTYPE: "+this.instanceType;
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if(!(obj instanceof ArchContract))
+			return false;
+		
+		ArchContract ref = (ArchContract)obj;
+		if(ref.getId().longValue()==this.id.longValue()) return true;
+		return false;
 	}
 	 
 }

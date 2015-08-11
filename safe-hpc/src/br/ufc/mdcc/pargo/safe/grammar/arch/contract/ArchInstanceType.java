@@ -47,5 +47,14 @@ public class ArchInstanceType {
 	public List<ArchFacetAddressType> getFacetAddresList() {
 		return facetAddresList;
 	}
+
+	@Override
+	public String toString() {
+		return "ArchInstanceType [instanceRef=" + instanceRef
+				+ ", componentFunctorApplication="
+				+ componentFunctorApplication + ", unitMappingList="
+				+ unitMappingList + ", facetAddresList=" + facetAddresList
+				+ "]";
+	}
 	
 }

@@ -25,6 +25,6 @@ public class ArchitectureLanguageTest {
 	
 	public static void main(String[] args) {
 		if(ArchitectureLanguageTest.testValidator())
-		ArchitectureLanguageTest.testParser();
+			ArchitectureLanguageTest.testParser();
 	}
 }
