@@ -2,6 +2,7 @@ package br.ufc.mdcc.pargo.safe.test;
 
 import br.ufc.mdcc.pargo.safe.grammar.SAFeSWLArchParser;
 import br.ufc.mdcc.pargo.safe.grammar.SAFeSWLValidator;
+import br.ufc.mdcc.pargo.safe.grammar.arch.ArchMain;
 import br.ufc.mdcc.pargo.safe.util.SAFeConstants;
 
 public class ArchitectureLanguageTest {
@@ -19,7 +20,9 @@ public class ArchitectureLanguageTest {
 		SAFeSWLArchParser parser = new SAFeSWLArchParser();
 		String fileName = SAFeConstants.ARCH_FILE_TEST;
 		parser.readArchXML(fileName);
-		System.out.println(parser.getArchitectureMain());
+		ArchMain archMain = parser.getArchitectureMain();
+		System.out.println(archMain.getArchContractById(2));
+		//System.out.println(parser.getArchitectureMain());
 		
 	}
 	

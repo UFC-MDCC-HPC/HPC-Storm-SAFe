@@ -80,7 +80,7 @@
 			<extension base="tns:XML_SAFe_Base">
 				<sequence>
 
-					<element name="action" type="tns:XML_SAFe_Action"></element>
+					<element name="action" type="tns:XML_SAFe_Action" nillable="true"></element>
 
 				</sequence>
 				<attribute name="handle_id" type="string" use="optional"></attribute>

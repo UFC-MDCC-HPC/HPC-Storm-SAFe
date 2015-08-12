@@ -64,7 +64,7 @@ public class ArchComponent implements IArchObject{
 			if(action!=null) return action;
 		}
 		
-		for(ArchUses uses:this.usesList){
+		/*for(ArchUses uses:this.usesList){
 			action = uses.getArchActionById(id);
 			if(action!=null) return action;
 		}
@@ -72,7 +72,7 @@ public class ArchComponent implements IArchObject{
 		for(ArchProvides provides:this.providesList){
 			action = provides.getArchActionById(id);
 			if(action!=null) return action;
-		}
+		}*/
 		
 		
 		return action;

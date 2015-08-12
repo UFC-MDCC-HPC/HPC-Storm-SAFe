@@ -14,9 +14,21 @@ public class ArchTask extends ArchPort {
 	public void addArchAction(ArchAction action){
 		this.actions.add(action);
 	}
+
+	public List<ArchAction> getActions() {
+		return actions;
+	}
+
+	 
 	
-	public List<ArchAction> getActions(){
-		return this.actions;
+	public ArchAction getArchActionById(Integer id){
+		ArchAction action = new ArchAction();
+		action.setId(id);
+		
+		int indexOf =  this.actions.indexOf(action);
+		if(indexOf>=0)
+			return this.actions.get(indexOf);
+		return null;
 	}
 	
 	@Override

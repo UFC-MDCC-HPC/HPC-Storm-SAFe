@@ -6,7 +6,7 @@ public class ArchPort implements IArchObject{
 
 	private String name;
 	private Integer id;
-	private List<ArchAction> actions;
+	
 	
 	public ArchPort(){
 		this.name = "";
@@ -33,23 +33,6 @@ public class ArchPort implements IArchObject{
 		this.id = id;
 	}
 	
-	public List<ArchAction> getActions() {
-		return actions;
-	}
-
-	public void setActions(List<ArchAction> actions) {
-		this.actions = actions;
-	}
-	
-	public ArchAction getArchActionById(Integer id){
-		ArchAction action = new ArchAction();
-		action.setId(id);
-		
-		int indexOf =  this.actions.indexOf(action);
-		if(indexOf>=0)
-			return this.actions.get(indexOf);
-		return null;
-	}
 
 	@Override
 	public boolean equals(Object obj) {
@@ -61,17 +44,6 @@ public class ArchPort implements IArchObject{
 			return false;
 
 		return true;
-	}
-
-	@Override
-	public String toString() {
-		String res;
-		res = "ArchPort [id=" + id + "]";
-		if(this.actions!=null)
-		for(ArchAction action:this.actions)
-			res+="\n\t\t"+action;
-		return res;
-		
 	}
 	
 }

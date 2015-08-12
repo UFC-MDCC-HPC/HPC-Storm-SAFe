@@ -16,6 +16,7 @@ public class ArchBody {
 	}
 	
 	public ArchComponent getArchComponentById(Integer id){
+		System.out.println("SIZE:" +this.components.size());
 		ArchComponent ac = new ArchComponent();
 		ac.setId(id);
 		int indexOf = this.components.indexOf(ac);

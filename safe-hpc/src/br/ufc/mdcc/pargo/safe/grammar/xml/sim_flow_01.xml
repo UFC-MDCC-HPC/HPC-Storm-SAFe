@@ -13,7 +13,7 @@
 
 		<tns:operation>
 			<tns:wait_oper handle_id="2">
-				<tns:action action="resolve" id="3" />
+				<tns:action action="resolve" id="4" />
 			</tns:wait_oper>
 		</tns:operation>
 
@@ -21,17 +21,17 @@
 			<tns:parallel_oper>
 				<tns:operation>
 					<tns:start_oper handle_id="3">
-						<tns:action action="resolve" id="4" />
+						<tns:action action="resolve" id="3" />
 					</tns:start_oper>
 				</tns:operation>
 				<tns:operation>
 					<tns:start_oper handle_id="4">
-						<tns:action action="resolve" id="5" />
+						<tns:action action="resolve" id="4" />
 					</tns:start_oper>
 				</tns:operation>
 				<tns:operation>
 					<tns:start_oper handle_id="5">
-						<tns:action action="resolve" id="6" />
+						<tns:action action="resolve" id="5" />
 					</tns:start_oper>
 				</tns:operation>
 			</tns:parallel_oper>
@@ -39,17 +39,17 @@
 		
 		<tns:operation>
 			<tns:wait_oper handle_id="6">
-				<tns:action action="resolve" id="4" />
+				<tns:action action="resolve" id="3" />
 			</tns:wait_oper>
 		</tns:operation>
 		<tns:operation>
 			<tns:wait_oper handle_id="7">
-				<tns:action action="resolve" id="5" />
+				<tns:action action="resolve" id="4" />
 			</tns:wait_oper>
 		</tns:operation>
 		<tns:operation>
 			<tns:wait_oper handle_id="8">
-				<tns:action action="resolve" id="6" />
+				<tns:action action="resolve" id="5" />
 			</tns:wait_oper>
 		</tns:operation>
 		
@@ -83,17 +83,17 @@
 			<tns:parallel_oper>
 				<tns:operation>
 					<tns:start_oper handle_id="13">
-						<tns:action action="compute" id="311"/>	
+						<tns:action action="compute" id="620"/>	
 					</tns:start_oper>
 				</tns:operation>
 				<tns:operation>
 					<tns:start_oper handle_id="14">
-						<tns:action action="compute" id="421"/>	
+						<tns:action action="compute" id="621"/>	
 					</tns:start_oper>
 				</tns:operation>
 				<tns:operation>
 					<tns:start_oper handle_id="15">
-						<tns:action action="compute" id="521"/>	
+						<tns:action action="compute" id="621"/>	
 					</tns:start_oper>
 				</tns:operation>
 				<tns:operation>

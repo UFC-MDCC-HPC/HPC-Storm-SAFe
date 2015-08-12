@@ -268,6 +268,8 @@ public class ArchMain {
 			this.applicationName = applicationName;
 		}
 
+		
+		
 		@Override
 		public String toString() {
 		
