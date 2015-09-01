@@ -1,19 +1,33 @@
 package br.ufc.mdcc.pargo.safe.core;
 
-import java.util.List;
+ 
 
 public class CoreRemoteServicesImpl implements ICoreRemoteServices{
 
 	@Override
-	public List<String> resolveComponent(Integer compId, Integer contractId) {
+	public String resolve(String xml) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Boolean instantiate(Integer compId) {
+	public String deploy(String xml) {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public String instantiate(String xml) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String release(String xml) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	 
 
 }

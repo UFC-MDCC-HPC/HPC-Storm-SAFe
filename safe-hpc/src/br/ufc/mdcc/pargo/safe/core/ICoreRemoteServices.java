@@ -1,6 +1,5 @@
 package br.ufc.mdcc.pargo.safe.core;
 
-import java.util.List;
 
 /**
  * Inteface with CORE main services.
@@ -9,6 +8,24 @@ import java.util.List;
  */
 public interface ICoreRemoteServices {
 
-	public List<String> resolveComponent(Integer compId, Integer contractId);
-	public Boolean instantiate(Integer compId);
+	/**
+	 * in: a context_contrac in xml format
+	 * out: list of candidates in xml format
+	 */
+	public String resolve(String xml);
+	/**
+	 * in: a list of context_contract in xml format
+	 * out: session URI
+	 */
+	public String deploy(String xml);
+	/**
+	 * in: session URI
+	 * out: running web-service component address
+	 */
+	public String instantiate(String xml);
+	/**
+	 * in: session URI
+	 * out: OK or NOK message output
+	 */
+	public String release(String xml);
 }
