@@ -112,7 +112,7 @@
 			<extension base="tns:Component">
 				<sequence>
 					<element name="task_port" type="tns:PortTask"
-						maxOccurs="unbounded" minOccurs="1">
+						maxOccurs="unbounded" minOccurs="0">
 					</element>
 				</sequence>
 			</extension>
@@ -140,6 +140,7 @@
 	<complexType name="Port">
 		<attribute name="id" type="int"></attribute>
 		<attribute name="id_component" type="int"></attribute>
+		<attribute name="name" type="string"></attribute>
 	</complexType>
 
 	<complexType name="PortEnvironmentUses">

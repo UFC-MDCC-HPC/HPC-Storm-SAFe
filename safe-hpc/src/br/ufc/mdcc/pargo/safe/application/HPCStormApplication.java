@@ -20,7 +20,7 @@ public abstract class HPCStormApplication implements IHPCStormComponent{
 	//services object
 	protected IHPCStormServices services;	
 	//pre def port
-	protected IHPCStormEnvProvidesPort safeFeSWLPort; //ACHO QUE DEVEM SER DEFINIDAS NA CLASSE MÃE
+	protected IHPCStormEnvProvidesPort safeFeSWLPort; 
 	
 	
 	public HPCStormApplication() {

@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tns:architecture xmlns:tns="http://www.example.org/SAFe_architecture_V4"
+	xmlns:tns1="http://www.example.org/instantiator" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.example.org/SAFe_architecture_V4 SAFe_architecture_V4.xsd ">
+
+	<tns:application>
+
+		<!-- MJPEG 5-A -->
+		<!-- m101_mosaic.jpg -->
+		<tns:uses_port id="30" id_component="200" name="file_port_mJpeg" />
+
+		<!-- MIMGTBL 1-A -->
+		<!-- images-rawdir.tbl -->
+		<tns:provides_port id="10" id_component="100"
+			name="param_port_mImgtbl_file_name_1" />
+
+		<!-- MPROJEXEC 1-B -->
+		<!-- stats.tbl -->
+		<tns:provides_port id="11" id_component="100"
+			name="param_port_mProjExec_file_name" />
+		<!-- -p -->
+		<tns:provides_port id="12" id_component="100"
+			name="param_port_mProjExec_param_config" />
+
+		<!-- MIMGTBL 1-C -->
+		<!-- images.tbl -->
+		<tns:provides_port id="13" id_component="100"
+			name="param_port_mImgtbl_file_name_2" />
+
+		<!-- MADD 2-A -->
+		<!-- m101_uncorrected.fits -->
+		<tns:provides_port id="14" id_component="100"
+			name="param_port_mAdd_file_name_1" />
+		<!-- -p -->
+		<tns:provides_port id="15" id_component="100"
+			name="param_port_mAdd_param_config_1" />
+
+		<!-- MOVERLAPS 3-A -->
+		<!-- diffs.tbl -->
+		<tns:provides_port id="16" id_component="100"
+			name="param_port_mOverlaps_file_name" />
+
+		<!-- MDIFFEXEC 3-B -->
+		<!-- -p -->
+		<tns:provides_port id="17" id_component="100"
+			name="param_port_mDiffExec_file_name" />
+
+		<!-- MFITEXEC 3-C -->
+		<!-- fits.tbl -->
+		<tns:provides_port id="18" id_component="100"
+			name="param_port_mFitsExec_file_name" />
+
+		<!-- MBGMODEL 4-A -->
+		<!-- corrections.tbl -->
+		<tns:provides_port id="19" id_component="100"
+			name="param_port_mBgModel_file_name" />
+
+		<!-- MBGEXEC 4-B -->
+		<!-- -p -->
+		<tns:provides_port id="20" id_component="100"
+			name="param_port_mBgExec_param_config" />
+
+		<!-- MADD 4-C -->
+		<!-- m101_mosaic.fits -->
+		<tns:provides_port id="21" id_component="100"
+			name="param_port_mAdd_file_name_2" />
+		<!-- -p -->
+		<tns:provides_port id="22" id_component="100"
+			name="param_port_mAdd_param_config_2" />
+
+		<!-- MJPEG 5-A -->
+		<!-- -gray -->
+		<tns:provides_port id="23" id_component="100"
+			name="param_port_mJpeg_param_config_1" />
+		<!-- 0s max gaussian-log -out -->
+		<tns:provides_port id="24" id_component="100"
+			name="param_port_mJpeg_param_config_2" />
+		<!-- m101_mosaic.jpg -->
+		<tns:provides_port id="25" id_component="100"
+			name="param_port_mJpeg_param_config_3" />
+
+		<tns:contract id="1">
+			<tns:uri>http://tempuri.org</tns:uri>
+		</tns:contract>
+	</tns:application>
+
+	<tns:workflow>
+		<tns:contract id="2">
+			<tns:uri>http://tempuri.org</tns:uri>
+		</tns:contract>
+	</tns:workflow>
+
+	<tns:body>
+		<tns:repository id="3" name="m101-repository">
+
+
+			<!-- ######## USES ######## -->
+			<!-- MIMGTBL 1-A -->
+			<!-- images-rawdir.tbl -->
+			<tns:uses_port id="40" id_component="200" name="file_port_mImgtbl_1" />
+			
+			<!-- MPROJEXEC 1-B -->
+			<!-- stats.tbl -->
+			<tns:uses_port id="41" id_component="200" name="file_port_mProjExec" />
+			
+			<!-- MIMGTBL 1-C -->
+			<!-- images.tbl -->
+			<tns:uses_port id="42" id_component="200" name="file_port_mImgtbl_1" />
+			
+			<!-- MADD 2-A -->
+			<!-- final/m101_uncorrected.fits -->
+			<tns:uses_port id="43" id_component="200" name="file_port_mAdd_2" />
+			
+			<!-- MOVERLAPS 3-A -->
+			<!-- diffs.tbl -->
+			<tns:uses_port id="44" id_component="200" name="file_port_mOverlaps" />
+			
+			<!-- MDIFFEXEC 3-B -->
+			<!-- diffdir -->
+			<tns:uses_port id="45" id_component="300" name="dir_port_mDiffExec	" />
+			
+			<!-- MFITEXEC 3-C -->
+			<!-- fits.tbl -->
+			<tns:uses_port id="46" id_component="200" name="file_port_mFitExec	" />
+			
+			<!-- MBGMODEL 4-A -->
+			<!-- corrections.tbl -->
+			<tns:uses_port id="47" id_component="200" name="file_port_mBgModel	" />
+			
+			<!-- MBGEXEC 4-B -->
+			<!-- corrdir -->
+			<tns:uses_port id="48" id_component="300" name="dir_port_mBgExec	" />
+			
+			<!-- MADD 4-C -->
+			<!-- final/m101_mosaic.fits -->
+			<tns:uses_port id="49" id_component="200" name="file_port_mAdd_2	" />
+			
+			<!-- MJPEG 5-A -->
+			<!-- m101_mosaic.jpg -->
+			<tns:uses_port id="50" id_component="200" name="file_port_mJpeg	" />
+			
+			<!-- ####### PROVIDES ####### -->
+			<!-- MIMGTBL 1-A -->
+			<tns:provides_port id="60" id_component="300" name="dir_port_mImgtbl_1"/> <!-- rawdir -->
+			
+			<!-- MPROJEXEC 1-B -->
+			<tns:provides_port id="61" id_component="300" name="dir_port_mProjExec_1"/> <!-- rawdir -->
+			<tns:provides_port id="62" id_component="300" name="dir_port_mProjExec_2"/> <!-- projdir -->
+			<tns:provides_port id="63" id_component="200" name="file_port_mProjExec_3"/> <!-- images-rawdir.tbl -->
+			<tns:provides_port id="64" id_component="200" name="file_port_mProjExec_4"/> <!-- template.hdr -->
+			
+			<!-- MIMGTBL 1-C -->
+			<tns:provides_port id="65" id_component="300" name="dir_port_mImgtbl_2"/> <!-- projdir -->
+			
+			<!-- MADD 2-A -->
+			<tns:provides_port id="66" id_component="300" name="dir_port_mAdd_1"/> <!-- projdir -->
+			<tns:provides_port id="67" id_component="200" name="file_port_mAdd_2"/> <!-- images.tbl -->
+			<tns:provides_port id="68" id_component="200" name="file_port_mAdd_3"/> <!-- template.hdr -->
+			
+			<!-- MOVERLAPS 3-A -->
+			<tns:provides_port id="69" id_component="200" name="file_port_mOverlaps_1"/> <!-- images.tbl -->
+			
+			<!-- MDIFFEXEC 3-B -->
+			<tns:provides_port id="70" id_component="300" name="dir_port_mDiffExec_1"/> <!-- projdir -->
+			<tns:provides_port id="71" id_component="200" name="file_port_mDiffExec_2"/> <!-- diffs.tbl -->
+			<tns:provides_port id="72" id_component="200" name="file_port_mDiffExec_3"/> <!-- template.hdr -->
+			
+			<!-- MFITEXEC 3-C -->
+			<tns:provides_port id="73" id_component="300" name="dir_port_mFitExec_1"/> <!-- diffdir -->
+			<tns:provides_port id="74" id_component="200" name="file_port_mFitExec_2"/> <!-- diffs.tbl -->
+			
+			<!-- MBGMODEL 4-A -->
+			<tns:provides_port id="75" id_component="200" name="file_port_mBgModel_1"/> <!-- images.tbl -->
+			<tns:provides_port id="76" id_component="200" name="file_port_mBgModel_2"/> <!-- fits.tbl  -->
+			
+			<!-- MBGEXEC 4-B -->
+			<tns:provides_port id="77" id_component="300" name="dir_port_mBgExec_1"/> <!-- projdir -->
+			<tns:provides_port id="78" id_component="200" name="file_port_mBgExec_2"/> <!-- images.tbl -->
+			<tns:provides_port id="79" id_component="200" name="file_port_mBgExec_3"/> <!-- corrections.tbl -->
+			
+			<!-- MADD 4-C -->
+			<tns:provides_port id="80" id_component="300" name="dir_port_mAdd_4"/> <!-- corrdir -->
+			<tns:provides_port id="81" id_component="200" name="file_port_mAdd_5"/> <!-- template.hdr -->
+			<tns:provides_port id="82" id_component="200" name="file_port_mAdd_6"/> <!-- final/m101_mosaic.fits -->
+			
+			<!-- MJPEG 5-A -->
+			<tns:provides_port id="83" id_component="200" name="file_port_mJpeg_1"/> <!-- m101_mosaic.fits -->
+			<tns:provides_port id="84" id_component="200" name="file_port_mJpeg_2"/> <!-- m101_mosaic.jpg -->
+			
+			<tns:contract id="3">
+				<tns:uri>http://tempuri.org</tns:uri>
+			</tns:contract>
+		</tns:repository>
+
+		<tns:computation id="4" name="mImgTbl">
+			<tns:uses_port id="401" id_component="100" name="param_port" /> <!-- images-rawdir.tbl -->
+			<tns:uses_port id="402" id_component="300" name="dir_port" /> <!-- rawdir -->
+			
+			<tns:uses_port id="401" id_component="100" name="param_port" /> <!-- images.tbl -->
+			<tns:uses_port id="402" id_component="300" name="dir_port" /> <!-- projdir -->
+			
+			<tns:provides_port id="403" id_component="200" name="file_port"/> <!-- images-rawdir.tbl -->
+			<tns:provides_port id="403" id_component="200" name="file_port"/> <!-- images.tbl -->
+			
+			<tns:contract id="4">
+				<tns:uri>http://tempuri.org</tns:uri>
+			</tns:contract>
+		</tns:computation>
+		
+		<tns:computation id="5" name="mProjExec">
+			<tns:uses_port id="502" id_component="100" name="param_port" /> <!-- stats.tbl -->
+			<tns:uses_port id="503" id_component="100" name="param_port" /> <!-- -p -->
+			<tns:uses_port id="504" id_component="300" name="dir_port" /> <!-- rawdir -->
+			<tns:uses_port id="505" id_component="300" name="dir_port" /> <!-- projdir -->
+			<tns:uses_port id="506" id_component="200" name="file_port" /> <!-- images-rawdir.tbl -->
+			<tns:uses_port id="507" id_component="200" name="file_port" /> <!-- template.hdr -->
+			
+			<tns:provides_port id="508" id_component="200" name="file_port" /> <!-- stats.tbl -->
+			
+			<tns:contract id="5">
+				<tns:uri>http://tempuri.org</tns:uri>
+			</tns:contract>
+		</tns:computation>
+		
+		<tns:computation id="6" name="mAdd">
+			<tns:uses_port id="601" id_component="100" name="param_port" /> <!-- -p -->
+			<tns:uses_port id="602" id_component="100" name="param_port" /> <!-- m101_uncorrected.fits -->
+			<tns:uses_port id="603" id_component="300" name="dir_port" /> <!-- projdir -->
+			<tns:uses_port id="604" id_component="200" name="file_port" /> <!-- images.tbl -->
+			<tns:uses_port id="605" id_component="200" name="file_port" /> <!-- template.hdr -->
+			
+			<tns:uses_port id="606" id_component="100" name="param_port" /> <!-- -p -->
+			<tns:uses_port id="607" id_component="100" name="param_port" /> <!-- m101_mosaic.fits -->
+			<tns:uses_port id="608" id_component="300" name="dir_port" /> <!-- corrdir -->
+			<tns:uses_port id="609" id_component="200" name="file_port" /> <!-- images.tbl -->
+			<tns:uses_port id="610" id_component="200" name="file_port" /> <!-- template.hdr -->
+			
+			<tns:provides_port id="611" id_component="200" name="file_port" /> <!-- final/m101_uncorrected.fits -->
+			
+			<tns:provides_port id="612" id_component="200" name="file_port" /> <!-- final/m101_mosaic.fits -->
+			<tns:contract id="6">
+				<tns:uri>http://tempuri.org</tns:uri>
+			</tns:contract>
+		</tns:computation>
+		
+		<tns:computation id="7" name="mOverlaps">
+			<tns:uses_port id="701" id_component="200" name="file_port" />  <!-- images.tbl -->
+			<tns:uses_port id="702" id_component="200" name="file_port" /> <!-- diffs.tbl -->
+			<tns:provides_port id="703" id_component="200" name="file_port"/> <!-- diffs.tbl -->
+			<tns:contract id="7">
+				<tns:uri>http://tempuri.org</tns:uri>
+			</tns:contract>
+		</tns:computation>
+		
+		<tns:computation id="8" name="mDiffExec">
+			<tns:uses_port id="801" id_component="100" name="param_port" /> <!-- -p -->
+			<tns:uses_port id="802" id_component="300" name="dir_port" /> <!-- projdir -->
+			<tns:uses_port id="803" id_component="200" name="file_port" /> <!-- diffs.tbl -->
+			<tns:uses_port id="804" id_component="200" name="file_port" /> <!-- template.hdr -->
+			
+			<tns:provides_port id="805" id_component="300" name="dir_port"/> <!-- diffdir -->
+			
+			<tns:contract id="8">
+				<tns:uri>http://tempuri.org</tns:uri>
+			</tns:contract>
+		</tns:computation>
+		
+		<tns:computation id="9" name="mFitExec">
+			<tns:uses_port id="901" id_component="100" name="param_port" /> <!-- fits.tbl	 -->
+			<tns:uses_port id="902" id_component="200" name="file_port" /> <!-- diffs.tbl -->
+			<tns:uses_port id="903" id_component="300" name="dir_port"/> <!-- diffdir -->
+			
+			<tns:provides_port id="904" id_component="200" name="file_port" /> <!-- fits.tbl	 -->
+			
+			
+			
+			<tns:contract id="9">
+				<tns:uri>http://tempuri.org</tns:uri>
+			</tns:contract>
+		</tns:computation>
+		
+		<tns:computation id="10" name="mBgModel">
+			<tns:uses_port id="1001" id_component="100" name="param_port" /> <!-- corrections.tbl -->
+			<tns:uses_port id="1002" id_component="200" name="file_port" /> <!-- images.tbl -->
+			<tns:uses_port id="1003" id_component="300" name="file_port"/> <!-- fits.tbl  -->
+			
+			<tns:provides_port id="1004" id_component="200" name="file_port" /> <!-- corrections.tbl -->
+			
+			<tns:contract id="10">
+				<tns:uri>http://tempuri.org</tns:uri>
+			</tns:contract>
+		</tns:computation>
+		
+		<tns:computation id="11" name="mBgExec">
+			<tns:uses_port id="1101" id_component="100" name="param_port" /> <!-- -p -->
+			<tns:uses_port id="1102" id_component="200" name="file_port" /> <!-- images.tbl -->
+			<tns:uses_port id="1103" id_component="300" name="file_port"/> <!-- corrections.tbl -->
+			<tns:uses_port id="1104" id_component="300" name="dir_port"/> <!-- projdir -->
+			
+			<tns:provides_port id="1105" id_component="200" name="dir_port" /> <!-- corrdir-->
+			
+			<tns:contract id="11">
+				<tns:uri>http://tempuri.org</tns:uri>
+			</tns:contract>
+		</tns:computation>
+		
+		<tns:computation id="12" name="mJpeg">
+			<tns:uses_port id="1201" id_component="100" name="param_port" /> <!-- -gray -->
+			<tns:uses_port id="1202" id_component="100" name="param_port" /> <!-- 0s max gaussian-log -out -->
+			<tns:uses_port id="1203" id_component="100" name="param_port" /> <!-- m101_mosaic.jpg -->
+			<tns:uses_port id="1204" id_component="300" name="file_port"/> <!-- m101_mosaic.fits -->
+			<tns:provides_port id="1205" id_component="200" name="file_port" /> <!-- m101_mosaic.jpg -->
+			
+			<tns:contract id="12">
+				<tns:uri>http://tempuri.org</tns:uri>
+			</tns:contract>
+		</tns:computation>
+		
+	</tns:body>
+
+</tns:architecture>

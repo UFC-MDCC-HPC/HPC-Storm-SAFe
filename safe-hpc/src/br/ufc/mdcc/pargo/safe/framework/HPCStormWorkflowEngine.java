@@ -46,6 +46,10 @@ public class HPCStormWorkflowEngine {
 		this.flowMain = flowMain;
 	}
 
+	/**
+	 * The magic begins here...
+	 * @throws HPCStormException
+	 */
 	public void run() throws HPCStormException{
 		
 		if(this.safeSWL!=null){
