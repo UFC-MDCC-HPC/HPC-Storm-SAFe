@@ -10,7 +10,8 @@ public class ArchitectureLanguageTest {
 	public static boolean testValidator(){
 		
 		SAFeSWLValidator validator = new SAFeSWLValidator();
-		String xmlFile = SAFeConstants.ARCH_FILE_TEST;
+		//String xmlFile = SAFeConstants.ARCH_FILE_TEST;
+		String xmlFile = "src/br/ufc/mdcc/pargo/safe/grammar/xml/m101-arch.xml";
 		
 		boolean res = validator.validateXMLArchitecture(xmlFile);
 		return res;
@@ -18,11 +19,11 @@ public class ArchitectureLanguageTest {
 	
 	public static void testParser(){
 		SAFeSWLArchParser parser = new SAFeSWLArchParser();
-		String fileName = SAFeConstants.ARCH_FILE_TEST;
+		//String fileName = SAFeConstants.ARCH_FILE_TEST;
+		String fileName = "src/br/ufc/mdcc/pargo/safe/grammar/xml/m101-arch.xml";
 		parser.readArchXML(fileName);
 		ArchMain archMain = parser.getArchitectureMain();
-		System.out.println(archMain.getArchContractById(2));
-		//System.out.println(parser.getArchitectureMain());
+		System.out.println(archMain);
 		
 	}
 	

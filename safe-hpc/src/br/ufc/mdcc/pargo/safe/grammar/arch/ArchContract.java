@@ -36,8 +36,8 @@ public class ArchContract implements IArchObject{
 	@Override
 	public String toString() {
 		return "ArchContract [id=" + id + ", name=" + name + ", uri=" + uri
-				+ "]" +
-				"\nTYPE: "+this.instanceType;
+				+ "]"; /*+
+				"\nTYPE: "+this.instanceType;*/
 	}
 	
 	@Override

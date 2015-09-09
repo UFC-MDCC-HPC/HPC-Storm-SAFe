@@ -1,6 +1,5 @@
 package br.ufc.mdcc.pargo.safe.grammar.arch;
 
-import java.util.List;
 
 public class ArchPort implements IArchObject{
 
@@ -46,4 +45,8 @@ public class ArchPort implements IArchObject{
 		return true;
 	}
 	
+	@Override
+	public String toString() {
+		return "PORT ID: "+this.id+" NAME:" +this.name +" TYPE: "+ this.getClass().getSimpleName();
+	}
 }

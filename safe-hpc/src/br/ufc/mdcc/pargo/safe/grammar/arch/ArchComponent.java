@@ -90,8 +90,9 @@ public class ArchComponent implements IArchObject{
 	@Override
 	public String toString() {
 		String res = "ArchComponent [name=" + name + ", id=" + id + "]";
-		if(contract!=null)
-			res += this.contract;
+		if(this.contract!=null)
+			res+="\n\t"+this.contract;
+		
 		for(ArchPort port:this.usesList){
 			res += "\n\t"+port.toString();
 		}
@@ -101,8 +102,7 @@ public class ArchComponent implements IArchObject{
 		for(ArchPort port:this.taskList){
 			res += "\n\t"+port.toString();
 		}
-		if(this.contract!=null)
-			res+=this.contract;
+		
 		return res;
 	}
 	

@@ -67,6 +67,7 @@
 			</element>
 		</sequence>
 		<attribute name="id" type="int"></attribute>
+		<attribute name="name" type="string"></attribute>
 	</complexType>
 
 	<complexType name="BindingTask">

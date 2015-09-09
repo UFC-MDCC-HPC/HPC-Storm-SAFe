@@ -121,14 +121,14 @@ public class ArchMain {
 		
 		public ArchUses createArchUses(Element usesElement){
 			ArchUses archUses = new ArchUses();
-			//archUses.setName(usesElement.getAttributeValue(att_name));
+			archUses.setName(usesElement.getAttributeValue(att_name));
 			archUses.setId(Integer.parseInt((usesElement.getAttributeValue(att_id))));
 			return archUses;
 		}
 		
 		public ArchProvides createArchProvides(Element providesElement){
 			ArchProvides archProvides = new ArchProvides();
-			//archProvides.setName(providesElement.getAttributeValue(att_name));
+			archProvides.setName(providesElement.getAttributeValue(att_name));
 			archProvides.setId(Integer.parseInt((providesElement.getAttributeValue(att_id))));
 			return archProvides;
 		}
