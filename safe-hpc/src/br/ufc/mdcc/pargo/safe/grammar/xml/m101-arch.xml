@@ -205,6 +205,12 @@
 			<tns:contract id="4">
 				<tns:uri>http://tempuri.org-mimgtbl</tns:uri>
 			</tns:contract>
+			
+			  
+			<tns:task_port id="4000" id_component="4001">
+				<tns:action id="4002" name="go_mimgtbl"/>
+			</tns:task_port>
+			
 		</tns:computation>
 		
 		<tns:computation id="5" name="mProjExec">

@@ -1,7 +1,7 @@
 package br.ufc.mdcc.pargo.safe.test;
 
 import br.ufc.mdcc.pargo.safe.application.HPCStormApplication;
-import br.ufc.mdcc.pargo.safe.sample.ApplicationSample;
+import br.ufc.mdcc.pargo.safe.application.sample.ApplicationSample;
 
 public class ApplicationSampleTest {
 

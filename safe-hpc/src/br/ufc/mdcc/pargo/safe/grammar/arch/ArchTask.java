@@ -22,8 +22,10 @@ public class ArchTask extends ArchPort {
 	 
 	
 	public ArchAction getArchActionById(Integer id){
+		
 		ArchAction action = new ArchAction();
 		action.setId(id);
+		
 		
 		int indexOf =  this.actions.indexOf(action);
 		if(indexOf>=0)
@@ -35,7 +37,7 @@ public class ArchTask extends ArchPort {
 	public String toString() {
 		String res = "ArchTask:\n";
 		for(ArchAction action:actions){
-			res += action;
+			res += "\t\t"+action;
 			res += "\n";
 		}
 		return res;

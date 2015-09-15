@@ -136,6 +136,7 @@ public class ArchMain {
 		public ArchTask createArchTask(Element element){
 			ArchTask archTask = new ArchTask();
 			//archTask.setName(providesElement.getAttributeValue(att_name));
+			
 			archTask.setId(Integer.parseInt((element.getAttributeValue(att_id))));
 			for(Element child:element.getChildren()){
 				if(child.getName().equalsIgnoreCase(ArchMain.ACTION)){

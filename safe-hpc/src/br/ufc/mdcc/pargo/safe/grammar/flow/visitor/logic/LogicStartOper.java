@@ -49,6 +49,8 @@ public class LogicStartOper extends AbstractSAFeElementLogic{
 			this.instatiateOper(subject_id);
 		}else if(action_oper.equals("compute")){
 			this.computeOper(subject_id);
+		}else if(action_oper.equals("deploy")){
+			this.deployOper(subject_id);
 		}
 		
 	}
@@ -56,19 +58,25 @@ public class LogicStartOper extends AbstractSAFeElementLogic{
 	private void instatiateOper(String compId){
 		
 		ArchComponent archComponent = HPCStormObjectRepository.getWorkflowEngine().getArchComponentByID(Integer.parseInt(compId));
-		System.out.println("start instantiate=> archComponent: ["+archComponent.getId()+"]" + archComponent.getName());
+		System.out.println("start instantiate => archComponent: ["+archComponent.getId()+"]" + archComponent.getName());
 	}
 	
 	private void resolveOper(String compId){
 		
 		ArchComponent archComponent = HPCStormObjectRepository.getWorkflowEngine().getArchComponentByID(Integer.parseInt(compId));
-		System.out.println("start resolve=> archComponent: ["+archComponent.getId()+"]" + archComponent.getName());
+		System.out.println("start resolve => archComponent: ["+archComponent.getId()+"]" + archComponent.getName());
 
 	}
 	
 	private void computeOper(String actionId){
 		ArchAction archAction = HPCStormObjectRepository.getWorkflowEngine().getArchActionId(Integer.parseInt(actionId));
-		System.out.println("start compute=> archAction: ["+archAction.getId()+"]" + archAction.getName());
+		System.out.println("start compute => archAction: ["+archAction.getId()+"]" + archAction.getName());
 	}
 
+	private void deployOper(String compId){
+		
+		ArchComponent archComponent = HPCStormObjectRepository.getWorkflowEngine().getArchComponentByID(Integer.parseInt(compId));
+		System.out.println("start deploy => archComponent: ["+archComponent.getId()+"]" + archComponent.getName());
+
+	}
 }

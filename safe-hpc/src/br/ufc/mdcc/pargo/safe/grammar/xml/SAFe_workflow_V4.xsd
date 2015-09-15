@@ -104,6 +104,7 @@
 			<enumeration value="resolve" />
 			<enumeration value="instantiate" />
 			<enumeration value="compute" />
+			<enumeration value="deploy" />
 		</restriction>
 	</simpleType>
 	<complexType name="choice_operComplexType">
