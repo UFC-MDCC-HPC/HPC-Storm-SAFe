@@ -1,7 +1,7 @@
 package br.ufc.mdcc.pargo.safe.application;
 
-import br.ufc.mdcc.pargo.safe.application.stubs.HPCStormApplicationServerImplService;
-import br.ufc.mdcc.pargo.safe.application.stubs.IHPCStormApplicationServer;
+import br.ufc.mdcc.pargo.safe.application.stub.HPCStormApplicationServerImplService;
+import br.ufc.mdcc.pargo.safe.application.stub.IHPCStormApplicationServer;
 import br.ufc.mdcc.pargo.safe.util.FileUtil;
 
 public class ApplicationClient {

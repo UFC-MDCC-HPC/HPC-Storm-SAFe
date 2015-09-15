@@ -1,5 +1,5 @@
 
-package br.ufc.mdcc.pargo.safe.application.stubs;
+package br.ufc.mdcc.pargo.safe.application.stub;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -7,12 +7,12 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Classe Java de runResponse complex type.
+ * <p>Classe Java de run complex type.
  * 
  * <p>O seguinte fragmento do esquema especifica o conteúdo esperado contido dentro desta classe.
  * 
  * <pre>
- * &lt;complexType name="runResponse">
+ * &lt;complexType name="run">
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
@@ -25,8 +25,8 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "runResponse")
-public class RunResponse {
+@XmlType(name = "run")
+public class Run {
 
 
 }

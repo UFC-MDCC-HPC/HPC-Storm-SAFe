@@ -1,5 +1,5 @@
 
-package br.ufc.mdcc.pargo.safe.application.stubs;
+package br.ufc.mdcc.pargo.safe.application.stub;
 
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.annotation.XmlElementDecl;

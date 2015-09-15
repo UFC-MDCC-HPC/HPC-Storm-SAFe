@@ -1,5 +1,5 @@
 
-package br.ufc.mdcc.pargo.safe.application.stubs;
+package br.ufc.mdcc.pargo.safe.application.stub;
 
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
