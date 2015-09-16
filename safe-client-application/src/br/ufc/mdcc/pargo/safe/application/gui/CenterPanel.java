@@ -17,6 +17,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import br.ufc.mdcc.pargo.safe.application.ApplicationClient;
 import br.ufc.mdcc.pargo.safe.application.MontageWorkflow;
 import br.ufc.mdcc.pargo.safe.application.component.MontageComponent;
 import br.ufc.mdcc.pargo.safe.application.component.MontageParam;
@@ -113,6 +114,14 @@ public class CenterPanel extends JPanel{
 				if(reply==JOptionPane.YES_OPTION){
 					System.out.println(workflow);
 					clearDataGUI();
+					
+					reply = JOptionPane.showConfirmDialog(null, "Run workflow now?",
+							   "Confirm running", JOptionPane.YES_NO_OPTION);
+					if(reply==JOptionPane.YES_OPTION){
+						ApplicationClient client = new ApplicationClient();
+						client.run();
+					}
+					
 				}
 			}
 		});

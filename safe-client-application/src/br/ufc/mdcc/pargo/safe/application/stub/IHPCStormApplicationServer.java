@@ -29,8 +29,8 @@ public interface IHPCStormApplicationServer {
      * @param arg0
      */
     @WebMethod
-    @RequestWrapper(localName = "setSAFeSWLArchSource", targetNamespace = "http://service.application.safe.pargo.mdcc.ufc.br/", className = "br.ufc.mdcc.pargo.safe.application.stubs.SetSAFeSWLArchSource")
-    @ResponseWrapper(localName = "setSAFeSWLArchSourceResponse", targetNamespace = "http://service.application.safe.pargo.mdcc.ufc.br/", className = "br.ufc.mdcc.pargo.safe.application.stubs.SetSAFeSWLArchSourceResponse")
+    @RequestWrapper(localName = "setSAFeSWLArchSource", targetNamespace = "http://service.application.safe.pargo.mdcc.ufc.br/", className = "br.ufc.mdcc.pargo.safe.application.stub.SetSAFeSWLArchSource")
+    @ResponseWrapper(localName = "setSAFeSWLArchSourceResponse", targetNamespace = "http://service.application.safe.pargo.mdcc.ufc.br/", className = "br.ufc.mdcc.pargo.safe.application.stub.SetSAFeSWLArchSourceResponse")
     @Action(input = "http://service.application.safe.pargo.mdcc.ufc.br/IHPCStormApplicationServer/setSAFeSWLArchSourceRequest", output = "http://service.application.safe.pargo.mdcc.ufc.br/IHPCStormApplicationServer/setSAFeSWLArchSourceResponse")
     public void setSAFeSWLArchSource(
         @WebParam(name = "arg0", targetNamespace = "")
@@ -44,8 +44,8 @@ public interface IHPCStormApplicationServer {
      * @param arg0
      */
     @WebMethod
-    @RequestWrapper(localName = "setSAFeSWLFlowSource", targetNamespace = "http://service.application.safe.pargo.mdcc.ufc.br/", className = "br.ufc.mdcc.pargo.safe.application.stubs.SetSAFeSWLFlowSource")
-    @ResponseWrapper(localName = "setSAFeSWLFlowSourceResponse", targetNamespace = "http://service.application.safe.pargo.mdcc.ufc.br/", className = "br.ufc.mdcc.pargo.safe.application.stubs.SetSAFeSWLFlowSourceResponse")
+    @RequestWrapper(localName = "setSAFeSWLFlowSource", targetNamespace = "http://service.application.safe.pargo.mdcc.ufc.br/", className = "br.ufc.mdcc.pargo.safe.application.stub.SetSAFeSWLFlowSource")
+    @ResponseWrapper(localName = "setSAFeSWLFlowSourceResponse", targetNamespace = "http://service.application.safe.pargo.mdcc.ufc.br/", className = "br.ufc.mdcc.pargo.safe.application.stub.SetSAFeSWLFlowSourceResponse")
     @Action(input = "http://service.application.safe.pargo.mdcc.ufc.br/IHPCStormApplicationServer/setSAFeSWLFlowSourceRequest", output = "http://service.application.safe.pargo.mdcc.ufc.br/IHPCStormApplicationServer/setSAFeSWLFlowSourceResponse")
     public void setSAFeSWLFlowSource(
         @WebParam(name = "arg0", targetNamespace = "")
@@ -57,8 +57,8 @@ public interface IHPCStormApplicationServer {
      * 
      */
     @WebMethod
-    @RequestWrapper(localName = "run", targetNamespace = "http://service.application.safe.pargo.mdcc.ufc.br/", className = "br.ufc.mdcc.pargo.safe.application.stubs.Run")
-    @ResponseWrapper(localName = "runResponse", targetNamespace = "http://service.application.safe.pargo.mdcc.ufc.br/", className = "br.ufc.mdcc.pargo.safe.application.stubs.RunResponse")
+    @RequestWrapper(localName = "run", targetNamespace = "http://service.application.safe.pargo.mdcc.ufc.br/", className = "br.ufc.mdcc.pargo.safe.application.stub.Run")
+    @ResponseWrapper(localName = "runResponse", targetNamespace = "http://service.application.safe.pargo.mdcc.ufc.br/", className = "br.ufc.mdcc.pargo.safe.application.stub.RunResponse")
     @Action(input = "http://service.application.safe.pargo.mdcc.ufc.br/IHPCStormApplicationServer/runRequest", output = "http://service.application.safe.pargo.mdcc.ufc.br/IHPCStormApplicationServer/runResponse")
     public void run();
 

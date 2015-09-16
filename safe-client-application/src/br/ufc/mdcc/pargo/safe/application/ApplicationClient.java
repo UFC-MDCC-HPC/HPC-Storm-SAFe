@@ -11,18 +11,20 @@ import br.ufc.mdcc.pargo.safe.util.FileUtil;
  */
 public class ApplicationClient {
 
-	String archLocation = "/home/jefferson/Git/HPC-Storm-SAFe/safe-hpc/src/br/ufc/mdcc/pargo/safe/grammar/xml/m101-arch.xml";
-	String flowLocation = "/home/jefferson/Git/HPC-Storm-SAFe/safe-hpc/src/br/ufc/mdcc/pargo/safe/grammar/xml/m101-flow.xml";
+	////String archLocation = "/home/jefferson/Git/HPC-Storm-SAFe/safe-hpc/src/br/ufc/mdcc/pargo/safe/grammar/xml/m101-arch.xml";
+	//String flowLocation = "/home/jefferson/Git/HPC-Storm-SAFe/safe-hpc/src/br/ufc/mdcc/pargo/safe/grammar/xml/m101-flow.xml";
 			
 	
 	private String readArchSource(){
 		String source = "";
+		String archLocation = FileUtil.readProperty("safe_client_dir")+"m101-arch.xml";
 		source = FileUtil.readFileAsString(archLocation);
 		return source;
 	}
 	
 	private String readFlowSource(){
 		String source = "";
+		String flowLocation = FileUtil.readProperty("safe_client_dir")+"m101-flow.xml";
 		source = FileUtil.readFileAsString(flowLocation);
 		return source;
 	}
@@ -38,8 +40,8 @@ public class ApplicationClient {
 		port.run();
 	}
 	
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		ApplicationClient client = new ApplicationClient();
 		client.run();
-	}
+	}*/
 }
