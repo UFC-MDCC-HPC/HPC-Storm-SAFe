@@ -24,15 +24,20 @@ public class MontageComponent {
 	}
 
 	public MontageParam getInParam(String name){
+		
 		MontageParam mpFake = new MontageParam(name, "");
 		int index = this.inParams.indexOf(mpFake);
-		return this.inParams.get(index);
+		if(index>=0)
+			return this.inParams.get(index);
+		return null;
 	}
 	
 	public MontageParam getOutParam(String name){
 		MontageParam mpFake = new MontageParam(name, "");
 		int index = this.outParams.indexOf(mpFake);
-		return this.outParams.get(index);
+		if(index>=0)
+			return this.outParams.get(index);
+		return null;
 	}
 	
 	public String getName() {
@@ -61,6 +66,18 @@ public class MontageComponent {
 		return true;
 	}
 	
-	
+	@Override
+	public String toString() {
+		String res = "name: "+this.name;
+		res+="\n\tIN:\n ";
+		for(MontageParam mp:inParams){
+			res+="\t\t"+mp+"\n";
+		}
+		res+="\tOUT:\n ";
+		for(MontageParam mp:outParams){
+			res+="\t\t"+mp+"\n";
+		}
+		return res;
+	}
 	
 }

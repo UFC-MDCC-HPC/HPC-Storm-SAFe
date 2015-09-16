@@ -46,4 +46,9 @@ public class MontageParam {
 		return true;
 	}
 	
+	@Override
+	public String toString() {
+		String res = "[name: "+this.name+ ", type: "+this.type + ", value: "+this.value+"]";
+		return res;
+	}
 }

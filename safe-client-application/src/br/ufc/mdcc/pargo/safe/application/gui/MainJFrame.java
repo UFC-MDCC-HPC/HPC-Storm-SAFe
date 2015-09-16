@@ -5,6 +5,7 @@ import java.awt.Container;
 
 import javax.swing.JFrame;
 
+import br.ufc.mdcc.pargo.safe.application.MontageWorkflow;
 import br.ufc.mdcc.pargo.safe.application.component.ComponentRepository;
 import br.ufc.mdcc.pargo.safe.application.component.MontageComponent;
 import br.ufc.mdcc.pargo.safe.application.component.MontageParam;
@@ -18,6 +19,7 @@ public class MainJFrame extends JFrame{
 	private BottomPanel bottomPanel;
 	private UpperPanel upperPanel;
 	private ComponentRepository repository;
+	private MontageWorkflow workflow;
 	
 	public MainJFrame() {
 		
@@ -27,6 +29,7 @@ public class MainJFrame extends JFrame{
 		this.bottomPanel = new BottomPanel();
 		this.upperPanel = new UpperPanel();
 		this.repository = new ComponentRepository();
+		this.workflow = new MontageWorkflow();
 		
 		//container in main
 		Container c = this.getContentPane();
@@ -42,6 +45,7 @@ public class MainJFrame extends JFrame{
 		this.lateralPanel.setCenterPanel(centerPanel);
 		this.lateralPanel.setRepository(repository);
 		this.centerPanel.setBottomPanel(bottomPanel);
+		this.centerPanel.setMontageWorkflow(workflow);
 		
 		//tree
 		this.feed(this.lateralPanel);

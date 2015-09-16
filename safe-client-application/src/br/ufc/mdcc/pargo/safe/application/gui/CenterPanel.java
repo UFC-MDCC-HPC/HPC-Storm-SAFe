@@ -17,6 +17,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import br.ufc.mdcc.pargo.safe.application.MontageWorkflow;
 import br.ufc.mdcc.pargo.safe.application.component.MontageComponent;
 import br.ufc.mdcc.pargo.safe.application.component.MontageParam;
 import br.ufc.mdcc.pargo.safe.util.GuiMsgs;
@@ -38,6 +39,7 @@ public class CenterPanel extends JPanel{
 	
 	private BottomPanel bottomPanel;
 	private MontageComponent focusedComponent;
+	private MontageWorkflow workflow;
 	
 	
 	public CenterPanel() {
@@ -92,6 +94,8 @@ public class CenterPanel extends JPanel{
 					if(reply==JOptionPane.YES_OPTION){
 						bottomPanel.addText(GuiMsgs.COMPONENT_ADDED,focusedComponent.getName());
 						getParamValues();
+						workflow.addComponentToWorkflow(focusedComponent);
+						clearDataGUI();
 					}
 					
 				}
@@ -99,6 +103,19 @@ public class CenterPanel extends JPanel{
 			}
 		});
 		//BTN FINISH
+		finishBtn.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				int reply = JOptionPane.showConfirmDialog(null, "Finish workflow?",
+						   "Confirm Workflow", JOptionPane.YES_NO_OPTION);
+				if(reply==JOptionPane.YES_OPTION){
+					System.out.println(workflow);
+					clearDataGUI();
+				}
+			}
+		});
 		 
 	}
 
@@ -106,10 +123,7 @@ public class CenterPanel extends JPanel{
 		this.focusedComponent = mc;
 		this.componentName.setText(mc.getName());
 		
-		this.inParamsPanel.removeAll();
-		this.outParamsPanel.removeAll();
-		this.inFields.clear();
-		this.outFields.clear();
+		this.clearDataGUI();
 		
 		for(MontageParam mp:mc.getInParams()){
 			JPanel insideLabelPanel = new JPanel();
@@ -154,10 +168,22 @@ public class CenterPanel extends JPanel{
 			}
 		}
 		for(JTextField outF:outFields){
-			MontageParam mp = focusedComponent.getInParam(outF.getName());
+			MontageParam mp = focusedComponent.getOutParam(outF.getName());
 			if(mp!=null){
 				mp.setValue(outF.getText());
 			}
 		}
+	}
+	
+	public void setMontageWorkflow(MontageWorkflow workflow){
+		this.workflow = workflow;
+	}
+	
+	private void clearDataGUI(){
+		this.inParamsPanel.removeAll();
+		this.outParamsPanel.removeAll();
+		this.inFields.clear();
+		this.outFields.clear();
+		this.updateUI();
 	}
 }

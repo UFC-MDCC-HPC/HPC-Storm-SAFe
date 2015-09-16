@@ -4,6 +4,11 @@ import br.ufc.mdcc.pargo.safe.application.stub.HPCStormApplicationServerImplServ
 import br.ufc.mdcc.pargo.safe.application.stub.IHPCStormApplicationServer;
 import br.ufc.mdcc.pargo.safe.util.FileUtil;
 
+/**
+ * Communicates with ws-server safe
+ * @author jefferson
+ *
+ */
 public class ApplicationClient {
 
 	String archLocation = "/home/jefferson/Git/HPC-Storm-SAFe/safe-hpc/src/br/ufc/mdcc/pargo/safe/grammar/xml/m101-arch.xml";
