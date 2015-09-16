@@ -9,6 +9,7 @@ import br.ufc.mdcc.pargo.safe.application.MontageWorkflow;
 import br.ufc.mdcc.pargo.safe.application.component.ComponentRepository;
 import br.ufc.mdcc.pargo.safe.application.component.MontageComponent;
 import br.ufc.mdcc.pargo.safe.application.component.MontageParam;
+import br.ufc.mdcc.pargo.safe.xml.ParseMontageLibrary;
 
 
 
@@ -59,28 +60,10 @@ public class MainJFrame extends JFrame{
 		
 	}
 	
-	//apagar depois...apenas teste
+	
 	private void feed(LateralPanel lp){
-		MontageComponent mc1 = new MontageComponent("mImgtbl");
-		mc1.addInParam(new MontageParam("img_dir", MontageParam.DIR_TYPE));
-		mc1.addInParam(new MontageParam("out_name", MontageParam.PARAM_TYPE));
-		mc1.addOutParam(new MontageParam("tbl_file", MontageParam.FILE_TYPE));
-		
-		MontageComponent mc2 = new MontageComponent("mAdd");
-		MontageComponent mc3 = new MontageComponent("mProjExec");
-		MontageComponent mc4 = new MontageComponent("mJpeg");
-		MontageComponent mc5 = new MontageComponent("mBgModel");
-		MontageComponent mc6 = new MontageComponent("mBgExec");
-		MontageComponent mc7 = new MontageComponent("mFitExec");
-		
-		this.repository.addComponent(mc1);
-		this.repository.addComponent(mc2);
-		this.repository.addComponent(mc3);
-		this.repository.addComponent(mc4);
-		this.repository.addComponent(mc5);
-		this.repository.addComponent(mc6);
-		this.repository.addComponent(mc7);
-		
+		ParseMontageLibrary pml = new ParseMontageLibrary(this.repository);
+		pml.parseXML("src/m101-components.xml");
 		for(MontageComponent mc:this.repository.getComponents()){
 			this.lateralPanel.addTreeNode(mc);
 		}
