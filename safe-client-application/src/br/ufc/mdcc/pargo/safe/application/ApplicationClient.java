@@ -27,6 +27,9 @@ public class ApplicationClient {
 		return source;
 	}
 	
+	/**
+	 * LINK COM O SAFE REMOTO!!! COLOCAR NA GUI!
+	 */
 	public void run(){
 		HPCStormApplicationServerImplService service = new HPCStormApplicationServerImplService();
 		IHPCStormApplicationServer port = service.getHPCStormApplicationServerImplPort();
