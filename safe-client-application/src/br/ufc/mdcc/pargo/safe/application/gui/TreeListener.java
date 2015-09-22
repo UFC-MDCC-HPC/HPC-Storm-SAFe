@@ -5,14 +5,15 @@ import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 
-import br.ufc.mdcc.pargo.safe.application.component.ComponentRepository;
+import br.ufc.mdcc.pargo.safe.application.component.MontageRepository;
+import br.ufc.mdcc.pargo.safe.application.component.MontageApplication;
 import br.ufc.mdcc.pargo.safe.application.component.MontageComponent;
 
 public class TreeListener implements TreeSelectionListener {
 
 	private JTree tree;
 	private CenterPanel centerPanel;
-	private ComponentRepository repository;
+	private MontageRepository repository;
 
 
 	@Override
@@ -26,11 +27,22 @@ public class TreeListener implements TreeSelectionListener {
 
 		Object nodeInfo = node.getUserObject();
 		if(!node.isLeaf()){
-			MontageComponent ref = new MontageComponent(nodeInfo.toString().trim());
-			MontageComponent mc = this.repository.getComponent(ref);
+		
+			
+			//try component...
+			MontageComponent refComp = new MontageComponent(nodeInfo.toString().trim());
+			MontageComponent mc = this.repository.getComponent(refComp);
 			if(mc!=null){
-				this.centerPanel.updateInfo(mc);
+				this.centerPanel.updateInfoComponent(mc);
 			}
+			
+			//try application
+			MontageApplication refApp = new MontageApplication(nodeInfo.toString().trim());
+			MontageApplication mapp = this.repository.getApplication(refApp);
+			if(mapp!=null){
+				this.centerPanel.updateInfoApplication(mapp);
+			}
+			
 		}
 
 	}
@@ -45,7 +57,7 @@ public class TreeListener implements TreeSelectionListener {
 		this.tree = tree;
 	}
 	
-	public void setRepository(ComponentRepository rep){
+	public void setRepository(MontageRepository rep){
 		this.repository = rep;
 	}
 	

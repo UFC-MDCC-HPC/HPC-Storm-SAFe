@@ -1,7 +1,7 @@
 ------------------------------------------
 /* HOW TO COMPILE THE XSD FILE
  * go to XSD folder and do: 
- * xjc -p br.ufc.mdcc.pargo.safe.grammar.flow SAFe_workflow_V4.xsd -d ../../../../../../
+ * xjc -p br.ufc.mdcc.pargo.safe.grammar.flow SAFe_workflow_V4.xsd -d ../../../../../../../
  */
  
  -----------------------------------------

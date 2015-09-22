@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.example.org/montage-applications"
+	xmlns:tns="http://www.example.org/montage-applications"
+	elementFormDefault="qualified" xmlns:Q1="http://www.example.org/montage-components">
+
+    <import schemaLocation="montage-components.xsd" namespace="http://www.example.org/montage-components"></import>
+    <import schemaLocation="montage-components.xsd" namespace="http://www.example.org/montage-components"></import>
+	<element name="applications" type="tns:MontageApplicationLibrary"></element>
+
+	<complexType name="MontageApplicationLibrary">
+		<sequence>
+			<element name="application" type="tns:MontageApplication"></element>
+		</sequence>
+	</complexType>
+
+    <complexType name="MontageApplication">
+    	<sequence>
+    		<element name="inParam" type="Q1:InParam"
+    			maxOccurs="unbounded" minOccurs="0">
+    		</element>
+    		<element name="outParam" type="Q1:outParam"
+    			maxOccurs="unbounded" minOccurs="0">
+    		</element>
+    	</sequence>
+    	<attribute name="name" type="string"></attribute>
+    </complexType>
+</schema>

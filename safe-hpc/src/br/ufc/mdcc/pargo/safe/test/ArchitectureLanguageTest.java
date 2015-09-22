@@ -11,7 +11,7 @@ public class ArchitectureLanguageTest {
 		
 		SAFeSWLValidator validator = new SAFeSWLValidator();
 		//String xmlFile = SAFeConstants.ARCH_FILE_TEST;
-		String xmlFile = "src/br/ufc/mdcc/pargo/safe/grammar/xml/m101-arch.xml";
+		String xmlFile = "src/br/ufc/mdcc/pargo/safe/grammar/xml/mImgtbl-simple-run-arch.xml";
 		
 		boolean res = validator.validateXMLArchitecture(xmlFile);
 		return res;
@@ -20,7 +20,7 @@ public class ArchitectureLanguageTest {
 	public static void testParser(){
 		SAFeSWLArchParser parser = new SAFeSWLArchParser();
 		//String fileName = SAFeConstants.ARCH_FILE_TEST;
-		String fileName = "src/br/ufc/mdcc/pargo/safe/grammar/xml/m101-arch.xml";
+		String fileName = "src/br/ufc/mdcc/pargo/safe/grammar/xml/mImgtbl-simple-run-arch.xml";
 		parser.readArchXML(fileName);
 		ArchMain archMain = parser.getArchitectureMain();
 		System.out.println(archMain);

@@ -2,6 +2,8 @@ package br.ufc.mdcc.pargo.safe.application.service;
 
 import javax.xml.ws.Endpoint;
 
+import br.ufc.mdcc.pargo.safe.util.SAFeConsoleLogger;
+
 /**
  * SAFe Server Side
  * @author jefferson
@@ -13,6 +15,7 @@ public class StartServerAppService {
 		IHPCStormApplicationServer server = new HPCStormApplicationServerImpl();
 		String url = "http://localhost:10100/appserver-ws";
 		Endpoint.publish(url, server);
-		System.out.println("SAFe App server is up in: "+url);
+		SAFeConsoleLogger.write("SAFe App server is up in: "+url);
+
 	}
 }

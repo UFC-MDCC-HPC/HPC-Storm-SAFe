@@ -10,7 +10,8 @@ import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeSelectionModel;
 
-import br.ufc.mdcc.pargo.safe.application.component.ComponentRepository;
+import br.ufc.mdcc.pargo.safe.application.component.MontageRepository;
+import br.ufc.mdcc.pargo.safe.application.component.MontageApplication;
 import br.ufc.mdcc.pargo.safe.application.component.MontageComponent;
 import br.ufc.mdcc.pargo.safe.application.component.MontageParam;
 
@@ -18,7 +19,9 @@ public class LateralPanel extends JPanel{
 	
 	private JTree tree;
 	private JScrollPane treeView;
-	private DefaultMutableTreeNode top; 
+	private DefaultMutableTreeNode root;
+	private DefaultMutableTreeNode topComponents;
+	private DefaultMutableTreeNode topApplications;
 	private TreeListener treeListener;
 	
 	public LateralPanel() {
@@ -26,8 +29,12 @@ public class LateralPanel extends JPanel{
 		this.setPreferredSize(new Dimension(250,400));
 		this.setBackground(Color.DARK_GRAY);
 		//create tree
-		this.top = new DefaultMutableTreeNode("Montage Components");
-		this.tree = new JTree(this.top);
+		this.root = new DefaultMutableTreeNode("Montage");
+		this.topComponents = new DefaultMutableTreeNode("Montage Components");
+		this.topApplications = new DefaultMutableTreeNode("Montage Applications");
+		this.root.add(this.topComponents);
+		this.root.add(this.topApplications);
+		this.tree = new JTree(this.root);
 		this.treeListener = new TreeListener();
 		
 		//JScroll...
@@ -45,10 +52,10 @@ public class LateralPanel extends JPanel{
 		
 	}
 	
-	public void addTreeNode(MontageComponent mc){
+	public void addTreeNodeComponent(MontageComponent mc){
 		 DefaultMutableTreeNode category = null;
 		 category = new DefaultMutableTreeNode(mc.getName());
-		 this.top.add(category);
+		 this.topComponents.add(category);
 		 DefaultMutableTreeNode in = new DefaultMutableTreeNode("in");
 		 for(MontageParam mp:mc.getInParams()){
 			 DefaultMutableTreeNode param = new DefaultMutableTreeNode(mp.getName()+" : "+mp.getType());
@@ -65,12 +72,33 @@ public class LateralPanel extends JPanel{
 		 this.tree.expandRow(0);
 		 this.tree.updateUI();
 	}
+	
+	public void addTreeNodeApplication(MontageApplication mapp){
+		 DefaultMutableTreeNode category = null;
+		 category = new DefaultMutableTreeNode(mapp.getName());
+		 this.topApplications.add(category);
+		 DefaultMutableTreeNode in = new DefaultMutableTreeNode("in");
+		 for(MontageParam mp:mapp.getInParams()){
+			 DefaultMutableTreeNode param = new DefaultMutableTreeNode(mp.getName()+" : "+mp.getType());
+			 in.add(param);
+		 }
+		 
+		 DefaultMutableTreeNode out = new DefaultMutableTreeNode("out");
+		 for(MontageParam mp:mapp.getOutParams()){
+			 DefaultMutableTreeNode param = new DefaultMutableTreeNode(mp.getName()+" : "+mp.getType());
+			 out.add(param);
+		 }
+		 category.add(in);
+		 category.add(out);
+		 this.tree.expandRow(0);
+		 this.tree.updateUI();
+	}
 
 	public void setCenterPanel(CenterPanel centerPanel){
 		this.treeListener.setCenterPanel(centerPanel);
 	}
 	
-	public void setRepository(ComponentRepository repository){
+	public void setRepository(MontageRepository repository){
 		this.treeListener.setRepository(repository);
 	}
 	

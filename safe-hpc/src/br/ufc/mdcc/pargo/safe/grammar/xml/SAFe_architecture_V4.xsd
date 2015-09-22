@@ -16,7 +16,7 @@
 			<element name="application" type="tns:Component"
 				maxOccurs="1" minOccurs="1">
 			</element>
-			<element name="workflow" type="tns:Component" maxOccurs="1"
+			<element name="workflow" type="tns:Worker" maxOccurs="1"
 				minOccurs="1">
 			</element>
 			<element name="body" type="tns:Body" maxOccurs="1"
@@ -26,6 +26,9 @@
 				maxOccurs="unbounded" minOccurs="0">
 			</element>
 			<element name="task_binding" type="tns:BindingTask"
+				maxOccurs="unbounded" minOccurs="0">
+			</element>
+			<element name="parameter" type="tns:ParameterType"
 				maxOccurs="unbounded" minOccurs="0">
 			</element>
 		</sequence>
@@ -169,4 +172,18 @@
 		<attribute name="id" type="int"></attribute>
 		<attribute name="name" type="string"></attribute>
 	</complexType>
+
+	<complexType name="ParameterType">
+		<attribute name="name" type="string"></attribute>
+		<attribute name="value" type="string"></attribute>
+		<attribute name="type" type="tns:enumType"></attribute>
+	</complexType>
+
+	<simpleType name="enumType">
+		<restriction base="string">
+			<enumeration value="FILE"/>
+			<enumeration value="DIRECTORY"/>
+			<enumeration value="STRING"/>
+		</restriction>
+	</simpleType>
 </schema>

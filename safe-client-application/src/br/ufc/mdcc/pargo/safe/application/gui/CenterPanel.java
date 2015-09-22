@@ -19,6 +19,7 @@ import javax.swing.SwingConstants;
 
 import br.ufc.mdcc.pargo.safe.application.ApplicationClient;
 import br.ufc.mdcc.pargo.safe.application.MontageWorkflow;
+import br.ufc.mdcc.pargo.safe.application.component.MontageApplication;
 import br.ufc.mdcc.pargo.safe.application.component.MontageComponent;
 import br.ufc.mdcc.pargo.safe.application.component.MontageParam;
 import br.ufc.mdcc.pargo.safe.util.GuiMsgs;
@@ -26,7 +27,7 @@ import br.ufc.mdcc.pargo.safe.util.GuiMsgs;
 public class CenterPanel extends JPanel{
 	
 	
-	private JLabel componentName = new JLabel("SELECT A COMPONENT");
+	private JLabel titleName = new JLabel("SELECT A COMPONENT");
 	private JLabel inParamsLabel = new JLabel("IN PARAMETERS");
 	private JLabel outParamsLabel = new JLabel("OUT PARAMETERS");
 	
@@ -40,6 +41,7 @@ public class CenterPanel extends JPanel{
 	
 	private BottomPanel bottomPanel;
 	private MontageComponent focusedComponent;
+	private MontageApplication focusedApplication;
 	private MontageWorkflow workflow;
 	
 	
@@ -48,8 +50,8 @@ public class CenterPanel extends JPanel{
 		this.setLayout(new BorderLayout());
 		
 		//look
-		componentName.setHorizontalAlignment(SwingConstants.CENTER);
-		componentName.setBorder(BorderFactory.createLineBorder(Color.black));
+		titleName.setHorizontalAlignment(SwingConstants.CENTER);
+		titleName.setBorder(BorderFactory.createLineBorder(Color.black));
 		
 		inParamsLabel.setVerticalAlignment(SwingConstants.TOP);
 		
@@ -60,7 +62,7 @@ public class CenterPanel extends JPanel{
 		//outParamsLabel.setBorder(BorderFactory.createLineBorder(Color.black));
 		
 		//panels upper lables (fancy stuff)
-		this.add(componentName,BorderLayout.NORTH);
+		this.add(titleName,BorderLayout.NORTH);
 		paramsLabelPanel.setLayout(new GridLayout(2,2));
 		paramsLabelPanel.add(inParamsLabel);
 		paramsLabelPanel.add(outParamsLabel);
@@ -128,9 +130,10 @@ public class CenterPanel extends JPanel{
 		 
 	}
 
-	public void updateInfo(MontageComponent mc){
+	public void updateInfoComponent(MontageComponent mc){
+		this.focusedApplication = null;
 		this.focusedComponent = mc;
-		this.componentName.setText(mc.getName());
+		this.titleName.setText(mc.getName());
 		
 		this.clearDataGUI();
 		
@@ -149,6 +152,45 @@ public class CenterPanel extends JPanel{
 		}
 		
 		for(MontageParam mp:mc.getOutParams()){
+			JPanel insideLabelPanel = new JPanel();
+			insideLabelPanel.setBorder(BorderFactory.createLineBorder(Color.black));
+			insideLabelPanel.setLayout(new GridLayout(2,1));
+			insideLabelPanel.add(new JLabel(mp.getName()));
+			insideLabelPanel.add(new JLabel("("+mp.getType()+")"));
+			
+			outParamsPanel.add(insideLabelPanel);
+			JTextField outField  = new JTextField();
+			outField.setName(mp.getName());
+			outParamsPanel.add(outField);
+			this.outFields.add(outField);
+		}
+		
+		this.updateUI();
+	}
+	
+	public void updateInfoApplication(MontageApplication mapp){
+		
+		this.focusedComponent = null;
+		this.focusedApplication = mapp;
+		this.titleName.setText(mapp.getName());
+		
+		this.clearDataGUI();
+		
+		for(MontageParam mp:mapp.getInParams()){
+			JPanel insideLabelPanel = new JPanel();
+			insideLabelPanel.setBorder(BorderFactory.createLineBorder(Color.black));
+			insideLabelPanel.setLayout(new GridLayout(2,1));
+			insideLabelPanel.add(new JLabel(mp.getName()));
+			insideLabelPanel.add(new JLabel("("+mp.getType()+")"));
+			
+			inParamsPanel.add(insideLabelPanel);
+			JTextField inField  = new JTextField();
+			inField.setName(mp.getName());
+			inParamsPanel.add(inField);
+			this.inFields.add(inField);
+		}
+		
+		for(MontageParam mp:mapp.getOutParams()){
 			JPanel insideLabelPanel = new JPanel();
 			insideLabelPanel.setBorder(BorderFactory.createLineBorder(Color.black));
 			insideLabelPanel.setLayout(new GridLayout(2,1));
