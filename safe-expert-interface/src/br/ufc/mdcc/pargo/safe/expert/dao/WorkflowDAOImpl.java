@@ -22,7 +22,7 @@ public class WorkflowDAOImpl implements IWorkflowDAO{
 						
 						String fileArch = fileArchName.replaceAll("-arch", ""); 
 						String fileFlow = fileFlowName.replaceAll("-flow", "");	
-						String workflowName = fileArch;
+						String workflowName = fileArch.replaceAll(".xml", "");
 						if(fileArch.equals(fileFlow)){
 							WorkflowModel wfModel = new WorkflowModel();
 							wfModel.setWorkflowName(workflowName);

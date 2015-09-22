@@ -11,6 +11,7 @@ import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 import br.ufc.mdcc.pargo.safe.expert.dao.WorkflowModel;
+import br.ufc.mdcc.pargo.safe.expert.dao.WorkflowParameter;
 import br.ufc.mdcc.pargo.safe.expert.xml.SAFeApplicationXMLParser;
 
 public class ExpertLateralPanel extends JPanel {
@@ -45,7 +46,12 @@ public class ExpertLateralPanel extends JPanel {
 			= new DefaultMutableTreeNode(model.getWorkflowName());
 		this.root.add(node);
 		//read XML here!
-		this.parser.parseXMLApplication(model.getArchXMLFilePath());
+		this.parser.parseXMLWorkflow(model.getArchXMLFilePath(),model);
+		for(WorkflowParameter parameter:model.getParameters()){
+			DefaultMutableTreeNode parameterNode 
+			= new DefaultMutableTreeNode(parameter.getName());
+			node.add(parameterNode);
+		}
 		
 		/*
 		 * this.topApplications.add(category); DefaultMutableTreeNode in = new

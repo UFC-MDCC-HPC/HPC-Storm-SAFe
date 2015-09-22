@@ -9,27 +9,34 @@ import org.jdom2.Element;
 import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
 
+import br.ufc.mdcc.pargo.safe.expert.dao.WorkflowModel;
+import br.ufc.mdcc.pargo.safe.expert.dao.WorkflowParameter;
+
 public class SAFeApplicationXMLParser {
 
 	/**
-	 * Get in and out parameters from application component...
+	 * Get in and out parameters from arch file...
 	 * @param filename
 	 */
-	public void parseXMLApplication(String fileName){
+	public void parseXMLWorkflow(String fileName, WorkflowModel workflowModel){
 		SAXBuilder builder = new SAXBuilder();
 		Document doc;
-		//System.out.println(fileName+"\n");
+		
 		try {
 			doc = builder.build(new File(fileName));
 			Element rootArch = doc.getRootElement();
 			List<Element> children = rootArch.getChildren();
 			for(Element child:children){
 				if(child.getName().equals("parameter")){
-					List<Element> grandChildren = child.getChildren();
-					
-					for(Element grandChild:grandChildren){
-						//System.out.println(grandChild.getName());
-					}
+					String name = child.getAttributeValue("name");
+					String type = child.getAttributeValue("type");
+					String nature = child.getAttributeValue("nature");
+					//System.out.println(name+":"+type+":"+nature);
+					WorkflowParameter parameter = new WorkflowParameter();
+					parameter.setName(name);
+					parameter.setType(type);
+					parameter.setName(name);
+					workflowModel.addParameter(parameter);
 				}
 				
 			}

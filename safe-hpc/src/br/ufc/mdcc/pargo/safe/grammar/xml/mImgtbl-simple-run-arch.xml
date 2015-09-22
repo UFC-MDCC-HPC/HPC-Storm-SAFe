@@ -57,6 +57,7 @@
 		</tns:right_peer>
 	</tns:task_binding>
 
-	<tns:parameter />
+	<tns:parameter name="m101-dir" nature="IN" type="DIRECTORY" />
+	<tns:parameter name="m101-tbl" nature="OUT" type="FILE" />
 
 </tns:architecture>

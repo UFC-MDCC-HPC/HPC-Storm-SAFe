@@ -1,5 +1,8 @@
 package br.ufc.mdcc.pargo.safe.expert.dao;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class WorkflowModel {
 
 	private String workflowName;
@@ -8,8 +11,11 @@ public class WorkflowModel {
 	private String archXMLFileContent;
 	private String flowXMLFileContent;
 	
+	private List<WorkflowParameter> parameters;
+	
+	
 	public WorkflowModel() {
-		
+		this.parameters = new ArrayList<WorkflowParameter>();
 	}
 	
 	public String getWorkflowName() {
@@ -43,6 +49,14 @@ public class WorkflowModel {
 		this.flowXMLFileContent = flowXMLFileContent;
 	}
 	
+	public void addParameter(WorkflowParameter parameter){
+		this.parameters.add(parameter);
+	}
+	
+	public List<WorkflowParameter> getParameters(){
+		return this.parameters;
+	}
+
 	@Override
 	public String toString() {
 		String str = this.workflowName+"\n"+this.archXMLFilePath+"\n"+this.flowXMLFilePath;

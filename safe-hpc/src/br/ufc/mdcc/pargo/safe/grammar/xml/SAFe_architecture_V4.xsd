@@ -177,6 +177,7 @@
 		<attribute name="name" type="string"></attribute>
 		<attribute name="value" type="string"></attribute>
 		<attribute name="type" type="tns:enumType"></attribute>
+		<attribute name="nature" type="tns:natureType"></attribute>
 	</complexType>
 
 	<simpleType name="enumType">
@@ -184,6 +185,13 @@
 			<enumeration value="FILE"/>
 			<enumeration value="DIRECTORY"/>
 			<enumeration value="STRING"/>
+		</restriction>
+	</simpleType>
+
+	<simpleType name="natureType">
+		<restriction base="string">
+			<enumeration value="IN"/>
+			<enumeration value="OUT"/>
 		</restriction>
 	</simpleType>
 </schema>
