@@ -25,6 +25,9 @@ public class ExpertMainJFrame extends JFrame {
 		this.bottomPanel = new ExpertBottomPanel();
 		this.upperPanel = new ExpertUpperPanel();
 		
+		//sharing
+		this.lateralPanel.setCenterPanel(centerPanel);
+		
 		//creating DAO
 		this.workflowDAO = new WorkflowDAOImpl();
 		
