@@ -55,11 +55,9 @@ public class CenterPanel extends JPanel{
 		
 		inParamsLabel.setVerticalAlignment(SwingConstants.TOP);
 		
-		//inParamsLabel.setBorder(BorderFactory.createLineBorder(Color.black));
-		
 		
 		outParamsLabel.setVerticalAlignment(SwingConstants.TOP);
-		//outParamsLabel.setBorder(BorderFactory.createLineBorder(Color.black));
+		
 		
 		//panels upper lables (fancy stuff)
 		this.add(titleName,BorderLayout.NORTH);

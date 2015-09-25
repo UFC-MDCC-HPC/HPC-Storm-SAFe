@@ -60,14 +60,25 @@ public class ExpertLateralPanel extends JPanel {
 	public void addTreeNodeApplication(WorkflowModel model) {
 		DefaultMutableTreeNode node = new DefaultMutableTreeNode(
 				model.getWorkflowName());
+		DefaultMutableTreeNode in = new DefaultMutableTreeNode("IN");
+		DefaultMutableTreeNode out = new DefaultMutableTreeNode("OUT");
 		this.root.add(node);
 		// read XML here!
 		this.parser.parseXMLWorkflow(model.getArchXMLFilePath(), model);
 		for (WorkflowParameter parameter : model.getParameters()) {
 			DefaultMutableTreeNode parameterNode = new DefaultMutableTreeNode(
 					parameter.getName());
-			node.add(parameterNode);
+			
+			if(parameter.getNature()!=null)
+				if(parameter.getNature().equalsIgnoreCase("IN"))
+					in.add(parameterNode);
+				else
+					out.add(parameterNode);
 		}
+		
+		//if(model.getParameters().size()>0)
+		node.add(in);
+		node.add(out);
 
 		this.treeNodeMap.put(model.getWorkflowName(), model);
 		this.tree.expandRow(0);

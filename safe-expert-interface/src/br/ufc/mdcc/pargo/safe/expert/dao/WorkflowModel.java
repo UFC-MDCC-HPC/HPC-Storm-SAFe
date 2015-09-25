@@ -8,6 +8,8 @@ public class WorkflowModel {
 	private String workflowName;
 	private String archXMLFilePath;
 	private String flowXMLFilePath;
+	private String archFileName;
+	private String flowFileName;
 	private String archXMLFileContent;
 	private String flowXMLFileContent;
 	
@@ -55,6 +57,22 @@ public class WorkflowModel {
 	
 	public List<WorkflowParameter> getParameters(){
 		return this.parameters;
+	}
+
+	public String getArchFileName() {
+		return archFileName;
+	}
+
+	public void setArchFileName(String archFileName) {
+		this.archFileName = archFileName;
+	}
+
+	public String getFlowFileName() {
+		return flowFileName;
+	}
+
+	public void setFlowFileName(String flowFileName) {
+		this.flowFileName = flowFileName;
 	}
 
 	@Override

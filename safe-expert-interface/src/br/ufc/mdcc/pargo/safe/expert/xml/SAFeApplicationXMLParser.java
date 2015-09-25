@@ -18,12 +18,11 @@ public class SAFeApplicationXMLParser {
 	 * Get in and out parameters from arch file...
 	 * @param filename
 	 */
-	public void parseXMLWorkflow(String fileName, WorkflowModel workflowModel){
+	public void parseXMLWorkflow(String filePath,WorkflowModel workflowModel){
 		SAXBuilder builder = new SAXBuilder();
 		Document doc;
-		
 		try {
-			doc = builder.build(new File(fileName));
+			doc = builder.build(new File(filePath));
 			Element rootArch = doc.getRootElement();
 			List<Element> children = rootArch.getChildren();
 			for(Element child:children){
@@ -31,11 +30,11 @@ public class SAFeApplicationXMLParser {
 					String name = child.getAttributeValue("name");
 					String type = child.getAttributeValue("type");
 					String nature = child.getAttributeValue("nature");
-					//System.out.println(name+":"+type+":"+nature);
+					
 					WorkflowParameter parameter = new WorkflowParameter();
 					parameter.setName(name);
 					parameter.setType(type);
-					parameter.setName(name);
+					parameter.setNature(nature);
 					workflowModel.addParameter(parameter);
 				}
 				

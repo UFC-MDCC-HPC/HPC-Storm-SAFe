@@ -15,7 +15,7 @@ public class StartServerAppService {
 		IHPCStormApplicationServer server = new HPCStormApplicationServerImpl();
 		String url = "http://localhost:10100/appserver-ws";
 		Endpoint.publish(url, server);
-		SAFeConsoleLogger.write("SAFe App server is up in: "+url);
+		SAFeConsoleLogger.write("SAFe App server is up at: "+url);
 
 	}
 }

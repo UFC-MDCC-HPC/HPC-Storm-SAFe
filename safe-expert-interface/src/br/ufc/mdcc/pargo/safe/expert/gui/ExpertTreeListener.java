@@ -25,11 +25,12 @@ public class ExpertTreeListener implements TreeSelectionListener {
 		if (node == null)
 			// Nothing is selected.
 			return;
-
+		
 		Object nodeInfo = node.getUserObject();
 		WorkflowModel ref = this.lateralPanel.getWorkflowModel(nodeInfo
 				.toString());
-		this.centerPanel.updateWorkflowModelInfo(ref);
+		if(ref!=null)
+			this.centerPanel.updateWorkflowModelInfo(ref);
 
 
 	}

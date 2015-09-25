@@ -39,4 +39,8 @@ public class WorkflowParameter {
 		this.value = value;
 	}
 
+	@Override
+	public String toString() {
+		return name+":"+type+":"+nature+":"+value;
+	}
 }

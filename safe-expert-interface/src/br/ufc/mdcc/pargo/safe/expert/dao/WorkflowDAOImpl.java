@@ -14,6 +14,7 @@ public class WorkflowDAOImpl implements IWorkflowDAO{
 		
 		String safeExpertDir = FileUtil.readProperty("safe_expert_dir");
 		List<String> fileNames = FileUtil.listFiles(safeExpertDir);
+		
 	
 		for(String fileFlowName:fileNames){
 			if(fileFlowName.contains("flow")){
@@ -28,6 +29,8 @@ public class WorkflowDAOImpl implements IWorkflowDAO{
 							wfModel.setWorkflowName(workflowName);
 							wfModel.setArchXMLFilePath(safeExpertDir+fileArchName);
 							wfModel.setFlowXMLFilePath(safeExpertDir+fileFlowName);
+							wfModel.setFlowFileName(fileFlowName);
+							wfModel.setArchFileName(fileArchName);
 							workflows.add(wfModel);
 						}
 						

@@ -5,12 +5,15 @@ import java.awt.Container;
 
 import javax.swing.JFrame;
 
+import br.ufc.mdcc.pargo.safe.expert.client.SAFeClient;
 import br.ufc.mdcc.pargo.safe.expert.dao.IWorkflowDAO;
 import br.ufc.mdcc.pargo.safe.expert.dao.WorkflowDAOImpl;
 import br.ufc.mdcc.pargo.safe.expert.dao.WorkflowModel;
 
 public class ExpertMainJFrame extends JFrame {
 
+	private SAFeClient safeClient;
+	
 	private ExpertCenterPanel centerPanel;
 	private ExpertLateralPanel lateralPanel;
 	private ExpertBottomPanel bottomPanel;
@@ -19,14 +22,19 @@ public class ExpertMainJFrame extends JFrame {
 	private IWorkflowDAO workflowDAO;
 
 	public ExpertMainJFrame() {
+		
+		//safe client
+		this.safeClient = new SAFeClient();
+		
 		// creating panels...
-		this.centerPanel = new ExpertCenterPanel();
+		this.centerPanel = new ExpertCenterPanel(this.safeClient);
 		this.lateralPanel = new ExpertLateralPanel();
 		this.bottomPanel = new ExpertBottomPanel();
 		this.upperPanel = new ExpertUpperPanel();
 		
 		//sharing
 		this.lateralPanel.setCenterPanel(centerPanel);
+		this.centerPanel.setBottomPanel(bottomPanel);
 		
 		//creating DAO
 		this.workflowDAO = new WorkflowDAOImpl();
