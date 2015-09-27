@@ -1,6 +1,7 @@
 package br.ufc.mdcc.pargo.safe.framework;
 
 import br.ufc.mdcc.pargo.safe.component.HShelfComponent;
+import br.ufc.mdcc.pargo.safe.util.HShelfConsoleLogger;
 
 public class HShelfConnection {
 
@@ -9,6 +10,9 @@ public class HShelfConnection {
 	private String providerPortName;
 	private String userPortName;
 	
+	public HShelfConnection() {
+		HShelfConsoleLogger.write("Creating HShelfConnection");
+	}
 	
 	public HShelfComponent getProviderComponent() {
 		return providerComponent;

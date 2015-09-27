@@ -12,7 +12,9 @@ import br.ufc.mdcc.pargo.safe.port.dflt.HShelfBuilderService;
 import br.ufc.mdcc.pargo.safe.port.event.HShelfEventHandler;
 import br.ufc.mdcc.pargo.safe.port.event.HShelfEventType;
 import br.ufc.mdcc.pargo.safe.port.event.IHShelfConnectionEventListener;
+import br.ufc.mdcc.pargo.safe.services.HShelfServiceImpl;
 import br.ufc.mdcc.pargo.safe.services.IHShelfService;
+import br.ufc.mdcc.pargo.safe.util.HShelfConsoleLogger;
 import br.ufc.mdcc.pargo.safe.workflow.HShelfWorkflow;
 
 public class HShelfFramework extends HShelfBuilderService{
@@ -26,6 +28,7 @@ public class HShelfFramework extends HShelfBuilderService{
 	private HShelfEventHandler eventHandler;
 	
 	public HShelfFramework() {
+		HShelfConsoleLogger.write("Creating HShelfFramework");
 		this.usesPortList = new ArrayList<HShelfUsesPort>();
 		this.providesPortList = new ArrayList<HShelfProvidesPort>();
 		this.componentList = new ArrayList<HShelfComponent>();
@@ -35,6 +38,10 @@ public class HShelfFramework extends HShelfBuilderService{
 	public void initialize(HShelfApplication application){
 		this.application = application;
 		this.workflow = new HShelfWorkflow(this.application.getName()+"-worflow");
+		IHShelfService serviceApp = new HShelfServiceImpl();
+		IHShelfService serviceWf = new HShelfServiceImpl();
+		this.application.setServices(serviceApp);
+		this.workflow.setServices(serviceWf);
 		this.addComponent(this.application);
 		this.addComponent(this.workflow);
 	}
@@ -42,17 +49,17 @@ public class HShelfFramework extends HShelfBuilderService{
 	@Override
 	public HShelfConnection connect(HShelfComponent user, String userPortName,
 			HShelfComponent providerComponent, String providerPortName) {
-		this.eventHandler.notifyAllConnectionListeners(HShelfEventType.ConnectPending);
+		this.notifyAllConnectionListeners(HShelfEventType.ConnectPending);
 		// TODO Auto-generated method stub
-		this.eventHandler.notifyAllConnectionListeners(HShelfEventType.Connected);
+		this.notifyAllConnectionListeners(HShelfEventType.Connected);
 		return null;
 	}
 
 	@Override
 	public void disconnect(HShelfConnection conn) {
-		this.eventHandler.notifyAllConnectionListeners(HShelfEventType.DisconnectPending);
+		this.notifyAllConnectionListeners(HShelfEventType.DisconnectPending);
 		// TODO Auto-generated method stub
-		this.eventHandler.notifyAllConnectionListeners(HShelfEventType.Diconnected);
+		this.notifyAllConnectionListeners(HShelfEventType.Diconnected);
 	}
 
 	@Override
@@ -72,7 +79,7 @@ public class HShelfFramework extends HShelfBuilderService{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		this.componentList.add(component);
+		this.addComponent(component);
 		return component;
 	}
 	
@@ -126,7 +133,12 @@ public class HShelfFramework extends HShelfBuilderService{
 		}
 	}
 	
+	//Events
 	public void addConnectionEventListener(IHShelfConnectionEventListener listener){
 		this.eventHandler.addConnectionEventListener(listener);
+	}
+	
+	public void notifyAllConnectionListeners(HShelfEventType eventType){
+		this.eventHandler.notifyAllConnectionListeners(eventType);
 	}
 }

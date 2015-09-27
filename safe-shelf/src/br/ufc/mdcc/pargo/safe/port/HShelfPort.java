@@ -4,6 +4,7 @@ package br.ufc.mdcc.pargo.safe.port;
 public abstract class HShelfPort {
 
 	private String name;
+	protected Object value;
 
 	public String getName() {
 		return name;

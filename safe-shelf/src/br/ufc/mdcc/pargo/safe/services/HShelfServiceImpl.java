@@ -7,6 +7,7 @@ import br.ufc.mdcc.pargo.safe.component.HShelfComponent;
 import br.ufc.mdcc.pargo.safe.framework.HShelfFramework;
 import br.ufc.mdcc.pargo.safe.port.HShelfProvidesPort;
 import br.ufc.mdcc.pargo.safe.port.HShelfUsesPort;
+import br.ufc.mdcc.pargo.safe.util.HShelfConsoleLogger;
 
 public class HShelfServiceImpl implements IHShelfService{
 
@@ -16,6 +17,7 @@ public class HShelfServiceImpl implements IHShelfService{
 	private Map<String, HShelfUsesPort> usesPortMap;
 	
 	public HShelfServiceImpl() {
+		HShelfConsoleLogger.write("Creating HShelfServiceImpl");
 		this.providesPortMap = new HashMap<String, HShelfProvidesPort>();
 		this.usesPortMap = new HashMap<String, HShelfUsesPort>();
 	}
