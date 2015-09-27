@@ -5,6 +5,7 @@ import java.util.List;
 
 import br.ufc.mdcc.pargo.safe.application.HShelfApplication;
 import br.ufc.mdcc.pargo.safe.component.HShelfComponent;
+import br.ufc.mdcc.pargo.safe.exception.HShelfException;
 import br.ufc.mdcc.pargo.safe.port.HShelfProvidesPort;
 import br.ufc.mdcc.pargo.safe.port.HShelfUsesPort;
 import br.ufc.mdcc.pargo.safe.port.dflt.HShelfBuilderService;
@@ -41,6 +42,7 @@ public class HShelfFramework extends HShelfBuilderService{
 	@Override
 	public HShelfConnection connect(HShelfComponent user, String userPortName,
 			HShelfComponent providerComponent, String providerPortName) {
+		this.eventHandler.notifyAllConnectionListeners(HShelfEventType.ConnectPending);
 		// TODO Auto-generated method stub
 		this.eventHandler.notifyAllConnectionListeners(HShelfEventType.Connected);
 		return null;
@@ -48,6 +50,7 @@ public class HShelfFramework extends HShelfBuilderService{
 
 	@Override
 	public void disconnect(HShelfConnection conn) {
+		this.eventHandler.notifyAllConnectionListeners(HShelfEventType.DisconnectPending);
 		// TODO Auto-generated method stub
 		this.eventHandler.notifyAllConnectionListeners(HShelfEventType.Diconnected);
 	}

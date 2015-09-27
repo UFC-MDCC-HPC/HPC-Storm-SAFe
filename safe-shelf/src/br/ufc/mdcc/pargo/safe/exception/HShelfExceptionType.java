@@ -8,6 +8,6 @@ public enum HShelfExceptionType {
 	PortNotConnected,
 	BadPortName,
 	NetWorkError,
-	OutOfMemory
+	OutOfMemory 
 	
 }
