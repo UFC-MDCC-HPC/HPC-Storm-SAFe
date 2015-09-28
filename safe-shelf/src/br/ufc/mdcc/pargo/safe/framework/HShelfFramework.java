@@ -19,7 +19,7 @@ import br.ufc.mdcc.pargo.safe.workflow.HShelfWorkflow;
 
 public class HShelfFramework extends HShelfBuilderService{
 
-	private Map<String,HShelfPort> usesPortMap;
+	
 	private Map<String,HShelfPort> providesPortMap;
 	private Map<String,HShelfComponent> componentMap;
 	
@@ -29,7 +29,6 @@ public class HShelfFramework extends HShelfBuilderService{
 	
 	public HShelfFramework() {
 		HShelfConsoleLogger.write("Creating HShelfFramework");
-		this.usesPortMap = new HashMap<String,HShelfPort>();
 		this.providesPortMap = new HashMap<String,HShelfPort>();
 		this.componentMap = new HashMap<String,HShelfComponent>();
 		this.eventHandler = new HShelfEventHandler();
@@ -42,8 +41,12 @@ public class HShelfFramework extends HShelfBuilderService{
 		IHShelfService serviceWf = new HShelfServiceImpl();
 		this.application.setServices(serviceApp);
 		this.workflow.setServices(serviceWf);
+		serviceApp.initialize(this, this.application);
+		serviceWf.initialize(this, this.workflow);
 		this.addComponent(this.application);
 		this.addComponent(this.workflow);
+		
+		this.workflow.initialize();
 	}
 	
 	@Override
@@ -104,13 +107,7 @@ public class HShelfFramework extends HShelfBuilderService{
 		return list;
 	}
 
-	@Override
-	public List<HShelfPort> getUsesPort() {
-		List<HShelfPort> list = new ArrayList<HShelfPort>();
-		for(HShelfPort port:this.usesPortMap.values())
-			list.add(port);
-		return list;
-	}
+	 
 
 	public void addComponent(HShelfComponent component){
 		this.componentMap.put(component.getName(),component);
@@ -127,12 +124,6 @@ public class HShelfFramework extends HShelfBuilderService{
 		this.notifyReleaseComponents(port.getName());
 	}
 	
-	public void addUsesPort(HShelfPort port){
-		this.usesPortMap.put(port.getName(),port);
-		if(port instanceof IHShelfConnectionEventListener){
-			this.addConnectionEventListener((IHShelfConnectionEventListener)port);
-		}
-	}
 	
 	public HShelfPort getProvidesPort(String name){
 		return this.providesPortMap.get(name);
@@ -147,7 +138,9 @@ public class HShelfFramework extends HShelfBuilderService{
 		this.eventHandler.notifyAllConnectionListeners(eventType);
 	}
 	
+	//Semaphores
 	private void notifyReleaseComponents(String name){
+		
 		for(HShelfComponent component:this.getComponents()){
 			IHShelfService service = component.getServices();
 			if(service.notifySemaphoreRelease(name))

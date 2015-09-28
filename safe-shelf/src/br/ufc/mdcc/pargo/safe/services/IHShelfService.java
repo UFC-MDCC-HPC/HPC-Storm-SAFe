@@ -10,7 +10,6 @@ public interface IHShelfService {
 	public void initialize(HShelfFramework framework, HShelfComponent component);
 	public HShelfPort getProvidesPort(String name) throws HShelfException;
 	public void  addProvidesPort(HShelfPort port) throws HShelfException;
-	public void registerUsesPort(HShelfPort port) throws HShelfException;
 	public boolean notifySemaphoreRelease(String name);
 	 
 }
