@@ -1,6 +1,8 @@
 package br.ufc.mdcc.pargo.safe.sample;
 
-
+/**
+ * Application
+ */
 import br.ufc.mdcc.pargo.safe.application.HShelfApplication;
 import br.ufc.mdcc.pargo.safe.exception.HShelfException;
 import br.ufc.mdcc.pargo.safe.port.HShelfPort;
