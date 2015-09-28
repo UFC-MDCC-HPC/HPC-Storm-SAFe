@@ -8,6 +8,10 @@ public abstract class HShelfComponent {
 	protected IHShelfService services;
 	
 	public abstract void setServices(IHShelfService services);
+	
+	public IHShelfService getServices(){
+		return this.services;
+	}
 
 	public String getName() {
 		return name;

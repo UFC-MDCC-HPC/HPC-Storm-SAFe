@@ -6,8 +6,6 @@ import br.ufc.mdcc.pargo.safe.component.HShelfComponent;
 import br.ufc.mdcc.pargo.safe.exception.HShelfException;
 import br.ufc.mdcc.pargo.safe.framework.HShelfConnection;
 import br.ufc.mdcc.pargo.safe.port.HShelfPort;
-import br.ufc.mdcc.pargo.safe.port.HShelfProvidesPort;
-import br.ufc.mdcc.pargo.safe.port.HShelfUsesPort;
 
 public abstract class HShelfBuilderService extends HShelfPort {
 
@@ -21,7 +19,7 @@ public abstract class HShelfBuilderService extends HShelfPort {
 			String className) throws HShelfException;
 	public abstract HShelfComponent getComponent(String isntanceName) throws HShelfException;;
 	public abstract List<HShelfComponent> getComponents();
-	public abstract List<HShelfProvidesPort> getProvidesPort();
-	public abstract List<HShelfUsesPort> getUsesPort();
+	public abstract List<HShelfPort> getProvidesPort();
+	public abstract List<HShelfPort> getUsesPort();
 	
 }

@@ -1,13 +1,13 @@
 package br.ufc.mdcc.pargo.safe.framework;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import br.ufc.mdcc.pargo.safe.application.HShelfApplication;
 import br.ufc.mdcc.pargo.safe.component.HShelfComponent;
-import br.ufc.mdcc.pargo.safe.exception.HShelfException;
-import br.ufc.mdcc.pargo.safe.port.HShelfProvidesPort;
-import br.ufc.mdcc.pargo.safe.port.HShelfUsesPort;
+import br.ufc.mdcc.pargo.safe.port.HShelfPort;
 import br.ufc.mdcc.pargo.safe.port.dflt.HShelfBuilderService;
 import br.ufc.mdcc.pargo.safe.port.event.HShelfEventHandler;
 import br.ufc.mdcc.pargo.safe.port.event.HShelfEventType;
@@ -19,9 +19,9 @@ import br.ufc.mdcc.pargo.safe.workflow.HShelfWorkflow;
 
 public class HShelfFramework extends HShelfBuilderService{
 
-	private List<HShelfUsesPort> usesPortList;
-	private List<HShelfProvidesPort> providesPortList;
-	private List<HShelfComponent> componentList;
+	private Map<String,HShelfPort> usesPortMap;
+	private Map<String,HShelfPort> providesPortMap;
+	private Map<String,HShelfComponent> componentMap;
 	
 	private HShelfWorkflow workflow;
 	private HShelfApplication application;
@@ -29,9 +29,9 @@ public class HShelfFramework extends HShelfBuilderService{
 	
 	public HShelfFramework() {
 		HShelfConsoleLogger.write("Creating HShelfFramework");
-		this.usesPortList = new ArrayList<HShelfUsesPort>();
-		this.providesPortList = new ArrayList<HShelfProvidesPort>();
-		this.componentList = new ArrayList<HShelfComponent>();
+		this.usesPortMap = new HashMap<String,HShelfPort>();
+		this.providesPortMap = new HashMap<String,HShelfPort>();
+		this.componentMap = new HashMap<String,HShelfComponent>();
 		this.eventHandler = new HShelfEventHandler();
 	}
 	
@@ -48,7 +48,7 @@ public class HShelfFramework extends HShelfBuilderService{
 	
 	@Override
 	public HShelfConnection connect(HShelfComponent user, String userPortName,
-			HShelfComponent providerComponent, String providerPortName) {
+			HShelfComponent provider, String providerPortName) {
 		this.notifyAllConnectionListeners(HShelfEventType.ConnectPending);
 		// TODO Auto-generated method stub
 		this.notifyAllConnectionListeners(HShelfEventType.Connected);
@@ -63,12 +63,12 @@ public class HShelfFramework extends HShelfBuilderService{
 	}
 
 	@Override
-	public HShelfComponent createComponent(String instanceName, String className) {
+	public HShelfComponent createComponent(String name, String className) {
 		HShelfComponent component = null;
 		try {
-			component = (HShelfComponent)Class.forName(instanceName).newInstance();
-			component.setName(instanceName);
-			this.componentList.add(component);
+			component = (HShelfComponent)Class.forName(className).newInstance();
+			component.setName(name);
+			this.componentMap.put(name,component);
 		} catch (InstantiationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -84,53 +84,58 @@ public class HShelfFramework extends HShelfBuilderService{
 	}
 	
 	@Override
-	public HShelfComponent getComponent(String instanceName) {
-		//silly...
-		HShelfComponent ref = new HShelfComponent() {
-			@Override
-			public void setServices(IHShelfService services) {}
-		};
-		ref.setName(instanceName);
-		int index = this.componentList.indexOf(ref);
-		if(index>=0)
-			return this.componentList.get(index);
-		return null;
+	public HShelfComponent getComponent(String name) {
+		 return this.componentMap.get(name);
 	}
 
 	@Override
 	public List<HShelfComponent> getComponents() {
-		return this.componentList;
+		List<HShelfComponent> list = new ArrayList<HShelfComponent>();
+		for(HShelfComponent component:this.componentMap.values())
+			list.add(component);
+		return list;
 	}
 
 	@Override
-	public List<HShelfProvidesPort> getProvidesPort() {
-		return this.providesPortList;
+	public List<HShelfPort> getProvidesPort() {
+		List<HShelfPort> list = new ArrayList<HShelfPort>();
+		for(HShelfPort port:this.providesPortMap.values())
+			list.add(port);
+		return list;
 	}
 
 	@Override
-	public List<HShelfUsesPort> getUsesPort() {
-		return this.usesPortList;
+	public List<HShelfPort> getUsesPort() {
+		List<HShelfPort> list = new ArrayList<HShelfPort>();
+		for(HShelfPort port:this.usesPortMap.values())
+			list.add(port);
+		return list;
 	}
 
 	public void addComponent(HShelfComponent component){
-		this.componentList.add(component);
+		this.componentMap.put(component.getName(),component);
 		if(component instanceof IHShelfConnectionEventListener){
 			this.addConnectionEventListener((IHShelfConnectionEventListener)component);
 		}
 	}
 	
-	public void addProvidesPort(HShelfProvidesPort port){
-		this.providesPortList.add(port);
+	public void addProvidesPort(HShelfPort port){
+		this.providesPortMap.put(port.getName(),port);
+		if(port instanceof IHShelfConnectionEventListener){
+			this.addConnectionEventListener((IHShelfConnectionEventListener)port);
+		}
+		this.notifyReleaseComponents(port.getName());
+	}
+	
+	public void addUsesPort(HShelfPort port){
+		this.usesPortMap.put(port.getName(),port);
 		if(port instanceof IHShelfConnectionEventListener){
 			this.addConnectionEventListener((IHShelfConnectionEventListener)port);
 		}
 	}
 	
-	public void addUsesPort(HShelfUsesPort port){
-		this.usesPortList.add(port);
-		if(port instanceof IHShelfConnectionEventListener){
-			this.addConnectionEventListener((IHShelfConnectionEventListener)port);
-		}
+	public HShelfPort getProvidesPort(String name){
+		return this.providesPortMap.get(name);
 	}
 	
 	//Events
@@ -140,5 +145,13 @@ public class HShelfFramework extends HShelfBuilderService{
 	
 	public void notifyAllConnectionListeners(HShelfEventType eventType){
 		this.eventHandler.notifyAllConnectionListeners(eventType);
+	}
+	
+	private void notifyReleaseComponents(String name){
+		for(HShelfComponent component:this.getComponents()){
+			IHShelfService service = component.getServices();
+			if(service.notifySemaphoreRelease(name))
+				return;
+		}
 	}
 }

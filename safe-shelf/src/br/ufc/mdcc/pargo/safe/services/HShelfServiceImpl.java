@@ -2,24 +2,26 @@ package br.ufc.mdcc.pargo.safe.services;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.Semaphore;
 
 import br.ufc.mdcc.pargo.safe.component.HShelfComponent;
 import br.ufc.mdcc.pargo.safe.framework.HShelfFramework;
-import br.ufc.mdcc.pargo.safe.port.HShelfProvidesPort;
-import br.ufc.mdcc.pargo.safe.port.HShelfUsesPort;
+import br.ufc.mdcc.pargo.safe.port.HShelfPort;
 import br.ufc.mdcc.pargo.safe.util.HShelfConsoleLogger;
 
 public class HShelfServiceImpl implements IHShelfService{
 
 	private HShelfFramework framework;
 	private HShelfComponent component;
-	private Map<String, HShelfProvidesPort> providesPortMap;
-	private Map<String, HShelfUsesPort> usesPortMap;
+	private Map<String, HShelfPort> providesPortMap;
+	private Map<String, HShelfPort> usesPortMap;
+	private Map<String, Semaphore> providesSemaphore;
 	
 	public HShelfServiceImpl() {
 		HShelfConsoleLogger.write("Creating HShelfServiceImpl");
-		this.providesPortMap = new HashMap<String, HShelfProvidesPort>();
-		this.usesPortMap = new HashMap<String, HShelfUsesPort>();
+		this.providesPortMap = new HashMap<String, HShelfPort>();
+		this.usesPortMap = new HashMap<String, HShelfPort>();
+		this.providesSemaphore = new HashMap<String, Semaphore>();
 	}
 	
 	@Override
@@ -29,24 +31,49 @@ public class HShelfServiceImpl implements IHShelfService{
 	}
 
 	@Override
-	public HShelfProvidesPort getProvidesPort(String name) {
+	public HShelfPort getProvidesPort(String name) {
+		
+		HShelfPort providesImpl = this.framework.getProvidesPort(name);
+		if(providesImpl !=null){
+			
+		}else{
+			Semaphore semaphore = new Semaphore(0);
+			this.providesSemaphore.put(name, semaphore);
+			try {
+				semaphore.acquire();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			return this.getProvidesPort(name);
+		}
 		
 		return this.providesPortMap.get(name);
 		
 	}
 
 	@Override
-	public void setProvidesPort(HShelfProvidesPort port) {
+	public void addProvidesPort(HShelfPort port) {
 		this.providesPortMap.put(port.getName(), port);
 		this.framework.addProvidesPort(port);
+		port.setParentComponent(component);
 	}
 
 	@Override
-	public void registerUsesPort(HShelfUsesPort port) {
+	public void registerUsesPort(HShelfPort port) {
 		this.usesPortMap.put(port.getName(), port);
 		this.framework.addUsesPort(port);
 	}
 
+	@Override
+	public boolean notifySemaphoreRelease(String name){
+		Semaphore semaphore = this.providesSemaphore.get(name);
+		if(semaphore!=null){
+			semaphore.release();
+			return true;
+		}
+		return false;
+			
+	}
 	
 
 }

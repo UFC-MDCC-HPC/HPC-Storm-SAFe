@@ -1,11 +1,13 @@
 package br.ufc.mdcc.pargo.safe.port;
 
+import br.ufc.mdcc.pargo.safe.component.HShelfComponent;
+
 
 public abstract class HShelfPort {
 
 	private String name;
-	protected Object value;
-
+	private HShelfComponent parentComponent;
+	
 	public String getName() {
 		return name;
 	}
@@ -13,7 +15,15 @@ public abstract class HShelfPort {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
+	public HShelfComponent getParentComponent() {
+		return parentComponent;
+	}
+
+	public void setParentComponent(HShelfComponent parentComponent) {
+		this.parentComponent = parentComponent;
+	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if(!(obj instanceof HShelfPort))
