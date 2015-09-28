@@ -7,8 +7,8 @@ import java.util.Map;
 
 import br.ufc.mdcc.pargo.safe.application.HShelfApplication;
 import br.ufc.mdcc.pargo.safe.component.HShelfComponent;
+import br.ufc.mdcc.pargo.safe.port.HShelfBuilderService;
 import br.ufc.mdcc.pargo.safe.port.HShelfPort;
-import br.ufc.mdcc.pargo.safe.port.dflt.HShelfBuilderService;
 import br.ufc.mdcc.pargo.safe.port.event.HShelfEventHandler;
 import br.ufc.mdcc.pargo.safe.port.event.HShelfEventType;
 import br.ufc.mdcc.pargo.safe.port.event.IHShelfConnectionEventListener;

@@ -2,13 +2,23 @@ package br.ufc.mdcc.pargo.safe.workflow;
 
 import br.ufc.mdcc.pargo.safe.component.HShelfComponent;
 import br.ufc.mdcc.pargo.safe.exception.HShelfException;
+import br.ufc.mdcc.pargo.safe.grammar.ISAFeSWLArcherParser;
+import br.ufc.mdcc.pargo.safe.grammar.ISAFeSWLFlowParser;
+import br.ufc.mdcc.pargo.safe.grammar.SAFeSWLArchParser;
+import br.ufc.mdcc.pargo.safe.grammar.SAFeSWLFlowParser;
+import br.ufc.mdcc.pargo.safe.grammar.test.ArchitectureLanguageTest;
 import br.ufc.mdcc.pargo.safe.port.HShelfPort;
-import br.ufc.mdcc.pargo.safe.port.dflt.safeswl.HShelfSAFeSWLPortImpl;
+import br.ufc.mdcc.pargo.safe.port.dflt.HShelfGoWorkflowPortImpl;
+import br.ufc.mdcc.pargo.safe.port.dflt.HShelfSAFeSWLPort;
+import br.ufc.mdcc.pargo.safe.port.dflt.HShelfSAFeSWLPortImpl;
 import br.ufc.mdcc.pargo.safe.services.IHShelfService;
 import br.ufc.mdcc.pargo.safe.util.HShelfConsoleLogger;
 
 public class HShelfWorkflow extends HShelfComponent {
 
+	private HShelfPort safeSWL;
+	private HShelfPort safeGo;
+	
 	public HShelfWorkflow(String name) {
 		HShelfConsoleLogger.write("Creating HShelfWorkflow");
 		this.setName(name);
@@ -21,40 +31,30 @@ public class HShelfWorkflow extends HShelfComponent {
 	
 	public void initialize(){
 		try {
-			HShelfPort safeSWL = new HShelfSAFeSWLPortImpl();
+			safeSWL = new HShelfSAFeSWLPortImpl();
 			safeSWL.setName("safeswl-port");
 			services.addProvidesPort(safeSWL);
+			
+			safeGo = new HShelfGoWorkflowPortImpl();
+			((HShelfGoWorkflowPortImpl)safeGo).workflow = this;
+			safeGo.setName("go-workflow");
+			services.addProvidesPort(safeGo);
+			
 		} catch (HShelfException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		/*Thread t = new Thread(){
-			@Override
-			public void run() {
-				try {
-					Thread.sleep(5000);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				
-				
-				try {
-					HShelfPort safeSWL = new HShelfSAFeSWLPortImpl();
-					safeSWL.setName("safeswl-port");
-					services.addProvidesPort(safeSWL);
-				} catch (HShelfException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				
-			}
-		};
-		t.start();*/
-		
-		
 		 
+	}
+	
+	public void run(){
+		System.out.println();
+		System.out.println();
+		
+		ISAFeSWLArcherParser archParser = new SAFeSWLArchParser(((HShelfSAFeSWLPort)safeSWL).getSAFeSWLArchFilePath());
+		ISAFeSWLFlowParser flowParser = new SAFeSWLFlowParser(((HShelfSAFeSWLPort)safeSWL).getSAFeSWLFlowFilePath());
+		flowParser.setISAFeSWLArcherParser(archParser);
+		flowParser.run();
 	}
 
 }

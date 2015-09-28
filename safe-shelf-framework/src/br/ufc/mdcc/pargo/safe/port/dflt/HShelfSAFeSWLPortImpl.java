@@ -1,4 +1,4 @@
-package br.ufc.mdcc.pargo.safe.port.dflt.safeswl;
+package br.ufc.mdcc.pargo.safe.port.dflt;
 
 public class HShelfSAFeSWLPortImpl extends HShelfSAFeSWLPort{
 

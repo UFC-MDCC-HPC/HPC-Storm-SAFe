@@ -1,4 +1,4 @@
-package br.ufc.mdcc.pargo.safe.port.dflt.safeswl;
+package br.ufc.mdcc.pargo.safe.port.dflt;
 
 import br.ufc.mdcc.pargo.safe.port.HShelfPort;
 

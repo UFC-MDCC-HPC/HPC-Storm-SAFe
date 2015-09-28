@@ -1,11 +1,10 @@
-package br.ufc.mdcc.pargo.safe.port.dflt;
+package br.ufc.mdcc.pargo.safe.port;
 
 import java.util.List;
 
 import br.ufc.mdcc.pargo.safe.component.HShelfComponent;
 import br.ufc.mdcc.pargo.safe.exception.HShelfException;
 import br.ufc.mdcc.pargo.safe.framework.HShelfConnection;
-import br.ufc.mdcc.pargo.safe.port.HShelfPort;
 
 public abstract class HShelfBuilderService extends HShelfPort {
 
