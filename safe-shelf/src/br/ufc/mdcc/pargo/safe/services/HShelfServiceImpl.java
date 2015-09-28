@@ -14,11 +14,13 @@ public class HShelfServiceImpl implements IHShelfService{
 	private HShelfFramework framework;
 	private HShelfComponent component;
 	private Map<String, HShelfPort> providesPortMap;
+	private Map<String, HShelfPort> usesPortMap;
 	private Map<String, Semaphore> providesSemaphore;
 	
 	public HShelfServiceImpl() {
 		HShelfConsoleLogger.write("Creating HShelfServiceImpl");
 		this.providesPortMap = new HashMap<String, HShelfPort>();
+		this.usesPortMap = new HashMap<String, HShelfPort>();
 		this.providesSemaphore = new HashMap<String, Semaphore>();
 	}
 	
@@ -33,6 +35,7 @@ public class HShelfServiceImpl implements IHShelfService{
 		
 		HShelfPort providesImpl = this.framework.getProvidesPort(name);
 		if(providesImpl !=null){
+			this.usesPortMap.put(name, providesImpl);
 			return providesImpl;
 		}else{
 			Semaphore semaphore = new Semaphore(0);
@@ -44,7 +47,9 @@ public class HShelfServiceImpl implements IHShelfService{
 			}
 		}
 		
-		return this.framework.getProvidesPort(name);
+		providesImpl = this.framework.getProvidesPort(name);
+		this.usesPortMap.put(name, providesImpl);
+		return providesImpl;
 		
 	}
 

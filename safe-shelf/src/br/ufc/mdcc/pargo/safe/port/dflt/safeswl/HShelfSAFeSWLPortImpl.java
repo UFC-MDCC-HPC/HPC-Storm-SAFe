@@ -2,28 +2,29 @@ package br.ufc.mdcc.pargo.safe.port.dflt.safeswl;
 
 public class HShelfSAFeSWLPortImpl extends HShelfSAFeSWLPort{
 
+	private String archFilePath;
+	private String flowFilePath;
+	
 	@Override
 	public String getSAFeSWLArchFilePath() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.archFilePath;
 	}
 
 	@Override
 	public String getSAFeSWLFlowFilePath() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return this.flowFilePath;
 	}
 
 	@Override
-	public String getSAFeSWLArchSourceXML() {
-		// TODO Auto-generated method stub
-		return null;
+	public void setSAFeSWLArchFilePath(String path) {
+		this.archFilePath = path;		
 	}
 
 	@Override
-	public String getSAFeSWLFlowSourceXML() {
-		// TODO Auto-generated method stub
-		return null;
+	public void setSAFeSWLFlowFilePath(String path) {
+		this.flowFilePath = path;
 	}
 
+	 
 }
