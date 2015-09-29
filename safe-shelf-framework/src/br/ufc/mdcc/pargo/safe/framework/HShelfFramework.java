@@ -9,6 +9,7 @@ import br.ufc.mdcc.pargo.safe.application.HShelfApplication;
 import br.ufc.mdcc.pargo.safe.component.HShelfComponent;
 import br.ufc.mdcc.pargo.safe.port.HShelfBuilderService;
 import br.ufc.mdcc.pargo.safe.port.HShelfPort;
+import br.ufc.mdcc.pargo.safe.port.event.HShelfConnectionEvent;
 import br.ufc.mdcc.pargo.safe.port.event.HShelfEventHandler;
 import br.ufc.mdcc.pargo.safe.port.event.HShelfEventType;
 import br.ufc.mdcc.pargo.safe.port.event.IHShelfConnectionEventListener;
@@ -21,6 +22,7 @@ public class HShelfFramework extends HShelfBuilderService{
 
 	
 	private Map<String,HShelfPort> providesPortMap;
+	private Map<String, Object> usesPortTypeMap;
 	private Map<String,HShelfComponent> componentMap;
 	
 	private HShelfWorkflow workflow;
@@ -30,6 +32,7 @@ public class HShelfFramework extends HShelfBuilderService{
 	public HShelfFramework() {
 		HShelfConsoleLogger.write("Creating HShelfFramework");
 		this.providesPortMap = new HashMap<String,HShelfPort>();
+		this.usesPortTypeMap = new HashMap<String, Object>();
 		this.componentMap = new HashMap<String,HShelfComponent>();
 		this.eventHandler = new HShelfEventHandler();
 	}
@@ -52,17 +55,17 @@ public class HShelfFramework extends HShelfBuilderService{
 	@Override
 	public HShelfConnection connect(HShelfComponent user, String userPortName,
 			HShelfComponent provider, String providerPortName) {
-		this.notifyAllConnectionListeners(HShelfEventType.ConnectPending);
+		
 		// TODO Auto-generated method stub
-		this.notifyAllConnectionListeners(HShelfEventType.Connected);
+		
 		return null;
 	}
 
 	@Override
 	public void disconnect(HShelfConnection conn) {
-		this.notifyAllConnectionListeners(HShelfEventType.DisconnectPending);
+		
 		// TODO Auto-generated method stub
-		this.notifyAllConnectionListeners(HShelfEventType.Diconnected);
+		
 	}
 
 	@Override
@@ -110,7 +113,13 @@ public class HShelfFramework extends HShelfBuilderService{
 	 
 
 	public void addComponent(HShelfComponent component){
+		
 		this.componentMap.put(component.getName(),component);
+		if(component.getServices()==null){
+			IHShelfService serviceImpl = new HShelfServiceImpl();
+			serviceImpl.initialize(this, component); 
+			component.setServices(serviceImpl);
+		}
 		if(component instanceof IHShelfConnectionEventListener){
 			this.addConnectionEventListener((IHShelfConnectionEventListener)component);
 		}
@@ -122,8 +131,18 @@ public class HShelfFramework extends HShelfBuilderService{
 			this.addConnectionEventListener((IHShelfConnectionEventListener)port);
 		}
 		this.notifyReleaseComponents(port.getName());
+		
+		HShelfConnectionEvent event = new HShelfConnectionEvent(HShelfEventType.ProvidesAdded, port);
+		this.notifyAllConnectionListeners(event);
 	}
 	
+	public void addUsesPortType(String name, Object type){
+		this.usesPortTypeMap.put(name, type);
+	}
+	
+	public Object getUsesPort(String name){
+		return this.usesPortTypeMap.get(name);
+	}
 	
 	public HShelfPort getProvidesPort(String name){
 		return this.providesPortMap.get(name);
@@ -134,16 +153,16 @@ public class HShelfFramework extends HShelfBuilderService{
 		this.eventHandler.addConnectionEventListener(listener);
 	}
 	
-	public void notifyAllConnectionListeners(HShelfEventType eventType){
-		this.eventHandler.notifyAllConnectionListeners(eventType);
+	public void notifyAllConnectionListeners(HShelfConnectionEvent event){
+		this.eventHandler.notifyAllConnectionListeners(event);
 	}
 	
 	//Semaphores
 	private void notifyReleaseComponents(String name){
 		
 		for(HShelfComponent component:this.getComponents()){
-			IHShelfService service = component.getServices();
-			if(service.notifySemaphoreRelease(name))
+			IHShelfService services = component.getServices();
+			if(services.notifySemaphoreRelease(name))
 				return;
 		}
 	}

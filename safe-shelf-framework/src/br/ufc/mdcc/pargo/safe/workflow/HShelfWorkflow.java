@@ -6,7 +6,6 @@ import br.ufc.mdcc.pargo.safe.grammar.ISAFeSWLArcherParser;
 import br.ufc.mdcc.pargo.safe.grammar.ISAFeSWLFlowParser;
 import br.ufc.mdcc.pargo.safe.grammar.SAFeSWLArchParser;
 import br.ufc.mdcc.pargo.safe.grammar.SAFeSWLFlowParser;
-import br.ufc.mdcc.pargo.safe.grammar.test.ArchitectureLanguageTest;
 import br.ufc.mdcc.pargo.safe.port.HShelfPort;
 import br.ufc.mdcc.pargo.safe.port.dflt.HShelfGoWorkflowPortImpl;
 import br.ufc.mdcc.pargo.safe.port.dflt.HShelfSAFeSWLPort;
@@ -33,12 +32,12 @@ public class HShelfWorkflow extends HShelfComponent {
 		try {
 			safeSWL = new HShelfSAFeSWLPortImpl();
 			safeSWL.setName("safeswl-port");
-			services.addProvidesPort(safeSWL);
+			services.setProvidesPort(safeSWL);
 			
 			safeGo = new HShelfGoWorkflowPortImpl();
 			((HShelfGoWorkflowPortImpl)safeGo).workflow = this;
 			safeGo.setName("go-workflow");
-			services.addProvidesPort(safeGo);
+			services.setProvidesPort(safeGo);
 			
 		} catch (HShelfException e) {
 			// TODO Auto-generated catch block

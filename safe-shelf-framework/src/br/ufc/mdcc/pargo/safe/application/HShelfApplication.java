@@ -18,4 +18,8 @@ public abstract class HShelfApplication extends HShelfComponent{
 		this.framework = new HShelfFramework();
 		this.framework.initialize(this);
 	}
+	
+	public HShelfFramework getFramework(){
+		return this.framework;
+	}
 }

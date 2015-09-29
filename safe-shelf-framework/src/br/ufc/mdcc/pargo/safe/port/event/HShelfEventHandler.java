@@ -3,6 +3,7 @@ package br.ufc.mdcc.pargo.safe.port.event;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.ufc.mdcc.pargo.safe.framework.HShelfConnection;
 import br.ufc.mdcc.pargo.safe.util.HShelfConsoleLogger;
 
 public class HShelfEventHandler {
@@ -18,9 +19,9 @@ public class HShelfEventHandler {
 		this.connectionListeners.add(listener);
 	}
 	
-	public void notifyAllConnectionListeners(HShelfEventType eventType){
+	public void notifyAllConnectionListeners(HShelfConnectionEvent event){
 		for(IHShelfConnectionEventListener listener:this.connectionListeners){
-			listener.connectionActivity(eventType);
+			listener.connectionActivity(event);
 		}
 	}
 }

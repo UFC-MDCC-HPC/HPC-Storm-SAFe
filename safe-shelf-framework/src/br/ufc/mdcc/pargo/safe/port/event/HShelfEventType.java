@@ -5,5 +5,7 @@ public enum HShelfEventType {
 	ConnectPending,
 	Connected,
 	DisconnectPending,
-	Diconnected
+	Disconnected,
+	ProvidesAdded,
+	UsesRegistered
 }

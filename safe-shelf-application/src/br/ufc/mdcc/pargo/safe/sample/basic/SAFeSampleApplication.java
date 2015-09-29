@@ -1,4 +1,4 @@
-package br.ufc.mdcc.pargo.safe.sample;
+package br.ufc.mdcc.pargo.safe.sample.basic;
 
 /**
  * Application
@@ -7,15 +7,12 @@ import br.ufc.mdcc.pargo.safe.application.HShelfApplication;
 import br.ufc.mdcc.pargo.safe.exception.HShelfException;
 import br.ufc.mdcc.pargo.safe.port.HShelfPort;
 import br.ufc.mdcc.pargo.safe.port.dflt.HShelfGoPort;
-import br.ufc.mdcc.pargo.safe.port.dflt.HShelfGoWorkflowPortImpl;
 import br.ufc.mdcc.pargo.safe.port.dflt.HShelfSAFeSWLPort;
 import br.ufc.mdcc.pargo.safe.services.IHShelfService;
 
-public class SAfeSampleApplication extends HShelfApplication{
-
+public class SAFeSampleApplication extends HShelfApplication{
 	
-	
-	public SAfeSampleApplication(String name) {
+	public SAFeSampleApplication(String name) {
 		super(name);
 	}
 
@@ -26,18 +23,20 @@ public class SAfeSampleApplication extends HShelfApplication{
 	
 	
 	public static void main(String[] args) {
-		SAfeSampleApplication sampleApp = new SAfeSampleApplication("sample-app");
+		SAFeSampleApplication sampleApp = new SAFeSampleApplication("sample-app");
 		IHShelfService services = sampleApp.getServices();
 		try {
 		 
 			System.out.println("PASSO 1");
 			HShelfPort portSWL = services.getProvidesPort("safeswl-port");
+			
 			((HShelfSAFeSWLPort)portSWL).setSAFeSWLArchFilePath("/home/jefferson/Git/HPC-Storm-SAFe/safe-shelf-language/src/br/ufc/mdcc/pargo/safe/grammar/xml/mImgtbl-simple-run-arch.xml");
 			((HShelfSAFeSWLPort)portSWL).setSAFeSWLFlowFilePath("/home/jefferson/Git/HPC-Storm-SAFe/safe-shelf-language/src/br/ufc/mdcc/pargo/safe/grammar/xml/mImgtbl-simple-run-flow.xml");
 			
 			System.out.println("PASSO 2");
 			HShelfPort portGo = services.getProvidesPort("go-workflow");
 			((HShelfGoPort)portGo).go();
+
 			
 		} catch (HShelfException e) {
 			// TODO Auto-generated catch block

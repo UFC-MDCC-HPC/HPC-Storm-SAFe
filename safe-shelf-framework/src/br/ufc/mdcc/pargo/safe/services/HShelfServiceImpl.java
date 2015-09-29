@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.concurrent.Semaphore;
 
 import br.ufc.mdcc.pargo.safe.component.HShelfComponent;
+import br.ufc.mdcc.pargo.safe.exception.HShelfException;
 import br.ufc.mdcc.pargo.safe.framework.HShelfFramework;
 import br.ufc.mdcc.pargo.safe.port.HShelfPort;
 import br.ufc.mdcc.pargo.safe.util.HShelfConsoleLogger;
@@ -14,13 +15,15 @@ public class HShelfServiceImpl implements IHShelfService{
 	private HShelfFramework framework;
 	private HShelfComponent component;
 	private Map<String, HShelfPort> providesPortMap;
-	private Map<String, HShelfPort> usesPortMap;
+	private Map<String, Object> usesPortTypeMap;
+	private Map<String, HShelfPort> usesPortBidingMap; 
 	private Map<String, Semaphore> providesSemaphore;
 	
 	public HShelfServiceImpl() {
 		HShelfConsoleLogger.write("Creating HShelfServiceImpl");
 		this.providesPortMap = new HashMap<String, HShelfPort>();
-		this.usesPortMap = new HashMap<String, HShelfPort>();
+		this.usesPortTypeMap = new HashMap<String, Object>();
+		this.usesPortBidingMap = new HashMap<String, HShelfPort>();
 		this.providesSemaphore = new HashMap<String, Semaphore>();
 	}
 	
@@ -35,7 +38,7 @@ public class HShelfServiceImpl implements IHShelfService{
 		
 		HShelfPort providesImpl = this.framework.getProvidesPort(name);
 		if(providesImpl !=null){
-			this.usesPortMap.put(name, providesImpl);
+			this.usesPortBidingMap.put(name, providesImpl);
 			return providesImpl;
 		}else{
 			Semaphore semaphore = new Semaphore(0);
@@ -48,13 +51,14 @@ public class HShelfServiceImpl implements IHShelfService{
 		}
 		
 		providesImpl = this.framework.getProvidesPort(name);
-		this.usesPortMap.put(name, providesImpl);
+		this.usesPortBidingMap.put(name, providesImpl);
 		return providesImpl;
 		
 	}
 
+	//SHELF methods
 	@Override
-	public void addProvidesPort(HShelfPort port) {
+	public void setProvidesPort(HShelfPort port) {
 		this.providesPortMap.put(port.getName(), port);
 		this.framework.addProvidesPort(port);
 		port.setParentComponent(component);
@@ -69,6 +73,28 @@ public class HShelfServiceImpl implements IHShelfService{
 		}
 		return false;
 			
+	}
+
+	//CCA Original methods
+	@Override
+	public void registerUsesPort(String name, Object type) {
+		this.usesPortTypeMap.put(name, type);
+		this.framework.addUsesPortType(name, type);
+	}
+
+	@Override
+	public HShelfPort getPort(String name) {
+		HShelfPort provides = this.getProvidesPort(name);
+		Object type = this.usesPortTypeMap.get(name);
+		if(provides.getClass().isInstance(type))
+			return provides;
+		return null;
+	}
+
+	@Override
+	public void addProvidesPort(HShelfPort port) throws HShelfException {
+		this.providesPortMap.put(port.getName(), port); 
+		this.framework.addProvidesPort(port);
 	}
 	
 

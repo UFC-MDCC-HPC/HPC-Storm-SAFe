@@ -8,8 +8,15 @@ import br.ufc.mdcc.pargo.safe.port.HShelfPort;
 public interface IHShelfService {
 
 	public void initialize(HShelfFramework framework, HShelfComponent component);
-	public HShelfPort getProvidesPort(String name) throws HShelfException;
-	public void  addProvidesPort(HShelfPort port) throws HShelfException;
 	public boolean notifySemaphoreRelease(String name);
+	
+	//shelf methods
+	public HShelfPort getProvidesPort(String name) throws HShelfException;
+	public void  setProvidesPort(HShelfPort port) throws HShelfException;
+	
+	//cca methods
+	public void addProvidesPort(HShelfPort port) throws HShelfException;
+	public void registerUsesPort(String name, Object type);
+	public HShelfPort getPort(String name);
 	 
 }
