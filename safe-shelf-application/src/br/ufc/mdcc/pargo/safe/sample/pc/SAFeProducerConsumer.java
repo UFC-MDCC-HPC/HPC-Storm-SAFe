@@ -17,20 +17,17 @@ public class SAFeProducerConsumer extends HShelfApplication {
 		this.services = services;
 	}
 
-	public static void main(String[] args) {
+	public void run() {
 		// initialize
-		SAFeProducerConsumer sampleApp = new SAFeProducerConsumer(
-				"sample-app-cca");
-		
-		IHShelfService services = sampleApp.getServices();
-		HShelfFramework framework = sampleApp.getFramework();
+
+		HShelfFramework framework = this.getFramework();
 
 		// server
 		ShelfServerConsumer server = (ShelfServerConsumer) framework
 				.createComponent("server",
 						"br.ufc.mdcc.pargo.safe.sample.pc.ShelfServerConsumer");
 		framework.addComponent(server);
-		server.initialize();
+		server.initialize(); // maybe a port?
 
 		// client
 		ShelfClientProducer client = (ShelfClientProducer) framework
@@ -39,7 +36,7 @@ public class SAFeProducerConsumer extends HShelfApplication {
 		framework.addComponent(client);
 		client.initialize();
 
-		// run application
+		// run client by getting his go port
 		try {
 			ShelfPortGoClientProducer goClient = (ShelfPortGoClientProducer) services
 					.getProvidesPort("go-producer");
@@ -48,5 +45,10 @@ public class SAFeProducerConsumer extends HShelfApplication {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+
+	public static void main(String[] args) {
+		SAFeProducerConsumer pc = new SAFeProducerConsumer("app-safe-consumer");
+		pc.run();
 	}
 }

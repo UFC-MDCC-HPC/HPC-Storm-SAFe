@@ -20,7 +20,7 @@ public class ShelfServerConsumer extends HShelfComponent{
 		
 		
 		try {
-			this.services.addProvidesPort(port);
+			this.services.setProvidesPort(port);
 			
 		} catch (HShelfException e) {
 			// TODO Auto-generated catch block

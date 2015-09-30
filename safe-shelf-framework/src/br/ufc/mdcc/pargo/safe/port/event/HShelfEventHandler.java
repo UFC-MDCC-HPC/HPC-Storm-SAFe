@@ -3,7 +3,6 @@ package br.ufc.mdcc.pargo.safe.port.event;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.ufc.mdcc.pargo.safe.framework.HShelfConnection;
 import br.ufc.mdcc.pargo.safe.util.HShelfConsoleLogger;
 
 public class HShelfEventHandler {

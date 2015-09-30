@@ -53,28 +53,12 @@ public class HShelfFramework extends HShelfBuilderService{
 	}
 	
 	@Override
-	public HShelfConnection connect(HShelfComponent user, String userPortName,
-			HShelfComponent provider, String providerPortName) {
-		
-		// TODO Auto-generated method stub
-		
-		return null;
-	}
-
-	@Override
-	public void disconnect(HShelfConnection conn) {
-		
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public HShelfComponent createComponent(String name, String className) {
 		HShelfComponent component = null;
 		try {
 			component = (HShelfComponent)Class.forName(className).newInstance();
 			component.setName(name);
-			this.componentMap.put(name,component);
+			//this.addComponent(component);
 		} catch (InstantiationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -115,7 +99,7 @@ public class HShelfFramework extends HShelfBuilderService{
 	public void addComponent(HShelfComponent component){
 		
 		this.componentMap.put(component.getName(),component);
-		if(component.getServices()==null){
+		if(!component.hasServices()){
 			IHShelfService serviceImpl = new HShelfServiceImpl();
 			serviceImpl.initialize(this, component); 
 			component.setServices(serviceImpl);
@@ -130,7 +114,6 @@ public class HShelfFramework extends HShelfBuilderService{
 		if(port instanceof IHShelfConnectionEventListener){
 			this.addConnectionEventListener((IHShelfConnectionEventListener)port);
 		}
-		this.notifyReleaseComponents(port.getName());
 		
 		HShelfConnectionEvent event = new HShelfConnectionEvent(HShelfEventType.ProvidesAdded, port);
 		this.notifyAllConnectionListeners(event);
@@ -155,15 +138,5 @@ public class HShelfFramework extends HShelfBuilderService{
 	
 	public void notifyAllConnectionListeners(HShelfConnectionEvent event){
 		this.eventHandler.notifyAllConnectionListeners(event);
-	}
-	
-	//Semaphores
-	private void notifyReleaseComponents(String name){
-		
-		for(HShelfComponent component:this.getComponents()){
-			IHShelfService services = component.getServices();
-			if(services.notifySemaphoreRelease(name))
-				return;
-		}
 	}
 }

@@ -19,7 +19,7 @@ public class ShelfClientProducer extends HShelfComponent{
 		go.setName("go-producer");
 		go.client = this;
 		try {
-			this.services.addProvidesPort(go);
+			this.services.setProvidesPort(go);
 		} catch (HShelfException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -10,38 +10,43 @@ import br.ufc.mdcc.pargo.safe.port.dflt.HShelfGoPort;
 import br.ufc.mdcc.pargo.safe.port.dflt.HShelfSAFeSWLPort;
 import br.ufc.mdcc.pargo.safe.services.IHShelfService;
 
-public class SAFeSampleApplication extends HShelfApplication{
-	
+public class SAFeSampleApplication extends HShelfApplication {
+
 	public SAFeSampleApplication(String name) {
 		super(name);
 	}
 
 	@Override
 	public void setServices(IHShelfService services) {
-		this.services = services; 
+		this.services = services;
 	}
-	
-	
-	public static void main(String[] args) {
-		SAFeSampleApplication sampleApp = new SAFeSampleApplication("sample-app");
-		IHShelfService services = sampleApp.getServices();
+
+	public void run() {
+		// encapsule ISSO!
+
 		try {
-		 
+
 			System.out.println("PASSO 1");
 			HShelfPort portSWL = services.getProvidesPort("safeswl-port");
-			
-			((HShelfSAFeSWLPort)portSWL).setSAFeSWLArchFilePath("/home/jefferson/Git/HPC-Storm-SAFe/safe-shelf-language/src/br/ufc/mdcc/pargo/safe/grammar/xml/mImgtbl-simple-run-arch.xml");
-			((HShelfSAFeSWLPort)portSWL).setSAFeSWLFlowFilePath("/home/jefferson/Git/HPC-Storm-SAFe/safe-shelf-language/src/br/ufc/mdcc/pargo/safe/grammar/xml/mImgtbl-simple-run-flow.xml");
-			
+
+			((HShelfSAFeSWLPort) portSWL)
+					.setSAFeSWLArchFilePath("/home/jefferson/Git/HPC-Storm-SAFe/safe-shelf-language/src/br/ufc/mdcc/pargo/safe/grammar/xml/mImgtbl-simple-run-arch.xml");
+			((HShelfSAFeSWLPort) portSWL)
+					.setSAFeSWLFlowFilePath("/home/jefferson/Git/HPC-Storm-SAFe/safe-shelf-language/src/br/ufc/mdcc/pargo/safe/grammar/xml/mImgtbl-simple-run-flow.xml");
+
 			System.out.println("PASSO 2");
 			HShelfPort portGo = services.getProvidesPort("go-workflow");
-			((HShelfGoPort)portGo).go();
+			((HShelfGoPort) portGo).go();
 
-			
 		} catch (HShelfException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+
+	public static void main(String[] args) {
+		SAFeSampleApplication app = new SAFeSampleApplication("sample-app");
+		app.run();
 	}
 
 }

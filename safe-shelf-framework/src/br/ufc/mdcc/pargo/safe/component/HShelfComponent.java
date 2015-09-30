@@ -8,10 +8,6 @@ public abstract class HShelfComponent {
 	protected IHShelfService services;
 	
 	public abstract void setServices(IHShelfService services);
-	
-	public IHShelfService getServices(){
-		return this.services;
-	}
 
 	public String getName() {
 		return name;
@@ -19,6 +15,11 @@ public abstract class HShelfComponent {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	public boolean hasServices(){
+		if(this.services==null) return false;
+		return true;
 	}
 	
 	@Override
