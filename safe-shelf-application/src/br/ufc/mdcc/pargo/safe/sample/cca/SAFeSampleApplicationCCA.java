@@ -24,10 +24,13 @@ public class SAFeSampleApplicationCCA extends HShelfApplication {
 		HShelfFramework framework = sampleApp.getFramework();
 
 		// server
-		ShelfServerComponent server = new ShelfServerComponent();
+		/*ShelfServerComponent server = new ShelfServerComponent();
 		server.setName("server");
 		framework.addComponent(server);
+		server.initialize();*/
+		ShelfServerComponent server = (ShelfServerComponent)framework.createComponent("server", "br.ufc.mdcc.pargo.safe.sample.cca.ShelfServerComponent");
 		server.initialize();
+		
 
 		// client
 		ShelfClientComponent client = new ShelfClientComponent();
