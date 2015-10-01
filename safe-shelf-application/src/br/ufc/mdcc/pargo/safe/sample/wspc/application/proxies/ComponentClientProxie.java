@@ -1,4 +1,4 @@
-package br.ufc.mdcc.pargo.safe.sample.wspc.stubs.application.proxies;
+package br.ufc.mdcc.pargo.safe.sample.wspc.application.proxies;
 
 import br.ufc.mdcc.pargo.safe.component.HShelfComponent;
 import br.ufc.mdcc.pargo.safe.exception.HShelfException;

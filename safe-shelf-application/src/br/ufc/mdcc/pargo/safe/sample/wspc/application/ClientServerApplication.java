@@ -1,13 +1,13 @@
-package br.ufc.mdcc.pargo.safe.sample.wspc.stubs.application;
+package br.ufc.mdcc.pargo.safe.sample.wspc.application;
 
 import br.ufc.mdcc.pargo.safe.application.HShelfApplication;
 import br.ufc.mdcc.pargo.safe.exception.HShelfException;
 import br.ufc.mdcc.pargo.safe.port.dflt.HShelfGoPort;
 import br.ufc.mdcc.pargo.safe.port.dflt.HShelfSAFeSWLPort;
-import br.ufc.mdcc.pargo.safe.sample.wspc.stubs.application.proxies.ClientGoPortProxie;
-import br.ufc.mdcc.pargo.safe.sample.wspc.stubs.application.proxies.ClientOperationPortProxie;
-import br.ufc.mdcc.pargo.safe.sample.wspc.stubs.application.proxies.ServerGoPortProxie;
-import br.ufc.mdcc.pargo.safe.sample.wspc.stubs.application.proxies.ServerOperationPortProxie;
+import br.ufc.mdcc.pargo.safe.sample.wspc.application.proxies.ClientGoPortProxie;
+import br.ufc.mdcc.pargo.safe.sample.wspc.application.proxies.ClientOperationPortProxie;
+import br.ufc.mdcc.pargo.safe.sample.wspc.application.proxies.ServerGoPortProxie;
+import br.ufc.mdcc.pargo.safe.sample.wspc.application.proxies.ServerOperationPortProxie;
 import br.ufc.mdcc.pargo.safe.services.IHShelfService;
 
 public class ClientServerApplication extends HShelfApplication{
@@ -54,6 +54,17 @@ public class ClientServerApplication extends HShelfApplication{
 		this.connectClient(10010);
 		
 		this.sendMsg("Server, vai ter lascar!!!");
+		
+		System.out.println("RECEBIDO: " + this.getMsg());
+		
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		this.sendMsg("Server, vai ter lascar novamente!!!");
 		
 		System.out.println("RECEBIDO: " + this.getMsg());
 		

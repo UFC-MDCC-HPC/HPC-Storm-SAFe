@@ -67,10 +67,10 @@ public class HShelfWorkflow extends HShelfComponent {
 		
 		//cria instância dos componentes proxies
 		HShelfComponent client = 
-				this.framework.createComponent("client", "br.ufc.mdcc.pargo.safe.sample.wspc.stubs.application.proxies.ComponentClientProxie");
+				this.framework.createComponent("client", "br.ufc.mdcc.pargo.safe.sample.wspc.application.proxies.ComponentClientProxie");
 		this.framework.addComponent(client);
 		HShelfComponent server = 
-				this.framework.createComponent("server", "br.ufc.mdcc.pargo.safe.sample.wspc.stubs.application.proxies.ComponentServerProxie");
+				this.framework.createComponent("server", "br.ufc.mdcc.pargo.safe.sample.wspc.application.proxies.ComponentServerProxie");
 		this.framework.addComponent(server);
 		//adciona ao framework
 		
