@@ -21,7 +21,7 @@ public class SAFeOrchestrationWorkflow {
 	private XMLSAFeOperation workflow;
 	private SAFeOrchestrationElement root;
 	private ISAFeVisitor safeVisitor;
-	private ISAFeSWLArcherParser sAFeSWLArcherParser;
+	
 
 	public SAFeOrchestrationWorkflow(String XMLfileName) {
 		this.safeVisitor = new SAFeVisitorImpl();
@@ -29,7 +29,6 @@ public class SAFeOrchestrationWorkflow {
 	}
 	
 	public void setISAFeSWLArcherParser(ISAFeSWLArcherParser sAFeSWLArcherParser){
-		this.sAFeSWLArcherParser = sAFeSWLArcherParser;
 		this.safeVisitor.setISAFeSWLArcherParser(sAFeSWLArcherParser);
 	}
 

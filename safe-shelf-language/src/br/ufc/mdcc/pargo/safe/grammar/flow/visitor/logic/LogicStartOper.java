@@ -31,6 +31,7 @@ public class LogicStartOper extends AbstractSAFeElementLogic{
 		if(element.getElement() instanceof XMLSAFePrimOper){
 			XMLSAFePrimOper start_oper = (XMLSAFePrimOper)element.getElement();
 			handle_id = start_oper.getHandleId();
+			SAFeConsoleLogger.write("HANDLE-ID: " + handle_id);
 		}
 		
 		

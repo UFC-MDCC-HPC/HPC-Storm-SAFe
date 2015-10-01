@@ -30,6 +30,7 @@ public class LogicWaitOper extends AbstractSAFeElementLogic {
 		if (element.getElement() instanceof XMLSAFePrimOper) {
 			XMLSAFePrimOper wait_oper = (XMLSAFePrimOper) element.getElement();
 			handle_id = wait_oper.getHandleId();
+			SAFeConsoleLogger.write("HANDLE-ID: " + handle_id);
 		}
 
 		for (int i = element.getChildren().size() - 1; i >= 0; i--) {

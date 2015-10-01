@@ -31,6 +31,7 @@ public class LogicCancelOper extends AbstractSAFeElementLogic{
 		if(element.getElement() instanceof XMLSAFePrimOper){
 			XMLSAFePrimOper cancel_oper = (XMLSAFePrimOper)element.getElement();
 			handle_id = cancel_oper.getHandleId();
+			SAFeConsoleLogger.write("HANDLE-ID: " + handle_id);
 		}
 		
 		

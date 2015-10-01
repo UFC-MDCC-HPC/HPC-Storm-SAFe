@@ -30,9 +30,9 @@ public class SAFeSampleApplication extends HShelfApplication {
 			HShelfPort portSWL = services.getProvidesPort("safeswl-port");
 
 			((HShelfSAFeSWLPort) portSWL)
-					.setSAFeSWLArchFilePath("/home/jefferson/Git/HPC-Storm-SAFe/safe-shelf-language/src/br/ufc/mdcc/pargo/safe/grammar/xml/mImgtbl-simple-run-arch.xml");
+					.setSAFeSWLArchFilePath("/home/jefferson/Git/HPC-Storm-SAFe/safe-shelf-application/src/br/ufc/mdcc/pargo/safe/grammar/xml/mImgtbl-simple-run-arch.xml");
 			((HShelfSAFeSWLPort) portSWL)
-					.setSAFeSWLFlowFilePath("/home/jefferson/Git/HPC-Storm-SAFe/safe-shelf-language/src/br/ufc/mdcc/pargo/safe/grammar/xml/mImgtbl-simple-run-flow.xml");
+					.setSAFeSWLFlowFilePath("/home/jefferson/Git/HPC-Storm-SAFe/safe-shelf-application/src/br/ufc/mdcc/pargo/safe/grammar/xml/mImgtbl-simple-run-flow.xml");
 
 			System.out.println("PASSO 2");
 			HShelfPort portGo = services.getProvidesPort("go-workflow");

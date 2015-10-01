@@ -47,8 +47,7 @@ public class HShelfWorkflow extends HShelfComponent {
 	}
 	
 	public void run(){
-		System.out.println();
-		System.out.println();
+		
 		
 		ISAFeSWLArcherParser archParser = new SAFeSWLArchParser(((HShelfSAFeSWLPort)safeSWL).getSAFeSWLArchFilePath());
 		ISAFeSWLFlowParser flowParser = new SAFeSWLFlowParser(((HShelfSAFeSWLPort)safeSWL).getSAFeSWLFlowFilePath());

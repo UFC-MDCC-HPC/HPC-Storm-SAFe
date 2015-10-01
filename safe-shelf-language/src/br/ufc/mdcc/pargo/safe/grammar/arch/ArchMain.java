@@ -1,9 +1,7 @@
 package br.ufc.mdcc.pargo.safe.grammar.arch;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.jdom2.Element;
 

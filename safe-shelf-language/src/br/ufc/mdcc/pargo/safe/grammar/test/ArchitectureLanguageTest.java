@@ -3,7 +3,6 @@ package br.ufc.mdcc.pargo.safe.grammar.test;
 import br.ufc.mdcc.pargo.safe.grammar.ISAFeSWLArcherParser;
 import br.ufc.mdcc.pargo.safe.grammar.SAFeSWLArchParser;
 import br.ufc.mdcc.pargo.safe.grammar.SAFeSWLValidator;
-import br.ufc.mdcc.pargo.safe.grammar.arch.ArchMain;
 
 public class ArchitectureLanguageTest {
 
