@@ -31,7 +31,7 @@ public class SAFeProducerConsumer extends HShelfApplication {
 
 		// client
 		ShelfClientProducer client = (ShelfClientProducer) framework
-				.createComponent("server",
+				.createComponent("client",
 						"br.ufc.mdcc.pargo.safe.sample.pc.ShelfClientProducer");
 		framework.addComponent(client);
 		client.initialize();

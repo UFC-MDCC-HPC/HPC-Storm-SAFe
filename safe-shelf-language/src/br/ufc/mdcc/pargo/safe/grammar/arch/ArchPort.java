@@ -5,6 +5,7 @@ public class ArchPort implements IArchObject{
 
 	private String name;
 	private Integer id;
+	private String wsdlPath;
 	
 	
 	public ArchPort(){
@@ -32,6 +33,14 @@ public class ArchPort implements IArchObject{
 		this.id = id;
 	}
 	
+
+	public String getWsdlPath() {
+		return wsdlPath;
+	}
+
+	public void setWsdlPath(String wsdlPath) {
+		this.wsdlPath = wsdlPath;
+	}
 
 	@Override
 	public boolean equals(Object obj) {

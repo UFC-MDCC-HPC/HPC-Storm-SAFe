@@ -2,6 +2,7 @@ package br.ufc.mdcc.pargo.safe.workflow;
 
 import br.ufc.mdcc.pargo.safe.component.HShelfComponent;
 import br.ufc.mdcc.pargo.safe.exception.HShelfException;
+import br.ufc.mdcc.pargo.safe.framework.HShelfFramework;
 import br.ufc.mdcc.pargo.safe.grammar.ISAFeSWLArcherParser;
 import br.ufc.mdcc.pargo.safe.grammar.ISAFeSWLFlowParser;
 import br.ufc.mdcc.pargo.safe.grammar.SAFeSWLArchParser;
@@ -17,34 +18,34 @@ public class HShelfWorkflow extends HShelfComponent {
 
 	private HShelfPort safeSWL;
 	private HShelfPort safeGo;
+	private HShelfFramework framework;
 	
-	public HShelfWorkflow(String name) {
+	public HShelfWorkflow(String name, HShelfFramework framework) {
 		HShelfConsoleLogger.write("Creating HShelfWorkflow");
+		this.framework = framework;
 		this.setName(name);
 	}
 
 	@Override
 	public void setServices(IHShelfService services) {
 		this.services = services;
-	}
-	
-	public void initialize(){
 		try {
 			safeSWL = new HShelfSAFeSWLPortImpl();
 			safeSWL.setName("safeswl-port");
-			services.setProvidesPort(safeSWL);
+			this.services.setProvidesPort(safeSWL);
 			
 			safeGo = new HShelfGoWorkflowPortImpl();
 			((HShelfGoWorkflowPortImpl)safeGo).workflow = this;
 			safeGo.setName("go-workflow");
-			services.setProvidesPort(safeGo);
+			this.services.setProvidesPort(safeGo);
 			
 		} catch (HShelfException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		 
 	}
+	
+	 
 	
 	public void run(){
 		
@@ -53,6 +54,26 @@ public class HShelfWorkflow extends HShelfComponent {
 		ISAFeSWLFlowParser flowParser = new SAFeSWLFlowParser(((HShelfSAFeSWLPort)safeSWL).getSAFeSWLFlowFilePath());
 		flowParser.setISAFeSWLArcherParser(archParser);
 		flowParser.run();
+		
+		this.TESTE_APAGAR_DEPOIS();
+	}
+	
+	private void TESTE_APAGAR_DEPOIS(){
+		//lê arquitetura
+		//lê cada wsdl de cada porta de um componente
+		//gera stubs para essas portas
+		//gera proxies para essas portas
+		//gera compontes proxies que usam essas portas proxies
+		
+		//cria instância dos componentes proxies
+		HShelfComponent client = 
+				this.framework.createComponent("client", "br.ufc.mdcc.pargo.safe.sample.wspc.stubs.application.proxies.ComponentClientProxie");
+		this.framework.addComponent(client);
+		HShelfComponent server = 
+				this.framework.createComponent("server", "br.ufc.mdcc.pargo.safe.sample.wspc.stubs.application.proxies.ComponentServerProxie");
+		this.framework.addComponent(server);
+		//adciona ao framework
+		
 	}
 
 }

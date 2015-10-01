@@ -145,6 +145,7 @@
 		<attribute name="id" type="int"></attribute>
 		<attribute name="id_component" type="int"></attribute>
 		<attribute name="name" type="string"></attribute>
+		<attribute name="wsdl_path" type="string"></attribute>
 	</complexType>
 
 	<complexType name="PortEnvironmentUses">

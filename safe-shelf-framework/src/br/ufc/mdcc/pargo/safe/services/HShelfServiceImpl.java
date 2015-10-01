@@ -36,6 +36,7 @@ public class HShelfServiceImpl implements IHShelfService{
 			this.usesPortBidingMap.put(name, providesImpl);
 			return providesImpl;
 		}else{
+			System.out.println("--"+name);
 			throw new HShelfProvidesPortNotFoundException();
 		}
 		

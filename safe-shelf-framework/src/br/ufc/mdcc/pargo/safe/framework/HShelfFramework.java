@@ -39,17 +39,22 @@ public class HShelfFramework extends HShelfBuilderService{
 	
 	public void initialize(HShelfApplication application){
 		this.application = application;
-		this.workflow = new HShelfWorkflow(this.application.getName()+"-worflow");
-		IHShelfService serviceApp = new HShelfServiceImpl();
-		IHShelfService serviceWf = new HShelfServiceImpl();
-		this.application.setServices(serviceApp);
-		this.workflow.setServices(serviceWf);
-		serviceApp.initialize(this, this.application);
-		serviceWf.initialize(this, this.workflow);
-		this.addComponent(this.application);
-		this.addComponent(this.workflow);
 		
-		this.workflow.initialize();
+		//workflow
+		this.workflow = new HShelfWorkflow(this.application.getName()+"-worflow",this);
+		IHShelfService serviceWf = new HShelfServiceImpl();
+		serviceWf.initialize(this, this.workflow);
+		this.workflow.setServices(serviceWf);
+		
+		//application
+		IHShelfService serviceApp = new HShelfServiceImpl();
+		serviceApp.initialize(this, this.application);
+		this.application.setServices(serviceApp);
+		
+		//adding
+		this.addComponent(this.workflow);
+		this.addComponent(this.application);
+		
 	}
 	
 	@Override
@@ -58,7 +63,6 @@ public class HShelfFramework extends HShelfBuilderService{
 		try {
 			component = (HShelfComponent)Class.forName(className).newInstance();
 			component.setName(name);
-			//this.addComponent(component);
 		} catch (InstantiationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -69,7 +73,6 @@ public class HShelfFramework extends HShelfBuilderService{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		this.addComponent(component);
 		return component;
 	}
 	
@@ -107,6 +110,7 @@ public class HShelfFramework extends HShelfBuilderService{
 		if(component instanceof IHShelfConnectionEventListener){
 			this.addConnectionEventListener((IHShelfConnectionEventListener)component);
 		}
+		HShelfConsoleLogger.write("Component "+component.getName()+" added");
 	}
 	
 	public void addProvidesPort(HShelfPort port){

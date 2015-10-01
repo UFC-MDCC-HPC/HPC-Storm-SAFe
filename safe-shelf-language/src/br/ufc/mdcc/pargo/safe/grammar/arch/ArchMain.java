@@ -74,6 +74,7 @@ public class ArchMain {
 		public static final String att_port = "port";
 		public static final String att_comp_ref = "component_ref";
 		public static final String att_parameter_id = "parameter_id";
+		public static final String att_wsdl_path = "wsdl_path";
 		
 		
 		public ArchMain(){
@@ -121,6 +122,7 @@ public class ArchMain {
 			ArchUses archUses = new ArchUses();
 			archUses.setName(usesElement.getAttributeValue(att_name));
 			archUses.setId(Integer.parseInt((usesElement.getAttributeValue(att_id))));
+			archUses.setWsdlPath((usesElement.getAttributeValue(att_wsdl_path)));
 			return archUses;
 		}
 		
@@ -128,6 +130,7 @@ public class ArchMain {
 			ArchProvides archProvides = new ArchProvides();
 			archProvides.setName(providesElement.getAttributeValue(att_name));
 			archProvides.setId(Integer.parseInt((providesElement.getAttributeValue(att_id))));
+			archProvides.setWsdlPath((providesElement.getAttributeValue(att_wsdl_path)));
 			return archProvides;
 		}
 		

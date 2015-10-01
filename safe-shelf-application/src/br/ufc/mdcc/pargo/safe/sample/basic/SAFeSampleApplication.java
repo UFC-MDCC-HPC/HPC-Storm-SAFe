@@ -19,20 +19,15 @@ public class SAFeSampleApplication extends HShelfApplication {
 	@Override
 	public void setServices(IHShelfService services) {
 		this.services = services;
-	}
-
-	public void run() {
-		// encapsule ISSO!
-
 		try {
 
 			System.out.println("PASSO 1");
 			HShelfPort portSWL = services.getProvidesPort("safeswl-port");
 
 			((HShelfSAFeSWLPort) portSWL)
-					.setSAFeSWLArchFilePath("/home/jefferson/Git/HPC-Storm-SAFe/safe-shelf-application/src/br/ufc/mdcc/pargo/safe/grammar/xml/mImgtbl-simple-run-arch.xml");
+					.setSAFeSWLArchFilePath("/home/jefferson/Git/HPC-Storm-SAFe/safe-shelf-application/src/br/ufc/mdcc/pargo/safe/sample/xml/mImgtbl-simple-run-arch.xml");
 			((HShelfSAFeSWLPort) portSWL)
-					.setSAFeSWLFlowFilePath("/home/jefferson/Git/HPC-Storm-SAFe/safe-shelf-application/src/br/ufc/mdcc/pargo/safe/grammar/xml/mImgtbl-simple-run-flow.xml");
+					.setSAFeSWLFlowFilePath("/home/jefferson/Git/HPC-Storm-SAFe/safe-shelf-application/src/br/ufc/mdcc/pargo/safe/sample/xml/mImgtbl-simple-run-flow.xml");
 
 			System.out.println("PASSO 2");
 			HShelfPort portGo = services.getProvidesPort("go-workflow");
@@ -44,9 +39,11 @@ public class SAFeSampleApplication extends HShelfApplication {
 		}
 	}
 
+	
+
 	public static void main(String[] args) {
 		SAFeSampleApplication app = new SAFeSampleApplication("sample-app");
-		app.run();
+		//app.run();
 	}
 
 }
