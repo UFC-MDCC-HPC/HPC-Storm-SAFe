@@ -5,18 +5,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import br.ufc.mdcc.pargo.safe.application.HShelfApplication;
-import br.ufc.mdcc.pargo.safe.component.HShelfComponent;
-import br.ufc.mdcc.pargo.safe.port.HShelfBuilderService;
-import br.ufc.mdcc.pargo.safe.port.HShelfPort;
-import br.ufc.mdcc.pargo.safe.port.event.HShelfConnectionEvent;
-import br.ufc.mdcc.pargo.safe.port.event.HShelfEventHandler;
-import br.ufc.mdcc.pargo.safe.port.event.HShelfEventType;
-import br.ufc.mdcc.pargo.safe.port.event.IHShelfConnectionEventListener;
-import br.ufc.mdcc.pargo.safe.services.HShelfServiceImpl;
-import br.ufc.mdcc.pargo.safe.services.IHShelfService;
-import br.ufc.mdcc.pargo.safe.util.HShelfConsoleLogger;
-import br.ufc.mdcc.pargo.safe.workflow.HShelfWorkflow;
+import br.ufc.mdcc.pargo.safe.framework.application.HShelfApplication;
+import br.ufc.mdcc.pargo.safe.framework.component.HShelfComponent;
+import br.ufc.mdcc.pargo.safe.framework.port.HShelfBuilderService;
+import br.ufc.mdcc.pargo.safe.framework.port.HShelfPort;
+import br.ufc.mdcc.pargo.safe.framework.port.event.HShelfConnectionEvent;
+import br.ufc.mdcc.pargo.safe.framework.port.event.HShelfEventHandler;
+import br.ufc.mdcc.pargo.safe.framework.port.event.HShelfEventType;
+import br.ufc.mdcc.pargo.safe.framework.port.event.IHShelfConnectionEventListener;
+import br.ufc.mdcc.pargo.safe.framework.services.HShelfServiceImpl;
+import br.ufc.mdcc.pargo.safe.framework.services.IHShelfService;
+import br.ufc.mdcc.pargo.safe.framework.util.HShelfConsoleLogger;
+import br.ufc.mdcc.pargo.safe.framework.workflow.HShelfWorkflow;
 
 public class HShelfFramework extends HShelfBuilderService{
 

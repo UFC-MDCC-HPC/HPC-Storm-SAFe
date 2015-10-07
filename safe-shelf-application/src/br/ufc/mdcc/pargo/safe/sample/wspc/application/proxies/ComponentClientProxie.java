@@ -1,8 +1,8 @@
 package br.ufc.mdcc.pargo.safe.sample.wspc.application.proxies;
 
-import br.ufc.mdcc.pargo.safe.component.HShelfComponent;
-import br.ufc.mdcc.pargo.safe.exception.HShelfException;
-import br.ufc.mdcc.pargo.safe.services.IHShelfService;
+import br.ufc.mdcc.pargo.safe.framework.component.HShelfComponent;
+import br.ufc.mdcc.pargo.safe.framework.exception.HShelfException;
+import br.ufc.mdcc.pargo.safe.framework.services.IHShelfService;
 
 public class ComponentClientProxie extends HShelfComponent{
 

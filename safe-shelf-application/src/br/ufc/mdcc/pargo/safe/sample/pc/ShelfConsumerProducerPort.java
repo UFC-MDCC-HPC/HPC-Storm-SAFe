@@ -2,7 +2,7 @@ package br.ufc.mdcc.pargo.safe.sample.pc;
 
 import java.util.concurrent.Semaphore;
 
-import br.ufc.mdcc.pargo.safe.port.HShelfPort;
+import br.ufc.mdcc.pargo.safe.framework.port.HShelfPort;
 
 public class ShelfConsumerProducerPort extends HShelfPort{
 

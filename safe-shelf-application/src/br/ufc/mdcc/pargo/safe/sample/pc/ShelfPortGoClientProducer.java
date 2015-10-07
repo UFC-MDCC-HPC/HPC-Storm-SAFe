@@ -1,6 +1,6 @@
 package br.ufc.mdcc.pargo.safe.sample.pc;
 
-import br.ufc.mdcc.pargo.safe.port.dflt.HShelfGoPort;
+import br.ufc.mdcc.pargo.safe.framework.port.dflt.HShelfGoPort;
 
 public class ShelfPortGoClientProducer extends HShelfGoPort{
 

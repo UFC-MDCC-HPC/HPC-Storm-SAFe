@@ -36,6 +36,8 @@ public class LogicInvokeOper extends AbstractSAFeElementLogic{
 			this.instatiateOper(subject_id);
 		} else if (action_oper.equals("compute")) {
 			this.computeOper(subject_id);
+		}else if(action_oper.equals("deploy")){
+			this.deployOper(subject_id);
 		}
 	}
 	
@@ -43,19 +45,26 @@ public class LogicInvokeOper extends AbstractSAFeElementLogic{
 
 		ArchComponent archComponent = this.sAFeSWLArcherParser.getArchComponentByID(
 						Integer.parseInt(compId));
-		SAFeConsoleLogger.write("ACTION: " + archComponent);
+		SAFeConsoleLogger.write("invoke instantiate => archComponent: ["+archComponent.getId()+"]" + archComponent.getName());
 	}
 
 	private void resolveOper(String compId) {
 
 		ArchComponent archComponent = this.sAFeSWLArcherParser.getArchComponentByID(
 						Integer.parseInt(compId));
-		SAFeConsoleLogger.write("ACTION: " + archComponent);
+		SAFeConsoleLogger.write("invoke resolve => archComponent: ["+archComponent.getId()+"]" + archComponent.getName());
 
 	}
 
 	private void computeOper(String actionId) {
 		ArchAction archAction = this.sAFeSWLArcherParser.getArchActionId(Integer.parseInt(actionId));
 		SAFeConsoleLogger.write("ACTION: " + archAction);
+	}
+	
+	private void deployOper(String compId){
+		ArchComponent archComponent = this.sAFeSWLArcherParser.getArchComponentByID(
+				Integer.parseInt(compId));
+		SAFeConsoleLogger.write("invoke deploy => archComponent: ["+archComponent.getId()+"]" + archComponent.getName());
+
 	}
 }

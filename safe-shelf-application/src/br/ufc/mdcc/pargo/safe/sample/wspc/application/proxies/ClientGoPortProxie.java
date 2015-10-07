@@ -1,6 +1,6 @@
 package br.ufc.mdcc.pargo.safe.sample.wspc.application.proxies;
 
-import br.ufc.mdcc.pargo.safe.port.HShelfPort;
+import br.ufc.mdcc.pargo.safe.framework.port.HShelfPort;
 import br.ufc.mdcc.pargo.safe.sample.wspc.stubs.client.go.WSIClientProducerGoPort;
 import br.ufc.mdcc.pargo.safe.sample.wspc.stubs.client.go.WSIClientProducerGoPortImplService;
 

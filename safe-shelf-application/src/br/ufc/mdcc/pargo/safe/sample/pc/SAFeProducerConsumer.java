@@ -1,9 +1,9 @@
 package br.ufc.mdcc.pargo.safe.sample.pc;
 
-import br.ufc.mdcc.pargo.safe.application.HShelfApplication;
-import br.ufc.mdcc.pargo.safe.exception.HShelfException;
 import br.ufc.mdcc.pargo.safe.framework.HShelfFramework;
-import br.ufc.mdcc.pargo.safe.services.IHShelfService;
+import br.ufc.mdcc.pargo.safe.framework.application.HShelfApplication;
+import br.ufc.mdcc.pargo.safe.framework.exception.HShelfException;
+import br.ufc.mdcc.pargo.safe.framework.services.IHShelfService;
 
 public class SAFeProducerConsumer extends HShelfApplication {
 
