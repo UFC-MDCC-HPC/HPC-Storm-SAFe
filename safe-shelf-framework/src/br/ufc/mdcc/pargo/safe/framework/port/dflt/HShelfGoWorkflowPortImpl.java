@@ -6,6 +6,14 @@ public class HShelfGoWorkflowPortImpl extends HShelfGoPort{
 
 	public HShelfWorkflow workflow;
 	
+	public void loadArchitectureFile(){
+		this.workflow.loadArchitectureFile();
+	}
+	
+	public void loadWorkflowFile(){
+		this.workflow.loadWorkflowFile();
+	}
+	
 	@Override
 	public void go() {
 		workflow.run();

@@ -23,8 +23,8 @@ import br.ufc.mdcc.pargo.safe.grammar.arch.ArchComponent;
 public class HShelfWorkflow extends HShelfComponent {
 
 	//ports
-	private HShelfPort safeSWL;
-	private HShelfPort safeGo;
+	private HShelfPort safeSWLPort;
+	private HShelfPort safeGoPort;
 	
 	//util refs
 	private HShelfFramework framework;
@@ -51,14 +51,14 @@ public class HShelfWorkflow extends HShelfComponent {
 	public void setServices(IHShelfService services) {
 		this.services = services;
 		try {
-			safeSWL = new HShelfSAFeSWLPortImpl();
-			safeSWL.setName("safeswl-port");
-			this.services.setProvidesPort(safeSWL);
+			safeSWLPort = new HShelfSAFeSWLPortImpl();
+			safeSWLPort.setName("safeswl-port");
+			this.services.setProvidesPort(safeSWLPort);
 			
-			safeGo = new HShelfGoWorkflowPortImpl();
-			((HShelfGoWorkflowPortImpl)safeGo).workflow = this;
-			safeGo.setName("go-workflow");
-			this.services.setProvidesPort(safeGo);
+			safeGoPort = new HShelfGoWorkflowPortImpl();
+			((HShelfGoWorkflowPortImpl)safeGoPort).workflow = this;
+			safeGoPort.setName("go-workflow");
+			this.services.setProvidesPort(safeGoPort);
 			
 		} catch (HShelfException e) {
 			
@@ -66,21 +66,42 @@ public class HShelfWorkflow extends HShelfComponent {
 		}
 	}
 	
-	 
-	
-	public void run(){
-		
-		
-		this.archParser = new SAFeSWLArchParser(((HShelfSAFeSWLPort)safeSWL).getSAFeSWLArchFilePath());
-		this.flowParser = new SAFeSWLFlowParser(((HShelfSAFeSWLPort)safeSWL).getSAFeSWLFlowFilePath());
-	
-		flowParser.setISAFeSWLArcherParser(archParser);
-		flowParser.setHShelfWorkflowFacade(workflowFacade);
-		flowParser.run();
-		
+	/**
+	 * loads architecture file. 
+	 */
+	public void loadArchitectureFile(){
+		String filePath = ((HShelfSAFeSWLPort)safeSWLPort).getSAFeSWLArchFilePath();
+		if(filePath!=null){
+			this.archParser = new SAFeSWLArchParser(filePath);
+			HShelfConsoleLogger.write("Architecture file loaded");
+		}
 		
 	}
 	
+	/**
+	 * loads workflow file
+	 */
+	public void loadWorkflowFile(){
+		String filePath = ((HShelfSAFeSWLPort)safeSWLPort).getSAFeSWLFlowFilePath();
+		if(filePath!=null){
+			this.flowParser = new SAFeSWLFlowParser(filePath);
+			this.flowParser.setISAFeSWLArcherParser(archParser);
+			this.flowParser.setHShelfWorkflowFacade(workflowFacade);
+			HShelfConsoleLogger.write("Workflow file loaded");
+		}
+		
+	}
+	
+	public void run(){
+		if(this.flowParser!=null){
+			HShelfConsoleLogger.write("**WORKFLOW READING STARTED**");
+			flowParser.run();
+			HShelfConsoleLogger.write("**WORKFLOW READING ENDED**");
+		}
+			
+	}
+	
+	//FACADE METHODS
 	public void resolve(String contract, String compID){
 		HShelfConsoleLogger.write("Entering Resolve...");
 		String candidates = this.core.resolve(contract);
