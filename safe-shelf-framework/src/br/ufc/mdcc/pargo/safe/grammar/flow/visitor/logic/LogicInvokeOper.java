@@ -2,7 +2,6 @@ package br.ufc.mdcc.pargo.safe.grammar.flow.visitor.logic;
 
 import br.ufc.mdcc.pargo.safe.grammar.arch.ArchAction;
 import br.ufc.mdcc.pargo.safe.grammar.arch.ArchComponent;
-import br.ufc.mdcc.pargo.safe.grammar.flow.ReflectionType;
 import br.ufc.mdcc.pargo.safe.grammar.flow.SAFeOrchestrationElement;
 import br.ufc.mdcc.pargo.safe.grammar.flow.XMLSAFeAction;
 import br.ufc.mdcc.pargo.safe.grammar.flow.visitor.AbstractSAFeElementLogic;
@@ -36,7 +35,6 @@ public class LogicInvokeOper extends AbstractSAFeElementLogic{
 		} else if (action_oper.equals("instantiate")) {
 			this.instatiateOper(subject_id);
 		} else if (action_oper.equals("compute")) {
-			ReflectionType reflection = action.getReflection();
 			this.computeOper(subject_id);
 		}else if(action_oper.equals("deploy")){
 			this.deployOper(subject_id);
@@ -63,7 +61,11 @@ public class LogicInvokeOper extends AbstractSAFeElementLogic{
 
 	private void computeOper(String actionId) {
 		ArchAction archAction = this.sAFeSWLArcherParser.getArchActionId(Integer.parseInt(actionId));
-		SAFeConsoleLogger.write("ACTION: " + archAction);
+		SAFeConsoleLogger.write("invoking action: " + archAction.getName()+"; from port: "+archAction.getParent().getName());
+		if(this.workflowFacade!=null){
+			this.workflowFacade.compute(archAction.getName(), archAction.getParent().getName());
+		}
+		
 	}
 	
 	private void deployOper(String compId){

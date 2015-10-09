@@ -35,7 +35,7 @@ public class ArchTask extends ArchPort {
 	
 	@Override
 	public String toString() {
-		String res = "ArchTask:\n";
+		String res = "ArchTask "+this.getName()+"-"+this.getId()+" :\n";
 		for(ArchAction action:actions){
 			res += "\t\t"+action;
 			res += "\n";

@@ -14,6 +14,7 @@ import br.ufc.mdcc.pargo.safe.framework.port.dflt.HShelfSAFeSWLPort;
 import br.ufc.mdcc.pargo.safe.framework.port.dflt.HShelfSAFeSWLPortImpl;
 import br.ufc.mdcc.pargo.safe.framework.services.IHShelfService;
 import br.ufc.mdcc.pargo.safe.framework.util.HShelfConsoleLogger;
+import br.ufc.mdcc.pargo.safe.framework.util.HShelfReflectionUtil;
 import br.ufc.mdcc.pargo.safe.grammar.ISAFeSWLArcherParser;
 import br.ufc.mdcc.pargo.safe.grammar.ISAFeSWLFlowParser;
 import br.ufc.mdcc.pargo.safe.grammar.SAFeSWLArchParser;
@@ -141,6 +142,23 @@ public class HShelfWorkflow extends HShelfComponent {
 				this.framework.addComponent(client);
 			}
 			
+		}
+	}
+	
+	public void compute(String method, String portName){
+		try {
+			HShelfPort port  = this.services.getProvidesPort(portName);
+			if(port!=null){
+				if(method.startsWith("set")){
+					Integer test[] = {10100};
+					HShelfReflectionUtil.invokeMethod(port, method, test);
+				}else{
+					HShelfReflectionUtil.invokeMethod(port, method, null);
+				}
+			}
+		} catch (HShelfException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 

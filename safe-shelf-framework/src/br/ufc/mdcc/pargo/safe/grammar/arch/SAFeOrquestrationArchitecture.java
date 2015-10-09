@@ -139,9 +139,13 @@ public class SAFeOrquestrationArchitecture {
 			//archTask.setName(providesElement.getAttributeValue(att_name));
 			
 			archTask.setId(Integer.parseInt((element.getAttributeValue(att_id))));
+			archTask.setName(element.getAttributeValue(att_name));
+			archTask.setWsdlPath(element.getAttributeValue(att_wsdl_path));
+			
 			for(Element child:element.getChildren()){
 				if(child.getName().equalsIgnoreCase(SAFeOrquestrationArchitecture.ACTION)){
 					ArchAction action = this.createArchAction(child);
+					action.setParent(archTask);
 					archTask.addArchAction(action);
 				}
 			}

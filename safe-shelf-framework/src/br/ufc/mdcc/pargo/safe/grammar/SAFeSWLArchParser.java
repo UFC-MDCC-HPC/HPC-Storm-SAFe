@@ -205,12 +205,7 @@ public class SAFeSWLArchParser implements ISAFeSWLArcherParser{
 		return facet;
 	}
 	
-	/*private ArchAction createArchAction(Element e){
-		ArchAction action = new ArchAction();
-		action.setId(Integer.parseInt(e.getAttributeValue(ArchMain.att_id)));
-		action.setName(e.getAttributeValue(ArchMain.att_name));
-		return action;
-	}*/
+	 
 	
 	private void readEnvAttchment(Element element, ArchEnvBinding att) {
 		for (Element child : element.getChildren()) {

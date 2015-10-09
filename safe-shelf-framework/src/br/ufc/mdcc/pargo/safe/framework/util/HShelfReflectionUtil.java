@@ -37,6 +37,7 @@ public class HShelfReflectionUtil {
 		Object res = HShelfReflectionUtil.invokeMethod(tc, "foo", args2);
 		HShelfReflectionUtil.invokeMethod(tc, "foo2", args2);
 		System.out.println(res);
+		HShelfReflectionUtil.invokeMethod(tc, "foo3", null);
 	}
 }
 
@@ -48,5 +49,9 @@ class TestClass {
 	
 	public void foo2(String arg1, String arg2){
 		System.out.println("Test 2: " + arg1 + "-" + arg2);
+	}
+	
+	public void foo3(){
+		System.out.println("Sem parâmetros");
 	}
 }

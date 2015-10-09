@@ -4,6 +4,7 @@ public class ArchAction implements IArchObject{
 
 	private Integer id;
 	private String name;
+	private ArchTask parent;
 	
 	public Integer getId() {
 		return id;
@@ -19,6 +20,12 @@ public class ArchAction implements IArchObject{
 		this.name = nome;
 	}
 	
+	public ArchTask getParent() {
+		return parent;
+	}
+	public void setParent(ArchTask parent) {
+		this.parent = parent;
+	}
 	@Override
 	public boolean equals(Object obj) {
 		if(!(obj instanceof ArchAction))

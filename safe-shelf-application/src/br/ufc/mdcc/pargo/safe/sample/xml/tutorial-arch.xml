@@ -2,60 +2,68 @@
 <tns:architecture xmlns:tns="http://www.example.org/SAFe_architecture_V4" xmlns:tns1="http://www.example.org/instantiator" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.example.org/SAFe_architecture_V4 SAFe_architecture_V4.xsd ">
   
   <tns:application id="0" name="application-tutorial">
-  	<tns:uses_port id="12" name="client-operation" id_component="0"/>
-  	<tns:uses_port id="14" name="server-operation" id_component="0"/>
+  	<tns:uses_port id="12" name="env-client" id_component="0"/>
+  	<tns:uses_port id="14" name="env-server" id_component="0"/>
   </tns:application>
   
   <tns:workflow id="1" name="workflow-tutorial">
-  	<tns:uses_port id="11" name="client-go" id_component="1"/>
-  	<tns:uses_port id="13" name="server-go" id_component="1"/>
+     <tns:task_port id="11" name="task-client" id_component="1"/>
+  	<tns:task_port id="13" name="task-server" id_component="1"/>
   </tns:workflow>
   
   <tns:body>
     <tns:computation name="client" id="2">
-      <tns:provides_port name="client-go"
+      <tns:provides_port name="env-client"
       					 id="20"
       					 id_component="2"
-      					 wsdl_path="http://localhost:10004/client-go" />
-      <tns:provides_port name="client-operation" 
-      					 id="21"
-      					 id_component="2"
-      					 wsdl_path="http://localhost:10005/client-operation"/>
+      					 wsdl_path="http://localhost:10004/env-client" />
       <tns:contract id="22">
         <tns:uri>http://tempuri-client.org</tns:uri>
       </tns:contract>
+      <tns:task_port 	name="task-client" 
+      					 id="21"
+      					 id_component="2"
+      					 wsdl_path="http://localhost:10005/task-client">
+      					 <tns:action id="211" name="setServerPort"/>
+      					 <tns:action id="212" name="initialize"/>
+      </tns:task_port>
     </tns:computation>
     
     <tns:computation name="server" id="3">
-      <tns:provides_port name="server-go" 
+      <tns:provides_port name="env-server" 
       					 id="30"
       					 id_component="3"
       					 wsdl_path="http://localhost:10002/server-go"/>
-      <tns:provides_port name="server-operation" 
-      					 id="31"
-      					 id_component="3"
-      					 wsdl_path="http://localhost:10003/server-operation"/>
+
       <tns:contract id="32">
         <tns:uri>http://tempuri-server.org</tns:uri>
       </tns:contract>
+       <tns:task_port 	name="task-server" 
+      					 id="31"
+      					 id_component="3"
+      					 wsdl_path="http://localhost:10003/server-operation">
+      					 <tns:action id="311" name="setPort"/>
+      					 <tns:action id="312" name="initialize"/>
+      </tns:task_port>
     </tns:computation>
   </tns:body>
   
   <tns:env_binding >
-  	<tns:uses_port id="12" name="client-operation" id_component="0"/> 
-  	<tns:provides_port name="client-operation" id="21" id_component="2"/>
+  	<tns:uses_port id="12" name="env-client" id_component="0"/> 
+  	<tns:provides_port name="env-client" id="20" id_component="2"/>
   </tns:env_binding>
   <tns:env_binding >
-  	<tns:uses_port id="14" name="server-operation" id_component="0"/>
-  	<tns:provides_port name="server-operation" id="31" id_component="3"/>
+  	<tns:uses_port id="14" name="env-server" id_component="0"/>
+  	<tns:provides_port name="env-server" id="30" id_component="3"/>
   </tns:env_binding>
-  <tns:env_binding >
-  	<tns:uses_port id="11" name="client-go" id_component="1"/>
-  	<tns:provides_port name="client-go" id="20" id_component="2"/>
-  </tns:env_binding>
-  <tns:env_binding >
-  	<tns:uses_port id="13" name="server-go" id_component="1"/>
-  	<tns:provides_port name="server-go" id="30" id_component="3"/>
-  </tns:env_binding>
+  
+  <tns:task_binding>
+  	<tns:left_peer id="11" name="task-client" id_component="1"/>
+  	<tns:right_peer name="task-client" id="21" id_component="2"/>
+  </tns:task_binding> 
+   <tns:task_binding>
+  	<tns:left_peer id="13" name="task-server" id_component="1"/>
+  	<tns:right_peer name="task-server" id="31" id_component="3"/>
+  </tns:task_binding>
   
 </tns:architecture>

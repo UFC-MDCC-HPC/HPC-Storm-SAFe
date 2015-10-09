@@ -20,4 +20,8 @@ public class HShelfWorkflowFacade {
 	public void instantiate(String compID){
 		this.workflow.instantiate(compID);
 	}
+	
+	public void compute(String method, String portName){
+		this.workflow.compute(method, portName);
+	}
 }

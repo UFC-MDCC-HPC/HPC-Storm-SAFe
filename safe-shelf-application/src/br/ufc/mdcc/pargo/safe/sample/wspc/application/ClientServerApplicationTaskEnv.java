@@ -114,7 +114,7 @@ public class ClientServerApplicationTaskEnv extends HShelfApplication{
 	
 	public static void main(String[] args) {
 		ClientServerApplicationTaskEnv app = new ClientServerApplicationTaskEnv("client-server-app");
-		//app.runClientServerApplication();
+		app.runClientServerApplication();
 	}
 
 }

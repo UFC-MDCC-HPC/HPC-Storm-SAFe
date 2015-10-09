@@ -134,7 +134,7 @@
 			<extension base="tns:Port">
 				<sequence>
 					<element name="action" type="tns:Action"
-						maxOccurs="unbounded" minOccurs="1">
+						maxOccurs="unbounded" minOccurs="0">
 					</element>
 				</sequence>
 			</extension>
