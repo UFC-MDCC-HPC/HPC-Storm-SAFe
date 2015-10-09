@@ -5,14 +5,21 @@ import br.ufc.mdcc.pargo.safe.framework.exception.HShelfException;
 import br.ufc.mdcc.pargo.safe.framework.port.dflt.HShelfGoPort;
 import br.ufc.mdcc.pargo.safe.framework.port.dflt.HShelfGoWorkflowPortImpl;
 import br.ufc.mdcc.pargo.safe.framework.port.dflt.HShelfSAFeSWLPort;
+import br.ufc.mdcc.pargo.safe.framework.port.dflt.HShelfWorkflowEventPort;
+import br.ufc.mdcc.pargo.safe.framework.port.event.HShelfEventType;
+import br.ufc.mdcc.pargo.safe.framework.port.event.HShelfWorkflowEvent;
+import br.ufc.mdcc.pargo.safe.framework.port.event.IHShelfWorkflowEventListener;
 import br.ufc.mdcc.pargo.safe.framework.services.IHShelfService;
+import br.ufc.mdcc.pargo.safe.framework.workflow.HShelfWorkflow;
 import br.ufc.mdcc.pargo.safe.sample.wspc.application.proxies.ClientEnvPortProxie;
 import br.ufc.mdcc.pargo.safe.sample.wspc.application.proxies.ServerEnvPortProxie;
 
-public class ClientServerApplicationTaskEnv extends HShelfApplication{
+public class ClientServerApplicationTaskEnv 
+extends HShelfApplication implements IHShelfWorkflowEventListener{
 
 	HShelfSAFeSWLPort portSWL_WF;
 	HShelfGoPort portGo_WF;
+	HShelfWorkflowEventPort portEvent_WF;
 	
 	
 	ClientEnvPortProxie envClient;
@@ -29,8 +36,12 @@ public class ClientServerApplicationTaskEnv extends HShelfApplication{
 		try {
 			
 			//init WF ports (local) with application
-			portSWL_WF = (HShelfSAFeSWLPort)this.services.getProvidesPort("safeswl-port");
-			portGo_WF = (HShelfGoPort)this.services.getProvidesPort("go-workflow");
+			portSWL_WF = (HShelfSAFeSWLPort)this.services.getProvidesPort(HShelfWorkflow.SAFE_WORKFLOW_SWL_PORT);
+			portGo_WF = (HShelfGoPort)this.services.getProvidesPort(HShelfWorkflow.SAFE_WORKFLOW_GO_PORT);
+			portEvent_WF = (HShelfWorkflowEventPort)this.services.getProvidesPort(HShelfWorkflow.SAFE_WORKFLOW_EVENT_PORT);
+			
+			//subscribe
+			portEvent_WF.addWorkflowEventListener(this);
 			
 			//send arch file
 			this.sendArchitectureFile();
@@ -115,6 +126,14 @@ public class ClientServerApplicationTaskEnv extends HShelfApplication{
 	public static void main(String[] args) {
 		ClientServerApplicationTaskEnv app = new ClientServerApplicationTaskEnv("client-server-app");
 		app.runClientServerApplication();
+	}
+
+	@Override
+	public void workflowActivity(HShelfWorkflowEvent event) {
+		if(event.getEventType().equals(HShelfEventType.Message)){
+			System.out.println("APP-RCV: " + event.getValue());
+		}
+		
 	}
 
 }

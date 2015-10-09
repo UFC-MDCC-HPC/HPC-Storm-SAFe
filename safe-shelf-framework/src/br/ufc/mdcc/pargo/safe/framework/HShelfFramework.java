@@ -9,10 +9,6 @@ import br.ufc.mdcc.pargo.safe.framework.application.HShelfApplication;
 import br.ufc.mdcc.pargo.safe.framework.component.HShelfComponent;
 import br.ufc.mdcc.pargo.safe.framework.port.HShelfBuilderService;
 import br.ufc.mdcc.pargo.safe.framework.port.HShelfPort;
-import br.ufc.mdcc.pargo.safe.framework.port.event.HShelfConnectionEvent;
-import br.ufc.mdcc.pargo.safe.framework.port.event.HShelfEventHandler;
-import br.ufc.mdcc.pargo.safe.framework.port.event.HShelfEventType;
-import br.ufc.mdcc.pargo.safe.framework.port.event.IHShelfConnectionEventListener;
 import br.ufc.mdcc.pargo.safe.framework.services.HShelfServiceImpl;
 import br.ufc.mdcc.pargo.safe.framework.services.IHShelfService;
 import br.ufc.mdcc.pargo.safe.framework.util.HShelfConsoleLogger;
@@ -27,14 +23,14 @@ public class HShelfFramework extends HShelfBuilderService{
 	
 	private HShelfWorkflow workflow;
 	private HShelfApplication application;
-	private HShelfEventHandler eventHandler;
+	
 	
 	public HShelfFramework() {
 		HShelfConsoleLogger.write("Creating HShelfFramework");
 		this.providesPortMap = new HashMap<String,HShelfPort>();
 		this.usesPortTypeMap = new HashMap<String, Object>();
 		this.componentMap = new HashMap<String,HShelfComponent>();
-		this.eventHandler = new HShelfEventHandler();
+		
 	}
 	
 	public void initialize(HShelfApplication application){
@@ -107,20 +103,13 @@ public class HShelfFramework extends HShelfBuilderService{
 			serviceImpl.initialize(this, component); 
 			component.setServices(serviceImpl);
 		}
-		if(component instanceof IHShelfConnectionEventListener){
-			this.addConnectionEventListener((IHShelfConnectionEventListener)component);
-		}
+		
 		HShelfConsoleLogger.write("Component "+component.getName()+" added");
 	}
 	
 	public void addProvidesPort(HShelfPort port){
 		this.providesPortMap.put(port.getName(),port);
-		if(port instanceof IHShelfConnectionEventListener){
-			this.addConnectionEventListener((IHShelfConnectionEventListener)port);
-		}
 		
-		HShelfConnectionEvent event = new HShelfConnectionEvent(HShelfEventType.ProvidesAdded, port);
-		this.notifyAllConnectionListeners(event);
 	}
 	
 	public void addUsesPortType(String name, Object type){
@@ -133,14 +122,5 @@ public class HShelfFramework extends HShelfBuilderService{
 	
 	public HShelfPort getProvidesPort(String name){
 		return this.providesPortMap.get(name);
-	}
-	
-	//Events
-	public void addConnectionEventListener(IHShelfConnectionEventListener listener){
-		this.eventHandler.addConnectionEventListener(listener);
-	}
-	
-	public void notifyAllConnectionListeners(HShelfConnectionEvent event){
-		this.eventHandler.notifyAllConnectionListeners(event);
 	}
 }
