@@ -137,7 +137,7 @@ public class HShelfWorkflow extends HShelfComponent {
 				String capCompName = compName.substring(0, 1).toUpperCase() + compName.substring(1);
 				HShelfComponent client = 
 						this.framework.createComponent(compName,
-								"br.ufc.mdcc.pargo.safe.sample.wspc.application.proxies.Component"+capCompName+"Proxie");
+								"br.ufc.mdcc.pargo.safe.sample.wspc.application.proxies."+capCompName+"ComponentProxie");
 				this.framework.addComponent(client);
 			}
 			

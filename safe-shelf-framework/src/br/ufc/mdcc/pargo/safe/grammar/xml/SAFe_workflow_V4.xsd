@@ -69,7 +69,12 @@
 	<complexType name="XML_SAFe_Action">
 		<complexContent>
 			<extension base="tns:XML_SAFe_Base">
-				<attribute name="action" type="tns:ActionType" use="required"></attribute>
+				<sequence>
+					<element name="reflection" type="tns:reflectionType" maxOccurs="1" minOccurs="0"></element>
+				</sequence>
+				<attribute name="action" type="tns:ActionType"
+					use="required">
+				</attribute>
 				<attribute name="id" type="string" use="required"></attribute>
 			</extension>
 		</complexContent>
@@ -133,5 +138,17 @@
 				<attribute name="chosen" type="string"></attribute>
 			</extension>
 		</complexContent>
+	</complexType>
+
+	<complexType name="reflectionType">
+		<sequence>
+			<element name="arg" type="tns:argType" maxOccurs="unbounded" minOccurs="0"></element>
+		</sequence>
+		<attribute name="portName" type="string"></attribute>
+		<attribute name="methodName" type="string"></attribute>
+	</complexType>
+
+	<complexType name="argType">
+		<attribute name="value" type="string"></attribute>
 	</complexType>
 </schema>

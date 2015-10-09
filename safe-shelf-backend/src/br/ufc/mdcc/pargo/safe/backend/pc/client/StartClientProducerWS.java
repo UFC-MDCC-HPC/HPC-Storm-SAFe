@@ -7,15 +7,15 @@ public class StartClientProducerWS {
 	public static void main(String[] args) {
 		IClientProducer client = new ClientProducer();
 		
-		String urlGo = "http://localhost:10004/client-go";
-		String urlOperations = "http://localhost:10005/client-operation";
+		String urlTask = "http://localhost:10004/client-task";
+		String urlEnv = "http://localhost:10005/client-env";
 		
-		WSIClientProducerGoPort go = new WSIClientProducerGoPortImpl(client);
-		WSIClientProducerOperationPort operation = new WSIClientProducerOperationPortImpl(client);
+		ServiceIClientEnv env = new ServiceClientEnvImpl(client);
+		ServiceIClientTask task = new ServiceClientTaskImpl(client);
 		
-		Endpoint.publish(urlGo, go);
-		Endpoint.publish(urlOperations, operation);
-		System.out.println(urlGo);
-		System.out.println(urlOperations);
+		Endpoint.publish(urlTask, task);
+		Endpoint.publish(urlEnv, env);
+		System.out.println(urlTask);
+		System.out.println(urlEnv);
 	}
 }

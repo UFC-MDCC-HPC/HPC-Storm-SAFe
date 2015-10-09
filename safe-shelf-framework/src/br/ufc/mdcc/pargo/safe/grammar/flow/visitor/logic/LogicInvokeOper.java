@@ -2,6 +2,7 @@ package br.ufc.mdcc.pargo.safe.grammar.flow.visitor.logic;
 
 import br.ufc.mdcc.pargo.safe.grammar.arch.ArchAction;
 import br.ufc.mdcc.pargo.safe.grammar.arch.ArchComponent;
+import br.ufc.mdcc.pargo.safe.grammar.flow.ReflectionType;
 import br.ufc.mdcc.pargo.safe.grammar.flow.SAFeOrchestrationElement;
 import br.ufc.mdcc.pargo.safe.grammar.flow.XMLSAFeAction;
 import br.ufc.mdcc.pargo.safe.grammar.flow.visitor.AbstractSAFeElementLogic;
@@ -35,6 +36,7 @@ public class LogicInvokeOper extends AbstractSAFeElementLogic{
 		} else if (action_oper.equals("instantiate")) {
 			this.instatiateOper(subject_id);
 		} else if (action_oper.equals("compute")) {
+			ReflectionType reflection = action.getReflection();
 			this.computeOper(subject_id);
 		}else if(action_oper.equals("deploy")){
 			this.deployOper(subject_id);
@@ -46,7 +48,8 @@ public class LogicInvokeOper extends AbstractSAFeElementLogic{
 		ArchComponent archComponent = this.sAFeSWLArcherParser.getArchComponentByID(
 						Integer.parseInt(compId));
 		SAFeConsoleLogger.write("invoke instantiate => archComponent: ["+archComponent.getId()+"]" + archComponent.getName());
-		this.workflowFacade.instantiate(compId);
+		if(this.workflowFacade!=null)
+			this.workflowFacade.instantiate(compId);
 	}
 
 	private void resolveOper(String compId) {
@@ -54,7 +57,8 @@ public class LogicInvokeOper extends AbstractSAFeElementLogic{
 		ArchComponent archComponent = this.sAFeSWLArcherParser.getArchComponentByID(
 						Integer.parseInt(compId));
 		SAFeConsoleLogger.write("invoke resolve => archComponent: ["+archComponent.getId()+"]" + archComponent.getName());
-		this.workflowFacade.resolve("teste.contract.xml", compId);
+		if(this.workflowFacade!=null)
+			this.workflowFacade.resolve("teste.contract.xml", compId);
 	}
 
 	private void computeOper(String actionId) {
@@ -66,6 +70,7 @@ public class LogicInvokeOper extends AbstractSAFeElementLogic{
 		ArchComponent archComponent = this.sAFeSWLArcherParser.getArchComponentByID(
 				Integer.parseInt(compId));
 		SAFeConsoleLogger.write("invoke deploy => archComponent: ["+archComponent.getId()+"]" + archComponent.getName());
-		this.workflowFacade.deploy(compId);
+		if(this.workflowFacade!=null)
+			this.workflowFacade.deploy(compId);
 	}
 }

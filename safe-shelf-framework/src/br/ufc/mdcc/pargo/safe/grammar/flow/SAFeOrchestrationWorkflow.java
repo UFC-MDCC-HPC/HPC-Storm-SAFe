@@ -201,5 +201,5 @@ public class SAFeOrchestrationWorkflow {
 }
 
 /* HOW TO COMPILE THE XSD FILE
- * xjc -p br.ufc.mdcc.pargo.safe.grammar.flow SAFe_workflow.xsd -d ../../../../../../
+ * jefferson@jefferson-VPCEB13EB:~/Git/HPC-Storm-SAFe/safe-shelf-framework/src/br/ufc/mdcc/pargo/safe/grammar/xml$ xjc -p br.ufc.mdcc.pargo.safe.grammar.flow SAFe_workflow_V4.xsd -d ../../../../../../../
  */

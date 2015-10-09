@@ -2,7 +2,7 @@
 // Este arquivo foi gerado pela Arquitetura JavaTM para Implementação de Referência (JAXB) de Bind XML, v2.2.8-b130911.1802 
 // Consulte <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
 // Todas as modificações neste arquivo serão perdidas após a recompilação do esquema de origem. 
-// Gerado em: 2015.09.22 às 08:32:28 AM BRT 
+// Gerado em: 2015.10.08 às 05:37:10 PM BRT 
 //
 
 
@@ -23,6 +23,9 @@ import javax.xml.bind.annotation.XmlType;
  * &lt;complexType name="XML_SAFe_Action">
  *   &lt;complexContent>
  *     &lt;extension base="{http://www.example.org/SAFe_workflow_V4}XML_SAFe_Base">
+ *       &lt;sequence>
+ *         &lt;element name="reflection" type="{http://www.example.org/SAFe_workflow_V4}reflectionType" minOccurs="0"/>
+ *       &lt;/sequence>
  *       &lt;attribute name="action" use="required" type="{http://www.example.org/SAFe_workflow_V4}ActionType" />
  *       &lt;attribute name="id" use="required" type="{http://www.w3.org/2001/XMLSchema}string" />
  *     &lt;/extension>
@@ -33,15 +36,42 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "XML_SAFe_Action")
+@XmlType(name = "XML_SAFe_Action", propOrder = {
+    "reflection"
+})
 public class XMLSAFeAction
     extends XMLSAFeBase
 {
 
+    protected ReflectionType reflection;
     @XmlAttribute(name = "action", required = true)
     protected ActionType action;
     @XmlAttribute(name = "id", required = true)
     protected String id;
+
+    /**
+     * Obtém o valor da propriedade reflection.
+     * 
+     * @return
+     *     possible object is
+     *     {@link ReflectionType }
+     *     
+     */
+    public ReflectionType getReflection() {
+        return reflection;
+    }
+
+    /**
+     * Define o valor da propriedade reflection.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link ReflectionType }
+     *     
+     */
+    public void setReflection(ReflectionType value) {
+        this.reflection = value;
+    }
 
     /**
      * Obtém o valor da propriedade action.

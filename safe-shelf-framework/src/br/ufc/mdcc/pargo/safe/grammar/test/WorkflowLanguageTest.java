@@ -23,6 +23,7 @@ public class WorkflowLanguageTest {
 		String fileName = "src/br/ufc/mdcc/pargo/safe/grammar/xml/"+fileNameXML;
 		ISAFeSWLFlowParser flow = new SAFeSWLFlowParser(fileName);
 		ISAFeSWLArcherParser arch = ArchitectureLanguageTest.testParser();
+		System.out.println(arch.getArchitecture());
 		flow.setISAFeSWLArcherParser(arch);
 		flow.run();
 	}

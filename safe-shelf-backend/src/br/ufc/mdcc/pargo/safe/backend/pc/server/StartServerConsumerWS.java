@@ -7,14 +7,16 @@ public class StartServerConsumerWS {
 	public static void main(String[] args) {
 		IServerConsumer server = new ServerConsumer();
 		
-		String urlGo = "http://localhost:10002/server-go";
-		String urlOperations = "http://localhost:10003/server-operation";
+		String urlTask = "http://localhost:10002/server-task";
+		String urlEnv = "http://localhost:10003/server-env";
 		
-		WSIServerConsumerGoPort goPortWS = new WSIServerConsumerGoPortImpl(server);
-		WSIServerConsumerOperationPort operationPort = new WSIServerConsumerOperationPortImpl(server);
-		Endpoint.publish(urlGo, goPortWS);
-		Endpoint.publish(urlOperations, operationPort);
-		System.out.println(urlGo);
-		System.out.println(urlOperations);
+		ServiceIServerTask task = new ServiceServerTaskImpl(server);
+		ServiceIServerEnv env = new ServiceServerEnvImpl(server);
+		
+		
+		Endpoint.publish(urlTask, task);
+		Endpoint.publish(urlEnv, env);
+		System.out.println(urlTask);
+		System.out.println(urlEnv);
 	}
 }

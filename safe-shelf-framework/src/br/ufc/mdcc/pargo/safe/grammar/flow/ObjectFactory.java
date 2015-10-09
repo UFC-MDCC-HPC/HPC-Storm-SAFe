@@ -2,7 +2,7 @@
 // Este arquivo foi gerado pela Arquitetura JavaTM para Implementação de Referência (JAXB) de Bind XML, v2.2.8-b130911.1802 
 // Consulte <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
 // Todas as modificações neste arquivo serão perdidas após a recompilação do esquema de origem. 
-// Gerado em: 2015.09.22 às 08:32:28 AM BRT 
+// Gerado em: 2015.10.08 às 05:37:10 PM BRT 
 //
 
 
@@ -86,6 +86,22 @@ public class ObjectFactory {
      */
     public XMLSAFeBase createXMLSAFeBase() {
         return new XMLSAFeBase();
+    }
+
+    /**
+     * Create an instance of {@link ArgType }
+     * 
+     */
+    public ArgType createArgType() {
+        return new ArgType();
+    }
+
+    /**
+     * Create an instance of {@link ReflectionType }
+     * 
+     */
+    public ReflectionType createReflectionType() {
+        return new ReflectionType();
     }
 
     /**
