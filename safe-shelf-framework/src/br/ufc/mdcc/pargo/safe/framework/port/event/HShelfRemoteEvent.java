@@ -1,12 +1,11 @@
 package br.ufc.mdcc.pargo.safe.framework.port.event;
 
-
-public class HShelfWorkflowEvent {
+public class HShelfRemoteEvent {
 
 	private HShelfEventType eventType;
 	private Object value;
-	
-	public HShelfWorkflowEvent(HShelfEventType eventType, Object value) {
+
+	public HShelfRemoteEvent(HShelfEventType eventType, Object value) {
 		this.eventType = eventType;
 		this.value = value;
 	}
@@ -24,3 +23,4 @@ public class HShelfWorkflowEvent {
 		this.value = value;
 	}
 }
+
