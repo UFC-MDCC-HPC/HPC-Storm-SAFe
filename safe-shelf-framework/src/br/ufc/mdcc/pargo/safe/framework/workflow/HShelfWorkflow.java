@@ -1,6 +1,7 @@
 package br.ufc.mdcc.pargo.safe.framework.workflow;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import br.ufc.mdcc.pargo.safe.framework.HShelfFramework;
@@ -159,14 +160,18 @@ public class HShelfWorkflow extends HShelfComponent {
 		}
 	}
 	
-	public void compute(String method, String portName){
+	public void compute(String method, String portName,List<HShelfArgValueType> argValueTypeList){
 		try {
 			
 			HShelfPort port  = this.services.getTaskPort(portName);
 			if(port!=null){
-				if(method.startsWith("set")){
-					Integer test[] = {10100};
-					HShelfReflectionUtil.invokeMethod(port, method, test);
+				if(argValueTypeList!=null){
+					
+					Object argsObject[] = new Object[argValueTypeList.size()];
+					for(int i=0;i<argValueTypeList.size();i++){
+						argsObject[i]=argValueTypeList.get(i).getValue();
+					}
+					HShelfReflectionUtil.invokeMethod(port, method, argsObject);
 				}else{
 					HShelfReflectionUtil.invokeMethod(port, method, null);
 				}

@@ -2,7 +2,7 @@
 // Este arquivo foi gerado pela Arquitetura JavaTM para Implementação de Referência (JAXB) de Bind XML, v2.2.8-b130911.1802 
 // Consulte <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
 // Todas as modificações neste arquivo serão perdidas após a recompilação do esquema de origem. 
-// Gerado em: 2015.10.08 às 05:37:10 PM BRT 
+// Gerado em: 2015.10.10 às 03:30:11 PM BRT 
 //
 
 
@@ -24,6 +24,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;attribute name="value" type="{http://www.w3.org/2001/XMLSchema}string" />
+ *       &lt;attribute name="type" type="{http://www.example.org/SAFe_workflow_V4}ArgSimpleType" />
  *     &lt;/restriction>
  *   &lt;/complexContent>
  * &lt;/complexType>
@@ -37,6 +38,8 @@ public class ArgType {
 
     @XmlAttribute(name = "value")
     protected String value;
+    @XmlAttribute(name = "type")
+    protected ArgSimpleType type;
 
     /**
      * Obtém o valor da propriedade value.
@@ -60,6 +63,30 @@ public class ArgType {
      */
     public void setValue(String value) {
         this.value = value;
+    }
+
+    /**
+     * Obtém o valor da propriedade type.
+     * 
+     * @return
+     *     possible object is
+     *     {@link ArgSimpleType }
+     *     
+     */
+    public ArgSimpleType getType() {
+        return type;
+    }
+
+    /**
+     * Define o valor da propriedade type.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link ArgSimpleType }
+     *     
+     */
+    public void setType(ArgSimpleType value) {
+        this.type = value;
     }
 
 }

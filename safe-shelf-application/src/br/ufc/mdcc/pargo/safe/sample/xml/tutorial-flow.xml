@@ -2,51 +2,55 @@
 <tns:workflow xmlns:tns="http://www.example.org/SAFe_workflow_V4"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.example.org/SAFe_workflow_V4 SAFe_workflow_V4.xsd ">
-	
-	
+
+
 	<tns:sequence_oper>
 		<!-- client -->
 		<tns:operation>
-			<tns:invoke_oper action="resolve" id="2"/>
+			<tns:invoke_oper action="resolve" id="2" />
 		</tns:operation>
-		
+
 		<tns:operation>
-			<tns:invoke_oper action="deploy" id="2"/>
+			<tns:invoke_oper action="deploy" id="2" />
 		</tns:operation>
-		
+
 		<tns:operation>
-			<tns:invoke_oper action="instantiate" id="2"/>
+			<tns:invoke_oper action="instantiate" id="2" />
 		</tns:operation>
-		
+
 		<!-- server -->
 		<tns:operation>
-			<tns:invoke_oper action="resolve" id="3"/>
+			<tns:invoke_oper action="resolve" id="3" />
 		</tns:operation>
-		
+
 		<tns:operation>
-			<tns:invoke_oper action="deploy" id="3"/>
+			<tns:invoke_oper action="deploy" id="3" />
 		</tns:operation>
-		
+
 		<tns:operation>
-			<tns:invoke_oper action="instantiate" id="3"/>
+			<tns:invoke_oper action="instantiate" id="3" />
 		</tns:operation>
-		
+
 		<!-- init server -->
 		<tns:operation>
-			<tns:invoke_oper action="compute" id="311"/>
+			<tns:invoke_oper action="compute" id="311">
+				<tns:arg value="10100" type="INTEGER" />
+			</tns:invoke_oper>
 		</tns:operation>
 		<tns:operation>
-			<tns:invoke_oper action="compute" id="312"/>
+			<tns:invoke_oper action="compute" id="312" />
 		</tns:operation>
-		
-		<!-- init client -->
+
+		<!-- init server -->
 		<tns:operation>
-			<tns:invoke_oper action="compute" id="211"/>
+			<tns:invoke_oper action="compute" id="211">
+				<tns:arg value="10100" type="INTEGER" />
+			</tns:invoke_oper>
 		</tns:operation>
 		<tns:operation>
-			<tns:invoke_oper action="compute" id="212"/>
+			<tns:invoke_oper action="compute" id="212" />
 		</tns:operation>
-		
+
 	</tns:sequence_oper>
-	
+
 </tns:workflow>

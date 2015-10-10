@@ -70,7 +70,7 @@
 		<complexContent>
 			<extension base="tns:XML_SAFe_Base">
 				<sequence>
-					<element name="reflection" type="tns:reflectionType" maxOccurs="1" minOccurs="0"></element>
+					<element name="arg" type="tns:argType" maxOccurs="unbounded" minOccurs="0"></element>
 				</sequence>
 				<attribute name="action" type="tns:ActionType"
 					use="required">
@@ -140,15 +140,17 @@
 		</complexContent>
 	</complexType>
 
-	<complexType name="reflectionType">
-		<sequence>
-			<element name="arg" type="tns:argType" maxOccurs="unbounded" minOccurs="0"></element>
-		</sequence>
-		<attribute name="portName" type="string"></attribute>
-		<attribute name="methodName" type="string"></attribute>
-	</complexType>
 
 	<complexType name="argType">
 		<attribute name="value" type="string"></attribute>
+		<attribute name="type" type="tns:ArgSimpleType"></attribute>
 	</complexType>
+
+	<simpleType name="ArgSimpleType">
+		<restriction base="string">
+			<enumeration value="INTEGER"/>
+			<enumeration value="DOUBLE"></enumeration>
+			<enumeration value="STRING"></enumeration>
+		</restriction>
+	</simpleType>
 </schema>

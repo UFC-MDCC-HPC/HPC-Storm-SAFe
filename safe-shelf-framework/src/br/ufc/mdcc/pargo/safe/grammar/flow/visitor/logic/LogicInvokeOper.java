@@ -1,7 +1,12 @@
 package br.ufc.mdcc.pargo.safe.grammar.flow.visitor.logic;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import br.ufc.mdcc.pargo.safe.framework.workflow.HShelfArgValueType;
 import br.ufc.mdcc.pargo.safe.grammar.arch.ArchAction;
 import br.ufc.mdcc.pargo.safe.grammar.arch.ArchComponent;
+import br.ufc.mdcc.pargo.safe.grammar.flow.ArgType;
 import br.ufc.mdcc.pargo.safe.grammar.flow.SAFeOrchestrationElement;
 import br.ufc.mdcc.pargo.safe.grammar.flow.XMLSAFeAction;
 import br.ufc.mdcc.pargo.safe.grammar.flow.visitor.AbstractSAFeElementLogic;
@@ -24,6 +29,7 @@ public class LogicInvokeOper extends AbstractSAFeElementLogic{
 	public void logic(SAFeOrchestrationElement element) {
 		
 		XMLSAFeAction action  = (XMLSAFeAction)element.getElement();
+	
 		String subject_id = null; // action_id or component_id
 		String action_oper = null;
 		
@@ -35,7 +41,9 @@ public class LogicInvokeOper extends AbstractSAFeElementLogic{
 		} else if (action_oper.equals("instantiate")) {
 			this.instatiateOper(subject_id);
 		} else if (action_oper.equals("compute")) {
-			this.computeOper(subject_id);
+			List<ArgType> args = null;
+			args = action.getArg();
+			this.computeOper(subject_id,args);
 		}else if(action_oper.equals("deploy")){
 			this.deployOper(subject_id);
 		}
@@ -59,11 +67,23 @@ public class LogicInvokeOper extends AbstractSAFeElementLogic{
 			this.workflowFacade.resolve("teste.contract.xml", compId);
 	}
 
-	private void computeOper(String actionId) {
+	private void computeOper(String actionId, List<ArgType> args) {
+		
+		List<HShelfArgValueType> argsValueTypeList = null;
+		if(args!=null && args.size()>0){
+			argsValueTypeList = new ArrayList<HShelfArgValueType>();
+			for(ArgType argType:args){
+				String type = argType.getType().name();
+				String value = argType.getValue();
+				HShelfArgValueType argValueType = new HShelfArgValueType(value, type);
+				argsValueTypeList.add(argValueType);
+			}
+		}
+		
 		ArchAction archAction = this.sAFeSWLArcherParser.getArchActionId(Integer.parseInt(actionId));
 		SAFeConsoleLogger.write("invoking action: " + archAction.getName()+"; from port: "+archAction.getParent().getName());
 		if(this.workflowFacade!=null){
-			this.workflowFacade.compute(archAction.getName(), archAction.getParent().getName());
+			this.workflowFacade.compute(archAction.getName(), archAction.getParent().getName(), argsValueTypeList);
 		}
 		
 	}
