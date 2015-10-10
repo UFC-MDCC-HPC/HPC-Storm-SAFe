@@ -18,7 +18,7 @@ public class HShelfFramework extends HShelfBuilderService{
 
 	
 	private Map<String,HShelfPort> providesPortMap;
-	private Map<String, Object> usesPortTypeMap;
+	private Map<String,HShelfPort> taskPortMap;
 	private Map<String,HShelfComponent> componentMap;
 	
 	private HShelfWorkflow workflow;
@@ -28,9 +28,8 @@ public class HShelfFramework extends HShelfBuilderService{
 	public HShelfFramework() {
 		HShelfConsoleLogger.write("Creating HShelfFramework");
 		this.providesPortMap = new HashMap<String,HShelfPort>();
-		this.usesPortTypeMap = new HashMap<String, Object>();
 		this.componentMap = new HashMap<String,HShelfComponent>();
-		
+		this.taskPortMap = new HashMap<String, HShelfPort>();
 	}
 	
 	public void initialize(HShelfApplication application){
@@ -86,14 +85,20 @@ public class HShelfFramework extends HShelfBuilderService{
 	}
 
 	@Override
-	public List<HShelfPort> getProvidesPort() {
+	public List<HShelfPort> getProvidesPortList() {
 		List<HShelfPort> list = new ArrayList<HShelfPort>();
 		for(HShelfPort port:this.providesPortMap.values())
 			list.add(port);
 		return list;
 	}
 
-	 
+	@Override
+	public List<HShelfPort> getTaskPortList() {
+		List<HShelfPort> list = new ArrayList<HShelfPort>();
+		for(HShelfPort port:this.taskPortMap.values())
+			list.add(port);
+		return list;
+	} 
 
 	public void addComponent(HShelfComponent component){
 		
@@ -112,15 +117,18 @@ public class HShelfFramework extends HShelfBuilderService{
 		
 	}
 	
-	public void addUsesPortType(String name, Object type){
-		this.usesPortTypeMap.put(name, type);
-	}
-	
-	public Object getUsesPort(String name){
-		return this.usesPortTypeMap.get(name);
-	}
-	
 	public HShelfPort getProvidesPort(String name){
 		return this.providesPortMap.get(name);
 	}
+	
+	public void addTaskPort(HShelfPort port){
+		this.taskPortMap.put(port.getName(),port);
+		
+	}
+	
+	public HShelfPort getTaskPort(String name){
+		return this.taskPortMap.get(name);
+	}
+
+	
 }

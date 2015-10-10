@@ -11,7 +11,7 @@ public abstract class HShelfBuilderService extends HShelfPort {
 			String className) throws HShelfException;
 	public abstract HShelfComponent getComponent(String isntanceName) throws HShelfException;;
 	public abstract List<HShelfComponent> getComponents();
-	public abstract List<HShelfPort> getProvidesPort();
-	
+	public abstract List<HShelfPort> getProvidesPortList();
+	public abstract List<HShelfPort> getTaskPortList();
 	
 }

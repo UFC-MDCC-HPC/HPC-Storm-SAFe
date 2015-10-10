@@ -161,7 +161,8 @@ public class HShelfWorkflow extends HShelfComponent {
 	
 	public void compute(String method, String portName){
 		try {
-			HShelfPort port  = this.services.getProvidesPort(portName);
+			
+			HShelfPort port  = this.services.getTaskPort(portName);
 			if(port!=null){
 				if(method.startsWith("set")){
 					Integer test[] = {10100};

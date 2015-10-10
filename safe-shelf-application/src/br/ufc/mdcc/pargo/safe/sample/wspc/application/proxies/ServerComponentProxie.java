@@ -17,7 +17,7 @@ public class ServerComponentProxie extends HShelfComponent{
 		
 		
 		try {
-			this.services.setProvidesPort(task);
+			this.services.setTaskPort(task);
 			this.services.setProvidesPort(env);
 		} catch (HShelfException e) {
 			// TODO Auto-generated catch block
