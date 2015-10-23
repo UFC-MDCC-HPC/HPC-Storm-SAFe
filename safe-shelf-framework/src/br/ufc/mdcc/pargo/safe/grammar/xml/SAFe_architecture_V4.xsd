@@ -28,9 +28,6 @@
 			<element name="task_binding" type="tns:BindingTask"
 				maxOccurs="unbounded" minOccurs="0">
 			</element>
-			<element name="parameter" type="tns:ParameterType"
-				maxOccurs="unbounded" minOccurs="0">
-			</element>
 		</sequence>
 		<attribute name="application_name" type="string"></attribute>
 	</complexType>
@@ -174,25 +171,6 @@
 		<attribute name="name" type="string"></attribute>
 	</complexType>
 
-	<complexType name="ParameterType">
-		<attribute name="name" type="string"></attribute>
-		<attribute name="value" type="string"></attribute>
-		<attribute name="type" type="tns:enumType"></attribute>
-		<attribute name="nature" type="tns:natureType"></attribute>
-	</complexType>
 
-	<simpleType name="enumType">
-		<restriction base="string">
-			<enumeration value="FILE"/>
-			<enumeration value="DIRECTORY"/>
-			<enumeration value="STRING"/>
-		</restriction>
-	</simpleType>
 
-	<simpleType name="natureType">
-		<restriction base="string">
-			<enumeration value="IN"/>
-			<enumeration value="OUT"/>
-		</restriction>
-	</simpleType>
 </schema>

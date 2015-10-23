@@ -14,8 +14,10 @@ import br.ufc.mdcc.pargo.safe.framework.port.dflt.HShelfGoWorkflowPortImpl;
 import br.ufc.mdcc.pargo.safe.framework.port.dflt.HShelfSAFeSWLPort;
 import br.ufc.mdcc.pargo.safe.framework.port.dflt.HShelfSAFeSWLPortImpl;
 import br.ufc.mdcc.pargo.safe.framework.port.dflt.HShelfWorkflowEventPortImpl;
+import br.ufc.mdcc.pargo.safe.framework.port.event.HShelfEventType;
 import br.ufc.mdcc.pargo.safe.framework.services.IHShelfService;
 import br.ufc.mdcc.pargo.safe.framework.util.HShelfConsoleLogger;
+import br.ufc.mdcc.pargo.safe.framework.util.HShelfFileUtil;
 import br.ufc.mdcc.pargo.safe.framework.util.HShelfReflectionUtil;
 import br.ufc.mdcc.pargo.safe.grammar.ISAFeSWLArcherParser;
 import br.ufc.mdcc.pargo.safe.grammar.ISAFeSWLFlowParser;
@@ -86,7 +88,7 @@ public class HShelfWorkflow extends HShelfComponent {
 		if(filePath!=null){
 			this.archParser = new SAFeSWLArchParser(filePath);
 			HShelfConsoleLogger.write("Architecture file loaded");
-			this.sendMessageToApp("Architecture file loaded");
+			this.sendMessageToApp("Architecture file loaded",HShelfEventType.Message);
 		}
 		
 	}
@@ -101,7 +103,7 @@ public class HShelfWorkflow extends HShelfComponent {
 			this.flowParser.setISAFeSWLArcherParser(archParser);
 			this.flowParser.setHShelfWorkflowFacade(workflowFacade);
 			HShelfConsoleLogger.write("Workflow file loaded");
-			this.sendMessageToApp("Workflow file loaded");
+			this.sendMessageToApp("Workflow file loaded",HShelfEventType.Message);
 		}
 		
 	}
@@ -109,10 +111,10 @@ public class HShelfWorkflow extends HShelfComponent {
 	public void run(){
 		if(this.flowParser!=null){
 			HShelfConsoleLogger.write("**WORKFLOW READING STARTED**");
-			this.sendMessageToApp("**WORKFLOW READING STARTED**");
+			this.sendMessageToApp("**WORKFLOW READING STARTED**",HShelfEventType.Message);
 			flowParser.run();
 			HShelfConsoleLogger.write("**WORKFLOW READING ENDED**");
-			this.sendMessageToApp("**WORKFLOW READING ENDED**");
+			this.sendMessageToApp("**WORKFLOW READING ENDED**",HShelfEventType.Message);
 		}
 			
 	}
@@ -151,10 +153,15 @@ public class HShelfWorkflow extends HShelfComponent {
 			if(archComponent!=null){
 				String compName = archComponent.getName();
 				String capCompName = compName.substring(0, 1).toUpperCase() + compName.substring(1);
-				HShelfComponent client = 
+				String proxiePkgName = HShelfFileUtil.readProperty("proxie-package");
+				String proxieClassName = HShelfFileUtil.readProperty("proxie-class-name");
+				
+				HShelfComponent newComponent = 
 						this.framework.createComponent(compName,
-								"br.ufc.mdcc.pargo.safe.sample.wspc.application.proxies."+capCompName+"ComponentProxie");
-				this.framework.addComponent(client);
+								proxiePkgName+"."+capCompName+proxieClassName);
+				this.framework.addComponent(newComponent);
+				//avisar a aplicação que esse componente está pronto e que ela pode pegar suas portas...
+				this.sendMessageToApp(compName,HShelfEventType.Component_Added);
 			}
 			
 		}
@@ -182,8 +189,8 @@ public class HShelfWorkflow extends HShelfComponent {
 		}
 	}
 
-	private void sendMessageToApp(String message){
+	private void sendMessageToApp(String message, HShelfEventType eventType){
 		if(safeWorkflowEventPort!=null)
-			((HShelfWorkflowEventPortImpl)safeWorkflowEventPort).setMessage(message);
+			((HShelfWorkflowEventPortImpl)safeWorkflowEventPort).setMessage(message,eventType);
 	}
 }

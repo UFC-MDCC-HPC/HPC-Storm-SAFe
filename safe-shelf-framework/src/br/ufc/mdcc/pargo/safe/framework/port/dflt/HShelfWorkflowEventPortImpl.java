@@ -27,9 +27,9 @@ public class HShelfWorkflowEventPortImpl extends HShelfWorkflowEventPort{
 		}
 	}
 	
-	public void setMessage(String message){
+	public void setMessage(String message, HShelfEventType eventType){
 		HShelfWorkflowEvent event = 
-				new HShelfWorkflowEvent(HShelfEventType.Message, message);
+				new HShelfWorkflowEvent(eventType, message);
 		this.notifyAllWorkflowListeners(event);
 	}
 }

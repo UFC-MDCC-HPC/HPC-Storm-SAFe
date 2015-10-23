@@ -33,22 +33,16 @@
 
 		<!-- init server -->
 		<tns:operation>
-			<tns:invoke_oper action="compute" id="311">
-				<tns:arg value="10100" type="INTEGER" />
-			</tns:invoke_oper>
-		</tns:operation>
-		<tns:operation>
-			<tns:invoke_oper action="compute" id="312" />
+			<tns:invoke_oper action="compute" id="311" />
 		</tns:operation>
 
-		<!-- init server -->
+		<!-- init client -->
 		<tns:operation>
-			<tns:invoke_oper action="compute" id="211">
-				<tns:arg value="10100" type="INTEGER" />
-			</tns:invoke_oper>
+			<tns:invoke_oper action="compute" id="211"/>
 		</tns:operation>
+		
 		<tns:operation>
-			<tns:invoke_oper action="compute" id="212" />
+			<tns:invoke_oper action="compute" id="212"/>
 		</tns:operation>
 
 	</tns:sequence_oper>

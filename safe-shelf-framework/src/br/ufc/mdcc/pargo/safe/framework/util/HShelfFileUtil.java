@@ -52,7 +52,7 @@ public class HShelfFileUtil {
 		String res = "";
 		try {
 
-			String filename = "safe.properties";
+			String filename = "safe-shelf-framework.properties";
 			input = HShelfFileUtil.class.getClassLoader().getResourceAsStream(filename);
 			if (input == null) {
 				System.out.println("Sorry, unable to find " + filename);

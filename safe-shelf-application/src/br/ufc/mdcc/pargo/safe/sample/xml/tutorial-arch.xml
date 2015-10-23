@@ -7,7 +7,7 @@
   </tns:application>
   
   <tns:workflow id="1" name="workflow-tutorial">
-     <tns:task_port id="11" name="task-client" id_component="1"/>
+    <tns:task_port id="11" name="task-client" id_component="1"/>
   	<tns:task_port id="13" name="task-server" id_component="1"/>
   </tns:workflow>
   
@@ -24,8 +24,8 @@
       					 id="21"
       					 id_component="2"
       					 wsdl_path="http://localhost:10005/task-client">
-      					 <tns:action id="211" name="setServerPort"/>
-      					 <tns:action id="212" name="initialize"/>
+      					 <tns:action id="211" name="connect"/>
+      					 <tns:action id="212" name="post"/>
       </tns:task_port>
     </tns:computation>
     
@@ -33,7 +33,7 @@
       <tns:provides_port name="env-server" 
       					 id="30"
       					 id_component="3"
-      					 wsdl_path="http://localhost:10002/server-go"/>
+      					 wsdl_path="http://localhost:10002/env-server"/>
 
       <tns:contract id="32">
         <tns:uri>http://tempuri-server.org</tns:uri>
@@ -41,9 +41,8 @@
        <tns:task_port 	name="task-server" 
       					 id="31"
       					 id_component="3"
-      					 wsdl_path="http://localhost:10003/server-operation">
-      					 <tns:action id="311" name="setPort"/>
-      					 <tns:action id="312" name="initialize"/>
+      					 wsdl_path="http://localhost:10003/task-server">
+      					 <tns:action id="311" name="connect"/>
       </tns:task_port>
     </tns:computation>
   </tns:body>
