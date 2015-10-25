@@ -31,19 +31,28 @@
 			<tns:invoke_oper action="instantiate" id="3" />
 		</tns:operation>
 
-		<!-- init server -->
+		<!-- connect server -->
 		<tns:operation>
 			<tns:invoke_oper action="compute" id="311" />
 		</tns:operation>
 
-		<!-- init client -->
+		<!-- connect client -->
 		<tns:operation>
-			<tns:invoke_oper action="compute" id="211"/>
+			<tns:invoke_oper action="compute" id="211" />
 		</tns:operation>
-		
+
 		<tns:operation>
-			<tns:invoke_oper action="compute" id="212"/>
+			<tns:iterate_oper max="4">
+				<!-- post -->
+				<tns:operation>
+					<tns:invoke_oper action="compute" id="212" />
+				</tns:operation>
+			</tns:iterate_oper>
 		</tns:operation>
+
+
+
+
 
 	</tns:sequence_oper>
 

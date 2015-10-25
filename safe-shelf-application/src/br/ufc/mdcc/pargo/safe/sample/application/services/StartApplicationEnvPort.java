@@ -2,11 +2,11 @@ package br.ufc.mdcc.pargo.safe.sample.application.services;
 
 import javax.xml.ws.Endpoint;
 
-import br.ufc.mdcc.pargo.safe.sample.application.ClientServerApplicationTaskEnv;
+import br.ufc.mdcc.pargo.safe.sample.application.ClientServerApplication;
 
 public class StartApplicationEnvPort {
 
-	public void start(ClientServerApplicationTaskEnv application){
+	public void start(ClientServerApplication application){
 	
 		IApplicationEnvPort appPort = new ApplicationEnvPortImpl(application);
 		String urlAppPort = "http://localhost:10010/app-port";

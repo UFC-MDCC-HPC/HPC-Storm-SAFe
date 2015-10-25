@@ -34,10 +34,11 @@ public class ClientBackend implements IClientBackend{
 				
 				while(true){
 					
-					try {Thread.sleep(3000);} 
+					try {Thread.sleep(1000);} 
 					catch (InterruptedException e) {e.printStackTrace();}
 					if(output!=null){
-						sendMessageToServer();
+						String msg = sendMessageToServer();
+						if(msg.equals("bye")) break;
 					}
 				}
 				
@@ -57,6 +58,7 @@ public class ClientBackend implements IClientBackend{
 	public void addMesssageToBuffer(String message) {
 		
 		this.buffer.add(message);
+		System.out.println("CLIENT BUFFER SIZE: "+this.buffer.size());
 	}
 
 	@Override
@@ -87,13 +89,13 @@ public class ClientBackend implements IClientBackend{
 	}
 
 	
-	private void sendMessageToServer() {
+	private String sendMessageToServer() {
 		
-		if(this.buffer.isEmpty()) return;
+		if(this.buffer.isEmpty()) return "";
 		
 		String msg = this.buffer.get(0);
 		this.buffer.remove(0);
-		
+		System.out.println("CLIENT BUFFER SIZE: "+this.buffer.size());
 		try {
 			output.writeObject(msg);
 			output.flush();
@@ -105,11 +107,14 @@ public class ClientBackend implements IClientBackend{
 		if(msg.equals("bye")){
 			try {
 				output.close();
+				System.out.println("CLIENT CONNECTION CLOSED (CLIENT-SIDE).");
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
+		
+		return msg;
 		
 	}
 

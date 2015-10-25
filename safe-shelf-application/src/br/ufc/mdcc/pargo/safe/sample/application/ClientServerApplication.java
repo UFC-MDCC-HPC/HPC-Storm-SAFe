@@ -15,7 +15,7 @@ import br.ufc.mdcc.pargo.safe.sample.application.proxies.ClientEnvPortProxie;
 import br.ufc.mdcc.pargo.safe.sample.application.proxies.ServerEnvPortProxie;
 import br.ufc.mdcc.pargo.safe.sample.application.services.StartApplicationEnvPort;
 
-public class ClientServerApplicationTaskEnv 
+public class ClientServerApplication 
 extends HShelfApplication implements IHShelfWorkflowEventListener{
 
 	HShelfSAFeSWLPort portSWL_WF;
@@ -28,11 +28,10 @@ extends HShelfApplication implements IHShelfWorkflowEventListener{
 	
 	StartApplicationEnvPort appPort;
 	
+	public static int id = 0;
 	
-	public ClientServerApplicationTaskEnv(String name) {
+	public ClientServerApplication(String name) {
 		super(name);
-		
-		
 	}
 
 	@Override
@@ -41,9 +40,9 @@ extends HShelfApplication implements IHShelfWorkflowEventListener{
 		
 		try {
 			
-			//init my services
+			//init my services (Application as a service)
 			this.appPort = new StartApplicationEnvPort();
-			appPort.start(this);
+			this.appPort.start(this);
 			
 			//init WF ports (local) with application
 			portSWL_WF = (HShelfSAFeSWLPort)this.services.getProvidesPort(HShelfWorkflow.SAFE_WORKFLOW_SWL_PORT);
@@ -54,18 +53,21 @@ extends HShelfApplication implements IHShelfWorkflowEventListener{
 			portEvent_WF.addWorkflowEventListener(this);
 			
 			//send arch file
-			this.sendArchitectureFile();
-			//load arch file and generate its object
-			this.loadArchitectureFile();
+			String fileArchitecture = "/home/jefferson/Git/HPC-Storm-SAFe/safe-shelf-application/src/br/ufc/mdcc/pargo/safe/sample/xml/tutorial-arch.xml";
+			this.portSWL_WF.setSAFeSWLArchFilePath(fileArchitecture);
+			//load arch file and generate its object (arvore de objtos arquiteturais)
+			((HShelfGoWorkflowPortImpl)portGo_WF).loadArchitectureFile();
+			
 			
 			//===============================
 			//generate and send workflow file
-			this.generateAndSendWorkflowFile();
+			String fileWorkflow = "/home/jefferson/Git/HPC-Storm-SAFe/safe-shelf-application/src/br/ufc/mdcc/pargo/safe/sample/xml/tutorial-flow.xml";
+			portSWL_WF.setSAFeSWLFlowFilePath(fileWorkflow);
 			//load workflow file and generate its object (it depends on arch file)
-			this.loadGeneratedWorkflowFile();
+			((HShelfGoWorkflowPortImpl)this.portGo_WF).loadWorkflowFile();
 			
 			//run workflow to load it components and ports...but not his logic yet
-			this.runWorkflow();
+			this.portGo_WF.go();
 			//==============================
 		
 			
@@ -79,55 +81,33 @@ extends HShelfApplication implements IHShelfWorkflowEventListener{
 		
 	}
 	
+	//executa portas de eventos...no caso, setar a porta TCP tanto do cliente quanto do servidor.
 	public void runClientServerApplication(){
 		
 		envServer.setPort(10100);
 		envClient.setServerPort(10100);
 		
 	}
-	
-	public static void main(String[] args) {
-		ClientServerApplicationTaskEnv app = new ClientServerApplicationTaskEnv("client-server-app");
-		app.runClientServerApplication();
-	}
-	
-	
-	public void sendArchitectureFile(){
-		String fileArchitecture = "/home/jefferson/Git/HPC-Storm-SAFe/safe-shelf-application/src/br/ufc/mdcc/pargo/safe/sample/xml/tutorial-arch.xml";
-		portSWL_WF.setSAFeSWLArchFilePath(fileArchitecture);
-	}
-	
-	public void loadArchitectureFile(){
-		((HShelfGoWorkflowPortImpl)portGo_WF).loadArchitectureFile();
-	}
-	
-	public void generateAndSendWorkflowFile(){
-		String fileWorkflow = "/home/jefferson/Git/HPC-Storm-SAFe/safe-shelf-application/src/br/ufc/mdcc/pargo/safe/sample/xml/tutorial-flow.xml";
-		portSWL_WF.setSAFeSWLFlowFilePath(fileWorkflow);
-	}
 
-	public void loadGeneratedWorkflowFile(){
-		((HShelfGoWorkflowPortImpl)portGo_WF).loadWorkflowFile();
-	}
-	
-	public void runWorkflow(){
-		this.portGo_WF.go();
-	}
-	
-	//cliente
+	//cliente acessa remotamente via proxie
 	public void requestMessage(){
-		
-		String message = "olá, sou a aplicação.";
+		String message = "";
+		if(id<3)
+			message = "olá, sou a aplicação. MSG ID#:"+id;
+		else
+			message = "bye";
 		this.envClient.addMesssageToBuffer(message);
+		id += 1;
 	}
 	
-	//servidor
+	//servidor acessa remotamente via proxie
 	public void receiveMessage(String message){
 		System.out.println("MENSAGEM RECEBIDA: " + message);
 	}
 	
 	
 
+	//escuta eventos do workflow e toma decisões de acordo com o evento...
 	@Override
 	public void workflowActivity(HShelfWorkflowEvent event) {
 		if(event.getEventType().equals(HShelfEventType.Message)){
@@ -143,6 +123,7 @@ extends HShelfApplication implements IHShelfWorkflowEventListener{
 				}
 		
 			}else if(event.getValue().equals("server")){
+				//remote ports (web services)
 				try {
 					this.envServer = (ServerEnvPortProxie)this.services.getProvidesPort("env-server");
 				} catch (HShelfException e) {
@@ -152,6 +133,12 @@ extends HShelfApplication implements IHShelfWorkflowEventListener{
 			}
 		}
 		
+	}
+	
+	/**MAIN**/
+	public static void main(String[] args) {
+		ClientServerApplication app = new ClientServerApplication("client-server-app");
+		app.runClientServerApplication();
 	}
 
 }

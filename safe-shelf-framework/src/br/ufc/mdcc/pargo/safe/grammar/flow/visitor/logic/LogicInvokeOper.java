@@ -59,7 +59,6 @@ public class LogicInvokeOper extends AbstractSAFeElementLogic{
 	}
 
 	private void resolveOper(String compId) {
-
 		ArchComponent archComponent = this.sAFeSWLArcherParser.getArchComponentByID(
 						Integer.parseInt(compId));
 		SAFeConsoleLogger.write("invoke resolve => archComponent: ["+archComponent.getId()+"]" + archComponent.getName());

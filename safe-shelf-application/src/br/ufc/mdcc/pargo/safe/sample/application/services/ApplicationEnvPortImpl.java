@@ -3,14 +3,14 @@ package br.ufc.mdcc.pargo.safe.sample.application.services;
 import javax.jws.WebMethod;
 import javax.jws.WebService;
 
-import br.ufc.mdcc.pargo.safe.sample.application.ClientServerApplicationTaskEnv;
+import br.ufc.mdcc.pargo.safe.sample.application.ClientServerApplication;
 
 @WebService(endpointInterface="br.ufc.mdcc.pargo.safe.sample.application.services.IApplicationEnvPort")
 public class ApplicationEnvPortImpl implements IApplicationEnvPort{
 
-	private ClientServerApplicationTaskEnv application;
+	private ClientServerApplication application;
 	
-	public ApplicationEnvPortImpl(ClientServerApplicationTaskEnv application) {
+	public ApplicationEnvPortImpl(ClientServerApplication application) {
 		this.application = application;
 	}
 	

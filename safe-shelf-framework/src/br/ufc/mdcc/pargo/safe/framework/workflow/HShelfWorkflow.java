@@ -108,6 +108,9 @@ public class HShelfWorkflow extends HShelfComponent {
 		
 	}
 	
+	/**
+	 * Run worklfow flow control logic
+	 */
 	public void run(){
 		if(this.flowParser!=null){
 			HShelfConsoleLogger.write("**WORKFLOW READING STARTED**");

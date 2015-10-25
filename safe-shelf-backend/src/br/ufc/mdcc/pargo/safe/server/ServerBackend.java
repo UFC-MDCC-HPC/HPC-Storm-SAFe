@@ -42,7 +42,9 @@ public class ServerBackend implements IServerBackend {
 						if (!buffer.isEmpty()) {
 							String message = buffer.get(0);
 							buffer.remove(0);
+							System.out.println("SERVER BUFFER SIZE: "+buffer.size());
 							env.sendMessageToApplication(message);
+							if(message.equals("bye")) break;
 						}
 
 					}
@@ -94,10 +96,11 @@ public class ServerBackend implements IServerBackend {
 				msg = (String) input.readObject();
 				
 				this.buffer.add(msg);
+				System.out.println("SERVER BUFFER SIZE: "+this.buffer.size());
 			} while (!msg.equals("bye"));
-
 			this.input.close();
 			this.client.close();
+			System.out.println("CLIENT CONNECTION CLOSED (SERVER-SIDE).");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
