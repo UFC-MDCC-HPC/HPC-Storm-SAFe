@@ -1,6 +1,5 @@
 package br.ufc.mdcc.pargo.safe.framework.workflow;
 
-import java.util.List;
 
 public class HShelfWorkflowFacade {
 
@@ -23,7 +22,7 @@ public class HShelfWorkflowFacade {
 		this.workflow.instantiate(compID);
 	}
 	
-	public void compute(String method, String portName, List<HShelfArgValueType> argValueTypeList){
-		this.workflow.compute(method, portName,argValueTypeList);
+	public void compute(String method, String portName){
+		this.workflow.compute(method, portName);
 	}
 }
