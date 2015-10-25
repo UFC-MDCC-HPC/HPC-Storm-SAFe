@@ -5,41 +5,66 @@
 
 
 	<tns:sequence_oper>
-		<!-- client -->
-		<tns:operation>
-			<tns:invoke_oper action="resolve" id="2" />
-		</tns:operation>
 
 		<tns:operation>
-			<tns:invoke_oper action="deploy" id="2" />
+			<tns:parallel_oper>
+				<!-- client -->
+				<tns:operation>
+					<tns:sequence_oper>
+
+						<tns:operation>
+							<tns:invoke_oper action="resolve" id="2" />
+						</tns:operation>
+
+						<tns:operation>
+							<tns:invoke_oper action="deploy" id="2" />
+						</tns:operation>
+
+						<tns:operation>
+							<tns:invoke_oper action="instantiate" id="2" />
+						</tns:operation>
+					</tns:sequence_oper>
+				</tns:operation>
+
+				<!-- server -->
+				<tns:operation>
+					<tns:sequence_oper>
+
+						<tns:operation>
+							<tns:invoke_oper action="resolve" id="3" />
+						</tns:operation>
+
+						<tns:operation>
+							<tns:invoke_oper action="deploy" id="3" />
+						</tns:operation>
+
+						<tns:operation>
+							<tns:invoke_oper action="instantiate" id="3" />
+						</tns:operation>
+					</tns:sequence_oper>
+				</tns:operation>
+				
+			</tns:parallel_oper>
 		</tns:operation>
 
-		<tns:operation>
-			<tns:invoke_oper action="instantiate" id="2" />
-		</tns:operation>
 
-		<!-- server -->
-		<tns:operation>
-			<tns:invoke_oper action="resolve" id="3" />
-		</tns:operation>
+
 
 		<tns:operation>
-			<tns:invoke_oper action="deploy" id="3" />
+			<tns:parallel_oper>
+				<!-- connect server -->
+				<tns:operation>
+					<tns:invoke_oper action="compute" id="311" />
+				</tns:operation>
+
+				<!-- connect client -->
+				<tns:operation>
+					<tns:invoke_oper action="compute" id="211" />
+				</tns:operation>
+			</tns:parallel_oper>
 		</tns:operation>
 
-		<tns:operation>
-			<tns:invoke_oper action="instantiate" id="3" />
-		</tns:operation>
 
-		<!-- connect server -->
-		<tns:operation>
-			<tns:invoke_oper action="compute" id="311" />
-		</tns:operation>
-
-		<!-- connect client -->
-		<tns:operation>
-			<tns:invoke_oper action="compute" id="211" />
-		</tns:operation>
 
 		<tns:operation>
 			<tns:iterate_oper max="4">

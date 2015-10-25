@@ -123,7 +123,7 @@ public class HShelfWorkflow extends HShelfComponent {
 	}
 	
 	//FACADE METHODS
-	public void resolve(String contract, String compID){
+	public synchronized void resolve(String contract, String compID){
 		HShelfConsoleLogger.write("Entering Resolve...");
 		String candidates = this.core.resolve(contract);
 		if(candidates!=null){
@@ -134,7 +134,7 @@ public class HShelfWorkflow extends HShelfComponent {
 		}
 	}
 	
-	public void deploy(String compID){
+	public synchronized void deploy(String compID){
 		HShelfConsoleLogger.write("Entering Deploy...");
 		HShelfComponentVariableInfo compInfo = this.componentVariableMap.get(compID);
 		if(compInfo!=null){
@@ -144,7 +144,7 @@ public class HShelfWorkflow extends HShelfComponent {
 		}
 	}
 
-	public void instantiate(String compID){
+	public synchronized void instantiate(String compID){
 		HShelfConsoleLogger.write("Entering Instantiate...");
 		HShelfComponentVariableInfo compInfo = this.componentVariableMap.get(compID);
 		if(compInfo!=null){
@@ -170,7 +170,7 @@ public class HShelfWorkflow extends HShelfComponent {
 		}
 	}
 	
-	public void compute(String method, String portName,List<HShelfArgValueType> argValueTypeList){
+	public synchronized void compute(String method, String portName,List<HShelfArgValueType> argValueTypeList){
 		try {
 			
 			HShelfPort port  = this.services.getTaskPort(portName);
@@ -187,6 +187,7 @@ public class HShelfWorkflow extends HShelfComponent {
 				}
 			}
 		} catch (HShelfException e) {
+			System.out.println("method: "+method +" port "+ portName);
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

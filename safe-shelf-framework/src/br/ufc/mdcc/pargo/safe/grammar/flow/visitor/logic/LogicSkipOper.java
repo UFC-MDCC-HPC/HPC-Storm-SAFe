@@ -7,7 +7,7 @@ public class LogicSkipOper extends AbstractSAFeElementLogic{
 
 	@Override
 	public void logic(SAFeOrchestrationElement element) {
-		
+		System.out.println("SKIP!");
 		
 	}
 

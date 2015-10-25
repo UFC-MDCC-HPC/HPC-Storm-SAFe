@@ -113,15 +113,18 @@ public class HShelfFramework extends HShelfBuilderService{
 	}
 	
 	public void addProvidesPort(HShelfPort port){
+		System.out.println("ADDING: " + port.getName());
 		this.providesPortMap.put(port.getName(),port);
 		
 	}
 	
 	public HShelfPort getProvidesPort(String name){
+		
 		return this.providesPortMap.get(name);
 	}
 	
 	public void addTaskPort(HShelfPort port){
+		System.out.println("ADDING: " + port.getName());
 		this.taskPortMap.put(port.getName(),port);
 		
 	}
