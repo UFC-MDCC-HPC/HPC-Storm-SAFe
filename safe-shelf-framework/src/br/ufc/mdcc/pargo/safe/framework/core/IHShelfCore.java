@@ -11,13 +11,13 @@ public interface IHShelfCore {
 	/**
 	 * 
 	 * @param candidates ordered
-	 * @return ID of the first candidate deployed
+	 * @return ID of the first candidate deployed.
 	 */
 	public String deploy(String candidates);
 	/**
 	 * 
 	 * @param ID of the first candidate deployed
-	 * @return URL informations from its ports
+	 * @return URL informations from its ports in XML format. See documentation.
 	 */
 	public String instantiate(String ID);
 	/**

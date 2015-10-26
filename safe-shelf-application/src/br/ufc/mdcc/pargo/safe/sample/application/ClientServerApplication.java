@@ -61,7 +61,7 @@ extends HShelfApplication implements IHShelfWorkflowEventListener{
 			
 			//===============================
 			//generate and send workflow file
-			String fileWorkflow = "/home/jefferson/Git/HPC-Storm-SAFe/safe-shelf-application/src/br/ufc/mdcc/pargo/safe/sample/xml/tutorial-flow.xml";
+			String fileWorkflow = "/home/jefferson/Git/HPC-Storm-SAFe/safe-shelf-application/src/br/ufc/mdcc/pargo/safe/sample/xml/tutorial-flow-B.xml";
 			portSWL_WF.setSAFeSWLFlowFilePath(fileWorkflow);
 			//load workflow file and generate its object (it depends on arch file)
 			((HShelfGoWorkflowPortImpl)this.portGo_WF).loadWorkflowFile();

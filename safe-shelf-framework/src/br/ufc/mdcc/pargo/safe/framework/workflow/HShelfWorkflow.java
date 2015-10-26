@@ -138,6 +138,11 @@ public class HShelfWorkflow extends HShelfComponent {
 	}
 
 	// FACADE METHODS
+	/**
+	 * Resolves a contract from a component
+	 * @param contract, represents the contract in XML
+	 * @param compID, represents the component ID for that contract
+	 */
 	public synchronized void resolve(String contract, String compID) {
 		HShelfConsoleLogger.write("Entering Resolve...");
 		String candidates = this.core.resolve(contract);
@@ -149,6 +154,11 @@ public class HShelfWorkflow extends HShelfComponent {
 		}
 	}
 
+	/**
+	 * Deploys a component in the Back-end. An ordered list of candidates is sent to Core and he
+	 * send a message to deploy a component. A deployed id is saved.
+	 * @param compID
+	 */
 	public synchronized void deploy(String compID) {
 		HShelfConsoleLogger.write("Entering Deploy...");
 		HShelfComponentCoreInfo compInfo = this.componentVariableMap
@@ -208,8 +218,6 @@ public class HShelfWorkflow extends HShelfComponent {
 
 			}
 		} catch (HShelfException e) {
-			System.out.println("method: " + method + " port " + portName);
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

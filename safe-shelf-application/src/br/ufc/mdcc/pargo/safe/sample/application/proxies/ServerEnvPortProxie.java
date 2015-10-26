@@ -10,22 +10,22 @@ import br.ufc.mdcc.pargo.safe.sample.stubs.server.env.ServiceServerEnvImplServic
 
 public class ServerEnvPortProxie extends HShelfPort{
 	
-	private URL wsdl_url = null;
-
-	public ServerEnvPortProxie() {
-
+	
+	public void setPort(Integer port){
+		ServiceServerEnvImplService service = new ServiceServerEnvImplService(this.createURL());
+		IServiceServerEnv portWS = service.getServiceServerEnvImplPort();
+		portWS.setPort(port);
+	}
+	
+	private URL createURL(){
+		URL wsdl_url = null;
 		try {
 			wsdl_url = new URL(HShelfSession.getValue(this.getName()));
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
-	
-	public void setPort(Integer port){
-		ServiceServerEnvImplService service = new ServiceServerEnvImplService(wsdl_url);
-		IServiceServerEnv portWS = service.getServiceServerEnvImplPort();
-		portWS.setPort(port);
+		return wsdl_url;
 	}
 
 }

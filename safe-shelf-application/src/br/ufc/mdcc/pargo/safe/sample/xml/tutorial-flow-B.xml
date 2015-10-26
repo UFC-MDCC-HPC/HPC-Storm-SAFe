@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tns:workflow xmlns:tns="http://www.example.org/SAFe_workflow_V4"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.example.org/SAFe_workflow_V4 SAFe_workflow_V4.xsd ">
+
+
+	<tns:sequence_oper>
+		<tns:operation>
+			<tns:parallel_oper>
+				<!-- client -->
+				<tns:operation>
+					<tns:sequence_oper>
+						<tns:operation>
+							<tns:invoke_oper action="resolve" id="2" />
+						</tns:operation>
+						<tns:operation>
+							<tns:invoke_oper action="deploy" id="2" />
+						</tns:operation>
+						<tns:operation>
+							<tns:invoke_oper action="instantiate" id="2" />
+						</tns:operation>
+						<!-- connect client -->
+						<tns:operation>
+							<tns:invoke_oper action="compute" id="211" />
+						</tns:operation>
+					</tns:sequence_oper>
+				</tns:operation>
+				<!-- server -->
+				<tns:operation>
+					<tns:sequence_oper>
+						<tns:operation>
+							<tns:invoke_oper action="resolve" id="3" />
+						</tns:operation>
+						<tns:operation>
+							<tns:invoke_oper action="deploy" id="3" />
+						</tns:operation>
+						<tns:operation>
+							<tns:invoke_oper action="instantiate" id="3" />
+						</tns:operation>
+						<!-- connect server -->
+						<tns:operation>
+							<tns:invoke_oper action="compute" id="311" />
+						</tns:operation>
+					</tns:sequence_oper>
+				</tns:operation>
+			</tns:parallel_oper>
+		</tns:operation>
+		<tns:operation>
+			<tns:iterate_oper max="4">
+				<!-- post -->
+				<tns:operation>
+					<tns:invoke_oper action="compute" id="212" />
+				</tns:operation>
+			</tns:iterate_oper>
+		</tns:operation>
+	</tns:sequence_oper>
+</tns:workflow>

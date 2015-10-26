@@ -10,22 +10,21 @@ import br.ufc.mdcc.pargo.safe.sample.stubs.server.task.ServiceServerTaskImplServ
 
 public class ServerTaskPortProxie extends HShelfPort{
 	
-	private URL wsdl_url = null;
-
-	public ServerTaskPortProxie() {
-
+	public void connect(){
+		ServiceServerTaskImplService service = new ServiceServerTaskImplService(this.createURL());
+		IServiceServerTask port = service.getServiceServerTaskImplPort();
+		port.connect();
+	}
+	
+	private URL createURL(){
+		URL wsdl_url = null;
 		try {
 			wsdl_url = new URL(HShelfSession.getValue(this.getName()));
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
-	
-	public void connect(){
-		ServiceServerTaskImplService service = new ServiceServerTaskImplService(wsdl_url);
-		IServiceServerTask port = service.getServiceServerTaskImplPort();
-		port.connect();
+		return wsdl_url;
 	}
  
 }
