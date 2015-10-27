@@ -8,8 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Semaphore;
 
-import br.ufc.mdcc.pargo.safe.server.port.env.IServiceServerEnv;
-import br.ufc.mdcc.pargo.safe.server.port.tsk.IServiceServerTask;
+import br.ufc.mdcc.pargo.backend.app.stubs.ApplicationEnvPortImplService;
+import br.ufc.mdcc.pargo.backend.app.stubs.IApplicationEnvPort;
 
 public class ServerBackend implements IServerBackend {
 
@@ -19,8 +19,7 @@ public class ServerBackend implements IServerBackend {
 	private ObjectInputStream input;
 
 	private List<String> buffer;
-	private IServiceServerEnv env;
-	private IServiceServerTask tsk;
+	 
 
 	private Semaphore semaphore;
 
@@ -38,16 +37,16 @@ public class ServerBackend implements IServerBackend {
 						e.printStackTrace();
 					}
 					
-					if (env != null) {
+					 
 						if (!buffer.isEmpty()) {
 							String message = buffer.get(0);
 							buffer.remove(0);
 							System.out.println("SERVER BUFFER SIZE: "+buffer.size());
-							env.sendMessageToApplication(message);
+							//env.sendMessageToApplication(message);
+							sendMessageToApplication(message);
 							if(message.equals("bye")) break;
 						}
-
-					}
+ 
 				}
 
 			}
@@ -111,20 +110,11 @@ public class ServerBackend implements IServerBackend {
 
 	}
 
-	public IServiceServerEnv getEnv() {
-		return env;
-	}
+	 
 
-	public void setEnv(IServiceServerEnv env) {
-		this.env = env;
+	private void sendMessageToApplication(String message){
+		ApplicationEnvPortImplService service = new ApplicationEnvPortImplService();
+		IApplicationEnvPort port = service.getApplicationEnvPortImplPort();
+		port.receiveMessage(message);
 	}
-
-	public IServiceServerTask getTsk() {
-		return tsk;
-	}
-
-	public void setTsk(IServiceServerTask tsk) {
-		this.tsk = tsk;
-	}
-
 }

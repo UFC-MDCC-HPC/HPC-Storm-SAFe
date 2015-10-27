@@ -24,9 +24,7 @@ import javax.xml.namespace.QName;
 @XmlRegistry
 public class ObjectFactory {
 
-    private final static QName _SendMessageToApplication_QNAME = new QName("http://env.port.server.safe.pargo.mdcc.ufc.br/", "sendMessageToApplication");
     private final static QName _SetPortResponse_QNAME = new QName("http://env.port.server.safe.pargo.mdcc.ufc.br/", "setPortResponse");
-    private final static QName _SendMessageToApplicationResponse_QNAME = new QName("http://env.port.server.safe.pargo.mdcc.ufc.br/", "sendMessageToApplicationResponse");
     private final static QName _SetPort_QNAME = new QName("http://env.port.server.safe.pargo.mdcc.ufc.br/", "setPort");
 
     /**
@@ -34,14 +32,6 @@ public class ObjectFactory {
      * 
      */
     public ObjectFactory() {
-    }
-
-    /**
-     * Create an instance of {@link SendMessageToApplication }
-     * 
-     */
-    public SendMessageToApplication createSendMessageToApplication() {
-        return new SendMessageToApplication();
     }
 
     /**
@@ -53,28 +43,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link SendMessageToApplicationResponse }
-     * 
-     */
-    public SendMessageToApplicationResponse createSendMessageToApplicationResponse() {
-        return new SendMessageToApplicationResponse();
-    }
-
-    /**
      * Create an instance of {@link SetPort }
      * 
      */
     public SetPort createSetPort() {
         return new SetPort();
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link SendMessageToApplication }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://env.port.server.safe.pargo.mdcc.ufc.br/", name = "sendMessageToApplication")
-    public JAXBElement<SendMessageToApplication> createSendMessageToApplication(SendMessageToApplication value) {
-        return new JAXBElement<SendMessageToApplication>(_SendMessageToApplication_QNAME, SendMessageToApplication.class, null, value);
     }
 
     /**
@@ -84,15 +57,6 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://env.port.server.safe.pargo.mdcc.ufc.br/", name = "setPortResponse")
     public JAXBElement<SetPortResponse> createSetPortResponse(SetPortResponse value) {
         return new JAXBElement<SetPortResponse>(_SetPortResponse_QNAME, SetPortResponse.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link SendMessageToApplicationResponse }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://env.port.server.safe.pargo.mdcc.ufc.br/", name = "sendMessageToApplicationResponse")
-    public JAXBElement<SendMessageToApplicationResponse> createSendMessageToApplicationResponse(SendMessageToApplicationResponse value) {
-        return new JAXBElement<SendMessageToApplicationResponse>(_SendMessageToApplicationResponse_QNAME, SendMessageToApplicationResponse.class, null, value);
     }
 
     /**

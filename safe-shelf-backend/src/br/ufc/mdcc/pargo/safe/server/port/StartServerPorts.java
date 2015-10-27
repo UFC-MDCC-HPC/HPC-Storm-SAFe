@@ -22,9 +22,6 @@ public class StartServerPorts {
 		IServiceServerEnv env = new ServiceServerEnvImpl(server);
 		IServiceServerTask tsk = new ServiceServerTaskImpl(server);
 		
-		((ServerBackend)server).setEnv(env);
-		((ServerBackend)server).setTsk(tsk);
-		
 		Endpoint.publish(urlTask, tsk);
 		Endpoint.publish(urlEnv, env);
 		System.out.println(urlTask);

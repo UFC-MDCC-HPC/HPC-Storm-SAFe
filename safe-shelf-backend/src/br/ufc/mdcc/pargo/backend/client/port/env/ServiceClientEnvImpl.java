@@ -3,8 +3,6 @@ package br.ufc.mdcc.pargo.backend.client.port.env;
 import javax.jws.WebMethod;
 import javax.jws.WebService;
 
-import br.ufc.mdcc.pargo.backend.app.stubs.ApplicationEnvPortImplService;
-import br.ufc.mdcc.pargo.backend.app.stubs.IApplicationEnvPort;
 import br.ufc.mdcc.pargo.backend.client.IClientBackend;
 
 @WebService(endpointInterface="br.ufc.mdcc.pargo.backend.client.port.env.IServiceClientEnv")
@@ -27,15 +25,5 @@ public class ServiceClientEnvImpl implements IServiceClientEnv{
 		this.client.addMesssageToBuffer(message);
 		
 	}
-
-	public void requestMessage(){
-		
-		ApplicationEnvPortImplService service = new ApplicationEnvPortImplService();
-		IApplicationEnvPort port = service.getApplicationEnvPortImplPort();
-		port.requestMessage();
-	}
-	 
-
-	 
-
+ 
 }

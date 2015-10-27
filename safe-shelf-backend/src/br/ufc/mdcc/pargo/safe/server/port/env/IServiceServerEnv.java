@@ -9,5 +9,6 @@ public interface IServiceServerEnv {
 	@WebMethod
 	public void setPort(Integer port);
 	
-	public void sendMessageToApplication(String message);
+	//dummy
+	//public void sendMessageToApplication(String message);
 }

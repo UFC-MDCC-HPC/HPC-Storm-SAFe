@@ -35,16 +35,4 @@ public interface IServiceServerEnv {
         @WebParam(name = "arg0", targetNamespace = "")
         Integer arg0);
 
-    /**
-     * 
-     * @param arg0
-     */
-    @WebMethod
-    @RequestWrapper(localName = "sendMessageToApplication", targetNamespace = "http://env.port.server.safe.pargo.mdcc.ufc.br/", className = "br.ufc.mdcc.pargo.safe.sample.stubs.server.env.SendMessageToApplication")
-    @ResponseWrapper(localName = "sendMessageToApplicationResponse", targetNamespace = "http://env.port.server.safe.pargo.mdcc.ufc.br/", className = "br.ufc.mdcc.pargo.safe.sample.stubs.server.env.SendMessageToApplicationResponse")
-    @Action(input = "http://env.port.server.safe.pargo.mdcc.ufc.br/IServiceServerEnv/sendMessageToApplicationRequest", output = "http://env.port.server.safe.pargo.mdcc.ufc.br/IServiceServerEnv/sendMessageToApplicationResponse")
-    public void sendMessageToApplication(
-        @WebParam(name = "arg0", targetNamespace = "")
-        String arg0);
-
 }

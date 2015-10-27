@@ -9,8 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Semaphore;
 
-import br.ufc.mdcc.pargo.backend.client.port.env.IServiceClientEnv;
-import br.ufc.mdcc.pargo.backend.client.port.tsk.IServiceClientTask;
+import br.ufc.mdcc.pargo.backend.app.stubs.ApplicationEnvPortImplService;
+import br.ufc.mdcc.pargo.backend.app.stubs.IApplicationEnvPort;
 
 public class ClientBackend implements IClientBackend{
 
@@ -19,8 +19,7 @@ public class ClientBackend implements IClientBackend{
 	private ObjectOutputStream output;
 	private List<String> buffer;
 
-	private IServiceClientEnv env;
-	private IServiceClientTask tsk;
+	 
 	
 	private Semaphore semaphore;
 	
@@ -72,13 +71,13 @@ public class ClientBackend implements IClientBackend{
 					output = new ObjectOutputStream(connector.getOutputStream());
 					System.out.println("CLIENT CONNECTED TO SERVER IN PORT "+serverPort);
 				} catch (UnknownHostException e) {
-					// TODO Auto-generated catch block
+					
 					e.printStackTrace();
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
+					
 					e.printStackTrace();
 				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
+					
 					e.printStackTrace();
 				}
 			};
@@ -118,20 +117,11 @@ public class ClientBackend implements IClientBackend{
 		
 	}
 
-	public IServiceClientEnv getEnv() {
-		return env;
-	}
-
-	public IServiceClientTask getTsk() {
-		return tsk;
-	}
-
-	public void setEnv(IServiceClientEnv env) {
-		this.env = env;
-	}
-
-	public void setTsk(IServiceClientTask tsk) {
-		this.tsk = tsk;
+	@Override
+	public void requestMessage() {
+		ApplicationEnvPortImplService service = new ApplicationEnvPortImplService();
+		IApplicationEnvPort port = service.getApplicationEnvPortImplPort();
+		port.requestMessage();
 	}
 
 	

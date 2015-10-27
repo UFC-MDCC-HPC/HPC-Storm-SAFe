@@ -25,10 +25,8 @@ import javax.xml.namespace.QName;
 public class ObjectFactory {
 
     private final static QName _AddMesssageToBufferResponse_QNAME = new QName("http://env.port.client.backend.pargo.mdcc.ufc.br/", "addMesssageToBufferResponse");
-    private final static QName _RequestMessage_QNAME = new QName("http://env.port.client.backend.pargo.mdcc.ufc.br/", "requestMessage");
     private final static QName _AddMesssageToBuffer_QNAME = new QName("http://env.port.client.backend.pargo.mdcc.ufc.br/", "addMesssageToBuffer");
     private final static QName _SetServerPortResponse_QNAME = new QName("http://env.port.client.backend.pargo.mdcc.ufc.br/", "setServerPortResponse");
-    private final static QName _RequestMessageResponse_QNAME = new QName("http://env.port.client.backend.pargo.mdcc.ufc.br/", "requestMessageResponse");
     private final static QName _SetServerPort_QNAME = new QName("http://env.port.client.backend.pargo.mdcc.ufc.br/", "setServerPort");
 
     /**
@@ -36,14 +34,6 @@ public class ObjectFactory {
      * 
      */
     public ObjectFactory() {
-    }
-
-    /**
-     * Create an instance of {@link RequestMessage }
-     * 
-     */
-    public RequestMessage createRequestMessage() {
-        return new RequestMessage();
     }
 
     /**
@@ -79,29 +69,12 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link RequestMessageResponse }
-     * 
-     */
-    public RequestMessageResponse createRequestMessageResponse() {
-        return new RequestMessageResponse();
-    }
-
-    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link AddMesssageToBufferResponse }{@code >}}
      * 
      */
     @XmlElementDecl(namespace = "http://env.port.client.backend.pargo.mdcc.ufc.br/", name = "addMesssageToBufferResponse")
     public JAXBElement<AddMesssageToBufferResponse> createAddMesssageToBufferResponse(AddMesssageToBufferResponse value) {
         return new JAXBElement<AddMesssageToBufferResponse>(_AddMesssageToBufferResponse_QNAME, AddMesssageToBufferResponse.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link RequestMessage }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://env.port.client.backend.pargo.mdcc.ufc.br/", name = "requestMessage")
-    public JAXBElement<RequestMessage> createRequestMessage(RequestMessage value) {
-        return new JAXBElement<RequestMessage>(_RequestMessage_QNAME, RequestMessage.class, null, value);
     }
 
     /**
@@ -120,15 +93,6 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://env.port.client.backend.pargo.mdcc.ufc.br/", name = "setServerPortResponse")
     public JAXBElement<SetServerPortResponse> createSetServerPortResponse(SetServerPortResponse value) {
         return new JAXBElement<SetServerPortResponse>(_SetServerPortResponse_QNAME, SetServerPortResponse.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link RequestMessageResponse }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://env.port.client.backend.pargo.mdcc.ufc.br/", name = "requestMessageResponse")
-    public JAXBElement<RequestMessageResponse> createRequestMessageResponse(RequestMessageResponse value) {
-        return new JAXBElement<RequestMessageResponse>(_RequestMessageResponse_QNAME, RequestMessageResponse.class, null, value);
     }
 
     /**

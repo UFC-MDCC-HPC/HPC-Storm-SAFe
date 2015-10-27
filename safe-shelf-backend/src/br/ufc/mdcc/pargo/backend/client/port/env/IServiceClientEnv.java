@@ -10,6 +10,5 @@ public interface IServiceClientEnv {
 	public void setServerPort(Integer port);
 	@WebMethod
 	public void addMesssageToBuffer(String message);
-	
-	public void requestMessage();
+	 
 }

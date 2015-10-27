@@ -47,13 +47,4 @@ public interface IServiceClientEnv {
         @WebParam(name = "arg0", targetNamespace = "")
         String arg0);
 
-    /**
-     * 
-     */
-    @WebMethod
-    @RequestWrapper(localName = "requestMessage", targetNamespace = "http://env.port.client.backend.pargo.mdcc.ufc.br/", className = "br.ufc.mdcc.pargo.safe.sample.stubs.client.env.RequestMessage")
-    @ResponseWrapper(localName = "requestMessageResponse", targetNamespace = "http://env.port.client.backend.pargo.mdcc.ufc.br/", className = "br.ufc.mdcc.pargo.safe.sample.stubs.client.env.RequestMessageResponse")
-    @Action(input = "http://env.port.client.backend.pargo.mdcc.ufc.br/IServiceClientEnv/requestMessageRequest", output = "http://env.port.client.backend.pargo.mdcc.ufc.br/IServiceClientEnv/requestMessageResponse")
-    public void requestMessage();
-
 }

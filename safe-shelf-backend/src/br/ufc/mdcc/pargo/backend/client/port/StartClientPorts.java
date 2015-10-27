@@ -19,9 +19,6 @@ public class StartClientPorts {
 		
 		IServiceClientEnv env = new ServiceClientEnvImpl(client);
 		IServiceClientTask tsk = new ServiceClientTaskImpl(client);
-	
-		((ClientBackend)client).setEnv(env);
-		((ClientBackend)client).setTsk(tsk);
 		
 		Endpoint.publish(urlTask, tsk);
 		Endpoint.publish(urlEnv, env);
