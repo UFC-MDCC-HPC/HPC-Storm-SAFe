@@ -6,6 +6,6 @@ public interface IClientBackend {
 	public void addMesssageToBuffer(String message);
 	public void setServerPort(Integer port);
 	public void connect();
-	public void requestMessage();
+	public void post();
 
 }

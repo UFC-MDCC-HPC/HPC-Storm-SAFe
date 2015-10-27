@@ -23,7 +23,7 @@ public class ServiceClientTaskImpl implements IServiceClientTask{
 	@Override
 	@WebMethod
 	public void post() {
-		this.client.requestMessage();
+		this.client.post();
 	}
 
 	

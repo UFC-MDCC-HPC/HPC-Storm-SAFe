@@ -117,8 +117,11 @@ public class ClientBackend implements IClientBackend{
 		
 	}
 
-	@Override
-	public void requestMessage() {
+	public void post(){
+		this.requestMessage();
+	}
+	
+	private void requestMessage() {
 		ApplicationEnvPortImplService service = new ApplicationEnvPortImplService();
 		IApplicationEnvPort port = service.getApplicationEnvPortImplPort();
 		port.requestMessage();
