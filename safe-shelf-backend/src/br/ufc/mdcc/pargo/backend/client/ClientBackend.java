@@ -9,8 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Semaphore;
 
-import br.ufc.mdcc.pargo.backend.app.stubs.ApplicationEnvPortImplService;
-import br.ufc.mdcc.pargo.backend.app.stubs.IApplicationEnvPort;
+import br.ufc.mdcc.pargo.backend.app.port.AppEnvPortImpl;
+import br.ufc.mdcc.pargo.backend.app.port.IAppEnvPort;
 
 public class ClientBackend implements IClientBackend{
 
@@ -18,13 +18,13 @@ public class ClientBackend implements IClientBackend{
 	private Socket connector;
 	private ObjectOutputStream output;
 	private List<String> buffer;
-
+	private IAppEnvPort appEnvPort;
 	 
 	
 	private Semaphore semaphore;
 	
 	public ClientBackend() {
-		
+		this.appEnvPort = new AppEnvPortImpl();
 		this.semaphore = new Semaphore(0);
 		this.buffer = new ArrayList<String>();
 		Thread clientThread = new Thread(){
@@ -118,14 +118,8 @@ public class ClientBackend implements IClientBackend{
 	}
 
 	public void post(){
-		this.requestMessage();
+		//this.requestMessage();
+		this.appEnvPort.requestMessage();
 	}
-	
-	private void requestMessage() {
-		ApplicationEnvPortImplService service = new ApplicationEnvPortImplService();
-		IApplicationEnvPort port = service.getApplicationEnvPortImplPort();
-		port.requestMessage();
-	}
-
 	
 }

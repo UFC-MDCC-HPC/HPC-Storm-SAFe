@@ -8,8 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Semaphore;
 
-import br.ufc.mdcc.pargo.backend.app.stubs.ApplicationEnvPortImplService;
-import br.ufc.mdcc.pargo.backend.app.stubs.IApplicationEnvPort;
+import br.ufc.mdcc.pargo.backend.app.port.AppEnvPortImpl;
+import br.ufc.mdcc.pargo.backend.app.port.IAppEnvPort;
 
 public class ServerBackend implements IServerBackend {
 
@@ -17,15 +17,14 @@ public class ServerBackend implements IServerBackend {
 	private ServerSocket server;
 	private Socket client;
 	private ObjectInputStream input;
-
 	private List<String> buffer;
-	 
-
 	private Semaphore semaphore;
+	private IAppEnvPort appEnvPort;
 
 	public ServerBackend() {
 		this.buffer = new ArrayList<String>();
 		this.semaphore = new Semaphore(0);
+		this.appEnvPort = new AppEnvPortImpl();
 
 		Thread serverThread = new Thread() {
 			@Override
@@ -42,8 +41,8 @@ public class ServerBackend implements IServerBackend {
 							String message = buffer.get(0);
 							buffer.remove(0);
 							System.out.println("SERVER BUFFER SIZE: "+buffer.size());
-							//env.sendMessageToApplication(message);
-							sendMessageToApplication(message);
+							appEnvPort.receiveMessage(message);
+							//sendMessageToApplication(message);
 							if(message.equals("bye")) break;
 						}
  
@@ -112,9 +111,5 @@ public class ServerBackend implements IServerBackend {
 
 	 
 
-	private void sendMessageToApplication(String message){
-		ApplicationEnvPortImplService service = new ApplicationEnvPortImplService();
-		IApplicationEnvPort port = service.getApplicationEnvPortImplPort();
-		port.receiveMessage(message);
-	}
+	 
 }
