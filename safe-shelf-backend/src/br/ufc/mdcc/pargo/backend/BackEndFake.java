@@ -19,9 +19,10 @@ import br.ufc.mdcc.pargo.safe.server.port.tsk.ServiceServerTaskImpl;
 public class BackEndFake {
 
 	public void startAll(){
-		TCPBinding tcpBinding = new TCPBinding();
-		this.startClientPorts(tcpBinding);
-		this.startServerPorts(tcpBinding);
+		TCPBinding tcpBindingC = new TCPBinding();
+		TCPBinding tcpBindingS = new TCPBinding();
+		this.startClientPorts(tcpBindingC);
+		this.startServerPorts(tcpBindingS);
 	}
 	
 	public void startClientPorts(TCPBinding tcpBinding) {

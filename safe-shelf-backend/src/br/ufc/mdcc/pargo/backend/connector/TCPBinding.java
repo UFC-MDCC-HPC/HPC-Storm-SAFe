@@ -5,8 +5,7 @@ public class TCPBinding {
 	private TCPBidingClientSlice client_slice;
 	private TCPBidingServerSlice server_slice;
 	
-	private boolean server_port = false;
-	private boolean client_port = false;
+ 
 	
 	
 	public TCPBinding() {
@@ -25,14 +24,14 @@ public class TCPBinding {
 	
 	public void set_client_to_server_port(Integer port){
 		this.client_slice.setServer_port(port);
-		this.client_port = true;
-		this.release_semaphore();
+		this.client_slice.release();
+		 
 	}
 	
 	public void set_server_port(Integer port){
 		this.server_slice.setPort(port);
-		this.server_port = true;
-		this.release_semaphore();
+		this.server_slice.release();
+		 
 	}
 	
 	
@@ -46,10 +45,5 @@ public class TCPBinding {
 		this.server_slice.setServerListener(listener);
 	}
 	
-	private void release_semaphore(){
-		if(this.client_port && this.server_port){
-			this.server_slice.release();
-			this.client_slice.release();
-		}
-	}
+	 
 }
