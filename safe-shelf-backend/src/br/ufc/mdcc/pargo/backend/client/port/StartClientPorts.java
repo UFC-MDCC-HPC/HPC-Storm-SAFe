@@ -12,7 +12,7 @@ import br.ufc.mdcc.pargo.backend.client.port.tsk.ServiceClientTaskImpl;
 public class StartClientPorts {
 
 	public StartClientPorts() {
-		IClientBackend client = new ClientBackend();
+		IClientBackend client = new ClientBackend(null);
 		
 		String urlTask = "http://localhost:10004/client-task";
 		String urlEnv = "http://localhost:10005/client-env";

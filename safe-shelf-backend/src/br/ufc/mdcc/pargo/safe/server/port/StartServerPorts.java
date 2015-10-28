@@ -12,7 +12,7 @@ import br.ufc.mdcc.pargo.safe.server.port.tsk.ServiceServerTaskImpl;
 public class StartServerPorts {
 	
 	public StartServerPorts() {
-		IServerBackend server = new ServerBackend();
+		IServerBackend server = new ServerBackend(null);
 		
 		String urlTask = "http://localhost:10002/server-task";
 		String urlEnv = "http://localhost:10003/server-env";
