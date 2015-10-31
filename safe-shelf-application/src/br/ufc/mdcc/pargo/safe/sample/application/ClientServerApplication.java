@@ -1,6 +1,7 @@
 package br.ufc.mdcc.pargo.safe.sample.application;
 
 import br.ufc.mdcc.pargo.safe.framework.application.HShelfApplication;
+import br.ufc.mdcc.pargo.safe.framework.application.biding.HShelfApplicationBidingServerFacade;
 import br.ufc.mdcc.pargo.safe.framework.exception.HShelfException;
 import br.ufc.mdcc.pargo.safe.framework.port.dflt.HShelfGoPort;
 import br.ufc.mdcc.pargo.safe.framework.port.dflt.HShelfGoWorkflowPortImpl;
@@ -26,7 +27,8 @@ extends HShelfApplication implements IHShelfWorkflowEventListener{
 	ClientEnvPortProxie envClient;
 	ServerEnvPortProxie envServer;
 	
-	StartApplicationEnvPort appPort;
+	//StartApplicationEnvPort appPort;
+	HShelfApplicationBidingServerFacade appBiding;
 	
 	public static int id = 0;
 	
@@ -41,8 +43,12 @@ extends HShelfApplication implements IHShelfWorkflowEventListener{
 		try {
 			
 			//init my services (Application as a service)
-			this.appPort = new StartApplicationEnvPort();
-			this.appPort.start(this);
+			//this.appPort = new StartApplicationEnvPort();
+			//this.appPort.start(this);
+			//INIT BIDING
+			this.appBiding = new HShelfApplicationBidingServerFacade();
+			this.appBiding.setApplication(this);
+			this.appBiding.startServer();
 			
 			//init WF ports (local) with application
 			portSWL_WF = (HShelfSAFeSWLPort)this.services.getProvidesPort(HShelfWorkflow.SAFE_WORKFLOW_SWL_PORT);
@@ -105,10 +111,22 @@ extends HShelfApplication implements IHShelfWorkflowEventListener{
 		System.out.println("MENSAGEM RECEBIDA: " + message);
 	}
 	
-	//evento da porta env
+
+	//FROM BIDING
 	@Override
-	public void messageReceivedEvent(String message) {
-		// TODO Auto-generated method stub
+	public synchronized void messageReceivedEvent(String message) {
+		
+		if(message.startsWith("REQUEST")){
+			String out = "";
+			if(id<3)
+				out = "olá, sou a aplicação. MSG ID#:"+id;
+			else
+				out = "bye";
+			this.envClient.addMesssageToBuffer(out);
+			id += 1;
+		}else if(message.startsWith("MSG")){
+			System.out.println("MENSAGEM RECEBIDA BIDING: " + message);
+		}
 		
 	}
 
