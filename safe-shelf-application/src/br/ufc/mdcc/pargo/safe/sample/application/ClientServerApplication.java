@@ -105,7 +105,12 @@ extends HShelfApplication implements IHShelfWorkflowEventListener{
 		System.out.println("MENSAGEM RECEBIDA: " + message);
 	}
 	
-	
+	//evento da porta env
+	@Override
+	public void messageReceivedEvent(String message) {
+		// TODO Auto-generated method stub
+		
+	}
 
 	//escuta eventos do workflow e toma decisões de acordo com o evento...
 	@Override
@@ -140,5 +145,7 @@ extends HShelfApplication implements IHShelfWorkflowEventListener{
 		ClientServerApplication app = new ClientServerApplication("client-server-app");
 		app.runClientServerApplication();
 	}
+
+	
 
 }

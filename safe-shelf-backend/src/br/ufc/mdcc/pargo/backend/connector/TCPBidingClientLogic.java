@@ -7,7 +7,7 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.concurrent.Semaphore;
 
-public class TCPBidingClientSlice {
+public class TCPBidingClientLogic {
 
 	private Integer server_port;
 	private String server_host="localhost";
@@ -17,7 +17,7 @@ public class TCPBidingClientSlice {
 	private Semaphore semaphore;
 	public boolean connected = false;
 	
-	public TCPBidingClientSlice() {
+	public TCPBidingClientLogic() {
 		this.semaphore = new Semaphore(0);
 	}
 	

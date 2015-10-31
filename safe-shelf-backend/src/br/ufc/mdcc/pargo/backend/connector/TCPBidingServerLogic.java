@@ -6,7 +6,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.concurrent.Semaphore;
 
-public class TCPBidingServerSlice {
+public class TCPBidingServerLogic {
 
 	private Integer port;
 	private ServerSocket server;
@@ -15,7 +15,7 @@ public class TCPBidingServerSlice {
 	private Semaphore semaphore;
 	private ITCPBindingServerListener serverListener;
 	
-	public TCPBidingServerSlice() {
+	public TCPBidingServerLogic() {
 		this.semaphore = new Semaphore(0);
 	}
 	
