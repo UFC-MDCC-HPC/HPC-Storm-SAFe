@@ -14,7 +14,7 @@ import br.ufc.mdcc.pargo.safe.framework.services.IHShelfService;
 import br.ufc.mdcc.pargo.safe.framework.workflow.HShelfWorkflow;
 import br.ufc.mdcc.pargo.safe.sample.application.proxies.ClientEnvPortProxie;
 import br.ufc.mdcc.pargo.safe.sample.application.proxies.ServerEnvPortProxie;
-import br.ufc.mdcc.pargo.safe.sample.application.services.StartApplicationEnvPort;
+
 
 public class ClientServerApplication 
 extends HShelfApplication implements IHShelfWorkflowEventListener{
@@ -94,23 +94,6 @@ extends HShelfApplication implements IHShelfWorkflowEventListener{
 		envClient.setServerPort(10100);
 		
 	}
-
-	//cliente acessa remotamente via proxie
-	public void requestMessage(){
-		String message = "";
-		if(id<3)
-			message = "olá, sou a aplicação. MSG ID#:"+id;
-		else
-			message = "bye";
-		this.envClient.addMesssageToBuffer(message);
-		id += 1;
-	}
-	
-	//servidor acessa remotamente via proxie
-	public void receiveMessage(String message){
-		System.out.println("MENSAGEM RECEBIDA: " + message);
-	}
-	
 
 	//FROM BIDING
 	@Override

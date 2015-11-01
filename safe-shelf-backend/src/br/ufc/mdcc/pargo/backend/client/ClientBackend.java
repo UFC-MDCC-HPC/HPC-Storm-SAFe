@@ -3,8 +3,6 @@ package br.ufc.mdcc.pargo.backend.client;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.ufc.mdcc.pargo.backend.app.port.AppEnvPortImpl;
-import br.ufc.mdcc.pargo.backend.app.port.IAppEnvPort;
 import br.ufc.mdcc.pargo.backend.connector.TCPBinding;
 import br.ufc.mdcc.pargo.safe.framework.application.biding.HShelfApplicationBidingClientFacade;
 
