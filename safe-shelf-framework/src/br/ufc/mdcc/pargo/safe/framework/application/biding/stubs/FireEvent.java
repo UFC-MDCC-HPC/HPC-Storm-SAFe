@@ -7,16 +7,16 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Classe Java de service complex type.
+ * <p>Classe Java de fireEvent complex type.
  * 
  * <p>O seguinte fragmento do esquema especifica o conteúdo esperado contido dentro desta classe.
  * 
  * <pre>
- * &lt;complexType name="service">
+ * &lt;complexType name="fireEvent">
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="arg0" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
+ *         &lt;element name="arg0" type="{http://biding.application.framework.safe.pargo.mdcc.ufc.br/}hShelfApplicationBidingEvent" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -26,22 +26,22 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "service", propOrder = {
+@XmlType(name = "fireEvent", propOrder = {
     "arg0"
 })
-public class Service {
+public class FireEvent {
 
-    protected String arg0;
+    protected HShelfApplicationBidingEvent arg0;
 
     /**
      * Obtém o valor da propriedade arg0.
      * 
      * @return
      *     possible object is
-     *     {@link String }
+     *     {@link HShelfApplicationBidingEvent }
      *     
      */
-    public String getArg0() {
+    public HShelfApplicationBidingEvent getArg0() {
         return arg0;
     }
 
@@ -50,10 +50,10 @@ public class Service {
      * 
      * @param value
      *     allowed object is
-     *     {@link String }
+     *     {@link HShelfApplicationBidingEvent }
      *     
      */
-    public void setArg0(String value) {
+    public void setArg0(HShelfApplicationBidingEvent value) {
         this.arg0 = value;
     }
 

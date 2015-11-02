@@ -15,11 +15,16 @@ public class HShelfApplicationBidingClientFacade {
 		this.location = location;
 	}
 	
-	public void sendMessage(String message){
+	public void sendEvent(HShelfApplicationBidingEvent event){
+		
+		br.ufc.mdcc.pargo.safe.framework.application.biding.stubs.HShelfApplicationBidingEvent eventStub = null;
+		eventStub = new br.ufc.mdcc.pargo.safe.framework.application.biding.stubs.HShelfApplicationBidingEvent();
+		eventStub.setEventType(event.getEventType());
+		eventStub.setValue(event.getValue());
 		try {
 			HShelfApplicationBidingServerWSService service = new HShelfApplicationBidingServerWSService(new URL(location));
 			IHShelfApplicationBidingServerWS port = service.getHShelfApplicationBidingServerWSPort();
-			port.service(message);
+			port.fireEvent(eventStub);
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

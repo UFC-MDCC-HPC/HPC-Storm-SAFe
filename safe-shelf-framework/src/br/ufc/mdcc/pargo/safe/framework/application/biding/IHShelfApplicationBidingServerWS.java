@@ -8,6 +8,6 @@ public interface IHShelfApplicationBidingServerWS {
 	
 	public void setApplicationFacade(HShelfApplicationBidingServerFacade appFacade);
 	@WebMethod
-	public void service(String message);
+	public void fireEvent(HShelfApplicationBidingEvent event);
 	
 }

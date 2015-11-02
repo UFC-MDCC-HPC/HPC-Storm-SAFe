@@ -24,10 +24,10 @@ import javax.xml.namespace.QName;
 @XmlRegistry
 public class ObjectFactory {
 
+    private final static QName _FireEventResponse_QNAME = new QName("http://biding.application.framework.safe.pargo.mdcc.ufc.br/", "fireEventResponse");
     private final static QName _SetApplicationFacadeResponse_QNAME = new QName("http://biding.application.framework.safe.pargo.mdcc.ufc.br/", "setApplicationFacadeResponse");
     private final static QName _SetApplicationFacade_QNAME = new QName("http://biding.application.framework.safe.pargo.mdcc.ufc.br/", "setApplicationFacade");
-    private final static QName _Service_QNAME = new QName("http://biding.application.framework.safe.pargo.mdcc.ufc.br/", "service");
-    private final static QName _ServiceResponse_QNAME = new QName("http://biding.application.framework.safe.pargo.mdcc.ufc.br/", "serviceResponse");
+    private final static QName _FireEvent_QNAME = new QName("http://biding.application.framework.safe.pargo.mdcc.ufc.br/", "fireEvent");
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: br.ufc.mdcc.pargo.safe.framework.application.biding.stubs
@@ -37,19 +37,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link Service }
+     * Create an instance of {@link FireEvent }
      * 
      */
-    public Service createService() {
-        return new Service();
-    }
-
-    /**
-     * Create an instance of {@link ServiceResponse }
-     * 
-     */
-    public ServiceResponse createServiceResponse() {
-        return new ServiceResponse();
+    public FireEvent createFireEvent() {
+        return new FireEvent();
     }
 
     /**
@@ -69,11 +61,36 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link FireEventResponse }
+     * 
+     */
+    public FireEventResponse createFireEventResponse() {
+        return new FireEventResponse();
+    }
+
+    /**
      * Create an instance of {@link HShelfApplicationBidingServerFacade }
      * 
      */
     public HShelfApplicationBidingServerFacade createHShelfApplicationBidingServerFacade() {
         return new HShelfApplicationBidingServerFacade();
+    }
+
+    /**
+     * Create an instance of {@link HShelfApplicationBidingEvent }
+     * 
+     */
+    public HShelfApplicationBidingEvent createHShelfApplicationBidingEvent() {
+        return new HShelfApplicationBidingEvent();
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link FireEventResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://biding.application.framework.safe.pargo.mdcc.ufc.br/", name = "fireEventResponse")
+    public JAXBElement<FireEventResponse> createFireEventResponse(FireEventResponse value) {
+        return new JAXBElement<FireEventResponse>(_FireEventResponse_QNAME, FireEventResponse.class, null, value);
     }
 
     /**
@@ -95,21 +112,12 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link Service }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link FireEvent }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://biding.application.framework.safe.pargo.mdcc.ufc.br/", name = "service")
-    public JAXBElement<Service> createService(Service value) {
-        return new JAXBElement<Service>(_Service_QNAME, Service.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link ServiceResponse }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://biding.application.framework.safe.pargo.mdcc.ufc.br/", name = "serviceResponse")
-    public JAXBElement<ServiceResponse> createServiceResponse(ServiceResponse value) {
-        return new JAXBElement<ServiceResponse>(_ServiceResponse_QNAME, ServiceResponse.class, null, value);
+    @XmlElementDecl(namespace = "http://biding.application.framework.safe.pargo.mdcc.ufc.br/", name = "fireEvent")
+    public JAXBElement<FireEvent> createFireEvent(FireEvent value) {
+        return new JAXBElement<FireEvent>(_FireEvent_QNAME, FireEvent.class, null, value);
     }
 
 }

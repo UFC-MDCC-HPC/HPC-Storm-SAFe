@@ -40,11 +40,11 @@ public interface IHShelfApplicationBidingServerWS {
      * @param arg0
      */
     @WebMethod
-    @RequestWrapper(localName = "service", targetNamespace = "http://biding.application.framework.safe.pargo.mdcc.ufc.br/", className = "br.ufc.mdcc.pargo.safe.framework.application.biding.stubs.Service")
-    @ResponseWrapper(localName = "serviceResponse", targetNamespace = "http://biding.application.framework.safe.pargo.mdcc.ufc.br/", className = "br.ufc.mdcc.pargo.safe.framework.application.biding.stubs.ServiceResponse")
-    @Action(input = "http://biding.application.framework.safe.pargo.mdcc.ufc.br/IHShelfApplicationBidingServerWS/serviceRequest", output = "http://biding.application.framework.safe.pargo.mdcc.ufc.br/IHShelfApplicationBidingServerWS/serviceResponse")
-    public void service(
+    @RequestWrapper(localName = "fireEvent", targetNamespace = "http://biding.application.framework.safe.pargo.mdcc.ufc.br/", className = "br.ufc.mdcc.pargo.safe.framework.application.biding.stubs.FireEvent")
+    @ResponseWrapper(localName = "fireEventResponse", targetNamespace = "http://biding.application.framework.safe.pargo.mdcc.ufc.br/", className = "br.ufc.mdcc.pargo.safe.framework.application.biding.stubs.FireEventResponse")
+    @Action(input = "http://biding.application.framework.safe.pargo.mdcc.ufc.br/IHShelfApplicationBidingServerWS/fireEventRequest", output = "http://biding.application.framework.safe.pargo.mdcc.ufc.br/IHShelfApplicationBidingServerWS/fireEventResponse")
+    public void fireEvent(
         @WebParam(name = "arg0", targetNamespace = "")
-        String arg0);
+        HShelfApplicationBidingEvent arg0);
 
 }

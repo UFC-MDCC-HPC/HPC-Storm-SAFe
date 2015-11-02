@@ -5,6 +5,7 @@ import java.util.List;
 
 import br.ufc.mdcc.pargo.backend.connector.TCPBinding;
 import br.ufc.mdcc.pargo.safe.framework.application.biding.HShelfApplicationBidingClientFacade;
+import br.ufc.mdcc.pargo.safe.framework.application.biding.HShelfApplicationBidingEvent;
 
 public class ServerBackend implements IServerBackend {
 
@@ -37,8 +38,10 @@ public class ServerBackend implements IServerBackend {
 							String message = buffer.get(0);
 							buffer.remove(0);
 							System.out.println("-SERVER BUFFER SIZE: "+buffer.size());
-							//appEnvPort.receiveMessage(message);
-							appBiding.sendMessage("MSG:"+message);
+							HShelfApplicationBidingEvent event = new HShelfApplicationBidingEvent();
+							event.setEventType(HShelfApplicationBidingEvent.INCOMING_MSG);
+							event.setValue("MSG:"+message);
+							appBiding.sendEvent(event);
 							if(message.equals("bye")) break;
 						}
  

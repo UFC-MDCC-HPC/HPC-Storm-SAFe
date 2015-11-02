@@ -1,6 +1,6 @@
 package br.ufc.mdcc.pargo.safe.framework.application.biding;
 
-public class IHShelfApplicationBidingEvent {
+public class HShelfApplicationBidingEvent {
 
 	public static final Integer UNKNOWN = 0;
 	public static final Integer REQUEST = 1;
@@ -9,9 +9,7 @@ public class IHShelfApplicationBidingEvent {
 	private Integer eventType;
 	private Object value;
 	
-	public IHShelfApplicationBidingEvent(Integer eventType, Object value) {
-		this.eventType = eventType;
-		this.value = value;
+	public HShelfApplicationBidingEvent() {
 	}
 	
 	public Integer getEventType() {

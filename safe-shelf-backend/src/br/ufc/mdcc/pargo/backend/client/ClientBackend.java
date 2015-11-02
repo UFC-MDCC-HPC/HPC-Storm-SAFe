@@ -5,6 +5,7 @@ import java.util.List;
 
 import br.ufc.mdcc.pargo.backend.connector.TCPBinding;
 import br.ufc.mdcc.pargo.safe.framework.application.biding.HShelfApplicationBidingClientFacade;
+import br.ufc.mdcc.pargo.safe.framework.application.biding.HShelfApplicationBidingEvent;
 
 public class ClientBackend implements IClientBackend{
 
@@ -74,8 +75,10 @@ public class ClientBackend implements IClientBackend{
 	}
 
 	public void post(){
-		//this.appEnvPort.requestMessage();
-		this.appBiding.sendMessage("REQUEST_MESSAGE");
+		HShelfApplicationBidingEvent event = new HShelfApplicationBidingEvent();
+		event.setEventType(HShelfApplicationBidingEvent.REQUEST);
+		event.setValue(-1);
+		this.appBiding.sendEvent(event);
 	}
 	
 }

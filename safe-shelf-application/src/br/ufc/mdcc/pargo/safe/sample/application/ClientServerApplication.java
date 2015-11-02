@@ -1,6 +1,7 @@
 package br.ufc.mdcc.pargo.safe.sample.application;
 
 import br.ufc.mdcc.pargo.safe.framework.application.HShelfApplication;
+import br.ufc.mdcc.pargo.safe.framework.application.biding.HShelfApplicationBidingEvent;
 import br.ufc.mdcc.pargo.safe.framework.application.biding.HShelfApplicationBidingServerFacade;
 import br.ufc.mdcc.pargo.safe.framework.application.biding.IHShelfApplicationBidingServerFacadeListener;
 import br.ufc.mdcc.pargo.safe.framework.exception.HShelfException;
@@ -98,9 +99,9 @@ extends HShelfApplication implements IHShelfWorkflowEventListener, IHShelfApplic
 
 	//FROM BIDING
 	@Override
-	public synchronized void messageReceivedEvent(String message) {
+	public synchronized void listenEvent(HShelfApplicationBidingEvent event){
 		
-		if(message.startsWith("REQUEST")){
+		if(event.getEventType() == HShelfApplicationBidingEvent.REQUEST){
 			String out = "";
 			if(id<3)
 				out = "olá, sou a aplicação. MSG ID#:"+id;
@@ -108,8 +109,8 @@ extends HShelfApplication implements IHShelfWorkflowEventListener, IHShelfApplic
 				out = "bye";
 			this.envClient.addMesssageToBuffer(out);
 			id += 1;
-		}else if(message.startsWith("MSG")){
-			System.out.println("MENSAGEM RECEBIDA BIDING: " + message);
+		}else if(event.getEventType() == HShelfApplicationBidingEvent.INCOMING_MSG){
+			System.out.println("MENSAGEM RECEBIDA BIDING: " + event.getValue());
 		}
 		
 	}

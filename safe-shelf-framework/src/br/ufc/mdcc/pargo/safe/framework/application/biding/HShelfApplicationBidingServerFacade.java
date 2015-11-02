@@ -16,8 +16,8 @@ public class HShelfApplicationBidingServerFacade {
 		this.listener = listener;
 	}
 	
-	public void receveiMessageFromWS(String message){
-		this.listener.messageReceivedEvent(message);
+	public void receveiEventFromWS(HShelfApplicationBidingEvent event){
+		this.listener.listenEvent(event);
 	}
 	
 	public void startServer(){

@@ -13,7 +13,7 @@ public class HShelfApplicationBidingServerWS implements IHShelfApplicationBiding
 	}
 	
 	@WebMethod
-	public void service(String message){
-		this.appFacade.receveiMessageFromWS(message);
+	public void fireEvent(HShelfApplicationBidingEvent event){
+		this.appFacade.receveiEventFromWS(event);
 	}
 }
