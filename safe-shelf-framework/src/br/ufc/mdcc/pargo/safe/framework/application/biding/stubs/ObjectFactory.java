@@ -24,24 +24,16 @@ import javax.xml.namespace.QName;
 @XmlRegistry
 public class ObjectFactory {
 
-    private final static QName _SetApplicationResponse_QNAME = new QName("http://biding.application.framework.safe.pargo.mdcc.ufc.br/", "setApplicationResponse");
+    private final static QName _SetApplicationFacadeResponse_QNAME = new QName("http://biding.application.framework.safe.pargo.mdcc.ufc.br/", "setApplicationFacadeResponse");
+    private final static QName _SetApplicationFacade_QNAME = new QName("http://biding.application.framework.safe.pargo.mdcc.ufc.br/", "setApplicationFacade");
     private final static QName _Service_QNAME = new QName("http://biding.application.framework.safe.pargo.mdcc.ufc.br/", "service");
     private final static QName _ServiceResponse_QNAME = new QName("http://biding.application.framework.safe.pargo.mdcc.ufc.br/", "serviceResponse");
-    private final static QName _SetApplication_QNAME = new QName("http://biding.application.framework.safe.pargo.mdcc.ufc.br/", "setApplication");
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: br.ufc.mdcc.pargo.safe.framework.application.biding.stubs
      * 
      */
     public ObjectFactory() {
-    }
-
-    /**
-     * Create an instance of {@link SetApplication }
-     * 
-     */
-    public SetApplication createSetApplication() {
-        return new SetApplication();
     }
 
     /**
@@ -61,20 +53,45 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link SetApplicationResponse }
+     * Create an instance of {@link SetApplicationFacadeResponse }
      * 
      */
-    public SetApplicationResponse createSetApplicationResponse() {
-        return new SetApplicationResponse();
+    public SetApplicationFacadeResponse createSetApplicationFacadeResponse() {
+        return new SetApplicationFacadeResponse();
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link SetApplicationResponse }{@code >}}
+     * Create an instance of {@link SetApplicationFacade }
      * 
      */
-    @XmlElementDecl(namespace = "http://biding.application.framework.safe.pargo.mdcc.ufc.br/", name = "setApplicationResponse")
-    public JAXBElement<SetApplicationResponse> createSetApplicationResponse(SetApplicationResponse value) {
-        return new JAXBElement<SetApplicationResponse>(_SetApplicationResponse_QNAME, SetApplicationResponse.class, null, value);
+    public SetApplicationFacade createSetApplicationFacade() {
+        return new SetApplicationFacade();
+    }
+
+    /**
+     * Create an instance of {@link HShelfApplicationBidingServerFacade }
+     * 
+     */
+    public HShelfApplicationBidingServerFacade createHShelfApplicationBidingServerFacade() {
+        return new HShelfApplicationBidingServerFacade();
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link SetApplicationFacadeResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://biding.application.framework.safe.pargo.mdcc.ufc.br/", name = "setApplicationFacadeResponse")
+    public JAXBElement<SetApplicationFacadeResponse> createSetApplicationFacadeResponse(SetApplicationFacadeResponse value) {
+        return new JAXBElement<SetApplicationFacadeResponse>(_SetApplicationFacadeResponse_QNAME, SetApplicationFacadeResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link SetApplicationFacade }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://biding.application.framework.safe.pargo.mdcc.ufc.br/", name = "setApplicationFacade")
+    public JAXBElement<SetApplicationFacade> createSetApplicationFacade(SetApplicationFacade value) {
+        return new JAXBElement<SetApplicationFacade>(_SetApplicationFacade_QNAME, SetApplicationFacade.class, null, value);
     }
 
     /**
@@ -93,15 +110,6 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://biding.application.framework.safe.pargo.mdcc.ufc.br/", name = "serviceResponse")
     public JAXBElement<ServiceResponse> createServiceResponse(ServiceResponse value) {
         return new JAXBElement<ServiceResponse>(_ServiceResponse_QNAME, ServiceResponse.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link SetApplication }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://biding.application.framework.safe.pargo.mdcc.ufc.br/", name = "setApplication")
-    public JAXBElement<SetApplication> createSetApplication(SetApplication value) {
-        return new JAXBElement<SetApplication>(_SetApplication_QNAME, SetApplication.class, null, value);
     }
 
 }

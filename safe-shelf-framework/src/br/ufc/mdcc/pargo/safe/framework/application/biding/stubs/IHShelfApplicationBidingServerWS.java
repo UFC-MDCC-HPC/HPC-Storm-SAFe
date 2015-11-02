@@ -28,12 +28,12 @@ public interface IHShelfApplicationBidingServerWS {
      * @param arg0
      */
     @WebMethod
-    @RequestWrapper(localName = "setApplication", targetNamespace = "http://biding.application.framework.safe.pargo.mdcc.ufc.br/", className = "br.ufc.mdcc.pargo.safe.framework.application.biding.stubs.SetApplication")
-    @ResponseWrapper(localName = "setApplicationResponse", targetNamespace = "http://biding.application.framework.safe.pargo.mdcc.ufc.br/", className = "br.ufc.mdcc.pargo.safe.framework.application.biding.stubs.SetApplicationResponse")
-    @Action(input = "http://biding.application.framework.safe.pargo.mdcc.ufc.br/IHShelfApplicationBidingServerWS/setApplicationRequest", output = "http://biding.application.framework.safe.pargo.mdcc.ufc.br/IHShelfApplicationBidingServerWS/setApplicationResponse")
-    public void setApplication(
+    @RequestWrapper(localName = "setApplicationFacade", targetNamespace = "http://biding.application.framework.safe.pargo.mdcc.ufc.br/", className = "br.ufc.mdcc.pargo.safe.framework.application.biding.stubs.SetApplicationFacade")
+    @ResponseWrapper(localName = "setApplicationFacadeResponse", targetNamespace = "http://biding.application.framework.safe.pargo.mdcc.ufc.br/", className = "br.ufc.mdcc.pargo.safe.framework.application.biding.stubs.SetApplicationFacadeResponse")
+    @Action(input = "http://biding.application.framework.safe.pargo.mdcc.ufc.br/IHShelfApplicationBidingServerWS/setApplicationFacadeRequest", output = "http://biding.application.framework.safe.pargo.mdcc.ufc.br/IHShelfApplicationBidingServerWS/setApplicationFacadeResponse")
+    public void setApplicationFacade(
         @WebParam(name = "arg0", targetNamespace = "")
-        HShelfApplication arg0);
+        HShelfApplicationBidingServerFacade arg0);
 
     /**
      * 

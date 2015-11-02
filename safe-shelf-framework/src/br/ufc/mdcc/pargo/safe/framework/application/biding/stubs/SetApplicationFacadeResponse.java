@@ -7,17 +7,17 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Classe Java de hShelfApplication complex type.
+ * <p>Classe Java de setApplicationFacadeResponse complex type.
  * 
  * <p>O seguinte fragmento do esquema especifica o conteúdo esperado contido dentro desta classe.
  * 
  * <pre>
- * &lt;complexType name="hShelfApplication">
+ * &lt;complexType name="setApplicationFacadeResponse">
  *   &lt;complexContent>
- *     &lt;extension base="{http://biding.application.framework.safe.pargo.mdcc.ufc.br/}hShelfComponent">
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
  *       &lt;/sequence>
- *     &lt;/extension>
+ *     &lt;/restriction>
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
@@ -25,10 +25,8 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "hShelfApplication")
-public abstract class HShelfApplication
-    extends HShelfComponent
-{
+@XmlType(name = "setApplicationFacadeResponse")
+public class SetApplicationFacadeResponse {
 
 
 }

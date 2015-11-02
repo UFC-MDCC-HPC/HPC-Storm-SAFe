@@ -2,18 +2,22 @@ package br.ufc.mdcc.pargo.safe.framework.application.biding;
 
 import javax.xml.ws.Endpoint;
 
-import br.ufc.mdcc.pargo.safe.framework.application.HShelfApplication;
-
 public class HShelfApplicationBidingServerFacade {
 
 	private IHShelfApplicationBidingServerWS server;
+	private IHShelfApplicationBidingServerFacadeListener listener;
 	
 	public HShelfApplicationBidingServerFacade() {
 		this.server = new HShelfApplicationBidingServerWS();
+		this.server.setApplicationFacade(this);
 	}
 	
-	public void setApplication(HShelfApplication application){
-		this.server.setApplication(application);
+	public void registerListener(IHShelfApplicationBidingServerFacadeListener listener){
+		this.listener = listener;
+	}
+	
+	public void receveiMessageFromWS(String message){
+		this.listener.messageReceivedEvent(message);
 	}
 	
 	public void startServer(){

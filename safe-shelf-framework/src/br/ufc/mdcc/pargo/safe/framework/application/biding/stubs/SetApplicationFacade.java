@@ -3,21 +3,20 @@ package br.ufc.mdcc.pargo.safe.framework.application.biding.stubs;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Classe Java de hShelfComponent complex type.
+ * <p>Classe Java de setApplicationFacade complex type.
  * 
  * <p>O seguinte fragmento do esquema especifica o conteúdo esperado contido dentro desta classe.
  * 
  * <pre>
- * &lt;complexType name="hShelfComponent">
+ * &lt;complexType name="setApplicationFacade">
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="name" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
+ *         &lt;element name="arg0" type="{http://biding.application.framework.safe.pargo.mdcc.ufc.br/}hShelfApplicationBidingServerFacade" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -27,38 +26,35 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "hShelfComponent", propOrder = {
-    "name"
+@XmlType(name = "setApplicationFacade", propOrder = {
+    "arg0"
 })
-@XmlSeeAlso({
-    HShelfApplication.class
-})
-public abstract class HShelfComponent {
+public class SetApplicationFacade {
 
-    protected String name;
+    protected HShelfApplicationBidingServerFacade arg0;
 
     /**
-     * Obtém o valor da propriedade name.
+     * Obtém o valor da propriedade arg0.
      * 
      * @return
      *     possible object is
-     *     {@link String }
+     *     {@link HShelfApplicationBidingServerFacade }
      *     
      */
-    public String getName() {
-        return name;
+    public HShelfApplicationBidingServerFacade getArg0() {
+        return arg0;
     }
 
     /**
-     * Define o valor da propriedade name.
+     * Define o valor da propriedade arg0.
      * 
      * @param value
      *     allowed object is
-     *     {@link String }
+     *     {@link HShelfApplicationBidingServerFacade }
      *     
      */
-    public void setName(String value) {
-        this.name = value;
+    public void setArg0(HShelfApplicationBidingServerFacade value) {
+        this.arg0 = value;
     }
 
 }

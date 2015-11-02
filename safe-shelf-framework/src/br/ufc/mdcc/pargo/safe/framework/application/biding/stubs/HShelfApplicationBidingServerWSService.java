@@ -17,7 +17,7 @@ import javax.xml.ws.WebServiceFeature;
  * Generated source version: 2.2
  * 
  */
-@WebServiceClient(name = "HShelfApplicationBidingServerWSService", targetNamespace = "http://biding.application.framework.safe.pargo.mdcc.ufc.br/", wsdlLocation = "http://localhost:10010/app-env?wsdl")
+@WebServiceClient(name = "HShelfApplicationBidingServerWSService", targetNamespace = "http://biding.application.framework.safe.pargo.mdcc.ufc.br/", wsdlLocation = "http://localhost:10011/app-env?wsdl")
 public class HShelfApplicationBidingServerWSService
     extends Service
 {
@@ -30,7 +30,7 @@ public class HShelfApplicationBidingServerWSService
         URL url = null;
         WebServiceException e = null;
         try {
-            url = new URL("http://localhost:10010/app-env?wsdl");
+            url = new URL("http://localhost:10011/app-env?wsdl");
         } catch (MalformedURLException ex) {
             e = new WebServiceException(ex);
         }

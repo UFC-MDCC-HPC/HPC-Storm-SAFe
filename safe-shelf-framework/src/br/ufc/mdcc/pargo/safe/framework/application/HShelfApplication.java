@@ -24,8 +24,4 @@ public abstract class HShelfApplication extends HShelfComponent{
 		return this.framework;
 	}
 	
-	/*
-	 * Allows to receive messagens from biding
-	 */
-	public  abstract void messageReceivedEvent(String message);
 }
