@@ -2,6 +2,7 @@ package br.ufc.mdcc.pargo.safe.sample.application;
 
 import br.ufc.mdcc.pargo.safe.framework.application.HShelfApplication;
 import br.ufc.mdcc.pargo.safe.framework.application.biding.HShelfApplicationBidingServerFacade;
+import br.ufc.mdcc.pargo.safe.framework.application.biding.IHShelfApplicationBidingServerFacadeListener;
 import br.ufc.mdcc.pargo.safe.framework.exception.HShelfException;
 import br.ufc.mdcc.pargo.safe.framework.port.dflt.HShelfGoPort;
 import br.ufc.mdcc.pargo.safe.framework.port.dflt.HShelfGoWorkflowPortImpl;
@@ -17,7 +18,7 @@ import br.ufc.mdcc.pargo.safe.sample.application.proxies.ServerEnvPortProxie;
 
 
 public class ClientServerApplication 
-extends HShelfApplication implements IHShelfWorkflowEventListener{
+extends HShelfApplication implements IHShelfWorkflowEventListener, IHShelfApplicationBidingServerFacadeListener{
 
 	HShelfSAFeSWLPort portSWL_WF;
 	HShelfGoPort portGo_WF;
@@ -47,7 +48,7 @@ extends HShelfApplication implements IHShelfWorkflowEventListener{
 			//this.appPort.start(this);
 			//INIT BIDING
 			this.appBiding = new HShelfApplicationBidingServerFacade();
-			this.appBiding.setApplication(this);
+			this.appBiding.registerListener(this);
 			this.appBiding.startServer();
 			
 			//init WF ports (local) with application
