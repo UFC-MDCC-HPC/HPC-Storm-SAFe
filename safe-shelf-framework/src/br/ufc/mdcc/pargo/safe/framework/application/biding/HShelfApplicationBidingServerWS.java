@@ -14,6 +14,6 @@ public class HShelfApplicationBidingServerWS implements IHShelfApplicationBiding
 	
 	@WebMethod
 	public void fireEvent(HShelfApplicationBidingEvent event){
-		this.appFacade.receveiEventFromWS(event);
+		this.appFacade.receiveEventFromWS(event);
 	}
 }

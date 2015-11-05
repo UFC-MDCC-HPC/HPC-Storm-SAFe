@@ -2,7 +2,6 @@ package br.ufc.mdcc.pargo.safe.sample.application;
 
 import br.ufc.mdcc.pargo.safe.framework.application.HShelfApplication;
 import br.ufc.mdcc.pargo.safe.framework.application.biding.HShelfApplicationBidingEvent;
-import br.ufc.mdcc.pargo.safe.framework.application.biding.HShelfApplicationBidingServerFacade;
 import br.ufc.mdcc.pargo.safe.framework.application.biding.IHShelfApplicationBidingServerFacadeListener;
 import br.ufc.mdcc.pargo.safe.framework.exception.HShelfException;
 import br.ufc.mdcc.pargo.safe.framework.port.dflt.HShelfGoPort;
@@ -16,6 +15,7 @@ import br.ufc.mdcc.pargo.safe.framework.services.IHShelfService;
 import br.ufc.mdcc.pargo.safe.framework.workflow.HShelfWorkflow;
 import br.ufc.mdcc.pargo.safe.sample.application.proxies.ClientEnvPortProxie;
 import br.ufc.mdcc.pargo.safe.sample.application.proxies.ServerEnvPortProxie;
+import br.ufc.mdcc.pargo.safe.sample.port.ClientServerApplicationPort;
 
 
 public class ClientServerApplication 
@@ -30,7 +30,8 @@ extends HShelfApplication implements IHShelfWorkflowEventListener, IHShelfApplic
 	ServerEnvPortProxie envServer;
 	
 	//StartApplicationEnvPort appPort;
-	HShelfApplicationBidingServerFacade appBiding;
+	//HShelfApplicationBidingServerFacade appBiding;
+	ClientServerApplicationPort clientServerApplicationPort;
 	
 	public static int id = 0;
 	
@@ -42,15 +43,24 @@ extends HShelfApplication implements IHShelfWorkflowEventListener, IHShelfApplic
 	public void setServices(IHShelfService services) {
 		this.services = services;
 		
+		
 		try {
 			
 			//init my services (Application as a service)
 			//this.appPort = new StartApplicationEnvPort();
 			//this.appPort.start(this);
 			//INIT BIDING
-			this.appBiding = new HShelfApplicationBidingServerFacade();
-			this.appBiding.registerListener(this);
-			this.appBiding.startServer();
+			//this.appBiding = new HShelfApplicationBidingServerFacade();
+			//this.appBiding.registerListener(this);
+			//this.appBiding.startServer();
+			//ClientApplicationServerPort
+			this.clientServerApplicationPort = new ClientServerApplicationPort();
+			this.clientServerApplicationPort.setName("app-client-server-port");
+			this.clientServerApplicationPort.setClientServerApplication(this);
+			this.services.setProvidesPort(this.clientServerApplicationPort);
+			this.clientServerApplicationPort.startService(); //starting myservice
+			
+			
 			
 			//init WF ports (local) with application
 			portSWL_WF = (HShelfSAFeSWLPort)this.services.getProvidesPort(HShelfWorkflow.SAFE_WORKFLOW_SWL_PORT);
@@ -113,6 +123,20 @@ extends HShelfApplication implements IHShelfWorkflowEventListener, IHShelfApplic
 			System.out.println("MENSAGEM RECEBIDA BIDING: " + event.getValue());
 		}
 		
+	}
+	
+	//DIRECT SERVICES INSTEAD OF EVENTS ABOVE
+	public void requestMessage(){
+		String out = "";
+		if(id<3)
+			out = "olá, sou a aplicação. MSG ID#:"+id;
+		else
+			out = "bye";
+		this.envClient.addMesssageToBuffer(out);
+		id += 1;
+	}
+	public void sendMessage(String message){
+		System.out.println("MENSAGEM RECEBIDA direct: " + message);
 	}
 
 	//escuta eventos do workflow e toma decisões de acordo com o evento...

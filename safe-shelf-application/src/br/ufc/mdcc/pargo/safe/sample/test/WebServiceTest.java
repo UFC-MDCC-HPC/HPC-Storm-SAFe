@@ -5,7 +5,7 @@ import br.ufc.mdcc.pargo.safe.sample.application.proxies.ClientTaskPortProxie;
 import br.ufc.mdcc.pargo.safe.sample.application.proxies.ServerEnvPortProxie;
 import br.ufc.mdcc.pargo.safe.sample.application.proxies.ServerTaskPortProxie;
 
-public class TestWebService {
+public class WebServiceTest {
 
 	public static void main(String[] args) {
 		ClientEnvPortProxie clientEnv = new ClientEnvPortProxie();

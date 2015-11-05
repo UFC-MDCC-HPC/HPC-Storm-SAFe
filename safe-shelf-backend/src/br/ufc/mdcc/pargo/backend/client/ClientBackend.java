@@ -4,22 +4,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.ufc.mdcc.pargo.backend.connector.TCPBinding;
-import br.ufc.mdcc.pargo.safe.framework.application.biding.HShelfApplicationBidingClientFacade;
-import br.ufc.mdcc.pargo.safe.framework.application.biding.HShelfApplicationBidingEvent;
+import br.ufc.mdcc.pargo.backend.safeport.SAFePortProxie;
 
 public class ClientBackend implements IClientBackend{
 
 	
 	private List<String> buffer;
 	//private IAppEnvPort appEnvPort;
-	private HShelfApplicationBidingClientFacade appBiding;
+	//private HShelfApplicationBidingClientFacade appBiding;
 	private TCPBinding tcpBinding;
+	private SAFePortProxie safePortProxie;
 	
 	public ClientBackend(TCPBinding tcpBinding) {
 		//this.appEnvPort = new AppEnvPortImpl();
 		this.tcpBinding = tcpBinding;
-		this.appBiding = new HShelfApplicationBidingClientFacade();
-		this.appBiding.setServerLocation("http://localhost:10011/app-env?wsdl");
+		this.safePortProxie = new SAFePortProxie();
+		//this.appBiding = new HShelfApplicationBidingClientFacade();
+		//this.appBiding.setServerLocation("http://localhost:10011/app-env?wsdl");
 
 		this.buffer = new ArrayList<String>();
 		Thread clientThread = new Thread(){
@@ -75,10 +76,14 @@ public class ClientBackend implements IClientBackend{
 	}
 
 	public void post(){
+		this.safePortProxie.requestMessage();
+	}
+	
+	/*public void post(){
 		HShelfApplicationBidingEvent event = new HShelfApplicationBidingEvent();
 		event.setEventType(HShelfApplicationBidingEvent.REQUEST);
 		event.setValue(-1);
 		this.appBiding.sendEvent(event);
-	}
+	}*/
 	
 }
