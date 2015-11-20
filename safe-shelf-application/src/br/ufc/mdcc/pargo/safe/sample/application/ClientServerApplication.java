@@ -1,8 +1,6 @@
 package br.ufc.mdcc.pargo.safe.sample.application;
 
 import br.ufc.mdcc.pargo.safe.framework.application.HShelfApplication;
-import br.ufc.mdcc.pargo.safe.framework.application.biding.HShelfApplicationBidingEvent;
-import br.ufc.mdcc.pargo.safe.framework.application.biding.IHShelfApplicationBidingServerFacadeListener;
 import br.ufc.mdcc.pargo.safe.framework.exception.HShelfException;
 import br.ufc.mdcc.pargo.safe.framework.port.dflt.HShelfGoPort;
 import br.ufc.mdcc.pargo.safe.framework.port.dflt.HShelfGoWorkflowPortImpl;
@@ -19,7 +17,7 @@ import br.ufc.mdcc.pargo.safe.sample.port.ClientServerApplicationPort;
 
 
 public class ClientServerApplication 
-extends HShelfApplication implements IHShelfWorkflowEventListener, IHShelfApplicationBidingServerFacadeListener{
+extends HShelfApplication implements IHShelfWorkflowEventListener{
 
 	HShelfSAFeSWLPort portSWL_WF;
 	HShelfGoPort portGo_WF;
@@ -29,8 +27,7 @@ extends HShelfApplication implements IHShelfWorkflowEventListener, IHShelfApplic
 	ClientEnvPortProxie envClient;
 	ServerEnvPortProxie envServer;
 	
-	//StartApplicationEnvPort appPort;
-	//HShelfApplicationBidingServerFacade appBiding;
+	 
 	ClientServerApplicationPort clientServerApplicationPort;
 	
 	public static int id = 0;
@@ -46,14 +43,7 @@ extends HShelfApplication implements IHShelfWorkflowEventListener, IHShelfApplic
 		
 		try {
 			
-			//init my services (Application as a service)
-			//this.appPort = new StartApplicationEnvPort();
-			//this.appPort.start(this);
-			//INIT BIDING
-			//this.appBiding = new HShelfApplicationBidingServerFacade();
-			//this.appBiding.registerListener(this);
-			//this.appBiding.startServer();
-			//ClientApplicationServerPort
+			 
 			this.clientServerApplicationPort = new ClientServerApplicationPort();
 			this.clientServerApplicationPort.setName("app-client-server-port");
 			this.clientServerApplicationPort.setClientServerApplication(this);
@@ -92,7 +82,7 @@ extends HShelfApplication implements IHShelfWorkflowEventListener, IHShelfApplic
 			 
 			
 		} catch (HShelfException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 		
@@ -107,23 +97,7 @@ extends HShelfApplication implements IHShelfWorkflowEventListener, IHShelfApplic
 		
 	}
 
-	//FROM BIDING
-	@Override
-	public synchronized void listenEvent(HShelfApplicationBidingEvent event){
-		
-		if(event.getEventType() == HShelfApplicationBidingEvent.REQUEST){
-			String out = "";
-			if(id<3)
-				out = "olá, sou a aplicação. MSG ID#:"+id;
-			else
-				out = "bye";
-			this.envClient.addMesssageToBuffer(out);
-			id += 1;
-		}else if(event.getEventType() == HShelfApplicationBidingEvent.INCOMING_MSG){
-			System.out.println("MENSAGEM RECEBIDA BIDING: " + event.getValue());
-		}
-		
-	}
+	
 	
 	//DIRECT SERVICES INSTEAD OF EVENTS ABOVE
 	public void requestMessage(){
