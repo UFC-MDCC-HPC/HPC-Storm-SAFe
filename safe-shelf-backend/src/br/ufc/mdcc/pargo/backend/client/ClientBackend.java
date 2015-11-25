@@ -3,8 +3,8 @@ package br.ufc.mdcc.pargo.backend.client;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.ufc.mdcc.pargo.backend.client.proxy.stubs.ClientProxieWSService;
 import br.ufc.mdcc.pargo.backend.connector.TCPBinding;
-import br.ufc.mdcc.pargo.backend.safeport.SAFePortProxie;
 
 public class ClientBackend implements IClientBackend{
 
@@ -13,12 +13,12 @@ public class ClientBackend implements IClientBackend{
 	//private IAppEnvPort appEnvPort;
 	//private HShelfApplicationBidingClientFacade appBiding;
 	private TCPBinding tcpBinding;
-	private SAFePortProxie safePortProxie;
+	//private SAFePortProxie safePortProxie;
 	
 	public ClientBackend(TCPBinding tcpBinding) {
 		//this.appEnvPort = new AppEnvPortImpl();
 		this.tcpBinding = tcpBinding;
-		this.safePortProxie = new SAFePortProxie();
+		//this.safePortProxie = new SAFePortProxie();
 		//this.appBiding = new HShelfApplicationBidingClientFacade();
 		//this.appBiding.setServerLocation("http://localhost:10011/app-env?wsdl");
 
@@ -76,7 +76,9 @@ public class ClientBackend implements IClientBackend{
 	}
 
 	public void post(){
-		this.safePortProxie.requestMessage();
+		//this.safePortProxie.requestMessage();
+		//heron
+		this.sendRequestMessage();
 	}
 	
 	/*public void post(){
@@ -86,4 +88,9 @@ public class ClientBackend implements IClientBackend{
 		this.appBiding.sendEvent(event);
 	}*/
 	
+	//heron
+	public void sendRequestMessage(){
+		ClientProxieWSService service = new ClientProxieWSService();
+		service.getClientProxieWSPort().requestMessage();
+	}
 }

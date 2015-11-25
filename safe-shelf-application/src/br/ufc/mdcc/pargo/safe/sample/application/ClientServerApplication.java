@@ -13,7 +13,7 @@ import br.ufc.mdcc.pargo.safe.framework.services.IHShelfService;
 import br.ufc.mdcc.pargo.safe.framework.workflow.HShelfWorkflow;
 import br.ufc.mdcc.pargo.safe.sample.application.proxies.ClientEnvPortProxie;
 import br.ufc.mdcc.pargo.safe.sample.application.proxies.ServerEnvPortProxie;
-import br.ufc.mdcc.pargo.safe.sample.port.ClientServerApplicationPort;
+import br.ufc.mdcc.pargo.safe.sample.port.ApplicationPort_A;
 
 
 public class ClientServerApplication 
@@ -28,7 +28,7 @@ extends HShelfApplication implements IHShelfWorkflowEventListener{
 	ServerEnvPortProxie envServer;
 	
 	 
-	ClientServerApplicationPort clientServerApplicationPort;
+	//ClientServerApplicationPort clientServerApplicationPort;
 	
 	public static int id = 0;
 	
@@ -44,11 +44,16 @@ extends HShelfApplication implements IHShelfWorkflowEventListener{
 		try {
 			
 			 
-			this.clientServerApplicationPort = new ClientServerApplicationPort();
+			/*this.clientServerApplicationPort = new ClientServerApplicationPort();
 			this.clientServerApplicationPort.setName("app-client-server-port");
 			this.clientServerApplicationPort.setClientServerApplication(this);
 			this.services.setProvidesPort(this.clientServerApplicationPort);
-			this.clientServerApplicationPort.startService(); //starting myservice
+			this.clientServerApplicationPort.startService();*/ //starting myservice
+			
+			//new port---heron idea
+			ApplicationPort_A port_A = new ApplicationPort_A();
+			port_A.setName("port_A");
+			this.services.setProvidesPort(port_A);
 			
 			
 			

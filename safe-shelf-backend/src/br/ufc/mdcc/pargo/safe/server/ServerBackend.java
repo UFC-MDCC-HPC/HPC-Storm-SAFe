@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.ufc.mdcc.pargo.backend.connector.TCPBinding;
-import br.ufc.mdcc.pargo.backend.safeport.SAFePortProxie;
+import br.ufc.mdcc.pargo.backend.server.proxy.stubs.ServerProxieWSService;
 
 public class ServerBackend implements IServerBackend {
 
@@ -14,7 +14,7 @@ public class ServerBackend implements IServerBackend {
 	//private IAppEnvPort appEnvPort;
 	//private HShelfApplicationBidingClientFacade appBiding;
 	private TCPBinding tcpBinding;
-	private SAFePortProxie safePortProxie;
+	//private SAFePortProxie safePortProxie;
 
 	public ServerBackend(TCPBinding tcpBinding) {
 		this.buffer = new ArrayList<String>();
@@ -22,7 +22,7 @@ public class ServerBackend implements IServerBackend {
 		//this.appBiding = new HShelfApplicationBidingClientFacade();
 		//this.appBiding.setServerLocation("http://localhost:10011/app-env?wsdl");
 		this.tcpBinding = tcpBinding;
-		this.safePortProxie = new SAFePortProxie();
+		//this.safePortProxie = new SAFePortProxie();
 
 		Thread serverThread = new Thread() {
 			@Override
@@ -43,7 +43,9 @@ public class ServerBackend implements IServerBackend {
 							event.setEventType(HShelfApplicationBidingEvent.INCOMING_MSG);
 							event.setValue("MSG:"+message);
 							appBiding.sendEvent(event);*/
-							safePortProxie.sendMessage(message);
+							//safePortProxie.sendMessage(message);
+							//heron
+							sendMessage(message);
 							if(message.equals("bye")) break;
 						}
  
@@ -70,6 +72,11 @@ public class ServerBackend implements IServerBackend {
 	public void incomingMessageEvent(String message) {
 		this.buffer.add(message);
 		System.out.println("+SERVER BUFFER SIZE: "+buffer.size()+"->"+message);
+	}
+	
+	public void sendMessage(String message){
+		ServerProxieWSService service = new ServerProxieWSService();
+		service.getServerProxieWSPort().sendMessage(message);
 	}
 	 
 }
