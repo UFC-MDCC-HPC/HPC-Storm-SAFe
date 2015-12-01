@@ -26,10 +26,7 @@ extends HShelfApplication implements IHShelfWorkflowEventListener{
 	
 	ClientEnvPortProxie envClient;
 	ServerEnvPortProxie envServer;
-	
-	 
-	//ClientServerApplicationPort clientServerApplicationPort;
-	
+
 	public static int id = 0;
 	
 	public ClientServerApplication(String name) {
@@ -42,13 +39,6 @@ extends HShelfApplication implements IHShelfWorkflowEventListener{
 		
 		
 		try {
-			
-			 
-			/*this.clientServerApplicationPort = new ClientServerApplicationPort();
-			this.clientServerApplicationPort.setName("app-client-server-port");
-			this.clientServerApplicationPort.setClientServerApplication(this);
-			this.services.setProvidesPort(this.clientServerApplicationPort);
-			this.clientServerApplicationPort.startService();*/ //starting myservice
 			
 			//new port---heron idea
 			ApplicationPort_A port_A = new ApplicationPort_A();
