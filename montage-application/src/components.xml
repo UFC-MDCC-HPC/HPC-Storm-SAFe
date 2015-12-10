@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<components>
+	<component name="Application">
+		<env_ports>
+			<env_port name="raw_images" type="PROVIDES_PORT"/>
+			<env_port name="template_hdr" type="PROVIDES_PORT"/>
+		</env_ports>
+	</component>
+	<component name="Workflow">
+		 <tsk_ports>
+			<tsk_port name="go_imgtbl"/>
+			<tsk_port name="go_mprojexec"/>
+			<tsk_port name="go_madd"/>
+			<tsk_port name="go_mdiffexec"/>
+		</tsk_ports>
+	</component>
+	<component name="mProjExec">
+		<env_ports>
+			<env_port name="template_hdr" type="USES_PORT"/>
+			<env_port name="input_fits_images" type="USES_PORT"/>
+			<env_port name="images_tbl" type="USES_PORT"/>
+			<env_port name="reproject_images" type="USES_PORT"/>
+			<env_port name="status_tbl" type="PROVIDES_PORT"/>
+		</env_ports>
+		<tsk_ports>
+			<tsk_port name="go"/>
+		</tsk_ports>
+	</component>
+	<component name="mImgtbl">
+		<env_ports>
+			<env_port name="template_hdr" type="USES_PORT"/>
+			<env_port name="input_fits_images" type="USES_PORT"/>
+			<env_port name="images_tbl" type="USES_PORT"/>
+			<env_port name="reproject_images" type="USES_PORT"/>
+			<env_port name="status_tbl" type="PROVIDES_PORT"/>
+		</env_ports>
+		<tsk_ports>
+			<tsk_port name="go"/>
+		</tsk_ports>
+	</component>
+	<component name="mAdd">
+		<env_ports>
+			<env_port name="template_hdr" type="USES_PORT"/>
+			<env_port name="input_fits_images" type="USES_PORT"/>
+			<env_port name="images_tbl" type="USES_PORT"/>
+			<env_port name="reproject_images" type="USES_PORT"/>
+			<env_port name="status_tbl" type="PROVIDES_PORT"/>
+		</env_ports>
+		<tsk_ports>
+			<tsk_port name="go"/>
+		</tsk_ports>
+	</component>
+	<component name="mDiffExec">
+		<env_ports>
+			<env_port name="template_hdr" type="USES_PORT"/>
+			<env_port name="input_fits_images" type="USES_PORT"/>
+			<env_port name="images_tbl" type="USES_PORT"/>
+			<env_port name="reproject_images" type="USES_PORT"/>
+			<env_port name="status_tbl" type="PROVIDES_PORT"/>
+		</env_ports>
+		<tsk_ports>
+			<tsk_port name="go"/>
+		</tsk_ports>
+	</component>
+	<component name="mFitExec">
+		<env_ports>
+			<env_port name="template_hdr" type="USES_PORT"/>
+			<env_port name="input_fits_images" type="USES_PORT"/>
+			<env_port name="images_tbl" type="USES_PORT"/>
+			<env_port name="reproject_images" type="USES_PORT"/>
+			<env_port name="status_tbl" type="PROVIDES_PORT"/>
+		</env_ports>
+		<tsk_ports>
+			<tsk_port name="go"/>
+		</tsk_ports>
+	</component>
+	<component name="mBgModel">
+		<env_ports>
+			<env_port name="template_hdr" type="USES_PORT"/>
+			<env_port name="input_fits_images" type="USES_PORT"/>
+			<env_port name="images_tbl" type="USES_PORT"/>
+			<env_port name="reproject_images" type="USES_PORT"/>
+			<env_port name="status_tbl" type="PROVIDES_PORT"/>
+		</env_ports>
+		<tsk_ports>
+			<tsk_port name="go"/>
+		</tsk_ports>
+	</component>
+	<component name="mBgExec">
+		<env_ports>
+			<env_port name="template_hdr" type="USES_PORT"/>
+			<env_port name="input_fits_images" type="USES_PORT"/>
+			<env_port name="images_tbl" type="USES_PORT"/>
+			<env_port name="reproject_images" type="USES_PORT"/>
+			<env_port name="status_tbl" type="PROVIDES_PORT"/>
+		</env_ports>
+		<tsk_ports>
+			<tsk_port name="go"/>
+		</tsk_ports>
+	</component>
+	<component name="mOverlaps">
+		<env_ports>
+			<env_port name="template_hdr" type="USES_PORT"/>
+			<env_port name="input_fits_images" type="USES_PORT"/>
+			<env_port name="images_tbl" type="USES_PORT"/>
+			<env_port name="reproject_images" type="USES_PORT"/>
+			<env_port name="status_tbl" type="PROVIDES_PORT"/>
+		</env_ports>
+		<tsk_ports>
+			<tsk_port name="go"/>
+		</tsk_ports>
+	</component>
+	
+	<!-- REPS -->
+	<component name="RawDir">
+		<env_ports>
+			<env_port name="template_hdr" type="USES_PORT"/>
+			<env_port name="input_fits_images" type="USES_PORT"/>
+			<env_port name="images_tbl" type="USES_PORT"/>
+			<env_port name="reproject_images" type="USES_PORT"/>
+			<env_port name="status_tbl" type="PROVIDES_PORT"/>
+		</env_ports>
+		 
+	</component>
+	<component name="ProjDir">
+		<env_ports>
+			<env_port name="template_hdr" type="USES_PORT"/>
+			<env_port name="input_fits_images" type="USES_PORT"/>
+			<env_port name="images_tbl" type="USES_PORT"/>
+			<env_port name="reproject_images" type="USES_PORT"/>
+			<env_port name="status_tbl" type="PROVIDES_PORT"/>
+		</env_ports>
+		 
+	</component>
+	<component name="CorrDir">
+		<env_ports>
+			<env_port name="template_hdr" type="USES_PORT"/>
+			<env_port name="input_fits_images" type="USES_PORT"/>
+			<env_port name="images_tbl" type="USES_PORT"/>
+			<env_port name="reproject_images" type="USES_PORT"/>
+			<env_port name="status_tbl" type="PROVIDES_PORT"/>
+		</env_ports>
+		 
+	</component>
+	<component name="DiffDir">
+		<env_ports>
+			<env_port name="template_hdr" type="USES_PORT"/>
+			<env_port name="input_fits_images" type="USES_PORT"/>
+			<env_port name="images_tbl" type="USES_PORT"/>
+			<env_port name="reproject_images" type="USES_PORT"/>
+			<env_port name="status_tbl" type="PROVIDES_PORT"/>
+		</env_ports>
+		 
+	</component>
+	<component name="FinalDir">
+		<env_ports>
+			<env_port name="template_hdr" type="USES_PORT"/>
+			<env_port name="input_fits_images" type="USES_PORT"/>
+			<env_port name="images_tbl" type="USES_PORT"/>
+			<env_port name="reproject_images" type="USES_PORT"/>
+			<env_port name="status_tbl" type="PROVIDES_PORT"/>
+		</env_ports>
+		 
+	</component>
+</components>
