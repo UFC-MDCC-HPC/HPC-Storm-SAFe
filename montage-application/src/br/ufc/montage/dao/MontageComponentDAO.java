@@ -12,8 +12,7 @@ public class MontageComponentDAO {
 	private List<MontageComponent> components;
 	
 	public MontageComponentDAO() {
-		this.components = MontageXML.parseXMLWorkflow("/home/jefferson/Workspaces/workspace-luna/"
-				+ "montage-application/src/components.xml");
+		this.components = MontageXML.parseXMLWorkflow("src/components.xml");
 	}
 	
 	public List<MontageComponent> listComponents(){

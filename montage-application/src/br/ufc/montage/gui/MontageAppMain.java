@@ -17,11 +17,13 @@ public class MontageAppMain extends JFrame {
 	private MontageBottonPanel bottomPanel;
 	private MontageWorkflow workflow;
 	private MontageComponentDAO componentDAO;
+	 
 
 	public MontageAppMain() {
 		
 		//DAO
 		this.componentDAO = new MontageComponentDAO();
+		 
 		
 		//workflow of acts
 		this.workflow = new MontageWorkflow();
@@ -29,6 +31,7 @@ public class MontageAppMain extends JFrame {
 		// creating panels...
 		this.centerPanel = new MontageCenterPanel(this.componentDAO);
 		this.centerPanel.setWorkflow(workflow);
+		 
 		this.lateralPanel = new MontageLateralPanel();
 		this.lateralPanel.setWorkflow(workflow);
 		this.lateralPanel.setComponentDAO(componentDAO);

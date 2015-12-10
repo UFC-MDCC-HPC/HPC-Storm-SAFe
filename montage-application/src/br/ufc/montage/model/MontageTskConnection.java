@@ -42,5 +42,11 @@ public class MontageTskConnection {
 		this.portBName = portBName;
 	}
 	
+	@Override
+	public String toString() {
+		String res = this.componentAName+"#"+this.portAName+
+				"->"+this.componentBName+"#"+this.portBName;
+		return res;
+	}
 	
 }

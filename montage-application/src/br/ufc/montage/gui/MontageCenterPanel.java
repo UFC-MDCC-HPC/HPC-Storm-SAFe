@@ -22,6 +22,7 @@ public class MontageCenterPanel extends JPanel{
 
 	private MontageWorkflow workflow;
 	private MontageComponentDAO componentDAO;
+	 
 	
 	public MontageCenterPanel(MontageComponentDAO componentDAO) {
 		this.componentDAO = componentDAO;
@@ -44,6 +45,8 @@ public class MontageCenterPanel extends JPanel{
 		
 		this.updateUI();
 	}
+
+	 
 }
 
 class ActPanel extends JPanel{

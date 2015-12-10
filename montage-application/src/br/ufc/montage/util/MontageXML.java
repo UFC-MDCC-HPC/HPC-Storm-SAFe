@@ -22,7 +22,8 @@ public class MontageXML {
 		Document doc;
 		List<MontageComponent> components = new ArrayList<MontageComponent>();
 		try {
-			doc = builder.build(new File(filePath));
+			File myXML = new File(filePath);
+			doc = builder.build(myXML);
 			Element rootArch = doc.getRootElement();
 			List<Element> children = rootArch.getChildren();
 			for(Element c_child:children){

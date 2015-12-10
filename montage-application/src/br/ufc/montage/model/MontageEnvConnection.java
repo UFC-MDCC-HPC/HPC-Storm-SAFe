@@ -42,5 +42,11 @@ public class MontageEnvConnection {
 		this.usesPortName = usesPortName;
 	}
 	
+	@Override
+	public String toString() {
+		String res = this.usesCompName+"#"+this.usesPortName+
+				"->"+this.providesCompName+"#"+this.providesPortName;
+		return res;
+	}
 	
 }

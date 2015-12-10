@@ -11,7 +11,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import br.ufc.montage.model.MontageComponent;
+import br.ufc.montage.model.MontageEnvConnection;
 import br.ufc.montage.model.MontageEnvPort;
+import br.ufc.montage.model.MontageTskConnection;
 import br.ufc.montage.model.MontageTskPort;
 import br.ufc.montage.workflow.MontageWorkflow;
 
@@ -21,10 +23,11 @@ public class MontageConnectionPanel extends JPanel {
 	List<JComboBox<String>> comboBoxEnvList;
 	List<String> labelTskList;
 	List<JComboBox<String>> comboBoxTskList;
+	MontageComponent component;
 	
 	public MontageConnectionPanel(MontageComponent component,
 			MontageWorkflow workflow) {
-
+		this.component = component;
 		this.setPreferredSize(new Dimension(400, 400));
 		this.setLayout(new GridLayout(0, 2));
 
@@ -98,7 +101,18 @@ public class MontageConnectionPanel extends JPanel {
 			
 			String envCb = (String)cb.getSelectedItem();
 			String relatedUses = this.labelEnvList.get(i);
-			System.out.println(relatedUses+"->"+envCb);
+			//System.out.println(relatedUses+"->"+envCb);
+			if(!(envCb.equals("NONE"))){
+				
+				String[] provs = envCb.split("#");
+				
+				MontageEnvConnection envConn = 
+						new MontageEnvConnection(provs[0], provs[1],
+								this.component.getName(), relatedUses);
+				System.out.println(envConn);
+			}
+			 
+			
 			i++;
 		}
 		
@@ -106,7 +120,14 @@ public class MontageConnectionPanel extends JPanel {
 		for(JComboBox<String> cb:this.comboBoxTskList){
 			String tskCb = (String)cb.getSelectedItem();
 			String relatedTsk = this.labelTskList.get(i);
-			System.out.println(relatedTsk+"-"+tskCb);
+			//System.out.println(relatedTsk+"-"+tskCb);
+			if(!(tskCb.equals("NONE"))){
+				String[] tsks = tskCb.split("#");
+				MontageTskConnection  tskConn = 
+						new MontageTskConnection(this.component.getName(), relatedTsk,
+								tsks[0], tsks[1]);
+				System.out.println(tskConn);
+			}
 			i++;
 		}
 	}

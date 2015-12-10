@@ -7,17 +7,23 @@ import java.util.List;
 import java.util.Map;
 
 import br.ufc.montage.model.MontageComponent;
+import br.ufc.montage.model.MontageEnvConnection;
+import br.ufc.montage.model.MontageTskConnection;
 
 public class MontageWorkflow {
 
 	
 	private Map<Integer, MontageAct> acts;
 	private List<MontageComponent> components;
+	private List<MontageEnvConnection> envConns;
+	private List<MontageTskConnection> tskConns;
 	
 	
 	public MontageWorkflow() {
 		this.acts = new HashMap<Integer, MontageAct>();
 		this.components = new ArrayList<MontageComponent>();
+		this.envConns = new ArrayList<MontageEnvConnection>();
+		this.tskConns = new ArrayList<MontageTskConnection>();
 	}
 	
 	public void addComponentToAct(MontageComponent component, Integer position){
@@ -49,6 +55,12 @@ public class MontageWorkflow {
 		return this.components;
 	}
 	
+	public void addEnvConn(MontageEnvConnection env){
+		this.envConns.add(env);
+	}
 	
+	public void addTskConn(MontageTskConnection tsk){
+		this.tskConns.add(tsk);
+	}
 	
 }
