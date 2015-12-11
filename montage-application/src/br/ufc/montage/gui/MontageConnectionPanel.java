@@ -26,7 +26,7 @@ public class MontageConnectionPanel extends JPanel {
 	MontageComponent component;
 	MontageWorkflow workflow;
 	Integer actPosition;
-	
+
 	public MontageConnectionPanel(MontageComponent component,
 			MontageWorkflow workflow, Integer actPosition) {
 		this.component = component;
@@ -35,6 +35,8 @@ public class MontageConnectionPanel extends JPanel {
 		this.setPreferredSize(new Dimension(400, 400));
 		this.setLayout(new GridLayout(0, 2));
 
+		 
+		
 		this.add(new JLabel("USES PORTS"));
 		this.add(new JLabel("PROVIDES PORTS"));
 
@@ -53,7 +55,7 @@ public class MontageConnectionPanel extends JPanel {
 
 		labelEnvList = new ArrayList<String>();
 		comboBoxEnvList = new ArrayList<JComboBox<String>>();
-		
+
 		for (MontageEnvPort env : component.getEnvPorts()) {
 			if (env.getType().equals(MontageEnvPort.USES_PORT)) {
 
@@ -63,118 +65,131 @@ public class MontageConnectionPanel extends JPanel {
 
 				this.add(label);
 				labelEnvList.add(env.getName());
-				
-				String selected = this.getEnvString(this.actPosition, this.component.getName(),env.getName());
-				if(selected!=null)
+
+				String selected = this.getEnvString(this.actPosition,
+						this.component.getName(), env.getName());
+				if (selected != null)
 					comboBox.setSelectedItem(selected);
-				
+
 				this.add(comboBox);
 				comboBoxEnvList.add(comboBox);
 			}
 		}
 
 		// TASK
-		this.add(new JLabel("TASK PORT A"));
-		this.add(new JLabel("TASK PORT B"));
+		if (this.component.getKind().equals(MontageComponent.WORKFLOW_KIND)) {
+			this.add(new JLabel("TASK PORT A"));
+			this.add(new JLabel("TASK PORT B"));
 
-		Vector<String> comboStringsTask = new Vector<String>();
-		comboStringsTask.add("NONE");
-		for (MontageComponent c : workflow.listComponents()) {
-			if (!c.getName().equals(component.getName())) {
-				for (MontageTskPort p : c.getTskPorts()) {
-					comboStringsTask.add(c.getName() + "#" + p.getName());
+			Vector<String> comboStringsTask = new Vector<String>();
+			comboStringsTask.add("NONE");
+			for (MontageComponent c : workflow.listComponents()) {
+				if (!c.getName().equals(component.getName())) {
+					for (MontageTskPort p : c.getTskPorts()) {
+						comboStringsTask.add(c.getName() + "#" + p.getName());
 
+					}
 				}
 			}
-		}
-		
-		labelTskList = new ArrayList<String>();
-		comboBoxTskList = new ArrayList<JComboBox<String>>();
-		for (MontageTskPort tsk : component.getTskPorts()) {
 
-			JLabel label = new JLabel(tsk.getName());
-			JComboBox<String> comboBox = new JComboBox<String>(comboStringsTask);
+			labelTskList = new ArrayList<String>();
+			comboBoxTskList = new ArrayList<JComboBox<String>>();
+			for (MontageTskPort tsk : component.getTskPorts()) {
 
-			this.add(label);
-			labelTskList.add(tsk.getName());
-			
-			String selected = this.getTskString(this.actPosition,this.component.getName(), tsk.getName());
-			if(selected!=null){
-				comboBox.setSelectedItem(selected);
+				JLabel label = new JLabel(tsk.getName());
+				JComboBox<String> comboBox = new JComboBox<String>(
+						comboStringsTask);
+
+				this.add(label);
+				labelTskList.add(tsk.getName());
+
+				String selected = this.getTskString(this.actPosition,
+						this.component.getName(), tsk.getName());
+				if (selected != null) {
+					comboBox.setSelectedItem(selected);
+				}
+
+				this.add(comboBox);
+
+				comboBoxTskList.add(comboBox);
+
 			}
-			
-			this.add(comboBox);
-			
-			comboBoxTskList.add(comboBox);
-
 		}
 
 	}
-	
-	public void analyseChoices(){
-		int i=0;
-		for(JComboBox<String> cb:this.comboBoxEnvList){
-			
-			String envCb = (String)cb.getSelectedItem();
+
+	public void analyseChoices() {
+		int i = 0;
+		for (JComboBox<String> cb : this.comboBoxEnvList) {
+
+			String envCb = (String) cb.getSelectedItem();
 			String relatedUses = this.labelEnvList.get(i);
-			//System.out.println(relatedUses+"->"+envCb);
-			if(!(envCb.equals("NONE"))){
-				
+			// System.out.println(relatedUses+"->"+envCb);
+			if (!(envCb.equals("NONE"))) {
+
 				String[] provs = envCb.split("#");
-				
-				MontageEnvConnection envConn = 
-						new MontageEnvConnection(provs[0], provs[1],
-								this.component.getName(), relatedUses);
+
+				MontageEnvConnection envConn = new MontageEnvConnection(
+						provs[0], provs[1], this.component.getName(),
+						relatedUses);
 				this.workflow.addEnvConn(envConn, this.actPosition);
 				System.out.println(envConn);
 			}
-			 
-			
+
 			i++;
 		}
-		
-		i=0;
-		for(JComboBox<String> cb:this.comboBoxTskList){
-			String tskCb = (String)cb.getSelectedItem();
-			String relatedTsk = this.labelTskList.get(i);
-			//System.out.println(relatedTsk+"-"+tskCb);
-			if(!(tskCb.equals("NONE"))){
-				String[] tsks = tskCb.split("#");
-				MontageTskConnection  tskConn = 
-						new MontageTskConnection(this.component.getName(), relatedTsk,
-								tsks[0], tsks[1]);
-				this.workflow.addTskConn(tskConn, this.actPosition);
-				System.out.println(tskConn);
+
+		if (this.component.getKind().equals(MontageComponent.WORKFLOW_KIND)) {
+			i = 0;
+			for (JComboBox<String> cb : this.comboBoxTskList) {
+				String tskCb = (String) cb.getSelectedItem();
+				String relatedTsk = this.labelTskList.get(i);
+				// System.out.println(relatedTsk+"-"+tskCb);
+				if (!(tskCb.equals("NONE"))) {
+					String[] tsks = tskCb.split("#");
+					MontageTskConnection tskConn = new MontageTskConnection(
+							this.component.getName(), relatedTsk, tsks[0],
+							tsks[1]);
+					this.workflow.addTskConn(tskConn, this.actPosition);
+					System.out.println(tskConn);
+				}
+				i++;
 			}
-			i++;
 		}
 	}
-	
-	
-	private String getEnvString(Integer pos, String compUsesName, String compUsesPort){
-		List<MontageEnvConnection> envConns = this.workflow.listMontageEnvConnectionsByActPosition(pos);
-		if(envConns==null) return null;
-		
-		for(MontageEnvConnection ec:envConns){
-			if(ec.getUsesCompName().equals(compUsesName) && ec.getUsesPortName().equals(compUsesPort)){
-				return ec.getProvidesCompName()+"#"+ec.getProvidesPortName();
+
+	private String getEnvString(Integer pos, String compUsesName,
+			String compUsesPort) {
+		List<MontageEnvConnection> envConns = this.workflow
+				.listMontageEnvConnectionsByActPosition(pos);
+		if (envConns == null)
+			return null;
+
+		for (MontageEnvConnection ec : envConns) {
+			if (ec.getUsesCompName().equals(compUsesName)
+					&& ec.getUsesPortName().equals(compUsesPort)) {
+				return ec.getProvidesCompName() + "#"
+						+ ec.getProvidesPortName();
 			}
 		}
-		
+
 		return null;
 	}
-	
-	private String getTskString(Integer pos, String compAName, String compAPort){
-		List<MontageTskConnection> tskConns = this.workflow.listMontageTskConnectionsByActPosition(pos);
-		if(tskConns==null) return null;
-		
-		for(MontageTskConnection tsk:tskConns){
-			if(tsk.getComponentAName().equals(compAName) && tsk.getPortAName().equals(compAPort)){
-				return tsk.getComponentBName()+"#"+tsk.getPortBName();
+
+	private String getTskString(Integer pos, String compAName, String compAPort) {
+		List<MontageTskConnection> tskConns = this.workflow
+				.listMontageTskConnectionsByActPosition(pos);
+		if (tskConns == null)
+			return null;
+
+		for (MontageTskConnection tsk : tskConns) {
+			if (tsk.getComponentAName().equals(compAName)
+					&& tsk.getPortAName().equals(compAPort)) {
+				return tsk.getComponentBName() + "#" + tsk.getPortBName();
 			}
 		}
-		
+
 		return null;
 	}
-	
+
 }

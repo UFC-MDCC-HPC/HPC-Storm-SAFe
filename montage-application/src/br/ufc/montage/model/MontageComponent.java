@@ -5,9 +5,14 @@ import java.util.List;
 
 public class MontageComponent extends MontageModel{
 
+	public static final String APPLICATION_KIND="APPLICATION";
+	public static final String WORKFLOW_KIND="WORKFLOW";
+	public static final String COMPUTATION_KIND="COMPUTATION";
+	public static final String REPOSITORY_KIND="REPOSITORY";
+	
 	private List<MontageEnvPort> envPorts;
 	private List<MontageTskPort> tskPorts;
-	 
+	private String kind;
 	
 	public MontageComponent() {
 		this.envPorts = new ArrayList<MontageEnvPort>();
@@ -30,6 +35,14 @@ public class MontageComponent extends MontageModel{
 		return tskPorts;
 	}
 	
+	public String getKind() {
+		return kind;
+	}
+
+	public void setKind(String kind) {
+		this.kind = kind;
+	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if(!(obj instanceof MontageComponent))

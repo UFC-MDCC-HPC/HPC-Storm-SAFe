@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <components>
-	<component name="Application">
+	<component name="Application" kind="APPLICATION">
 		<env_ports>
 			<env_port name="raw_images" type="PROVIDES_PORT"/>
 			<env_port name="template_hdr" type="PROVIDES_PORT"/>
 		</env_ports>
 	</component>
-	<component name="Workflow">
+	<component name="Workflow" kind="WORKFLOW">
 		 <tsk_ports>
 			<tsk_port name="go_imgtbl"/>
 			<tsk_port name="go_mprojexec"/>
@@ -14,7 +14,7 @@
 			<tsk_port name="go_mdiffexec"/>
 		</tsk_ports>
 	</component>
-	<component name="mProjExec">
+	<component name="mProjExec" kind="COMPUTATION">
 		<env_ports>
 			<env_port name="template_hdr" type="USES_PORT"/>
 			<env_port name="input_fits_images" type="USES_PORT"/>
@@ -26,7 +26,7 @@
 			<tsk_port name="go"/>
 		</tsk_ports>
 	</component>
-	<component name="mImgtbl">
+	<component name="mImgtbl" kind="COMPUTATION">
 		<env_ports>
 			<env_port name="template_hdr" type="USES_PORT"/>
 			<env_port name="input_fits_images" type="USES_PORT"/>
@@ -38,7 +38,7 @@
 			<tsk_port name="go"/>
 		</tsk_ports>
 	</component>
-	<component name="mAdd">
+	<component name="mAdd" kind="COMPUTATION">
 		<env_ports>
 			<env_port name="template_hdr" type="USES_PORT"/>
 			<env_port name="input_fits_images" type="USES_PORT"/>
@@ -50,7 +50,7 @@
 			<tsk_port name="go"/>
 		</tsk_ports>
 	</component>
-	<component name="mDiffExec">
+	<component name="mDiffExec" kind="COMPUTATION">
 		<env_ports>
 			<env_port name="template_hdr" type="USES_PORT"/>
 			<env_port name="input_fits_images" type="USES_PORT"/>
@@ -62,7 +62,7 @@
 			<tsk_port name="go"/>
 		</tsk_ports>
 	</component>
-	<component name="mFitExec">
+	<component name="mFitExec" kind="COMPUTATION">
 		<env_ports>
 			<env_port name="template_hdr" type="USES_PORT"/>
 			<env_port name="input_fits_images" type="USES_PORT"/>
@@ -74,7 +74,7 @@
 			<tsk_port name="go"/>
 		</tsk_ports>
 	</component>
-	<component name="mBgModel">
+	<component name="mBgModel" kind="COMPUTATION">
 		<env_ports>
 			<env_port name="template_hdr" type="USES_PORT"/>
 			<env_port name="input_fits_images" type="USES_PORT"/>
@@ -86,7 +86,7 @@
 			<tsk_port name="go"/>
 		</tsk_ports>
 	</component>
-	<component name="mBgExec">
+	<component name="mBgExec" kind="COMPUTATION">
 		<env_ports>
 			<env_port name="template_hdr" type="USES_PORT"/>
 			<env_port name="input_fits_images" type="USES_PORT"/>
@@ -98,7 +98,7 @@
 			<tsk_port name="go"/>
 		</tsk_ports>
 	</component>
-	<component name="mOverlaps">
+	<component name="mOverlaps" kind="COMPUTATION">
 		<env_ports>
 			<env_port name="template_hdr" type="USES_PORT"/>
 			<env_port name="input_fits_images" type="USES_PORT"/>
@@ -112,7 +112,7 @@
 	</component>
 	
 	<!-- REPS -->
-	<component name="RawDir">
+	<component name="RawDir" kind="REPOSITORY">
 		<env_ports>
 			<env_port name="template_hdr" type="USES_PORT"/>
 			<env_port name="input_fits_images" type="USES_PORT"/>
@@ -122,7 +122,7 @@
 		</env_ports>
 		 
 	</component>
-	<component name="ProjDir">
+	<component name="ProjDir" kind="REPOSITORY">
 		<env_ports>
 			<env_port name="template_hdr" type="USES_PORT"/>
 			<env_port name="input_fits_images" type="USES_PORT"/>
@@ -132,7 +132,7 @@
 		</env_ports>
 		 
 	</component>
-	<component name="CorrDir">
+	<component name="CorrDir" kind="REPOSITORY">
 		<env_ports>
 			<env_port name="template_hdr" type="USES_PORT"/>
 			<env_port name="input_fits_images" type="USES_PORT"/>
@@ -142,7 +142,7 @@
 		</env_ports>
 		 
 	</component>
-	<component name="DiffDir">
+	<component name="DiffDir" kind="REPOSITORY"> 
 		<env_ports>
 			<env_port name="template_hdr" type="USES_PORT"/>
 			<env_port name="input_fits_images" type="USES_PORT"/>
@@ -152,7 +152,7 @@
 		</env_ports>
 		 
 	</component>
-	<component name="FinalDir">
+	<component name="FinalDir" kind="REPOSITORY">
 		<env_ports>
 			<env_port name="template_hdr" type="USES_PORT"/>
 			<env_port name="input_fits_images" type="USES_PORT"/>

@@ -29,8 +29,10 @@ public class MontageXML {
 			for(Element c_child:children){
 				if(c_child.getName().equals("component")){
 					String c_name = c_child.getAttributeValue("name");
+					String k_name = c_child.getAttributeValue("kind");
 					MontageComponent component = new MontageComponent();
 					component.setName(c_name);
+					component.setKind(k_name);
 					
 					for(Element p_child:c_child.getChildren()){
 						if(p_child.getName().equals("env_ports")){
