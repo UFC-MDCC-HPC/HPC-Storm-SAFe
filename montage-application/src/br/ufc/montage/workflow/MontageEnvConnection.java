@@ -1,6 +1,7 @@
-package br.ufc.montage.model;
+package br.ufc.montage.workflow;
 
-public class MontageEnvConnection {
+
+public class MontageEnvConnection extends MontageConnection{
 	
 	private String providesCompName;
 	private String providesPortName;
@@ -40,6 +41,23 @@ public class MontageEnvConnection {
 	}
 	public void setUsesPortName(String usesPortName) {
 		this.usesPortName = usesPortName;
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if(!(obj instanceof MontageEnvConnection))
+			return false;
+		MontageEnvConnection ref = (MontageEnvConnection)obj;
+		if(ref.getProvidesCompName().equals(this.providesCompName)
+		   &&
+		   ref.getProvidesPortName().equals(this.providesPortName)
+		   &&
+		   ref.getUsesCompName().equals(this.usesCompName)
+		   &&
+		   ref.getUsesPortName().equals(this.usesPortName)
+		   )
+			return true;
+		return false;
 	}
 	
 	@Override

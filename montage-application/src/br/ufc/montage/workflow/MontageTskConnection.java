@@ -1,6 +1,7 @@
-package br.ufc.montage.model;
+package br.ufc.montage.workflow;
 
-public class MontageTskConnection {
+
+public class MontageTskConnection extends MontageConnection{
 
 	private String componentAName;
 	private String portAName;
@@ -40,6 +41,19 @@ public class MontageTskConnection {
 	}
 	public void setPortBName(String portBName) {
 		this.portBName = portBName;
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if(!(obj instanceof MontageTskConnection))
+			return false;
+		MontageTskConnection ref = (MontageTskConnection)obj;
+		if(ref.getComponentAName().equals(this.componentAName) &&
+		   ref.getPortAName().equals(this.portAName) &&
+		   ref.getComponentBName().equals(this.componentBName) &&
+		   ref.getPortBName().equals(this.portBName))
+			return true;
+		return false;
 	}
 	
 	@Override

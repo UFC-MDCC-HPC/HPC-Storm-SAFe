@@ -1,6 +1,8 @@
 package br.ufc.montage.model;
 
-public class MontageModel {
+import java.io.Serializable;
+
+public class MontageModel implements Serializable{
 
 	private String name;
 	private Long id;

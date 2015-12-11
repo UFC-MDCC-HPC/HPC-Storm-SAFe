@@ -9,30 +9,30 @@ import br.ufc.montage.util.MontageXML;
 
 public class MontageComponentDAO {
 
-	private List<MontageComponent> components;
 	
-	public MontageComponentDAO() {
-		this.components = MontageXML.parseXMLWorkflow("src/components.xml");
-	}
 	
 	public List<MontageComponent> listComponents(){
-		return this.components;
+		List<MontageComponent> components;
+		components = MontageXML.parseXMLWorkflow("src/components.xml");
+		return components;
 	}
 	
 	public void addComponent(MontageComponent component){
-		this.components.add(component);
+		List<MontageComponent> components = this.listComponents();
+		components.add(component);
 	}
 	
 	public MontageComponent getComponentByName(String name){
-		
-		for(MontageComponent c:this.components){
+		List<MontageComponent> components = this.listComponents();
+		for(MontageComponent c:components){
 			if(c.getName().equals(name)) return c;
 		}
 		return null;
 	}
 	
 	public MontageEnvPort getEnvPortByName(String name){
-		for(MontageComponent c:this.components){
+		List<MontageComponent> components = this.listComponents();
+		for(MontageComponent c:components){
 			for(MontageEnvPort e: c.getEnvPorts()){
 				if(e.getName().equals(name)) return e;
 			}
@@ -41,7 +41,8 @@ public class MontageComponentDAO {
 	}
 	
 	public MontageTskPort getTskPortByName(String name){
-		for(MontageComponent c:this.components){
+		List<MontageComponent> components = this.listComponents();
+		for(MontageComponent c:components){
 			for(MontageTskPort t: c.getTskPorts()){
 				if(t.getName().equals(name)) return t;
 			}

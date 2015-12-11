@@ -7,6 +7,7 @@ public class MontageComponent extends MontageModel{
 
 	private List<MontageEnvPort> envPorts;
 	private List<MontageTskPort> tskPorts;
+	 
 	
 	public MontageComponent() {
 		this.envPorts = new ArrayList<MontageEnvPort>();

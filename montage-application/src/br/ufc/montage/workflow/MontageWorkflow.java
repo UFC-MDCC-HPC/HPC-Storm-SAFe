@@ -1,5 +1,6 @@
 package br.ufc.montage.workflow;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -7,13 +8,13 @@ import java.util.List;
 import java.util.Map;
 
 import br.ufc.montage.model.MontageComponent;
-import br.ufc.montage.model.MontageEnvConnection;
-import br.ufc.montage.model.MontageTskConnection;
 
-public class MontageWorkflow {
+public class MontageWorkflow implements Serializable{
 
 	
 	private Map<Integer, MontageAct> acts;
+	private Map<Integer, List<MontageEnvConnection>> envConnPosMap;
+	private Map<Integer, List<MontageTskConnection>> tskConnPosMap;
 	private List<MontageComponent> components;
 	private List<MontageEnvConnection> envConns;
 	private List<MontageTskConnection> tskConns;
@@ -21,6 +22,8 @@ public class MontageWorkflow {
 	
 	public MontageWorkflow() {
 		this.acts = new HashMap<Integer, MontageAct>();
+		this.envConnPosMap = new HashMap<Integer, List<MontageEnvConnection>>();
+		this.tskConnPosMap = new HashMap<Integer, List<MontageTskConnection>>();
 		this.components = new ArrayList<MontageComponent>();
 		this.envConns = new ArrayList<MontageEnvConnection>();
 		this.tskConns = new ArrayList<MontageTskConnection>();
@@ -55,12 +58,43 @@ public class MontageWorkflow {
 		return this.components;
 	}
 	
-	public void addEnvConn(MontageEnvConnection env){
+	public void addEnvConn(MontageEnvConnection env, Integer actPosition){
+		
+		if (this.envConns.indexOf(env)>=0)
+			return;
+		
 		this.envConns.add(env);
+		List<MontageEnvConnection> ref = this.envConnPosMap.get(actPosition);
+		if(ref==null){
+			ref = new ArrayList<MontageEnvConnection>();
+			ref.add(env);
+			this.envConnPosMap.put(actPosition, ref);
+		}else{
+			ref.add(env);
+		}
 	}
 	
-	public void addTskConn(MontageTskConnection tsk){
+	public void addTskConn(MontageTskConnection tsk, Integer actPosition){
+		if(this.tskConns.indexOf(tsk)>=0)
+			return;
+		
 		this.tskConns.add(tsk);
+		List<MontageTskConnection> ref = this.tskConnPosMap.get(actPosition);
+		if(ref==null){
+			ref = new ArrayList<MontageTskConnection>();
+			ref.add(tsk);
+			this.tskConnPosMap.put(actPosition, ref);
+		}else{
+			ref.add(tsk);
+		}
+	}
+	
+	public List<MontageEnvConnection> listMontageEnvConnectionsByActPosition(Integer actPosition){
+		return this.envConnPosMap.get(actPosition);
+	}
+	
+	public List<MontageTskConnection> listMontageTskConnectionsByActPosition(Integer actPosition){
+		return this.tskConnPosMap.get(actPosition);
 	}
 	
 }

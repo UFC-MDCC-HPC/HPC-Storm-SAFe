@@ -51,7 +51,7 @@ public class MontageCenterPanel extends JPanel{
 
 class ActPanel extends JPanel{
 	
-	public ActPanel(MontageAct act, final MontageWorkflow workflow) {
+	public ActPanel(final MontageAct act, final MontageWorkflow workflow) {
 		
 		 
 		
@@ -71,7 +71,7 @@ class ActPanel extends JPanel{
 				
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					MontageConnectionPanel conn = new MontageConnectionPanel(c, workflow);
+					MontageConnectionPanel conn = new MontageConnectionPanel(c, workflow, act.getPosition());
 					int reply = JOptionPane.showConfirmDialog(null, conn, c.getName(),JOptionPane.YES_NO_CANCEL_OPTION);
 					if(reply==JOptionPane.YES_OPTION){
 						conn.analyseChoices();

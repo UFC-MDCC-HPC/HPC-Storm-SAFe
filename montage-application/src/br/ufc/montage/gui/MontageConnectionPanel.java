@@ -11,10 +11,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import br.ufc.montage.model.MontageComponent;
-import br.ufc.montage.model.MontageEnvConnection;
 import br.ufc.montage.model.MontageEnvPort;
-import br.ufc.montage.model.MontageTskConnection;
 import br.ufc.montage.model.MontageTskPort;
+import br.ufc.montage.workflow.MontageEnvConnection;
+import br.ufc.montage.workflow.MontageTskConnection;
 import br.ufc.montage.workflow.MontageWorkflow;
 
 public class MontageConnectionPanel extends JPanel {
@@ -24,10 +24,14 @@ public class MontageConnectionPanel extends JPanel {
 	List<String> labelTskList;
 	List<JComboBox<String>> comboBoxTskList;
 	MontageComponent component;
+	MontageWorkflow workflow;
+	Integer actPosition;
 	
 	public MontageConnectionPanel(MontageComponent component,
-			MontageWorkflow workflow) {
+			MontageWorkflow workflow, Integer actPosition) {
 		this.component = component;
+		this.workflow = workflow;
+		this.actPosition = actPosition;
 		this.setPreferredSize(new Dimension(400, 400));
 		this.setLayout(new GridLayout(0, 2));
 
@@ -59,6 +63,11 @@ public class MontageConnectionPanel extends JPanel {
 
 				this.add(label);
 				labelEnvList.add(env.getName());
+				
+				String selected = this.getEnvString(this.actPosition, this.component.getName(),env.getName());
+				if(selected!=null)
+					comboBox.setSelectedItem(selected);
+				
 				this.add(comboBox);
 				comboBoxEnvList.add(comboBox);
 			}
@@ -88,7 +97,14 @@ public class MontageConnectionPanel extends JPanel {
 
 			this.add(label);
 			labelTskList.add(tsk.getName());
+			
+			String selected = this.getTskString(this.actPosition,this.component.getName(), tsk.getName());
+			if(selected!=null){
+				comboBox.setSelectedItem(selected);
+			}
+			
 			this.add(comboBox);
+			
 			comboBoxTskList.add(comboBox);
 
 		}
@@ -109,6 +125,7 @@ public class MontageConnectionPanel extends JPanel {
 				MontageEnvConnection envConn = 
 						new MontageEnvConnection(provs[0], provs[1],
 								this.component.getName(), relatedUses);
+				this.workflow.addEnvConn(envConn, this.actPosition);
 				System.out.println(envConn);
 			}
 			 
@@ -126,9 +143,38 @@ public class MontageConnectionPanel extends JPanel {
 				MontageTskConnection  tskConn = 
 						new MontageTskConnection(this.component.getName(), relatedTsk,
 								tsks[0], tsks[1]);
+				this.workflow.addTskConn(tskConn, this.actPosition);
 				System.out.println(tskConn);
 			}
 			i++;
 		}
 	}
+	
+	
+	private String getEnvString(Integer pos, String compUsesName, String compUsesPort){
+		List<MontageEnvConnection> envConns = this.workflow.listMontageEnvConnectionsByActPosition(pos);
+		if(envConns==null) return null;
+		
+		for(MontageEnvConnection ec:envConns){
+			if(ec.getUsesCompName().equals(compUsesName) && ec.getUsesPortName().equals(compUsesPort)){
+				return ec.getProvidesCompName()+"#"+ec.getProvidesPortName();
+			}
+		}
+		
+		return null;
+	}
+	
+	private String getTskString(Integer pos, String compAName, String compAPort){
+		List<MontageTskConnection> tskConns = this.workflow.listMontageTskConnectionsByActPosition(pos);
+		if(tskConns==null) return null;
+		
+		for(MontageTskConnection tsk:tskConns){
+			if(tsk.getComponentAName().equals(compAName) && tsk.getPortAName().equals(compAPort)){
+				return tsk.getComponentBName()+"#"+tsk.getPortBName();
+			}
+		}
+		
+		return null;
+	}
+	
 }

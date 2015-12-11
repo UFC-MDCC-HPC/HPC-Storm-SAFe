@@ -1,11 +1,12 @@
 package br.ufc.montage.workflow;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import br.ufc.montage.model.MontageComponent;
 
-public class MontageAct {
+public class MontageAct implements Serializable{
 	
 	private List<MontageComponent> components;
 	private Integer position;

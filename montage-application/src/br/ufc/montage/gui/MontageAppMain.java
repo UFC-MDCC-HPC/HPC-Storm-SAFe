@@ -2,12 +2,18 @@ package br.ufc.montage.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Container;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
 
 import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 
 import br.ufc.montage.dao.MontageComponentDAO;
 import br.ufc.montage.model.MontageComponent;
+import br.ufc.montage.util.MontageUtil;
 import br.ufc.montage.workflow.MontageWorkflow;
 
 public class MontageAppMain extends JFrame {
@@ -17,6 +23,7 @@ public class MontageAppMain extends JFrame {
 	private MontageBottonPanel bottomPanel;
 	private MontageWorkflow workflow;
 	private MontageComponentDAO componentDAO;
+	
 	 
 
 	public MontageAppMain() {
@@ -51,6 +58,39 @@ public class MontageAppMain extends JFrame {
 		c.add(this.lateralPanel, BorderLayout.WEST);
 		c.add(this.bottomPanel, BorderLayout.SOUTH);
 
+		//menu
+		JMenuBar menuBar = new JMenuBar();
+		JMenu menu = new JMenu("File");
+		
+		JMenuItem menuItemSave = new JMenuItem("Save");
+		menu.add(menuItemSave);
+		
+		JMenuItem menuItemLoad = new JMenuItem("Load");
+		menu.add(menuItemLoad);
+		
+		menuBar.add(menu);
+		this.setJMenuBar(menuBar);
+		
+		//actions
+		menuItemSave.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				MontageUtil.serializeWorkflow(workflow);
+			}
+		});
+		
+		menuItemLoad.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				workflow = MontageUtil.deserializeWorkflow();
+				//System.out.println(workflow);
+				centerPanel.setWorkflow(workflow);
+				centerPanel.updatePanel();
+			}
+		});
+		
 		// config
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setResizable(false);
