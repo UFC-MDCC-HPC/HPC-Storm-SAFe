@@ -75,6 +75,8 @@ class ActPanel extends JPanel{
 					int reply = JOptionPane.showConfirmDialog(null, conn, c.getName(),JOptionPane.YES_NO_CANCEL_OPTION);
 					if(reply==JOptionPane.YES_OPTION){
 						conn.analyseChoices();
+					}else if (reply==JOptionPane.CANCEL_OPTION){
+						workflow.deleteConnections(act.getPosition(), c.getName());
 					}
 				}
 			});

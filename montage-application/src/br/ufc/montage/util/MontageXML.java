@@ -30,9 +30,11 @@ public class MontageXML {
 				if(c_child.getName().equals("component")){
 					String c_name = c_child.getAttributeValue("name");
 					String k_name = c_child.getAttributeValue("kind");
+					String i_name = c_child.getAttributeValue("id");
 					MontageComponent component = new MontageComponent();
 					component.setName(c_name);
 					component.setKind(k_name);
+					component.setId(Long.parseLong(i_name));
 					
 					for(Element p_child:c_child.getChildren()){
 						if(p_child.getName().equals("env_ports")){
@@ -40,9 +42,11 @@ public class MontageXML {
 								if(pp_child.getName().equals("env_port")){
 									String pp_name = pp_child.getAttributeValue("name");
 									String pp_type = pp_child.getAttributeValue("type");
+									String pp_id = pp_child.getAttributeValue("id");
 									MontageEnvPort envPort = new MontageEnvPort();
 									envPort.setName(pp_name);
 									envPort.setType(pp_type);
+									envPort.setId(Long.parseLong(pp_id));
 									component.addEnvPort(envPort);
 								} //env
 							}//envs for
@@ -51,8 +55,10 @@ public class MontageXML {
 							for(Element pp_child:p_child.getChildren()){
 								if(pp_child.getName().equals("tsk_port")){
 									String pp_name = pp_child.getAttributeValue("name");
+									String pp_id = pp_child.getAttributeValue("id");
 									MontageTskPort tskPort = new MontageTskPort();
 									tskPort.setName(pp_name);
+									tskPort.setId(Long.parseLong(pp_id));
 									component.addTskPort(tskPort);
 								}
 							} //tsks for
