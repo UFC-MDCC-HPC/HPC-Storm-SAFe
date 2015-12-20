@@ -6,7 +6,6 @@ import br.ufc.mdcc.pargo.safe.framework.component.HShelfComponent;
 import br.ufc.mdcc.pargo.safe.framework.exception.HShelfException;
 import br.ufc.mdcc.pargo.safe.framework.services.IHShelfService;
 import br.ufc.mdcc.pargo.safe.framework.session.HShelfSession;
-import br.ufc.mdcc.pargo.safe.sample.port.ApplicationPort_A;
 import br.ufc.mdcc.pargo.safe.sample.server.service.IServerProxieWS;
 import br.ufc.mdcc.pargo.safe.sample.server.service.ServerProxieWS;
 
@@ -24,9 +23,13 @@ public class ServerComponentProxie extends HShelfComponent{
 		System.out.println("TASK-SERVER URL: "+ HShelfSession.getValue("task-server"));
 		System.out.println("ENV-SERVER URL: "+HShelfSession.getValue("env-server"));
 		
+		ServerUsesAppPort usesAppPort = new ServerUsesAppPort();
+		usesAppPort.setName("server-uses-A");
+		
 		try {
 			this.services.setTaskPort(task);
 			this.services.setProvidesPort(env);
+			this.services.registerUsesPort(usesAppPort);
 		} catch (HShelfException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -36,9 +39,9 @@ public class ServerComponentProxie extends HShelfComponent{
 
 	public void sendMessage(String message){
 		try {
-			ApplicationPort_A port_A = (ApplicationPort_A) this.services
-					.getProvidesPort("port_A");
-			port_A.sendMessage(message);
+			ServerUsesAppPort port_A_uses = (ServerUsesAppPort) this.services
+					.getProvidesPort("server-uses-A");
+			port_A_uses.sendMessage(message);
 		} catch (HShelfException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

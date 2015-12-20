@@ -1,8 +1,8 @@
 package br.ufc.mdcc.pargo.safe.framework.port.dflt;
 
-import br.ufc.mdcc.pargo.safe.framework.port.HShelfPort;
+import br.ufc.mdcc.pargo.safe.framework.port.HShelfProvidesPort;
 
-public abstract class HShelfGoPort extends HShelfPort{
+public abstract class HShelfGoPort extends HShelfProvidesPort{
 
 	public abstract void go();
 }

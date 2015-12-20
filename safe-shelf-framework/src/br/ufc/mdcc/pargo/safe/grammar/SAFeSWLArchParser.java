@@ -287,5 +287,10 @@ public class SAFeSWLArchParser implements ISAFeSWLArcherParser{
 	public ArchAction getArchActionId(Integer id){
 		return this.architectureMain.getArchActionBy(id);
 	}
+
+	@Override
+	public String getProvidesPortNameByUsesPortName(String usesPortName) {
+		return this.architectureMain.getProvidesPortNameByUsesPortName(usesPortName);
+	}
 	
 }

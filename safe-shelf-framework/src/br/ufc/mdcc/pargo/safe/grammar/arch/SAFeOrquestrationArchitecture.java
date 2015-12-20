@@ -266,6 +266,17 @@ public class SAFeOrquestrationArchitecture {
 			return this.body.getArchActionById(id);
 		}
 	
+		public String getProvidesPortNameByUsesPortName(String usesPortName) {
+			
+			for(ArchEnvBinding env:this.attachmentEnvList){
+				ArchUses uses = env.getUses();
+				if(uses.getName().equals(usesPortName))
+					return env.getProvides().getName();
+			}
+			
+			return null;
+		}
+		
 		public String getApplicationName() {
 			return applicationName;
 		}
@@ -294,4 +305,6 @@ public class SAFeOrquestrationArchitecture {
 					res+="\n"+att.toString();
 				return res;
 		}
+
+		
 }

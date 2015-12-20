@@ -8,7 +8,6 @@ import br.ufc.mdcc.pargo.safe.framework.services.IHShelfService;
 import br.ufc.mdcc.pargo.safe.framework.session.HShelfSession;
 import br.ufc.mdcc.pargo.safe.sample.client.service.ClientProxieWS;
 import br.ufc.mdcc.pargo.safe.sample.client.service.IClientProxieWS;
-import br.ufc.mdcc.pargo.safe.sample.port.ApplicationPort_A;
 
 public class ClientComponentProxie extends HShelfComponent {
 
@@ -25,9 +24,14 @@ public class ClientComponentProxie extends HShelfComponent {
 		System.out.println("ENV-CLIENT URL: "
 				+ HShelfSession.getValue("env-client"));
 
+		ClientEnvUsesAppPort usesAppPort = new ClientEnvUsesAppPort();
+		usesAppPort.setName("client-uses-A");
+		
 		try {
 			this.services.setTaskPort(task);
 			this.services.setProvidesPort(env);
+			this.services.registerUsesPort(usesAppPort);
+			
 		} catch (HShelfException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -40,9 +44,9 @@ public class ClientComponentProxie extends HShelfComponent {
 	// uses!
 	public void requestMessage() {
 		try {
-			ApplicationPort_A port_A = (ApplicationPort_A) this.services
-					.getProvidesPort("port_A");
-			port_A.requestMessage();
+			ClientEnvUsesAppPort port_A_uses = (ClientEnvUsesAppPort) this.services
+					.getProvidesPort("client-uses-A");
+			port_A_uses.requestMessage();
 		} catch (HShelfException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

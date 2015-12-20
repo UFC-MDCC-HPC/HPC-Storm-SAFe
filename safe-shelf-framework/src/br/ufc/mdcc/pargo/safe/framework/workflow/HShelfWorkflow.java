@@ -13,6 +13,7 @@ import br.ufc.mdcc.pargo.safe.framework.core.info.HShelfPortCoreInfo;
 import br.ufc.mdcc.pargo.safe.framework.core.info.IHShelfCoreXMLReader;
 import br.ufc.mdcc.pargo.safe.framework.exception.HShelfException;
 import br.ufc.mdcc.pargo.safe.framework.port.HShelfPort;
+import br.ufc.mdcc.pargo.safe.framework.port.HShelfProvidesPort;
 import br.ufc.mdcc.pargo.safe.framework.port.dflt.HShelfGoWorkflowPortImpl;
 import br.ufc.mdcc.pargo.safe.framework.port.dflt.HShelfSAFeSWLPort;
 import br.ufc.mdcc.pargo.safe.framework.port.dflt.HShelfSAFeSWLPortImpl;
@@ -31,14 +32,14 @@ import br.ufc.mdcc.pargo.safe.grammar.arch.ArchComponent;
 
 public class HShelfWorkflow extends HShelfComponent {
 
-	public static final String SAFE_WORKFLOW_SWL_PORT = "safeswl-port";
-	public static final String SAFE_WORKFLOW_GO_PORT = "go-workflow-port";
-	public static final String SAFE_WORKFLOW_EVENT_PORT = "workflow-event-port";
+	public static final String SAFE_WORKFLOW_SWL_PORT = "port_SAFeSWL";
+	public static final String SAFE_WORKFLOW_GO_PORT = "port_Go";
+	public static final String SAFE_WORKFLOW_EVENT_PORT = "port_Event";
 
 	// ports
-	private HShelfPort safeSWLPort;
-	private HShelfPort safeGoPort;
-	private HShelfPort safeWorkflowEventPort;
+	private HShelfProvidesPort safeSWLPort;
+	private HShelfProvidesPort safeGoPort;
+	private HShelfProvidesPort safeWorkflowEventPort;
 
 	// util refs
 	private HShelfFramework framework;
@@ -82,6 +83,7 @@ public class HShelfWorkflow extends HShelfComponent {
 			safeWorkflowEventPort
 					.setName(HShelfWorkflow.SAFE_WORKFLOW_EVENT_PORT);
 			this.services.setProvidesPort(safeWorkflowEventPort);
+			 
 
 		} catch (HShelfException e) {
 
@@ -100,6 +102,7 @@ public class HShelfWorkflow extends HShelfComponent {
 			HShelfConsoleLogger.write("Architecture file loaded");
 			this.sendMessageToApp("Architecture file loaded",
 					HShelfEventType.Message);
+			this.framework.setArchParser(this.archParser);
 		}
 
 	}

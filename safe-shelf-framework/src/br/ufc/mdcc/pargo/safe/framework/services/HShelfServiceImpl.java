@@ -8,25 +8,29 @@ import br.ufc.mdcc.pargo.safe.framework.component.HShelfComponent;
 import br.ufc.mdcc.pargo.safe.framework.exception.HShelfException;
 import br.ufc.mdcc.pargo.safe.framework.exception.HShelfProvidesPortNotFoundException;
 import br.ufc.mdcc.pargo.safe.framework.exception.HShelfTaskPortNotFoundException;
-import br.ufc.mdcc.pargo.safe.framework.port.HShelfPort;
+import br.ufc.mdcc.pargo.safe.framework.port.HShelfProvidesPort;
+import br.ufc.mdcc.pargo.safe.framework.port.HShelfTaskPort;
+import br.ufc.mdcc.pargo.safe.framework.port.HShelfUsesPort;
 import br.ufc.mdcc.pargo.safe.framework.util.HShelfConsoleLogger;
 
 public class HShelfServiceImpl implements IHShelfService{
 
 	private HShelfFramework framework;
 	private HShelfComponent component;
-	private Map<String, HShelfPort> providesPortMap;
-	private Map<String, HShelfPort> usesPortBidingMap;
+	private Map<String, HShelfProvidesPort> providesPortMap;
+	private Map<String, HShelfUsesPort> usesPortMap;
+	private Map<String, HShelfUsesPort> usesPortBidingMap;
 	
-	private Map<String, HShelfPort> taskPortMap;
-	private Map<String, HShelfPort> taskPortBidingMap;
+	private Map<String, HShelfTaskPort> taskPortMap;
+	private Map<String, HShelfTaskPort> taskPortBidingMap;
 	
 	public HShelfServiceImpl() {
 		HShelfConsoleLogger.write("Creating HShelfServiceImpl");
-		this.providesPortMap = new HashMap<String, HShelfPort>();
-		this.usesPortBidingMap = new HashMap<String, HShelfPort>();
-		this.taskPortMap = new HashMap<String, HShelfPort>();
-		this.taskPortBidingMap = new HashMap<String, HShelfPort>();
+		this.providesPortMap = new HashMap<String, HShelfProvidesPort>();
+		this.usesPortMap = new HashMap<String, HShelfUsesPort>();
+		this.usesPortBidingMap = new HashMap<String, HShelfUsesPort>();
+		this.taskPortMap = new HashMap<String, HShelfTaskPort>();
+		this.taskPortBidingMap = new HashMap<String, HShelfTaskPort>();
 	}
 	
 	@Override
@@ -35,13 +39,14 @@ public class HShelfServiceImpl implements IHShelfService{
 		this.component = component;
 	}
 
+	//thats strange
 	@Override
-	public HShelfPort getProvidesPort(String name) throws HShelfProvidesPortNotFoundException{
+	public HShelfUsesPort getProvidesPort(String usesPortName) throws HShelfProvidesPortNotFoundException{
 		
-		HShelfPort providesImpl = this.framework.getProvidesPort(name);
-		if(providesImpl !=null){
-			this.usesPortBidingMap.put(name, providesImpl);
-			return providesImpl;
+		HShelfUsesPort usesImpl = this.framework.getProvidesPort(usesPortName);
+		if(usesImpl !=null){
+			this.usesPortBidingMap.put(usesPortName, usesImpl);
+			return usesImpl;
 		}else{
 			throw new HShelfProvidesPortNotFoundException();
 		}
@@ -49,15 +54,15 @@ public class HShelfServiceImpl implements IHShelfService{
 	}
 
 	@Override
-	public void setProvidesPort(HShelfPort port) {
+	public void setProvidesPort(HShelfProvidesPort port) {
 		this.providesPortMap.put(port.getName(), port);
 		this.framework.addProvidesPort(port);
 		port.setParentComponent(component);
 	}
 
 	@Override
-	public HShelfPort getTaskPort(String name) throws HShelfException {
-		HShelfPort taskImpl = this.framework.getTaskPort(name);
+	public HShelfTaskPort getTaskPort(String name) throws HShelfException {
+		HShelfTaskPort taskImpl = this.framework.getTaskPort(name);
 		if(taskImpl !=null){
 			this.taskPortBidingMap.put(name, taskImpl);
 			return taskImpl;
@@ -67,10 +72,16 @@ public class HShelfServiceImpl implements IHShelfService{
 	}
 
 	@Override
-	public void setTaskPort(HShelfPort port) throws HShelfException {
+	public void setTaskPort(HShelfTaskPort port) throws HShelfException {
 		this.taskPortMap.put(port.getName(), port);
 		this.framework.addTaskPort(port);
 		port.setParentComponent(component);
+	}
+
+	@Override
+	public void registerUsesPort(HShelfUsesPort port) throws HShelfException {
+		this.framework.registerUsesPort(port);
+		this.usesPortMap.put(port.getName(),port);
 	}
 	
 }

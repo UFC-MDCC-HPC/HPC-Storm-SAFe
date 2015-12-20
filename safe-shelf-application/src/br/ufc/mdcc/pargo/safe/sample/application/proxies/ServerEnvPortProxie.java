@@ -3,12 +3,12 @@ package br.ufc.mdcc.pargo.safe.sample.application.proxies;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import br.ufc.mdcc.pargo.safe.framework.port.HShelfPort;
+import br.ufc.mdcc.pargo.safe.framework.port.HShelfProvidesPort;
 import br.ufc.mdcc.pargo.safe.framework.session.HShelfSession;
 import br.ufc.mdcc.pargo.safe.sample.stubs.server.env.IServiceServerEnv;
 import br.ufc.mdcc.pargo.safe.sample.stubs.server.env.ServiceServerEnvImplService;
 
-public class ServerEnvPortProxie extends HShelfPort{
+public class ServerEnvPortProxie extends HShelfProvidesPort{
 	
 	
 	public void setPort(Integer port){

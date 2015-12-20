@@ -9,27 +9,33 @@ import br.ufc.mdcc.pargo.safe.framework.application.HShelfApplication;
 import br.ufc.mdcc.pargo.safe.framework.component.HShelfComponent;
 import br.ufc.mdcc.pargo.safe.framework.port.HShelfBuilderService;
 import br.ufc.mdcc.pargo.safe.framework.port.HShelfPort;
+import br.ufc.mdcc.pargo.safe.framework.port.HShelfProvidesPort;
+import br.ufc.mdcc.pargo.safe.framework.port.HShelfTaskPort;
+import br.ufc.mdcc.pargo.safe.framework.port.HShelfUsesPort;
 import br.ufc.mdcc.pargo.safe.framework.services.HShelfServiceImpl;
 import br.ufc.mdcc.pargo.safe.framework.services.IHShelfService;
 import br.ufc.mdcc.pargo.safe.framework.util.HShelfConsoleLogger;
 import br.ufc.mdcc.pargo.safe.framework.workflow.HShelfWorkflow;
+import br.ufc.mdcc.pargo.safe.grammar.ISAFeSWLArcherParser;
 
 public class HShelfFramework extends HShelfBuilderService{
 
 	
-	private Map<String,HShelfPort> providesPortMap;
-	private Map<String,HShelfPort> taskPortMap;
+	private Map<String,HShelfProvidesPort> providesPortMap;
+	private Map<String,HShelfUsesPort> usesPortMap;
+	private Map<String,HShelfTaskPort> taskPortMap;
 	private Map<String,HShelfComponent> componentMap;
 	
 	private HShelfWorkflow workflow;
 	private HShelfApplication application;
-	
+	private ISAFeSWLArcherParser archParser;
 	
 	public HShelfFramework() {
 		HShelfConsoleLogger.write("Creating HShelfFramework");
-		this.providesPortMap = new HashMap<String,HShelfPort>();
+		this.providesPortMap = new HashMap<String,HShelfProvidesPort>();
+		this.usesPortMap = new HashMap<String,HShelfUsesPort>();
 		this.componentMap = new HashMap<String,HShelfComponent>();
-		this.taskPortMap = new HashMap<String, HShelfPort>();
+		this.taskPortMap = new HashMap<String, HShelfTaskPort>();
 	}
 	
 	public void initialize(HShelfApplication application){
@@ -85,17 +91,25 @@ public class HShelfFramework extends HShelfBuilderService{
 	}
 
 	@Override
-	public List<HShelfPort> getProvidesPortList() {
-		List<HShelfPort> list = new ArrayList<HShelfPort>();
-		for(HShelfPort port:this.providesPortMap.values())
+	public List<HShelfProvidesPort> getProvidesPortList() {
+		List<HShelfProvidesPort> list = new ArrayList<HShelfProvidesPort>();
+		for(HShelfProvidesPort port:this.providesPortMap.values())
 			list.add(port);
 		return list;
 	}
 
 	@Override
-	public List<HShelfPort> getTaskPortList() {
-		List<HShelfPort> list = new ArrayList<HShelfPort>();
-		for(HShelfPort port:this.taskPortMap.values())
+	public List<HShelfUsesPort> getUsesPortList() {
+		List<HShelfUsesPort> list = new ArrayList<HShelfUsesPort>();
+		for(HShelfUsesPort port:this.usesPortMap.values())
+			list.add(port);
+		return list;
+	}
+	
+	@Override
+	public List<HShelfTaskPort> getTaskPortList() {
+		List<HShelfTaskPort> list = new ArrayList<HShelfTaskPort>();
+		for(HShelfTaskPort port:this.taskPortMap.values())
 			list.add(port);
 		return list;
 	} 
@@ -112,26 +126,65 @@ public class HShelfFramework extends HShelfBuilderService{
 		HShelfConsoleLogger.write("Component "+component.getName()+" added");
 	}
 	
-	public void addProvidesPort(HShelfPort port){
-		System.out.println("ADDING: " + port.getName());
+	public void addProvidesPort(HShelfProvidesPort port){
+		System.out.println("ADDING PROVIDES PORT: " + port.getName());
 		this.providesPortMap.put(port.getName(),port);
 		
 	}
 	
-	public HShelfPort getProvidesPort(String name){
-		
-		return this.providesPortMap.get(name);
+	//strange...
+	public HShelfUsesPort getProvidesPort(String usesPortName){
+		//name é o nome da porta usuário
+		//buscar quem está ligado nessa porta usuária
+		//via mapa criado a partir da descricao arquitetural
+		//retornas a porta usuária conectada com a porta provedora...
+		this.connect(usesPortName);
+		return this.usesPortMap.get(usesPortName);
 	}
 	
-	public void addTaskPort(HShelfPort port){
+	public void addTaskPort(HShelfTaskPort port){
 		System.out.println("ADDING: " + port.getName());
 		this.taskPortMap.put(port.getName(),port);
 		
 	}
 	
-	public HShelfPort getTaskPort(String name){
+	public HShelfTaskPort getTaskPort(String name){
 		return this.taskPortMap.get(name);
 	}
+
+	public void setArchParser(ISAFeSWLArcherParser archParser) {
+		this.archParser = archParser;
+	}
+
+	@Override
+	public void connect(String usesPortName) {
+		
+		if(usesPortName.equals(HShelfWorkflow.SAFE_WORKFLOW_SWL_PORT) ||
+		   usesPortName.equals(HShelfWorkflow.SAFE_WORKFLOW_GO_PORT)){
+			HShelfProvidesPort providesPort = (HShelfProvidesPort)this.providesPortMap.get(usesPortName);
+			HShelfPort port = this.usesPortMap.get(usesPortName);
+			HShelfUsesPort usesPort = (HShelfUsesPort)port;
+			usesPort.setProvidesPort(providesPort);
+			return;
+		}
+		
+		if(this.archParser!=null){
+			HShelfPort uses = this.usesPortMap.get(usesPortName);
+			if(uses!=null && uses instanceof HShelfUsesPort){
+				HShelfUsesPort usesPort = (HShelfUsesPort)uses;
+				String providesPortName = this.archParser.getProvidesPortNameByUsesPortName(usesPort.getName());
+				HShelfProvidesPort providesPort = (HShelfProvidesPort)this.providesPortMap.get(providesPortName);
+				usesPort.setProvidesPort(providesPort);
+			}
+		}
+		
+	}
+
+	public void registerUsesPort(HShelfUsesPort port) {
+		this.usesPortMap.put(port.getName(), port);
+	}
+
+	
 
 	
 }

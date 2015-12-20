@@ -9,4 +9,5 @@ public interface ISAFeSWLArcherParser {
 	public SAFeOrquestrationArchitecture getArchitecture();
 	public ArchComponent getArchComponentByID(Integer id);
 	public ArchAction getArchActionId(Integer id);
+	public String getProvidesPortNameByUsesPortName(String usesPortName);
 }

@@ -68,6 +68,15 @@ public class MontageAppMain extends JFrame {
 		JMenuItem menuItemLoad = new JMenuItem("Load");
 		menu.add(menuItemLoad);
 		
+		JMenuItem menuItemArch = new JMenuItem("Arch XML");
+		menu.add(menuItemArch);
+		
+		JMenuItem menuItemFlow = new JMenuItem("Flow XML");
+		menu.add(menuItemFlow);
+		
+		JMenuItem menuItemRun = new JMenuItem("Run");
+		menu.add(menuItemRun);
+		
 		menuBar.add(menu);
 		this.setJMenuBar(menuBar);
 		

@@ -4,15 +4,41 @@
   <tns:application id="0" name="application-tutorial">
   	<tns:uses_port id="12" name="env-client" id_component="0"/>
   	<tns:uses_port id="14" name="env-server" id_component="0"/>
+  	
+  	<tns:uses_port id="20000" 
+  					   name="port_SAFeSWL" 
+  					   id_component="0"/>
+	<tns:uses_port id="20001" 
+  					   name="port_Go" 
+  					   id_component="0"/>
+  	<tns:uses_port id="20002" 
+  					   name="port_Event" 
+  					   id_component="0"/>
+  	
+  	<tns:provides_port id="140" 
+  					   name="port_A" 
+  					   id_component="0"/>
   </tns:application>
   
   <tns:workflow id="1" name="workflow-tutorial">
+    
+    <tns:provides_port id="10000" 
+  					   name="port_SAFeSWL" 
+  					   id_component="1"/>
+	<tns:provides_port id="10001" 
+  					   name="port_Go" 
+  					   id_component="1"/>
+  	<tns:provides_port id="10002" 
+  					   name="port_Event" 
+  					   id_component="1"/>
+  					   
     <tns:task_port id="11" name="task-client" id_component="1"/>
   	<tns:task_port id="13" name="task-server" id_component="1"/>
   </tns:workflow>
   
   <tns:body>
     <tns:computation name="client" id="2">
+      <tns:uses_port id="1000" name="client-uses-A" id_component="2"/>
       <tns:provides_port name="env-client"
       					 id="20"
       					 id_component="2"
@@ -30,6 +56,7 @@
     </tns:computation>
     
     <tns:computation name="server" id="3">
+      <tns:uses_port id="2000" name="server-uses-A" id_component="3"/>
       <tns:provides_port name="env-server" 
       					 id="30"
       					 id_component="3"
@@ -47,11 +74,54 @@
     </tns:computation>
   </tns:body>
   
+  <tns:env_binding>
+  	<tns:uses_port id="20000" 
+  					   name="port_SAFeSWL" 
+  					   id_component="0"/> 
+  	<tns:provides_port id="10000" 
+  					   name="port_SAFeSWL" 
+  					   id_component="1"/>
+  </tns:env_binding>
+  
+  <tns:env_binding>
+  	<tns:uses_port id="20001" 
+  					   name="port_Go" 
+  					   id_component="0"/> 
+  	<tns:provides_port id="10001" 
+  					   name="port_Go" 
+  					   id_component="1"/>
+  </tns:env_binding>
+  
+  <tns:env_binding>
+  	<tns:uses_port id="20002" 
+  					   name="port_Event" 
+  					   id_component="0"/> 
+  	<tns:provides_port id="10002" 
+  					   name="port_Event" 
+  					   id_component="1"/>
+  </tns:env_binding>
+ 
+  
+  <tns:env_binding>
+  	<tns:uses_port id="1000" name="client-uses-A" id_component="2"/> 
+  	<tns:provides_port id="140" 
+  					   name="port_A" 
+  					   id_component="0"/>
+  </tns:env_binding>
+  
   <tns:env_binding >
+  	<tns:uses_port id="2000" name="server-uses-A" id_component="3"/> 
+  	<tns:provides_port id="140" 
+  					   name="port_A" 
+  					   id_component="0"/>
+  </tns:env_binding>
+  
+  <tns:env_binding>
   	<tns:uses_port id="12" name="env-client" id_component="0"/> 
   	<tns:provides_port name="env-client" id="20" id_component="2"/>
   </tns:env_binding>
-  <tns:env_binding >
+  
+  <tns:env_binding>
   	<tns:uses_port id="14" name="env-server" id_component="0"/>
   	<tns:provides_port name="env-server" id="30" id_component="3"/>
   </tns:env_binding>
@@ -59,7 +129,8 @@
   <tns:task_binding>
   	<tns:left_peer id="11" name="task-client" id_component="1"/>
   	<tns:right_peer name="task-client" id="21" id_component="2"/>
-  </tns:task_binding> 
+  </tns:task_binding>
+   
    <tns:task_binding>
   	<tns:left_peer id="13" name="task-server" id_component="1"/>
   	<tns:right_peer name="task-server" id="31" id_component="3"/>
