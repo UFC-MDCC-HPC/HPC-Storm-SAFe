@@ -1,7 +1,7 @@
 package br.ufc.mdcc.pargo.safe.sample.application.ports.rawDir;
 
-import br.ufc.mdcc.pargo.safe.framework.port.HShelfProvidesPort;
+import br.ufc.mdcc.pargo.safe.sample.application.ports.MontageProvidesPort;
 
-public class RawDirPortProvides extends HShelfProvidesPort{
+public class RawDirPortProvides extends MontageProvidesPort{
 
 }

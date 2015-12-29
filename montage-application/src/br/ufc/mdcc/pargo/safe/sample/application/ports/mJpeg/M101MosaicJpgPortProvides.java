@@ -1,5 +1,7 @@
 package br.ufc.mdcc.pargo.safe.sample.application.ports.mJpeg;
 
-public class M101MosaicJpgPortProvides {
+import br.ufc.mdcc.pargo.safe.sample.application.ports.MontageProvidesPort;
+
+public class M101MosaicJpgPortProvides extends MontageProvidesPort{
 
 }

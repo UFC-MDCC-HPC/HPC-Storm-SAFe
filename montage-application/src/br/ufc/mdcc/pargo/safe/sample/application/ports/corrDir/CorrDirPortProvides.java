@@ -1,7 +1,8 @@
 package br.ufc.mdcc.pargo.safe.sample.application.ports.corrDir;
 
-import br.ufc.mdcc.pargo.safe.framework.port.HShelfProvidesPort;
+import br.ufc.mdcc.pargo.safe.sample.application.ports.MontageProvidesPort;
 
-public class CorrDirPortProvides extends HShelfProvidesPort{
+
+public class CorrDirPortProvides extends MontageProvidesPort{
 
 }

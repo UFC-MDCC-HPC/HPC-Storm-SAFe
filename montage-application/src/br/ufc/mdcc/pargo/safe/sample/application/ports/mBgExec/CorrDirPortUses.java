@@ -1,7 +1,7 @@
 package br.ufc.mdcc.pargo.safe.sample.application.ports.mBgExec;
 
-import br.ufc.mdcc.pargo.safe.framework.port.HShelfUsesPort;
+import br.ufc.mdcc.pargo.safe.sample.application.ports.MontageUsesPort;
 
-public class CorrDirPortUses extends HShelfUsesPort{
+public class CorrDirPortUses extends MontageUsesPort{
 
 }
