@@ -40,10 +40,10 @@ public class HShelfServiceImpl implements IHShelfService{
 	}
 
 	//thats strange
-	@Override
-	public HShelfUsesPort getProvidesPort(String usesPortName) throws HShelfProvidesPortNotFoundException{
+	//@Override
+	public HShelfUsesPort getPort(String usesPortName) throws HShelfProvidesPortNotFoundException{
 		
-		HShelfUsesPort usesImpl = this.framework.getProvidesPort(usesPortName);
+		HShelfUsesPort usesImpl = this.framework.getPort(usesPortName);
 		if(usesImpl !=null){
 			this.usesPortBidingMap.put(usesPortName, usesImpl);
 			return usesImpl;

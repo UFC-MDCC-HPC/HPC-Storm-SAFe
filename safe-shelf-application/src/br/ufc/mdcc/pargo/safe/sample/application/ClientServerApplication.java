@@ -44,17 +44,17 @@ extends HShelfApplication implements IHShelfWorkflowEventListener{
 			
 			//===============================
 			//init SAFESWL and its loading with application (MOST IMPORTANT)
-			portSWL_WF = (ClientServerUsesWFSAFeSWL)this.services.getProvidesPort(HShelfWorkflow.SAFE_WORKFLOW_SWL_PORT);
+			portSWL_WF = (ClientServerUsesWFSAFeSWL)this.services.getPort(HShelfWorkflow.SAFE_WORKFLOW_SWL_PORT);
 			String fileArchitecture = "/home/jefferson/Git/HPC-Storm-SAFe/safe-shelf-application/src/br/ufc/mdcc/pargo/safe/sample/xml/tutorial-arch.xml";
 			portSWL_WF.setSAFeSWLArchFilePath(fileArchitecture);
 			//init port GO, to load previous file or nothing happens...
-			portGo_WF = (ClientServerUsesWFGo)this.services.getProvidesPort(HShelfWorkflow.SAFE_WORKFLOW_GO_PORT);
+			portGo_WF = (ClientServerUsesWFGo)this.services.getPort(HShelfWorkflow.SAFE_WORKFLOW_GO_PORT);
 			portGo_WF.loadArchitectureFile();
 			//================================
 			
 			
 			//init WF ports (local) with application
-			portEvent_WF = (ClientServerUsesWFEvent)this.services.getProvidesPort(HShelfWorkflow.SAFE_WORKFLOW_EVENT_PORT);
+			portEvent_WF = (ClientServerUsesWFEvent)this.services.getPort(HShelfWorkflow.SAFE_WORKFLOW_EVENT_PORT);
 			//subscribe
 			portEvent_WF.addWorkflowEventListener(this);
 			
@@ -141,7 +141,7 @@ extends HShelfApplication implements IHShelfWorkflowEventListener{
 			if(event.getValue().equals("client")){
 				//remote ports (web services)
 				try {
-					this.envClient = (ClientServerUsesClient)this.services.getProvidesPort("env-client");
+					this.envClient = (ClientServerUsesClient)this.services.getPort("env-client");
 				} catch (HShelfException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -150,7 +150,7 @@ extends HShelfApplication implements IHShelfWorkflowEventListener{
 			}else if(event.getValue().equals("server")){
 				//remote ports (web services)
 				try {
-					this.envServer = (ClientServerUsesServer)this.services.getProvidesPort("env-server");
+					this.envServer = (ClientServerUsesServer)this.services.getPort("env-server");
 				} catch (HShelfException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

@@ -132,8 +132,9 @@ public class HShelfFramework extends HShelfBuilderService{
 		
 	}
 	
-	//strange...
-	public HShelfUsesPort getProvidesPort(String usesPortName){
+	//strange...CONNECT
+	//getPort
+	public HShelfUsesPort getPort(String usesPortName){
 		//name é o nome da porta usuário
 		//buscar quem está ligado nessa porta usuária
 		//via mapa criado a partir da descricao arquitetural
@@ -152,6 +153,7 @@ public class HShelfFramework extends HShelfBuilderService{
 		return this.taskPortMap.get(name);
 	}
 
+	//workflow repassa
 	public void setArchParser(ISAFeSWLArcherParser archParser) {
 		this.archParser = archParser;
 	}

@@ -11,7 +11,8 @@ public interface IHShelfService {
 
 	public void initialize(HShelfFramework framework, HShelfComponent component);
 	
-	public HShelfUsesPort getProvidesPort(String usesPortName) throws HShelfException; //that's strange...
+	public HShelfUsesPort getPort(String usesPortName) throws HShelfException; //that's strange...aqui já conecta
+	
 	public void setProvidesPort(HShelfProvidesPort port) throws HShelfException;
 	
 	public HShelfTaskPort getTaskPort(String name) throws HShelfException;

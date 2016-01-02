@@ -45,7 +45,7 @@ public class ClientComponentProxie extends HShelfComponent {
 	public void requestMessage() {
 		try {
 			ClientEnvUsesAppPort port_A_uses = (ClientEnvUsesAppPort) this.services
-					.getProvidesPort("client-uses-A");
+					.getPort("client-uses-A");
 			port_A_uses.requestMessage();
 		} catch (HShelfException e) {
 			// TODO Auto-generated catch block
