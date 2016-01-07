@@ -46,6 +46,15 @@
 			</tns:parallel_oper>
 		</tns:operation>
 		<tns:operation>
+			<tns:invoke_oper action="connect" id="0" />
+		</tns:operation>
+		<tns:operation>
+			<tns:invoke_oper action="connect" id="2" />
+		</tns:operation>
+		<tns:operation>
+			<tns:invoke_oper action="connect" id="3" />
+		</tns:operation>
+		<tns:operation>
 			<tns:iterate_oper max="4">
 				<!-- post -->
 				<tns:operation>

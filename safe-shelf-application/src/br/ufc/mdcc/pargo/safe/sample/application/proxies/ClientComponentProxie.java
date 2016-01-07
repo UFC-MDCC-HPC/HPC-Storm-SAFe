@@ -4,10 +4,13 @@ import javax.xml.ws.Endpoint;
 
 import br.ufc.mdcc.pargo.safe.framework.component.HShelfComponent;
 import br.ufc.mdcc.pargo.safe.framework.exception.HShelfException;
+import br.ufc.mdcc.pargo.safe.framework.port.HShelfUsesPort;
+import br.ufc.mdcc.pargo.safe.framework.port.IHShelfPortTypes;
 import br.ufc.mdcc.pargo.safe.framework.services.IHShelfService;
 import br.ufc.mdcc.pargo.safe.framework.session.HShelfSession;
 import br.ufc.mdcc.pargo.safe.sample.client.service.ClientProxieWS;
 import br.ufc.mdcc.pargo.safe.sample.client.service.IClientProxieWS;
+import br.ufc.mdcc.pargo.safe.sample.port.ApplicationPort_A;
 
 public class ClientComponentProxie extends HShelfComponent {
 
@@ -23,14 +26,11 @@ public class ClientComponentProxie extends HShelfComponent {
 				+ HShelfSession.getValue("task-client"));
 		System.out.println("ENV-CLIENT URL: "
 				+ HShelfSession.getValue("env-client"));
-
-		ClientEnvUsesAppPort usesAppPort = new ClientEnvUsesAppPort();
-		usesAppPort.setName("client-uses-A");
 		
 		try {
-			this.services.setTaskPort(task);
+			this.services.registerTaskPort(task);
 			this.services.setProvidesPort(env);
-			this.services.registerUsesPort(usesAppPort);
+			this.services.registerUsesPort("client-uses-A", IHShelfPortTypes.NO_TYPE);
 			
 		} catch (HShelfException e) {
 			// TODO Auto-generated catch block
@@ -44,9 +44,8 @@ public class ClientComponentProxie extends HShelfComponent {
 	// uses!
 	public void requestMessage() {
 		try {
-			ClientEnvUsesAppPort port_A_uses = (ClientEnvUsesAppPort) this.services
-					.getPort("client-uses-A");
-			port_A_uses.requestMessage();
+			HShelfUsesPort usesPort = (HShelfUsesPort)this.services.getPort("client-uses-A");
+			((ApplicationPort_A)usesPort.getProvidesPort()).requestMessage();
 		} catch (HShelfException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -11,6 +11,10 @@ public class SAFeOrquestrationArchitecture {
 		private String applicationName;
 		//Application Component
 		private ArchApplication archApplication;
+		
+
+
+
 		//Workflow Component
 		private ArchWorkflow archWorkflow;
 		//Body Element
@@ -85,6 +89,10 @@ public class SAFeOrquestrationArchitecture {
 			this.attachmentEnvList = new ArrayList<ArchEnvBinding>();
 			this.attachmentTaskList = new ArrayList<ArchTaskBinding>();
 			this.contractList = new ArrayList<ArchContract>();
+		}
+		
+		public ArchApplication getArchApplication() {
+			return archApplication;
 		}
 		
 		//create methods

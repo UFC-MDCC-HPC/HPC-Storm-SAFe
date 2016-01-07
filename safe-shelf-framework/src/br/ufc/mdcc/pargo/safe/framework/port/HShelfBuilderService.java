@@ -16,5 +16,5 @@ public abstract class HShelfBuilderService extends HShelfPort {
 	public abstract List<HShelfUsesPort> getUsesPortList();
 	public abstract List<HShelfTaskPort> getTaskPortList();
 	
-	public abstract void connect(String usesPortName);
+	public abstract void connect(String usesPortName, String providesPortName);
 }

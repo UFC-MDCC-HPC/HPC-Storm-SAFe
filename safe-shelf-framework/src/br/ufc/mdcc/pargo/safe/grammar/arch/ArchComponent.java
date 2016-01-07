@@ -55,6 +55,18 @@ public class ArchComponent implements IArchObject{
 		this.contract = contract;
 	}
 
+	public List<ArchUses> getUsesList() {
+		return usesList;
+	}
+
+	public List<ArchProvides> getProvidesList() {
+		return providesList;
+	}
+
+	public List<ArchTask> getTaskList() {
+		return taskList;
+	}
+
 	public ArchAction getArchActionById(Integer id){
 		ArchAction action = null;
 		System.out.println("NAME:"+name);

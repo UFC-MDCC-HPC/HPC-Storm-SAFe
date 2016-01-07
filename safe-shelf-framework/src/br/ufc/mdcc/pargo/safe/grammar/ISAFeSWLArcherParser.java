@@ -1,6 +1,7 @@
 package br.ufc.mdcc.pargo.safe.grammar;
 
 import br.ufc.mdcc.pargo.safe.grammar.arch.ArchAction;
+import br.ufc.mdcc.pargo.safe.grammar.arch.ArchApplication;
 import br.ufc.mdcc.pargo.safe.grammar.arch.ArchComponent;
 import br.ufc.mdcc.pargo.safe.grammar.arch.SAFeOrquestrationArchitecture;
 
@@ -10,4 +11,5 @@ public interface ISAFeSWLArcherParser {
 	public ArchComponent getArchComponentByID(Integer id);
 	public ArchAction getArchActionId(Integer id);
 	public String getProvidesPortNameByUsesPortName(String usesPortName);
+	public ArchApplication getArchApplication();
 }

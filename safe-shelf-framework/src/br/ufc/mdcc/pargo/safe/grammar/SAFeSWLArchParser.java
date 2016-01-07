@@ -293,4 +293,7 @@ public class SAFeSWLArchParser implements ISAFeSWLArcherParser{
 		return this.architectureMain.getProvidesPortNameByUsesPortName(usesPortName);
 	}
 	
+	public ArchApplication getArchApplication(){
+		return this.architectureMain.getArchApplication();
+	}
 }

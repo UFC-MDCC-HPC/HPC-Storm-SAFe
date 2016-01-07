@@ -29,6 +29,7 @@ import br.ufc.mdcc.pargo.safe.grammar.ISAFeSWLFlowParser;
 import br.ufc.mdcc.pargo.safe.grammar.SAFeSWLArchParser;
 import br.ufc.mdcc.pargo.safe.grammar.SAFeSWLFlowParser;
 import br.ufc.mdcc.pargo.safe.grammar.arch.ArchComponent;
+import br.ufc.mdcc.pargo.safe.grammar.arch.ArchUses;
 
 public class HShelfWorkflow extends HShelfComponent {
 
@@ -102,7 +103,7 @@ public class HShelfWorkflow extends HShelfComponent {
 			HShelfConsoleLogger.write("Architecture file loaded");
 			this.sendMessageToApp("Architecture file loaded",
 					HShelfEventType.Message);
-			this.framework.setArchParser(this.archParser);
+			//this.framework.setArchParser(this.archParser);
 		}
 
 	}
@@ -203,11 +204,29 @@ public class HShelfWorkflow extends HShelfComponent {
 						compName, proxiePkgName + "." + capCompName
 								+ proxieClassName);
 				this.framework.addComponent(newComponent);
-				// avisar a aplicação que esse componente está pronto e que ela
-				// pode pegar suas portas...
 				this.sendMessageToApp(compName, HShelfEventType.Component_Added);
+			
+			
+				
 			}
 
+		}
+	}
+	
+	public void connect(String compId){
+		
+		ArchComponent archComponent = null;
+		
+		if(compId.equals("0")){
+			archComponent = this.archParser.getArchApplication();
+		}else
+			archComponent = this.archParser
+				.getArchComponentByID(Integer.parseInt(compId));
+		
+		for(ArchUses usesPort: archComponent.getUsesList()){
+			String providesPortName = this.archParser.getProvidesPortNameByUsesPortName(usesPort.getName());
+			System.out.println("TESTE: "+usesPort.getName()+"-"+providesPortName);
+			this.framework.connect(usesPort.getName(),providesPortName);
 		}
 	}
 

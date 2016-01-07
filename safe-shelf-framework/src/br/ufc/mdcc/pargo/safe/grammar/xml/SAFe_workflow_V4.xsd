@@ -109,6 +109,7 @@
 			<enumeration value="resolve" />
 			<enumeration value="instantiate" />
 			<enumeration value="compute" />
+			<enumeration value="connect" />
 			<enumeration value="deploy" />
 		</restriction>
 	</simpleType>

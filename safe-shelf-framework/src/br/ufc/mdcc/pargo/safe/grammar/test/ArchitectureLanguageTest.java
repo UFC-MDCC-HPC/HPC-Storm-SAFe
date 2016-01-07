@@ -28,8 +28,9 @@ public class ArchitectureLanguageTest {
 	public static void main(String[] args) {
 		if(ArchitectureLanguageTest.testValidator()){
 			ISAFeSWLArcherParser parser = ArchitectureLanguageTest.testParser();
-			String test = parser.getProvidesPortNameByUsesPortName("server-uses-A");
-			System.out.println("USES TEST: "+test);
+			System.out.println(parser.getArchApplication());
+			//String test = parser.getProvidesPortNameByUsesPortName("server-uses-A");
+			//System.out.println("USES TEST: "+test);
 			//System.out.println(parser.getArchitecture());
 		}
 			
