@@ -1,5 +1,11 @@
 package br.ufc.mdcc.pargo.safe.sample.application;
 
+import javax.swing.Box;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+
 import br.ufc.mdcc.pargo.safe.framework.application.HShelfApplication;
 import br.ufc.mdcc.pargo.safe.framework.exception.HShelfException;
 import br.ufc.mdcc.pargo.safe.framework.port.HShelfUsesPort;
@@ -20,6 +26,8 @@ import br.ufc.mdcc.pargo.safe.sample.port.ApplicationPort_A;
 public class ClientServerApplication 
 extends HShelfApplication implements IHShelfWorkflowEventListener{
 
+	private Integer portC;
+	private Integer portS;
 	
 	HShelfUsesPort envClient;
 	HShelfUsesPort envServer;
@@ -80,8 +88,8 @@ extends HShelfApplication implements IHShelfWorkflowEventListener{
 			//load workflow file and generate its object (it depends on arch file)
 			((HShelfGoWorkflowPortImpl)usesGo.getProvidesPort()).loadWorkflowFile();
 			
-			//run workflow to load it components and ports...but not his logic yet
-			((HShelfGoWorkflowPortImpl)usesGo.getProvidesPort()).go();
+			//run workflow to load it components and ports...
+			//((HShelfGoWorkflowPortImpl)usesGo.getProvidesPort()).go();
 			//==============================
 		
 			
@@ -97,11 +105,22 @@ extends HShelfApplication implements IHShelfWorkflowEventListener{
 	
 	 
 	
-	//executa portas de eventos...no caso, setar a porta TCP tanto do cliente quanto do servidor.
+	
 	public void runClientServerApplication(){
 		
-		((ServerEnvPortProxie)envServer.getProvidesPort()).setPort(10100);
-		((ClientEnvPortProxie)envClient.getProvidesPort()).setServerPort(10100);
+		boolean res = this.simpleInterface();
+		if(res){
+			HShelfUsesPort usesGo;
+			try {
+				usesGo = (HShelfUsesPort)this.services.getPort(HShelfWorkflow.SAFE_WORKFLOW_GO_PORT);
+				((HShelfGoWorkflowPortImpl)usesGo.getProvidesPort()).go();
+			} catch (HShelfException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			
+		}
 		
 	}
 
@@ -148,9 +167,40 @@ extends HShelfApplication implements IHShelfWorkflowEventListener{
 					e.printStackTrace();
 				}
 			}
+		}else if(event.getEventType().equals(HShelfEventType.Port_Connected)){
+			System.out.println("=>PORT "+event.getValue() + " CONNECTED!");
+			if(event.getValue().equals("env-client")){
+				((ClientEnvPortProxie)envClient.getProvidesPort()).setServerPort(this.portC);
+			}else if(event.getValue().equals("env-server")){
+				((ServerEnvPortProxie)envServer.getProvidesPort()).setPort(this.portS);
+			}
 		}
 		
 	}
+	
+	private boolean simpleInterface(){
+		  JTextField xField = new JTextField(5);
+	      JTextField yField = new JTextField(5);
+
+	      JPanel myPanel = new JPanel();
+	      myPanel.add(new JLabel("CLIENT PORT:"));
+	      myPanel.add(xField);
+	      myPanel.add(Box.createHorizontalStrut(15)); // a spacer
+	      myPanel.add(new JLabel("SERVER PORT:"));
+	      myPanel.add(yField);
+
+	      int result = JOptionPane.showConfirmDialog(null, myPanel, 
+	               "Please Enter TCP-PORT Values", JOptionPane.OK_CANCEL_OPTION);
+	      if (result == JOptionPane.OK_OPTION) {
+	    	 this.portC = Integer.parseInt(xField.getText());
+	    	 this.portS = Integer.parseInt(yField.getText());
+	         System.out.println("x value: " + xField.getText());
+	         System.out.println("y value: " + yField.getText());
+	         return true;
+	      }
+	      return false;
+	}
+	
 	
 	/**MAIN**/
 	public static void main(String[] args) {
@@ -158,6 +208,6 @@ extends HShelfApplication implements IHShelfWorkflowEventListener{
 		app.runClientServerApplication();
 	}
 
-	
-
 }
+
+ 
