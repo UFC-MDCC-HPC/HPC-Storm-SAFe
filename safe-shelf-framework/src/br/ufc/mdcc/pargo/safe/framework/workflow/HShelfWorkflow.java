@@ -12,8 +12,8 @@ import br.ufc.mdcc.pargo.safe.framework.core.info.HShelfCoreXMLReaderImpl;
 import br.ufc.mdcc.pargo.safe.framework.core.info.HShelfPortCoreInfo;
 import br.ufc.mdcc.pargo.safe.framework.core.info.IHShelfCoreXMLReader;
 import br.ufc.mdcc.pargo.safe.framework.exception.HShelfException;
-import br.ufc.mdcc.pargo.safe.framework.port.HShelfPort;
 import br.ufc.mdcc.pargo.safe.framework.port.HShelfProvidesPort;
+import br.ufc.mdcc.pargo.safe.framework.port.HShelfTaskPort;
 import br.ufc.mdcc.pargo.safe.framework.port.dflt.HShelfGoWorkflowPortImpl;
 import br.ufc.mdcc.pargo.safe.framework.port.dflt.HShelfSAFeSWLPort;
 import br.ufc.mdcc.pargo.safe.framework.port.dflt.HShelfSAFeSWLPortImpl;
@@ -29,7 +29,9 @@ import br.ufc.mdcc.pargo.safe.grammar.ISAFeSWLFlowParser;
 import br.ufc.mdcc.pargo.safe.grammar.SAFeSWLArchParser;
 import br.ufc.mdcc.pargo.safe.grammar.SAFeSWLFlowParser;
 import br.ufc.mdcc.pargo.safe.grammar.arch.ArchComponent;
+import br.ufc.mdcc.pargo.safe.grammar.arch.ArchTask;
 import br.ufc.mdcc.pargo.safe.grammar.arch.ArchUses;
+import br.ufc.mdcc.pargo.safe.grammar.arch.ArchWorkflow;
 
 public class HShelfWorkflow extends HShelfComponent {
 
@@ -103,7 +105,22 @@ public class HShelfWorkflow extends HShelfComponent {
 			HShelfConsoleLogger.write("Architecture file loaded");
 			this.sendMessageToApp("Architecture file loaded",
 					HShelfEventType.Message);
-			//this.framework.setArchParser(this.archParser);
+			
+		}
+		
+		if(this.services!=null){
+			ArchWorkflow archWorkflow = this.archParser.getArchWorkflow();
+			for(ArchTask task:archWorkflow.getTaskList()){
+				HShelfTaskPort taskPort = new HShelfTaskPort();
+				taskPort.setName(task.getName());
+				HShelfConsoleLogger.write("TASK-NAME: " + task.getName());
+				try {
+					this.services.registerTaskPort(taskPort);
+				} catch (HShelfException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
 		}
 
 	}
@@ -205,14 +222,27 @@ public class HShelfWorkflow extends HShelfComponent {
 								+ proxieClassName);
 				this.framework.addComponent(newComponent);
 				this.sendMessageToApp(compName, HShelfEventType.Component_Added);
-			
-			
+				
 				
 			}
+			
+			//workflow now need to connect its task ports
+			ArchWorkflow archWorkflow = this.archParser.getArchWorkflow();
+			for(ArchTask wfTask:archWorkflow.getTaskList()){
+				for(ArchTask cTask:archComponent.getTaskList()){
+					if(this.archParser.isThereTaskConnection(wfTask.getName(), cTask.getName())){
+						this.framework.connectPartners(wfTask.getName(), cTask.getName());
+						HShelfConsoleLogger.write("TASK CONNECTED: " + wfTask.getName() + "<->" + cTask.getName());
+					}
+						
+				}
+			}
+			
 
 		}
 	}
 	
+	//connect env ports
 	public void connect(String compId){
 		
 		ArchComponent archComponent = null;
@@ -233,8 +263,8 @@ public class HShelfWorkflow extends HShelfComponent {
 	public synchronized void compute(String method, String portName) {
 		try {
 
-			HShelfPort port = this.services.getTaskPort(portName);
-			if (port != null) {
+			HShelfTaskPort port = (HShelfTaskPort)this.services.getTaskPort(portName);
+			if (port != null && port.isConnected()) {
 
 				HShelfReflectionUtil.invokeMethod(port, method, null);
 

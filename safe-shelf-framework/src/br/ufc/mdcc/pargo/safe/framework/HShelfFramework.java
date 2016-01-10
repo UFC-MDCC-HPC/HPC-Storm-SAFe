@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.Semaphore;
 
 import br.ufc.mdcc.pargo.safe.framework.application.HShelfApplication;
 import br.ufc.mdcc.pargo.safe.framework.component.HShelfComponent;
@@ -23,6 +24,7 @@ public class HShelfFramework extends HShelfBuilderService {
 	private Map<String, HShelfUsesPort> usesPortMap;
 	private Map<String, HShelfTaskPort> taskPortMap;
 	private Map<String, HShelfComponent> componentMap;
+	private Map<String, Semaphore> semaphoreUses;
 
 	private HShelfWorkflow workflow;
 	private HShelfApplication application;
@@ -35,6 +37,7 @@ public class HShelfFramework extends HShelfBuilderService {
 		this.usesPortMap = new HashMap<String, HShelfUsesPort>();
 		this.componentMap = new HashMap<String, HShelfComponent>();
 		this.taskPortMap = new HashMap<String, HShelfTaskPort>();
+		this.semaphoreUses = new HashMap<String, Semaphore>();
 	}
 
 	public void initialize(HShelfApplication application) {
@@ -172,25 +175,67 @@ public class HShelfFramework extends HShelfBuilderService {
 			HShelfPort port = this.usesPortMap.get(usesPortName);
 			HShelfUsesPort usesPort = (HShelfUsesPort) port;
 			usesPort.setProvidesPort(providesPort);
+			
+			
+			Semaphore s = this.semaphoreUses.get(usesPortName);
+			if(s!=null) s.release();
+			
 			return;
 		}
 
-		// if(this.archParser!=null){
+		
 		HShelfPort uses = this.usesPortMap.get(usesPortName);
 		if (uses != null && uses instanceof HShelfUsesPort) {
 			HShelfUsesPort usesPort = (HShelfUsesPort) uses;
-			// String providesPortName =
-			// this.archParser.getProvidesPortNameByUsesPortName(usesPort.getName());
+	
 			HShelfProvidesPort providesPort = (HShelfProvidesPort) this.providesPortMap
 					.get(providesPortName);
 			usesPort.setProvidesPort(providesPort);
+			Semaphore s = this.semaphoreUses.get(usesPortName);
+			if(s!=null) s.release();
 		}
-		// }
+		
 
 	}
 
 	public void registerUsesPort(HShelfUsesPort port) {
 		this.usesPortMap.put(port.getName(), port);
+	}
+
+	public void waitPort(String name) {
+		HShelfUsesPort uses = this.usesPortMap.get(name);
+		if(uses==null) return; // throw exception here!
+		
+		if(uses.isConnected()) return;
+		
+		Semaphore s = this.semaphoreUses.get(name);
+		if(s==null){
+			s = new Semaphore(0);
+			this.semaphoreUses.put(name, s);
+		}
+		
+		try {
+			s.acquire();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public boolean testPort(String name) {
+		HShelfUsesPort uses = this.usesPortMap.get(name);
+		if(uses==null) return false;
+		return uses.isConnected();
+	}
+
+	@Override
+	public void connectPartners(String taskA, String taskB) {
+		HShelfTaskPort taskPortA = this.getTaskPort(taskA);
+		if(taskPortA!=null && !taskPortA.isConnected()){
+			HShelfTaskPort taskPortB = this.getTaskPort(taskB);
+			taskPortA.setPartner(taskPortB);
+			taskPortB.setPartner(taskPortA);
+		}
+		
 	}
 
 }

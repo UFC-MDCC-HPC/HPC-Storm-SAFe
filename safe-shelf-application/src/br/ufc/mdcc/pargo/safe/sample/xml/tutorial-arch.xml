@@ -32,8 +32,8 @@
   					   name="port_Event" 
   					   id_component="1"/>
   					   
-    <tns:task_port id="11" name="task-client" id_component="1"/>
-  	<tns:task_port id="13" name="task-server" id_component="1"/>
+    <tns:task_port id="11" name="wf-task-client" id_component="1"/>
+  	<tns:task_port id="13" name="wf-task-server" id_component="1"/>
   </tns:workflow>
   
   <tns:body>
@@ -127,12 +127,12 @@
   </tns:env_binding>
   
   <tns:task_binding>
-  	<tns:left_peer id="11" name="task-client" id_component="1"/>
+  	<tns:left_peer id="11" name="wf-task-client" id_component="1"/>
   	<tns:right_peer name="task-client" id="21" id_component="2"/>
   </tns:task_binding>
    
    <tns:task_binding>
-  	<tns:left_peer id="13" name="task-server" id_component="1"/>
+  	<tns:left_peer id="13" name="wf-task-server" id_component="1"/>
   	<tns:right_peer name="task-server" id="31" id_component="3"/>
   </tns:task_binding>
   

@@ -95,6 +95,10 @@ public class SAFeOrquestrationArchitecture {
 			return archApplication;
 		}
 		
+		public ArchWorkflow getArchWorflow() {
+			return archWorkflow;
+		}
+		
 		//create methods
 		public ArchApplication createArchApplication(Element appElement){
 			ArchApplication archApp = new ArchApplication();
@@ -285,6 +289,35 @@ public class SAFeOrquestrationArchitecture {
 			return null;
 		}
 		
+		public String getPartnerBByPartnerAName(String partnerAName) {
+			for(ArchTaskBinding tsk:this.attachmentTaskList){
+				ArchTask ptnA = tsk.getTaskA();
+				if(ptnA.getName().equals(partnerAName))
+					return tsk.getTaskB().getName();
+			}
+			return null;
+		}
+		
+		public boolean isThereEnvironmentConnection(String uses,
+				String provides) {
+			for(ArchEnvBinding env:this.attachmentEnvList){
+				if(env.getUses().getName().equals(uses) &&
+				   env.getProvides().getName().equals(provides))
+					return true;
+			}
+			return false;
+		}
+
+		public boolean isThereTaskConnection(String partnerA, String partnerB) {
+			for(ArchTaskBinding task:this.attachmentTaskList){
+				if(task.getTaskA().getName().equals(partnerA) &&
+				   task.getTaskB().getName().equals(partnerB))
+					return true;
+					
+			}
+			return false;
+		}
+		
 		public String getApplicationName() {
 			return applicationName;
 		}
@@ -293,6 +326,7 @@ public class SAFeOrquestrationArchitecture {
 			this.applicationName = applicationName;
 		}
 
+		
 		
 		
 		@Override
@@ -313,6 +347,12 @@ public class SAFeOrquestrationArchitecture {
 					res+="\n"+att.toString();
 				return res;
 		}
+
+		
+
+		
+
+		
 
 		
 }

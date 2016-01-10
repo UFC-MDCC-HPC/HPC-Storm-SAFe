@@ -296,4 +296,24 @@ public class SAFeSWLArchParser implements ISAFeSWLArcherParser{
 	public ArchApplication getArchApplication(){
 		return this.architectureMain.getArchApplication();
 	}
+	
+	public ArchWorkflow getArchWorkflow(){
+		return this.architectureMain.getArchWorflow();
+	}
+
+	@Override
+	public String getPartnerBByPartnerAName(String partnerAName) {
+		return this.architectureMain.getPartnerBByPartnerAName(partnerAName);
+	}
+
+	@Override
+	public boolean isThereEnvironmentConnection(String uses, String provides) {
+		return this.architectureMain.isThereEnvironmentConnection(uses,provides);
+	}
+
+	@Override
+	public boolean isThereTaskConnection(String partnerA, String partnerB) {
+		 
+		return this.architectureMain.isThereTaskConnection(partnerA,partnerB);
+	}
 }

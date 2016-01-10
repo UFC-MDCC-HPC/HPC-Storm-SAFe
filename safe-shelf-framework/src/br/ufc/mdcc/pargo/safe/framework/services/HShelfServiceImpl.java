@@ -97,14 +97,13 @@ public class HShelfServiceImpl implements IHShelfService{
 
 	@Override
 	public void waitPort(String name) {
-		// TODO Auto-generated method stub
+		this.framework.waitPort(name);
 		
 	}
 
 	@Override
-	public void testPort(String name) {
-		// TODO Auto-generated method stub
-		
+	public boolean testPort(String name) {
+		return this.framework.testPort(name);
 	}
 
 	

@@ -16,10 +16,10 @@ public interface IHShelfService {
 	public void registerUsesPort(String name, String type) throws HShelfException;
 	public void registerTaskPort(HShelfTaskPort port) throws HShelfException;
 	
-	public HShelfPort getPort(String name) throws HShelfException; //that's strange...aqui já conecta
+	public HShelfPort getPort(String name) throws HShelfException; 
 	public HShelfPort getTaskPort(String name) throws HShelfException;
 	
 	public void waitPort(String name);
-	public void testPort(String name);
+	public boolean testPort(String name);
 	
 }
