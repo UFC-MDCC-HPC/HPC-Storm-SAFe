@@ -1,23 +1,87 @@
 package br.ufc.mdcc.pargo.safe.sample.application.proxies;
 
+import br.ufc.mdcc.pargo.safe.framework.exception.HShelfException;
+import br.ufc.mdcc.pargo.safe.framework.port.HShelfUsesPort;
 import br.ufc.mdcc.pargo.safe.framework.services.IHShelfService;
-import br.ufc.mdcc.pargo.safe.sample.application.ports.env.DirPortUses;
-import br.ufc.mdcc.pargo.safe.sample.application.ports.env.HdrPortUses;
-import br.ufc.mdcc.pargo.safe.sample.application.ports.env.TblPortUses;
+import br.ufc.mdcc.pargo.safe.sample.application.ports.MontageShelfProvidesPort;
+import br.ufc.mdcc.pargo.safe.sample.application.ports.MontageTypes;
 import br.ufc.mdcc.pargo.safe.sample.application.ports.tsk.GoPortTask;
 
-public class MDiffExec extends MontageShelfComputationComponent{
+public class MDiffExec extends MontageShelfComputationComponent {
 
-	private TblPortUses tblPortUses;
-	private DirPortUses dirPortUsesIn;
-	private DirPortUses dirPortUsesOut;
-	private HdrPortUses hdrPortUses;
+	private HShelfUsesPort tblPortUses;
+	private HShelfUsesPort dirPortUsesIn;
+	private HShelfUsesPort dirPortUsesOut;
+	private HShelfUsesPort hdrPortUses;
 	private GoPortTask goPortTask;
-	
+
 	@Override
 	public void setServices(IHShelfService services) {
-		// TODO Auto-generated method stub
-		
+		this.services = services;
+		this.goPortTask = new GoPortTask(this);
+
+		try {
+			this.services.registerTaskPort(goPortTask);
+			this.services.registerUsesPort("mdiffexec-tbl-port-uses",
+					MontageTypes.TBL_TYPE);
+			this.services.registerUsesPort("mdiffexec-dir-port-uses-in",
+					MontageTypes.DIR_TYPE);
+			this.services.registerUsesPort("mdiffexec-dir-port-uses-out",
+					MontageTypes.DIR_TYPE);
+			this.services.registerUsesPort("mdiffexec-hdr-port-uses",
+					MontageTypes.HDR_TYPE);
+		} catch (HShelfException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 	}
 
+	@Override
+	public void go() {
+		
+		String tblValue = null;
+		String dirInValue = null;
+		String dirOutValue = null;
+		String hdrValue = null;
+
+		try {
+			this.tblPortUses = (HShelfUsesPort) this.services
+					.getPort("mdiffexec-tbl-port-uses");
+			this.dirPortUsesIn = (HShelfUsesPort) this.services
+					.getPort("mdiffexec-dir-port-uses-in");
+			this.dirPortUsesOut = (HShelfUsesPort) this.services
+					.getPort("mdiffexec-dir-port-uses-out");
+			this.hdrPortUses = (HShelfUsesPort) this.services
+					.getPort("mdiffexec-hdr-port-uses");
+
+			dirInValue = ((MontageShelfProvidesPort) this.dirPortUsesIn
+					.getProvidesPort()).getValue();
+			dirOutValue = ((MontageShelfProvidesPort) this.dirPortUsesOut
+					.getProvidesPort()).getValue();
+			tblValue = ((MontageShelfProvidesPort) this.tblPortUses
+					.getProvidesPort()).getValue();
+			hdrValue = ((MontageShelfProvidesPort) this.hdrPortUses
+					.getProvidesPort()).getValue();
+
+			// comunicar com o web service uses aqui, passando os 4 parâmetros a
+			// ele, conseguido da local
+			// 4 x WS_USES.SET_VALUE..
+
+		} catch (HShelfException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		// SIMULAÇAO DA CHAMADA REMOTA DO WEB SERVICE PELA PORTA GO
+		// WS_GO.GO
+		// begin some computation...
+		// mDiffExec -p projdir diffs.tbl template.hdr diffdir
+		String cmd = "mDiffExec -p " + dirInValue + " " + tblValue + " "
+				+ hdrValue + " " + dirOutValue;
+		System.out.println(cmd);
+		// end some computation!
+		// FIM DA SIMULAÇÃO
+
+	}
 }
