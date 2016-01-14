@@ -7,6 +7,7 @@
 	<tns:sequence_oper>
 		<tns:operation>
 			<tns:parallel_oper>
+				
 				<!-- client -->
 				<tns:operation>
 					<tns:sequence_oper>
@@ -19,12 +20,9 @@
 						<tns:operation>
 							<tns:invoke_oper action="instantiate" id="2" />
 						</tns:operation>
-						<!-- connect client -->
-						<tns:operation>
-							<tns:invoke_oper action="compute" id="211" />
-						</tns:operation>
 					</tns:sequence_oper>
 				</tns:operation>
+			
 				<!-- server -->
 				<tns:operation>
 					<tns:sequence_oper>
@@ -37,32 +35,56 @@
 						<tns:operation>
 							<tns:invoke_oper action="instantiate" id="3" />
 						</tns:operation>
-						<!-- connect server -->
+					</tns:sequence_oper>
+				</tns:operation>
+				
+				<!-- queue -->
+				<tns:operation>
+					<tns:sequence_oper>
 						<tns:operation>
-							<tns:invoke_oper action="compute" id="311" />
+							<tns:invoke_oper action="resolve" id="4" />
+						</tns:operation>
+						<tns:operation>
+							<tns:invoke_oper action="deploy" id="4" />
+						</tns:operation>
+						<tns:operation>
+							<tns:invoke_oper action="instantiate" id="4" />
 						</tns:operation>
 					</tns:sequence_oper>
 				</tns:operation>
+				
 			</tns:parallel_oper>
 		</tns:operation>
 		
+		<!-- connect application uses port -->
 		<tns:operation>
 			<tns:invoke_oper action="connect" id="0" />
 		</tns:operation>
+		
+		<!-- post -->
 		<tns:operation>
-			<tns:invoke_oper action="connect" id="3" />
-		</tns:operation>
-		<tns:operation>
-			<tns:invoke_oper action="connect" id="2" />
+			<tns:invoke_oper action="compute" id="321" />
 		</tns:operation>
 		
+		<!-- send -->
 		<tns:operation>
-			<tns:iterate_oper max="4">
-				<!-- post -->
-				<tns:operation>
-					<tns:invoke_oper action="compute" id="212" />
-				</tns:operation>
-			</tns:iterate_oper>
+			<tns:invoke_oper action="compute" id="322" />
 		</tns:operation>
+		
+		<!-- go -->
+		<tns:operation>
+			<tns:invoke_oper action="compute" id="511" />
+		</tns:operation>
+		
+		<!-- get -->
+		<tns:operation>
+			<tns:invoke_oper action="compute" id="411" />
+		</tns:operation>
+		
+		<!-- request -->
+		<tns:operation>
+			<tns:invoke_oper action="compute" id="412" />
+		</tns:operation>
+		
 	</tns:sequence_oper>
 </tns:workflow>

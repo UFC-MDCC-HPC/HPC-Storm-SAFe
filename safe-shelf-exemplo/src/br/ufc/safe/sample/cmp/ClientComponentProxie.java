@@ -6,7 +6,7 @@ import br.ufc.mdcc.pargo.safe.framework.services.IHShelfService;
 import br.ufc.safe.sample.prt.env.ClientAddMessageEnvPort;
 import br.ufc.safe.sample.prt.tsk.ClientTskPort;
 
-public class ClientProxie extends HShelfComponent{
+public class ClientComponentProxie extends HShelfComponent{
 
 	@Override
 	public void setServices(IHShelfService services) {

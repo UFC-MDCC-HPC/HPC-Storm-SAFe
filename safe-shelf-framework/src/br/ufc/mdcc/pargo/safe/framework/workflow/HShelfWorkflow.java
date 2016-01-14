@@ -198,12 +198,12 @@ public class HShelfWorkflow extends HShelfComponent {
 		if (compInfo != null) {
 			//String deployedID = compInfo.getDeployedID();
 			//deployedID is fake. Using compID instead
-			String compString = this.core.instantiate(compID);
-			HShelfComponentCoreInfo compInfoTemp = xmlReader.readComponent(compString, compID);
+			//String compString = this.core.instantiate(compID);
+			//HShelfComponentCoreInfo compInfoTemp = xmlReader.readComponent(compString, compID);
 			//variables in session, for proxie acess
-			for(HShelfPortCoreInfo portInfo:compInfoTemp.getPorts()){
-				HShelfSession.putValue(portInfo.getName(), portInfo.getURL());
-			}
+			//for(HShelfPortCoreInfo portInfo:compInfoTemp.getPorts()){
+				//HShelfSession.putValue(portInfo.getName(), portInfo.getURL());
+			//}
 			
 
 			ArchComponent archComponent = this.archParser

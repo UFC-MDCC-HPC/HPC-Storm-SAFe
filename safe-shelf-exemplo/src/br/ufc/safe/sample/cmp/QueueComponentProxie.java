@@ -5,7 +5,7 @@ import br.ufc.mdcc.pargo.safe.framework.exception.HShelfException;
 import br.ufc.mdcc.pargo.safe.framework.services.IHShelfService;
 import br.ufc.safe.sample.prt.tsk.QueueTskPort;
 
-public class QueueProxie extends HShelfComponent{
+public class QueueComponentProxie extends HShelfComponent{
 
 	@Override
 	public void setServices(IHShelfService services) {

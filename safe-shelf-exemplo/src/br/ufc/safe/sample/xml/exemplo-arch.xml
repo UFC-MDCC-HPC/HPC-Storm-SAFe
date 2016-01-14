@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tns:architecture xmlns:tns="http://www.example.org/SAFe_architecture_V4" xmlns:tns1="http://www.example.org/instantiator" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.example.org/SAFe_architecture_V4 SAFe_architecture_V4.xsd ">
+<tns:architecture xmlns:tns="http://www.example.org/SAFe_architecture_V4" 
+xmlns:tns1="http://www.example.org/instantiator" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:schemaLocation="http://www.example.org/SAFe_architecture_V4 SAFe_architecture_V4.xsd ">
   
   <tns:application id="0" name="app-sample-example">
   	<tns:uses_port id="14" name="client-add-msg-uses" id_component="0"/>

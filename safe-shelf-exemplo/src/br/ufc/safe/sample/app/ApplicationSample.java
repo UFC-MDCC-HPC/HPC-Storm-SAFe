@@ -5,6 +5,9 @@ import javax.xml.ws.Endpoint;
 import br.ufc.mdcc.pargo.safe.framework.application.HShelfApplication;
 import br.ufc.mdcc.pargo.safe.framework.exception.HShelfException;
 import br.ufc.mdcc.pargo.safe.framework.port.HShelfUsesPort;
+import br.ufc.mdcc.pargo.safe.framework.port.IHShelfPortTypes;
+import br.ufc.mdcc.pargo.safe.framework.port.dflt.HShelfGoWorkflowPortImpl;
+import br.ufc.mdcc.pargo.safe.framework.port.dflt.HShelfSAFeSWLPort;
 import br.ufc.mdcc.pargo.safe.framework.services.IHShelfService;
 import br.ufc.safe.sample.app.prt.AppRequestMessageEnvPort;
 import br.ufc.safe.sample.app.prt.AppReturnMessageEnvPort;
@@ -34,7 +37,10 @@ public class ApplicationSample extends HShelfApplication{
 		try {
 			this.services.setProvidesPort(appRequestMessageEnvPort);
 			this.services.setProvidesPort(appReturnMessageEnvPort);
-			this.services.registerUsesPort("client-add-msg-uses", "NONE");
+			this.services.registerUsesPort("client-add-msg-uses", IHShelfPortTypes.NO_TYPE);
+			this.services.registerUsesPort("port_SAFeSWL",IHShelfPortTypes.DEFAULT);
+			this.services.registerUsesPort("port_Go",IHShelfPortTypes.DEFAULT);
+			
 		} catch (HShelfException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -57,6 +63,22 @@ public class ApplicationSample extends HShelfApplication{
 		System.out.println("RECEIVED MESSAGE FROM SERVER: "+message);
 	}
 	
+	public void runApplication() throws HShelfException{
+		if(this.services!=null){
+			HShelfSAFeSWLPort safeSWLPort = (HShelfSAFeSWLPort)((HShelfUsesPort)this.services.getPort("port_SAFeSWL")).getProvidesPort();
+			String archFile = "/home/jefferson/Git/HPC-Storm-SAFe/safe-shelf-exemplo/src/br/ufc/safe/sample/xml/exemplo-arch.xml";
+			String flowFile = "/home/jefferson/Git/HPC-Storm-SAFe/safe-shelf-exemplo/src/br/ufc/safe/sample/xml/exemplo-flow.xml";
+			safeSWLPort.setSAFeSWLArchFilePath(archFile);
+			safeSWLPort.setSAFeSWLFlowFilePath(flowFile);
+			
+			HShelfGoWorkflowPortImpl goWorkflowPort = (HShelfGoWorkflowPortImpl)((HShelfUsesPort)this.services.getPort("port_Go")).getProvidesPort();
+			goWorkflowPort.loadArchitectureFile();
+			goWorkflowPort.loadWorkflowFile();
+			
+			goWorkflowPort.go();
+		}
+	}
+	
 	private AppRequestMessageEnvPort createAppRequestMessageEnvPort(){
 		AppRequestMessageEnvPort appRequestMessageEnvPort = new AppRequestMessageEnvPort();
 		IAppRequestMessageEnvPortService srvc = new AppRequestMessageEnvPortService(appRequestMessageEnvPort);
@@ -76,6 +98,12 @@ public class ApplicationSample extends HShelfApplication{
 	}
 	
 	public static void main(String[] args) {
-		new ApplicationSample("app-sample-example");
+		ApplicationSample as = new ApplicationSample("app-sample-example");
+		try {
+			as.runApplication();
+		} catch (HShelfException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }
