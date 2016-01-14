@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tns:architecture xmlns:tns="http://www.example.org/SAFe_architecture_V4" xmlns:tns1="http://www.example.org/instantiator" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.example.org/SAFe_architecture_V4 SAFe_architecture_V4.xsd ">
+  
+  <tns:application id="0" name="app-sample-example">
+  	<tns:uses_port id="14" name="client-add-msg-uses" id_component="0"/>
+  	<tns:uses_port id="15" name="port_SAFeSWL" id_component="0"/>
+  	<tns:uses_port id="16" name="port_Go" id_component="0"/>
+  </tns:application>
+  
+  <tns:workflow id="1" name="workflow-tutorial">
+    <tns:provides_port id="21" name="port_SAFeSWL" id_component="1"/>
+    <tns:provides_port id="22" name="port_Go" id_component="1"/>
+    <tns:task_port id="23" name="wf-task-client" id_component="1"/>
+  	<tns:task_port id="24" name="wf-task-server" id_component="1"/>
+  	<tns:task_port id="25" name="wf-task-queue" id_component="1"/>
+  </tns:workflow>
+  
+  <tns:body>
+    <tns:computation name="client" id="2">
+      <tns:provides_port id="31" name="client-add-msg-provides" id_component="2"/>
+      <tns:task_port name="client-tsk" 
+      					 id="32"
+      					 id_component="2">
+      					 <tns:action id="321" name="post"/>
+      					 <tns:action id="322" name="send"/>
+      </tns:task_port>
+    </tns:computation>
+    
+    <tns:computation name="server" id="3">
+       <tns:task_port 	name="server-tsk" 
+      					 id="41"
+      					 id_component="3">
+      					 <tns:action id="411" name="get"/>
+      					 <tns:action id="412" name="request"/>
+      </tns:task_port>
+    </tns:computation>
+    
+    <tns:computation name="queue" id="4">
+       <tns:task_port 	name="queue-tsk" 
+      					 id="51"
+      					 id_component="4">
+      					 <tns:action id="511" name="go"/>
+      </tns:task_port>
+    </tns:computation>
+  </tns:body>
+  
+   
+  <tns:env_binding>
+  	<tns:uses_port id="14" name="client-add-msg-uses" id_component="0"/> 
+  	<tns:provides_port id="31" name="client-add-msg-provides" id_component="2"/>
+  </tns:env_binding>
+  
+  <tns:env_binding>
+  	<tns:uses_port id="15" name="port_SAFeSWL" id_component="0"/> 
+  	<tns:provides_port id="21" name="port_SAFeSWL" id_component="1"/>
+  </tns:env_binding>
+  
+  <tns:env_binding>
+  	<tns:uses_port id="16" name="port_Go" id_component="0"/> 
+  	<tns:provides_port id="22" name="port_Go" id_component="1"/>
+  </tns:env_binding>
+  
+ 
+  <tns:task_binding>
+  	<tns:left_peer id="23" name="wf-task-client" id_component="1"/>
+  	<tns:right_peer name="client-tsk" id="32" id_component="2"/>
+  </tns:task_binding>
+   
+  <tns:task_binding>
+  	<tns:left_peer id="24" name="wf-task-server" id_component="1"/>
+  	<tns:right_peer name="server-tsk" id="41" id_component="3"/>
+  </tns:task_binding>
+  
+  <tns:task_binding>
+  	<tns:left_peer id="25" name="wf-task-queue" id_component="1"/>
+  	<tns:right_peer name="queue-tsk" id="51" id_component="4"/>
+  </tns:task_binding>
+  
+</tns:architecture>

@@ -1,14 +1,11 @@
 package br.ufc.mdcc.pargo.safe.sample.application.proxies;
 
 import br.ufc.mdcc.pargo.safe.framework.exception.HShelfException;
-import br.ufc.mdcc.pargo.safe.framework.port.HShelfTaskPort;
 import br.ufc.mdcc.pargo.safe.framework.port.HShelfUsesPort;
 import br.ufc.mdcc.pargo.safe.framework.services.IHShelfService;
 import br.ufc.mdcc.pargo.safe.sample.application.ports.MontageShelfProvidesPort;
 import br.ufc.mdcc.pargo.safe.sample.application.ports.MontageTypes;
-import br.ufc.mdcc.pargo.safe.sample.application.ports.env.DirPortUses;
 import br.ufc.mdcc.pargo.safe.sample.application.ports.env.TblPortProvides;
-import br.ufc.mdcc.pargo.safe.sample.application.ports.env.TblPortUses;
 import br.ufc.mdcc.pargo.safe.sample.application.ports.tsk.GoPortTask;
 
 public class MFitExec extends MontageShelfComputationComponent {

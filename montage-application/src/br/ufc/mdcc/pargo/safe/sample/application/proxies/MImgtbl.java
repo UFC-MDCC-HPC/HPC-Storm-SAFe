@@ -32,7 +32,6 @@ public class MImgtbl extends MontageShelfComputationComponent{
 			this.services.registerUsesPort("mimgtbl-raw-dir-port-uses", MontageTypes.DIR_TYPE);
 			this.services.registerUsesPort("mimgtbl-proj-dir-port-uses", MontageTypes.DIR_TYPE);
 		} catch (HShelfException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 	
@@ -73,7 +72,7 @@ public class MImgtbl extends MontageShelfComputationComponent{
 		//SIMULAÇAO DA CHAMADA REMOTA DO WEB SERVICE PELA PORTA GO
 		//WS_GO.GO
 		//begin some computation... 
-		String tblValue = "imgbtl-tbl";
+		String tblValue = "imgbtl.tbl";
 		String cmd = "mImgtbl "+dirPortValue+" "+tblValue;
 		System.out.println(cmd);
 		//end some computation!

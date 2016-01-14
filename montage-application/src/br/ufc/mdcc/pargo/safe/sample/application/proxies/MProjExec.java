@@ -11,6 +11,7 @@ import br.ufc.mdcc.pargo.safe.sample.application.ports.tsk.GoPortTask;
 public class MProjExec extends MontageShelfComputationComponent{
 
 	private TblPortProvides tblPortProvides;
+	
 	private HShelfUsesPort tblPortUses;
 	private HShelfUsesPort dirPortUsesIn;
 	private HShelfUsesPort dirPortUsesOut;
@@ -77,7 +78,7 @@ public class MProjExec extends MontageShelfComputationComponent{
 		//SIMULAÇAO DA CHAMADA REMOTA DO WEB SERVICE PELA PORTA GO
 		//WS_GO.GO
 		//begin some computation...
-		String tblValueOut = " mprojexec-tbl";
+		String tblValueOut = " mprojexec.tbl";
 		String cmd = "mProjExec -p " + dirInValue + " " + tblValue + " " + hdrValue + " " + dirOutValue + " " + tblValueOut;
 		System.out.println(cmd);
 		//end some computation!

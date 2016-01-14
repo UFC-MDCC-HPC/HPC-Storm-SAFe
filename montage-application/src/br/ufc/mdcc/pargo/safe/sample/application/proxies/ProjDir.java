@@ -14,6 +14,9 @@ public class ProjDir extends HShelfComponent{
 		this.services = services;
 		this.dirPortProvides = new DirPortProvides();
 		this.dirPortProvides.setName("proj-dir-port");
+		//GET VALUE FROM WS.GET
+		String projValue = "projDir";
+		this.dirPortProvides.setValue(projValue);
 		try {
 			this.services.setProvidesPort(this.dirPortProvides);
 		} catch (HShelfException e) {

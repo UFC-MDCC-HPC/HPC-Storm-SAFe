@@ -39,7 +39,7 @@ public class MAdd extends MontageShelfComputationComponent {
 		}
 
 		this.fitsPortProvides = new FitsPortProvides();
-		this.fitsPortProvides.setName("madd-fits-port-uses");
+		this.fitsPortProvides.setName("madd-fits-port-provides");
 
 		try {
 			this.services.setProvidesPort(fitsPortProvides);
@@ -85,7 +85,7 @@ public class MAdd extends MontageShelfComputationComponent {
 		// begin some computation...
 		// mAdd -p corrdir images.tbl template.hdr final/m101_mosaic.fits
 		String fitsOut = "m101_mosaic.fits";
-		String cmd = "mAdd " + dirValue + " " + tblValueIn + " "
+		String cmd = "mAdd -p " + dirValue + " " + tblValueIn + " "
 				+ hdrValue + " " + fitsOut;
 		System.out.println(cmd);
 		// end some computation!

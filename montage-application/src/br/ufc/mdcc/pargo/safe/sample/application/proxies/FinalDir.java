@@ -14,6 +14,9 @@ public class FinalDir extends HShelfComponent{
 		this.services = services;
 		this.dirPortProvides = new DirPortProvides();
 		this.dirPortProvides.setName("final-dir-port");
+		//GET VALUE FROM WS.GET
+		String finalValue = "finalDir";
+		this.dirPortProvides.setValue(finalValue);
 		try {
 			this.services.setProvidesPort(this.dirPortProvides);
 		} catch (HShelfException e) {

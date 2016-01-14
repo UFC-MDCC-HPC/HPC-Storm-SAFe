@@ -14,6 +14,9 @@ public class CorrDir extends HShelfComponent{
 		this.services = services;
 		this.dirPortProvides = new DirPortProvides();
 		this.dirPortProvides.setName("corr-dir-port");
+		//GET VALUE FROM WS.GET
+		String corrValue = "corrDir";
+		this.dirPortProvides.setValue(corrValue);
 		try {
 			this.services.setProvidesPort(this.dirPortProvides);
 		} catch (HShelfException e) {

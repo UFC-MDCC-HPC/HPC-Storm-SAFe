@@ -15,6 +15,9 @@ public class RawDir extends HShelfComponent{
 		this.services = services;
 		this.dirPortProvides = new DirPortProvides();
 		this.dirPortProvides.setName("raw-dir-port");
+		//GET VALUE FROM WS.GET
+		String rawValue = "rawDir";
+		this.dirPortProvides.setValue(rawValue);
 		try {
 			this.services.setProvidesPort(this.dirPortProvides);
 		} catch (HShelfException e) {

@@ -14,6 +14,9 @@ public class DiffDir extends HShelfComponent{
 		this.services = services;
 		this.dirPortProvides = new DirPortProvides();
 		this.dirPortProvides.setName("diff-dir-port");
+		//GET VALUE FROM WS.GET
+		String diffValue = "diffDir";
+		this.dirPortProvides.setValue(diffValue);
 		try {
 			this.services.setProvidesPort(this.dirPortProvides);
 		} catch (HShelfException e) {

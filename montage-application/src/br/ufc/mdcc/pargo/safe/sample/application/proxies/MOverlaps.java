@@ -64,7 +64,7 @@ public class MOverlaps extends MontageShelfComputationComponent {
 		// SIMULAÇAO DA CHAMADA REMOTA DO WEB SERVICE PELA PORTA GO
 		// WS_GO.GO
 		// begin some computation...
-		String tblValueOut = "diffs-tbl";
+		String tblValueOut = "diffs.tbl";
 		String cmd = "mOverlaps " + tblValueIn + " " + tblValueOut;
 		System.out.println(cmd);
 		// end some computation!

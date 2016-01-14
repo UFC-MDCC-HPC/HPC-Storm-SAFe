@@ -5,7 +5,6 @@ import br.ufc.mdcc.pargo.safe.framework.port.HShelfUsesPort;
 import br.ufc.mdcc.pargo.safe.framework.services.IHShelfService;
 import br.ufc.mdcc.pargo.safe.sample.application.ports.MontageShelfProvidesPort;
 import br.ufc.mdcc.pargo.safe.sample.application.ports.MontageTypes;
-import br.ufc.mdcc.pargo.safe.sample.application.ports.env.FitsPortUses;
 import br.ufc.mdcc.pargo.safe.sample.application.ports.env.JpgPortProvides;
 import br.ufc.mdcc.pargo.safe.sample.application.ports.tsk.GoPortTask;
 
@@ -24,7 +23,7 @@ public class MJpeg extends MontageShelfComputationComponent {
 
 		try {
 			this.services.registerTaskPort(goPortTask);
-			this.services.registerUsesPort("mjpeg-fist-port-uses",
+			this.services.registerUsesPort("mjpeg-fits-port-uses",
 					MontageTypes.FITS_TYPE);
 		} catch (HShelfException e) {
 			// TODO Auto-generated catch block
@@ -48,7 +47,7 @@ public class MJpeg extends MontageShelfComputationComponent {
 
 		try {
 			this.fitsPortUses = (HShelfUsesPort) this.services
-					.getPort("mjpeg-fist-port-uses");
+					.getPort("mjpeg-fits-port-uses");
 			fitsValue = ((MontageShelfProvidesPort) this.fitsPortUses
 					.getProvidesPort()).getValue();
 		} catch (HShelfException e) {
