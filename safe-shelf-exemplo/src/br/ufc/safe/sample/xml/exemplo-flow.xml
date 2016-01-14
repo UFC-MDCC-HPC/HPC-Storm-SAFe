@@ -61,30 +61,42 @@
 			<tns:invoke_oper action="connect" id="0" />
 		</tns:operation>
 		
-		<!-- post -->
-		<tns:operation>
-			<tns:invoke_oper action="compute" id="321" />
-		</tns:operation>
-		
-		<!-- send -->
-		<tns:operation>
-			<tns:invoke_oper action="compute" id="322" />
-		</tns:operation>
-		
 		<!-- go -->
 		<tns:operation>
 			<tns:invoke_oper action="compute" id="511" />
 		</tns:operation>
 		
-		<!-- get -->
 		<tns:operation>
-			<tns:invoke_oper action="compute" id="411" />
+			<tns:iterate_oper max="4">
+				<tns:operation>
+					<tns:sequence_oper>
+					
+						<!-- post -->
+						<tns:operation>
+							<tns:invoke_oper action="compute" id="321" />
+						</tns:operation>
+						
+						<!-- send -->
+						<tns:operation>
+							<tns:invoke_oper action="compute" id="322" />
+						</tns:operation>
+						
+						<!-- get -->
+						<tns:operation>
+							<tns:invoke_oper action="compute" id="411" />
+						</tns:operation>
+						
+						<!-- request -->
+						<tns:operation>
+							<tns:invoke_oper action="compute" id="412" />
+						</tns:operation>
+					
+					</tns:sequence_oper>
+				</tns:operation>
+			</tns:iterate_oper>
 		</tns:operation>
 		
-		<!-- request -->
-		<tns:operation>
-			<tns:invoke_oper action="compute" id="412" />
-		</tns:operation>
+		
 		
 	</tns:sequence_oper>
 </tns:workflow>

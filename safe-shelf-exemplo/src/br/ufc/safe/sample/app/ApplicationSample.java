@@ -1,5 +1,6 @@
 package br.ufc.safe.sample.app;
 
+import javax.swing.JOptionPane;
 import javax.xml.ws.Endpoint;
 
 import br.ufc.mdcc.pargo.safe.framework.application.HShelfApplication;
@@ -18,6 +19,8 @@ import br.ufc.safe.sample.app.prt.service.IAppReturnMessageEnvPortService;
 import br.ufc.safe.sample.prt.env.ClientAddMessageEnvPort;
 
 public class ApplicationSample extends HShelfApplication{
+
+	private String message;
 
 	public ApplicationSample(String name) {
 		super(name);
@@ -51,7 +54,7 @@ public class ApplicationSample extends HShelfApplication{
 		try {
 			HShelfUsesPort uses = (HShelfUsesPort)this.services.getPort("client-add-msg-uses");
 			if(uses!=null){
-				((ClientAddMessageEnvPort)uses.getProvidesPort()).addMessage("APPLICATION MESSAGE");
+				((ClientAddMessageEnvPort)uses.getProvidesPort()).addMessage(this.message);
 			}
 		} catch (HShelfException e) {
 			// TODO Auto-generated catch block
@@ -64,6 +67,9 @@ public class ApplicationSample extends HShelfApplication{
 	}
 	
 	public void runApplication() throws HShelfException{
+		
+		this.message = JOptionPane.showInputDialog("Enter message");
+		
 		if(this.services!=null){
 			HShelfSAFeSWLPort safeSWLPort = (HShelfSAFeSWLPort)((HShelfUsesPort)this.services.getPort("port_SAFeSWL")).getProvidesPort();
 			String archFile = "/home/jefferson/Git/HPC-Storm-SAFe/safe-shelf-exemplo/src/br/ufc/safe/sample/xml/exemplo-arch.xml";
