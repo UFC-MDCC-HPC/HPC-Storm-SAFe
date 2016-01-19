@@ -77,6 +77,15 @@ xsi:schemaLocation="http://www.example.org/SAFe_architecture_V4 SAFe_architectur
       		<tns:action id="631" name="go"/>	
       </tns:task_port>
     </tns:computation>
+    
+    <tns:computation name="mJpeg" id="10">
+      <tns:uses_port id="101" name="mjpeg-fits-port-uses" id_component="10"/>
+      <tns:provides_port id="102" name="mjpeg-jpg-port-provides" id_component="10"/>
+      <tns:task_port name="mjpeg-go" id="103" id_component="10">
+      		<tns:action id="1031" name="go"/>	
+      </tns:task_port>
+    </tns:computation>
+    
  </tns:body>
  
  <!-- Application bindings -->
