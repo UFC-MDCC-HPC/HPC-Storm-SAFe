@@ -98,6 +98,7 @@ public class HShelfWorkflow extends HShelfComponent {
 	 * loads architecture file.
 	 */
 	public void loadArchitectureFile() {
+		this.archParser = null;
 		String filePath = ((HShelfSAFeSWLPort) safeSWLPort)
 				.getSAFeSWLArchFilePath();
 		if (filePath != null) {
@@ -129,6 +130,7 @@ public class HShelfWorkflow extends HShelfComponent {
 	 * loads workflow file
 	 */
 	public void loadWorkflowFile() {
+		this.flowParser = null;
 		String filePath = ((HShelfSAFeSWLPort) safeSWLPort)
 				.getSAFeSWLFlowFilePath();
 		if (filePath != null) {

@@ -237,5 +237,16 @@ public class HShelfFramework extends HShelfBuilderService {
 		}
 		
 	}
+	
+	public void clear(){
+		
+		this.providesPortMap.clear();
+		this.usesPortMap.clear();
+		this.taskPortMap.clear();
+		this.componentMap.clear();
+		this.componentMap.clear();
+		 
+		 
+	}
 
 }

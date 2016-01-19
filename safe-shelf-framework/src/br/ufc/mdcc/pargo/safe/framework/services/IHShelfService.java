@@ -22,4 +22,6 @@ public interface IHShelfService {
 	public void waitPort(String name);
 	public boolean testPort(String name);
 	
+	public void clear();
+	
 }

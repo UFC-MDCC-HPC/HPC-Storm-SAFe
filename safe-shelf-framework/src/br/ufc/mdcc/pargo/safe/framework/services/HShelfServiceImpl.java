@@ -106,6 +106,10 @@ public class HShelfServiceImpl implements IHShelfService{
 		return this.framework.testPort(name);
 	}
 
-	
+	public void clear(){
+		this.providesPortMap.clear();
+		this.usesPortMap.clear();
+		this.taskPortMap.clear();
+	}
 	
 }

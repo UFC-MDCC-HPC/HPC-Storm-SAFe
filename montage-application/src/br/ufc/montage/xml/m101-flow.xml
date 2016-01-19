@@ -5,64 +5,285 @@
 
 
 	<tns:sequence_oper>
+
+		<!-- rawDir -->
 		<tns:operation>
-			<tns:parallel_oper>
-				<!-- client -->
+			<tns:sequence_oper>
 				<tns:operation>
-					<tns:sequence_oper>
-						<tns:operation>
-							<tns:invoke_oper action="resolve" id="2" />
-						</tns:operation>
-						<tns:operation>
-							<tns:invoke_oper action="deploy" id="2" />
-						</tns:operation>
-						<tns:operation>
-							<tns:invoke_oper action="instantiate" id="2" />
-						</tns:operation>
-						<!-- connect client -->
-						<tns:operation>
-							<tns:invoke_oper action="compute" id="211" />
-						</tns:operation>
-					</tns:sequence_oper>
+					<tns:invoke_oper action="resolve" id="200" />
 				</tns:operation>
-				<!-- server -->
 				<tns:operation>
-					<tns:sequence_oper>
-						<tns:operation>
-							<tns:invoke_oper action="resolve" id="3" />
-						</tns:operation>
-						<tns:operation>
-							<tns:invoke_oper action="deploy" id="3" />
-						</tns:operation>
-						<tns:operation>
-							<tns:invoke_oper action="instantiate" id="3" />
-						</tns:operation>
-						<!-- connect server -->
-						<tns:operation>
-							<tns:invoke_oper action="compute" id="311" />
-						</tns:operation>
-					</tns:sequence_oper>
+					<tns:invoke_oper action="deploy" id="200" />
 				</tns:operation>
-			</tns:parallel_oper>
+				<tns:operation>
+					<tns:invoke_oper action="instantiate" id="200" />
+				</tns:operation>
+			</tns:sequence_oper>
 		</tns:operation>
 		
+		<!-- projDir -->
+		<tns:operation>
+			<tns:sequence_oper>
+				<tns:operation>
+					<tns:invoke_oper action="resolve" id="201" />
+				</tns:operation>
+				<tns:operation>
+					<tns:invoke_oper action="deploy" id="201" />
+				</tns:operation>
+				<tns:operation>
+					<tns:invoke_oper action="instantiate" id="201" />
+				</tns:operation>
+			</tns:sequence_oper>
+		</tns:operation>
+		
+		<!-- diffDir -->
+		<tns:operation>
+			<tns:sequence_oper>
+				<tns:operation>
+					<tns:invoke_oper action="resolve" id="202" />
+				</tns:operation>
+				<tns:operation>
+					<tns:invoke_oper action="deploy" id="202" />
+				</tns:operation>
+				<tns:operation>
+					<tns:invoke_oper action="instantiate" id="202" />
+				</tns:operation>
+			</tns:sequence_oper>
+		</tns:operation>
+		
+		<!-- corrDir -->
+		<tns:operation>
+			<tns:sequence_oper>
+				<tns:operation>
+					<tns:invoke_oper action="resolve" id="203" />
+				</tns:operation>
+				<tns:operation>
+					<tns:invoke_oper action="deploy" id="203" />
+				</tns:operation>
+				<tns:operation>
+					<tns:invoke_oper action="instantiate" id="203" />
+				</tns:operation>
+			</tns:sequence_oper>
+		</tns:operation>
+		
+		<!-- mImgtbl -->
+		<tns:operation>
+			<tns:sequence_oper>
+				<tns:operation>
+					<tns:invoke_oper action="resolve" id="2" />
+				</tns:operation>
+				<tns:operation>
+					<tns:invoke_oper action="deploy" id="2" />
+				</tns:operation>
+				<tns:operation>
+					<tns:invoke_oper action="instantiate" id="2" />
+				</tns:operation>
+			</tns:sequence_oper>
+		</tns:operation>
+		<!-- mProjExec -->
+		<tns:operation>
+			<tns:sequence_oper>
+				<tns:operation>
+					<tns:invoke_oper action="resolve" id="11" />
+				</tns:operation>
+				<tns:operation>
+					<tns:invoke_oper action="deploy" id="11" />
+				</tns:operation>
+				<tns:operation>
+					<tns:invoke_oper action="instantiate" id="11" />
+				</tns:operation>
+			</tns:sequence_oper>
+		</tns:operation>
+		<!-- mAdd -->
+		<tns:operation>
+			<tns:sequence_oper>
+				<tns:operation>
+					<tns:invoke_oper action="resolve" id="4" />
+				</tns:operation>
+				<tns:operation>
+					<tns:invoke_oper action="deploy" id="4" />
+				</tns:operation>
+				<tns:operation>
+					<tns:invoke_oper action="instantiate" id="4" />
+				</tns:operation>
+			</tns:sequence_oper>
+		</tns:operation>
+		<!-- mBgModel -->
+		<tns:operation>
+			<tns:sequence_oper>
+				<tns:operation>
+					<tns:invoke_oper action="resolve" id="5" />
+				</tns:operation>
+				<tns:operation>
+					<tns:invoke_oper action="deploy" id="5" />
+				</tns:operation>
+				<tns:operation>
+					<tns:invoke_oper action="instantiate" id="5" />
+				</tns:operation>
+			</tns:sequence_oper>
+		</tns:operation>
+		<!-- mBgExec -->
+		<tns:operation>
+			<tns:sequence_oper>
+				<tns:operation>
+					<tns:invoke_oper action="resolve" id="6" />
+				</tns:operation>
+				<tns:operation>
+					<tns:invoke_oper action="deploy" id="6" />
+				</tns:operation>
+				<tns:operation>
+					<tns:invoke_oper action="instantiate" id="6" />
+				</tns:operation>
+			</tns:sequence_oper>
+		</tns:operation>
+		<!-- mDiffExec -->
+		<tns:operation>
+			<tns:sequence_oper>
+				<tns:operation>
+					<tns:invoke_oper action="resolve" id="7" />
+				</tns:operation>
+				<tns:operation>
+					<tns:invoke_oper action="deploy" id="7" />
+				</tns:operation>
+				<tns:operation>
+					<tns:invoke_oper action="instantiate" id="7" />
+				</tns:operation>
+			</tns:sequence_oper>
+		</tns:operation>
+		<!-- mFitExec -->
+		<tns:operation>
+			<tns:sequence_oper>
+				<tns:operation>
+					<tns:invoke_oper action="resolve" id="8" />
+				</tns:operation>
+				<tns:operation>
+					<tns:invoke_oper action="deploy" id="8" />
+				</tns:operation>
+				<tns:operation>
+					<tns:invoke_oper action="instantiate" id="8" />
+				</tns:operation>
+			</tns:sequence_oper>
+		</tns:operation>
+		<!-- mOverlaps -->
+		<tns:operation>
+			<tns:sequence_oper>
+				<tns:operation>
+					<tns:invoke_oper action="resolve" id="9" />
+				</tns:operation>
+				<tns:operation>
+					<tns:invoke_oper action="deploy" id="9" />
+				</tns:operation>
+				<tns:operation>
+					<tns:invoke_oper action="instantiate" id="9" />
+				</tns:operation>
+			</tns:sequence_oper>
+		</tns:operation>
+		<!-- mJpeg -->
+		<tns:operation>
+			<tns:sequence_oper>
+				<tns:operation>
+					<tns:invoke_oper action="resolve" id="10" />
+				</tns:operation>
+				<tns:operation>
+					<tns:invoke_oper action="deploy" id="10" />
+				</tns:operation>
+				<tns:operation>
+					<tns:invoke_oper action="instantiate" id="10" />
+				</tns:operation>
+			</tns:sequence_oper>
+		</tns:operation>
+		
+		<!-- CONNECT -->
 		<tns:operation>
 			<tns:invoke_oper action="connect" id="0" />
 		</tns:operation>
-		<tns:operation>
-			<tns:invoke_oper action="connect" id="3" />
-		</tns:operation>
+		
 		<tns:operation>
 			<tns:invoke_oper action="connect" id="2" />
 		</tns:operation>
 		
 		<tns:operation>
-			<tns:iterate_oper max="4">
-				<!-- post -->
-				<tns:operation>
-					<tns:invoke_oper action="compute" id="212" />
-				</tns:operation>
-			</tns:iterate_oper>
+			<tns:invoke_oper action="connect" id="11" />
 		</tns:operation>
+		
+		<tns:operation>
+			<tns:invoke_oper action="connect" id="4" />
+		</tns:operation>
+		
+		<tns:operation>
+			<tns:invoke_oper action="connect" id="5" />
+		</tns:operation>
+		
+		<tns:operation>
+			<tns:invoke_oper action="connect" id="6" />
+		</tns:operation>
+		
+		<tns:operation>
+			<tns:invoke_oper action="connect" id="7" />
+		</tns:operation>
+		
+		<tns:operation>
+			<tns:invoke_oper action="connect" id="8" />
+		</tns:operation>
+		
+		<tns:operation>
+			<tns:invoke_oper action="connect" id="9" />
+		</tns:operation>
+		
+		<tns:operation>
+			<tns:invoke_oper action="connect" id="10" />
+		</tns:operation>
+
+		<!-- ACTIONS -->
+		<!-- mImgtbl-go -->
+		<tns:operation>
+			<tns:invoke_oper action="compute" id="341" />
+		</tns:operation>
+
+		<!-- mProjExec-go -->
+		<tns:operation>
+			<tns:invoke_oper action="compute" id="1151" />
+		</tns:operation>
+
+		<!-- mImgtbl-go -->
+		<tns:operation>
+			<tns:invoke_oper action="compute" id="341" />
+		</tns:operation>
+
+		<!-- mOverlaps -->
+		<tns:operation>
+			<tns:invoke_oper action="compute" id="931" />
+		</tns:operation>
+
+		<!-- mDiffExec-go -->
+		<tns:operation>
+			<tns:invoke_oper action="compute" id="751" />
+		</tns:operation>
+
+		<!-- mFitExec-go -->
+		<tns:operation>
+			<tns:invoke_oper action="compute" id="841" />
+		</tns:operation>
+
+		<!-- mBgModel-go -->
+		<tns:operation>
+			<tns:invoke_oper action="compute" id="541" />
+		</tns:operation>
+
+		<!-- mBgExec-go -->
+		<tns:operation>
+			<tns:invoke_oper action="compute" id="651" />
+		</tns:operation>
+
+		<!-- mAdd-go -->
+		<tns:operation>
+			<tns:invoke_oper action="compute" id="451" />
+		</tns:operation>
+
+		<!-- mJpeg-go -->
+		<tns:operation>
+			<tns:invoke_oper action="compute" id="1031" />
+		</tns:operation>
+
 	</tns:sequence_oper>
 </tns:workflow>
