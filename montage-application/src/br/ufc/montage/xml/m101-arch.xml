@@ -203,7 +203,7 @@ xsi:schemaLocation="http://www.example.org/SAFe_architecture_V4 SAFe_architectur
   	<tns:provides_port id="92" name="moverlaps-tbl-port-provides" id_component="9"/>
   </tns:env_binding>
   <tns:env_binding>
-  	<tns:uses_port id="81" name="mfitexec-tbl-port-uses" id_component="8"/> 
+  	<tns:uses_port id="82" name="mfitexec-dir-port-uses" id_component="8"/> 
   	<tns:provides_port id="2021" name="diff-dir-port" id_component="202"/>
   </tns:env_binding>
   
@@ -260,6 +260,10 @@ xsi:schemaLocation="http://www.example.org/SAFe_architecture_V4 SAFe_architectur
   	 
   
   <!-- TASK bindings -->
+  <tns:task_binding>
+  	<tns:left_peer id="23" name="wf-mimgtbl-tsk" id_component="1"/>
+  	<tns:right_peer name="mimgtbl-go" id="34" id_component="2"/>
+  </tns:task_binding>
   <tns:task_binding>
   	<tns:left_peer id="24" name="wf-mprojexec-tsk" id_component="1"/>
   	<tns:right_peer name="mprojexec-go" id="115" id_component="11"/>

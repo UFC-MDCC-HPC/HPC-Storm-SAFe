@@ -69,7 +69,6 @@ public class ArchComponent implements IArchObject{
 
 	public ArchAction getArchActionById(Integer id){
 		ArchAction action = null;
-		System.out.println("NAME:"+name);
 		for(ArchTask task:this.taskList){
 			action = task.getArchActionById(id);
 			if(action!=null) return action;

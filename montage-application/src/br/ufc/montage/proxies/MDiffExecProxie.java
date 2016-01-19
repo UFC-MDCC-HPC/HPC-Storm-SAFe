@@ -19,8 +19,9 @@ public class MDiffExecProxie extends MontageShelfComputationComponent {
 	public void setServices(IHShelfService services) {
 		this.services = services;
 		this.goPortTask = new GoPortTask(this);
-
+		
 		try {
+			this.goPortTask.setName("mdiffexec-go");
 			this.services.registerTaskPort(goPortTask);
 			this.services.registerUsesPort("mdiffexec-tbl-port-uses",
 					MontageTypes.TBL_TYPE);

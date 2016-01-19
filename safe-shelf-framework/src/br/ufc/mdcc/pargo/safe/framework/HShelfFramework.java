@@ -229,6 +229,7 @@ public class HShelfFramework extends HShelfBuilderService {
 
 	@Override
 	public void connectPartners(String taskA, String taskB) {
+		
 		HShelfTaskPort taskPortA = this.getTaskPort(taskA);
 		if(taskPortA!=null && !taskPortA.isConnected()){
 			HShelfTaskPort taskPortB = this.getTaskPort(taskB);
