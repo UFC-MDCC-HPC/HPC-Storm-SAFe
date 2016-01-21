@@ -316,4 +316,9 @@ public class SAFeSWLArchParser implements ISAFeSWLArcherParser{
 		 
 		return this.architectureMain.isThereTaskConnection(partnerA,partnerB);
 	}
+	
+	@Override
+	public List<ArchComponent> getComponents(){
+		return this.architectureMain.getComponents();
+	}
 }

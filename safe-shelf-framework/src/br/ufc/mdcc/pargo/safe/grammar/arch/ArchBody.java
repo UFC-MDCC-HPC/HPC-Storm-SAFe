@@ -33,6 +33,10 @@ public class ArchBody {
 		return action;
 	}
 	
+	public List<ArchComponent> getComponents() {
+		return components;
+	}
+
 	@Override
 	public String toString() {
 		String res="";

@@ -348,6 +348,11 @@ public class SAFeOrquestrationArchitecture {
 				return res;
 		}
 
+		public List<ArchComponent> getComponents() {
+			return this.body.getComponents();
+		}
+
+		 
 		
 
 		

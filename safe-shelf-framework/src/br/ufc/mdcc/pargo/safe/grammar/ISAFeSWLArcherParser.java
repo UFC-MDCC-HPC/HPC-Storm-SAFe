@@ -1,5 +1,7 @@
 package br.ufc.mdcc.pargo.safe.grammar;
 
+import java.util.List;
+
 import br.ufc.mdcc.pargo.safe.grammar.arch.ArchAction;
 import br.ufc.mdcc.pargo.safe.grammar.arch.ArchApplication;
 import br.ufc.mdcc.pargo.safe.grammar.arch.ArchComponent;
@@ -17,4 +19,5 @@ public interface ISAFeSWLArcherParser {
 	public boolean isThereTaskConnection(String partnerA, String partnerB);
 	public ArchApplication getArchApplication();
 	public ArchWorkflow getArchWorkflow();
+	public List<ArchComponent> getComponents();
 }

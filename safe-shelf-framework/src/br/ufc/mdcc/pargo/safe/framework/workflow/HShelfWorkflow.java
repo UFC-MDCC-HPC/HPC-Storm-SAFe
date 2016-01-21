@@ -1,6 +1,7 @@
 package br.ufc.mdcc.pargo.safe.framework.workflow;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import br.ufc.mdcc.pargo.safe.framework.HShelfFramework;
@@ -119,6 +120,13 @@ public class HShelfWorkflow extends HShelfComponent {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+			}
+		}
+		
+		if(this.archParser!=null){
+			List<ArchComponent> components = this.archParser.getComponents();
+			for(ArchComponent cmp: components){
+				this.createComponentProxie(cmp);
 			}
 		}
 
@@ -242,6 +250,38 @@ public class HShelfWorkflow extends HShelfComponent {
 		}
 	}
 	
+	private synchronized void createComponentProxie(ArchComponent archComponent){
+		if (archComponent != null) {
+			String compName = archComponent.getName();
+			String capCompName = compName.substring(0, 1).toUpperCase()
+					+ compName.substring(1);
+			String proxiePkgName = HShelfFileUtil
+					.readProperty("proxie-package");
+			String proxieClassName = HShelfFileUtil
+					.readProperty("proxie-class-name");
+
+			HShelfComponent newComponent = this.framework.createComponent(
+					compName, proxiePkgName + "." + capCompName
+							+ proxieClassName);
+			this.framework.addComponent(newComponent);
+			this.sendMessageToApp(compName, HShelfEventType.Component_Added);
+			
+			
+		}
+		
+		//workflow now need to connect its task ports
+		ArchWorkflow archWorkflow = this.archParser.getArchWorkflow();
+		for(ArchTask wfTask:archWorkflow.getTaskList()){
+			for(ArchTask cTask:archComponent.getTaskList()){
+				if(this.archParser.isThereTaskConnection(wfTask.getName(), cTask.getName())){
+					this.framework.connectPartners(wfTask.getName(), cTask.getName());
+					HShelfConsoleLogger.write("TASK CONNECTED: " + wfTask.getName() + "<->" + cTask.getName());
+				}
+					
+			}
+		}
+	}
+	
 	//connect env ports
 	public void connect(String compId){
 		
@@ -264,8 +304,9 @@ public class HShelfWorkflow extends HShelfComponent {
 		try {
 
 			HShelfTaskPort port = (HShelfTaskPort)this.services.getTaskPort(portName);
+			
 			if (port != null && port.isConnected()) {
-
+				
 				HShelfReflectionUtil.invokeMethod(port, method, null);
 
 			}
