@@ -10,6 +10,7 @@ import br.ufc.mdcc.pargo.safe.framework.port.IHShelfPortTypes;
 import br.ufc.mdcc.pargo.safe.framework.port.dflt.HShelfGoWorkflowPortImpl;
 import br.ufc.mdcc.pargo.safe.framework.port.dflt.HShelfSAFeSWLPort;
 import br.ufc.mdcc.pargo.safe.framework.services.IHShelfService;
+import br.ufc.mdcc.pargo.safe.framework.workflow.HShelfWorkflow;
 import br.ufc.safe.sample.app.prt.AppRequestMessageEnvPort;
 import br.ufc.safe.sample.app.prt.AppReturnMessageEnvPort;
 import br.ufc.safe.sample.app.prt.service.AppRequestMessageEnvPortService;
@@ -24,6 +25,7 @@ public class ApplicationSample extends HShelfApplication{
 
 	public ApplicationSample(String name) {
 		super(name);
+		this.getFramework().createWorkflow();
 	}
 
 	@Override
@@ -71,12 +73,14 @@ public class ApplicationSample extends HShelfApplication{
 		this.message = JOptionPane.showInputDialog("Enter message");
 		
 		if(this.services!=null){
+			this.getFramework().connect(HShelfWorkflow.SAFE_WORKFLOW_SWL_PORT, HShelfWorkflow.SAFE_WORKFLOW_SWL_PORT);
 			HShelfSAFeSWLPort safeSWLPort = (HShelfSAFeSWLPort)((HShelfUsesPort)this.services.getPort("port_SAFeSWL")).getProvidesPort();
 			String archFile = "/home/jefferson/Git/HPC-Storm-SAFe/safe-shelf-exemplo/src/br/ufc/safe/sample/xml/exemplo-arch.xml";
 			String flowFile = "/home/jefferson/Git/HPC-Storm-SAFe/safe-shelf-exemplo/src/br/ufc/safe/sample/xml/exemplo-flow.xml";
 			safeSWLPort.setSAFeSWLArchFilePath(archFile);
 			safeSWLPort.setSAFeSWLFlowFilePath(flowFile);
 			
+			this.getFramework().connect(HShelfWorkflow.SAFE_WORKFLOW_GO_PORT, HShelfWorkflow.SAFE_WORKFLOW_GO_PORT);
 			HShelfGoWorkflowPortImpl goWorkflowPort = (HShelfGoWorkflowPortImpl)((HShelfUsesPort)this.services.getPort("port_Go")).getProvidesPort();
 			goWorkflowPort.loadArchitectureFile();
 			goWorkflowPort.loadWorkflowFile();

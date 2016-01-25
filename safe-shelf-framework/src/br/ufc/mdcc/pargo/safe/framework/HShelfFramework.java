@@ -25,8 +25,9 @@ public class HShelfFramework extends HShelfBuilderService {
 	private Map<String, HShelfTaskPort> taskPortMap;
 	private Map<String, HShelfComponent> componentMap;
 	private Map<String, Semaphore> semaphoreUses;
+	private List<HShelfWorkflow> workflows;
 
-	private HShelfWorkflow workflow;
+	//private HShelfWorkflow workflow;
 	private HShelfApplication application;
 
 	// private ISAFeSWLArcherParser archParser;
@@ -38,17 +39,18 @@ public class HShelfFramework extends HShelfBuilderService {
 		this.componentMap = new HashMap<String, HShelfComponent>();
 		this.taskPortMap = new HashMap<String, HShelfTaskPort>();
 		this.semaphoreUses = new HashMap<String, Semaphore>();
+		this.workflows = new ArrayList<HShelfWorkflow>();
 	}
 
 	public void initialize(HShelfApplication application) {
 		this.application = application;
 
 		// workflow
-		this.workflow = new HShelfWorkflow(this.application.getName()
+		/*this.workflow = new HShelfWorkflow(this.application.getName()
 				+ "-worflow", this);
 		IHShelfService serviceWf = new HShelfServiceImpl();
 		serviceWf.initialize(this, this.workflow);
-		this.workflow.setServices(serviceWf);
+		this.workflow.setServices(serviceWf);*/
 
 		// application
 		IHShelfService serviceApp = new HShelfServiceImpl();
@@ -56,7 +58,7 @@ public class HShelfFramework extends HShelfBuilderService {
 		this.application.setServices(serviceApp);
 
 		// adding
-		this.addComponent(this.workflow);
+		//this.addComponent(this.workflow);
 		this.addComponent(this.application);
 
 	}
@@ -248,6 +250,18 @@ public class HShelfFramework extends HShelfBuilderService {
 		this.componentMap.clear();
 		 
 		 
+	}
+
+	@Override
+	public void createWorkflow() {
+		HShelfWorkflow workflow = new HShelfWorkflow(this.application.getName()
+				+ "-worflow", this);
+		IHShelfService serviceWf = new HShelfServiceImpl();
+		serviceWf.initialize(this,workflow);
+		workflow.setServices(serviceWf);
+		//this.addComponent(this.workflow);
+		this.workflows.add(workflow);
+		
 	}
 
 }

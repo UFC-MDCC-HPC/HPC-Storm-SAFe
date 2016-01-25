@@ -55,13 +55,13 @@ public class HShelfServiceImpl implements IHShelfService{
 		this.usesPortMap.put(name, usesPort);
 		
 		//default connections
-		if (name.equals(HShelfWorkflow.SAFE_WORKFLOW_SWL_PORT)
+		/*if (name.equals(HShelfWorkflow.SAFE_WORKFLOW_SWL_PORT)
 				|| name.equals(HShelfWorkflow.SAFE_WORKFLOW_GO_PORT)
 				|| name.equals(HShelfWorkflow.SAFE_WORKFLOW_EVENT_PORT)){
 			
 			this.framework.connect(name, name);
 			
-		}
+		}*/
 	}
 	
 	@Override

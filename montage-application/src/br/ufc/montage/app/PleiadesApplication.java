@@ -8,6 +8,7 @@ import br.ufc.mdcc.pargo.safe.framework.port.IHShelfPortTypes;
 import br.ufc.mdcc.pargo.safe.framework.port.dflt.HShelfGoWorkflowPortImpl;
 import br.ufc.mdcc.pargo.safe.framework.port.dflt.HShelfSAFeSWLPort;
 import br.ufc.mdcc.pargo.safe.framework.services.IHShelfService;
+import br.ufc.mdcc.pargo.safe.framework.workflow.HShelfWorkflow;
 import br.ufc.montage.ports.MontageShelfProvidesPort;
 import br.ufc.montage.ports.env.HdrPortProvides;
 
@@ -15,7 +16,7 @@ public class PleiadesApplication extends HShelfApplication{
 
 	public PleiadesApplication(String name) {
 		super(name);
-		// TODO Auto-generated constructor stub
+		this.getFramework().createWorkflow();
 	}
 
 	@Override
@@ -24,8 +25,8 @@ public class PleiadesApplication extends HShelfApplication{
 		this.services = services;
 		
 		try {
-			this.services.registerUsesPort("port_SAFeSWL",IHShelfPortTypes.DEFAULT);
-			this.services.registerUsesPort("port_Go",IHShelfPortTypes.DEFAULT);
+			this.services.registerUsesPort(HShelfWorkflow.SAFE_WORKFLOW_SWL_PORT,IHShelfPortTypes.DEFAULT);
+			this.services.registerUsesPort(HShelfWorkflow.SAFE_WORKFLOW_GO_PORT,IHShelfPortTypes.DEFAULT);
 			this.services.registerUsesPort("jpg-uses", IHShelfPortTypes.NO_TYPE);
 			HdrPortProvides hdrPortProvides = new HdrPortProvides();
 			hdrPortProvides.setValue("template-hdr");
@@ -42,13 +43,15 @@ public class PleiadesApplication extends HShelfApplication{
 	public void run() throws HShelfException{
 		if(this.services!=null){
 			
-			HShelfSAFeSWLPort safeSWLPort = (HShelfSAFeSWLPort)((HShelfUsesPort)this.services.getPort("port_SAFeSWL")).getProvidesPort();
+			this.getFramework().connect(HShelfWorkflow.SAFE_WORKFLOW_SWL_PORT, HShelfWorkflow.SAFE_WORKFLOW_SWL_PORT);
+			HShelfSAFeSWLPort safeSWLPort = (HShelfSAFeSWLPort)((HShelfUsesPort)this.services.getPort(HShelfWorkflow.SAFE_WORKFLOW_SWL_PORT)).getProvidesPort();
 			String archFile = "/home/jefferson/Git/HPC-Storm-SAFe/montage-application/src/br/ufc/montage/xml/pleiades-arch.xml";
 			String flowFile = "/home/jefferson/Git/HPC-Storm-SAFe/montage-application/src/br/ufc/montage/xml/pleiades-flow.xml";
 			safeSWLPort.setSAFeSWLArchFilePath(archFile);
 			safeSWLPort.setSAFeSWLFlowFilePath(flowFile);
 			
-			HShelfGoWorkflowPortImpl goWorkflowPort = (HShelfGoWorkflowPortImpl)((HShelfUsesPort)this.services.getPort("port_Go")).getProvidesPort();
+			this.getFramework().connect(HShelfWorkflow.SAFE_WORKFLOW_GO_PORT, HShelfWorkflow.SAFE_WORKFLOW_GO_PORT);
+			HShelfGoWorkflowPortImpl goWorkflowPort = (HShelfGoWorkflowPortImpl)((HShelfUsesPort)this.services.getPort(HShelfWorkflow.SAFE_WORKFLOW_GO_PORT)).getProvidesPort();
 			goWorkflowPort.loadArchitectureFile();
 			goWorkflowPort.loadWorkflowFile();
 			

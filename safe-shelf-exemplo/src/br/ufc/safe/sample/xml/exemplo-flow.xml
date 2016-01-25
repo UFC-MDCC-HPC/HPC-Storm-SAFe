@@ -5,56 +5,7 @@
 
 
 	<tns:sequence_oper>
-		<tns:operation>
-			<tns:parallel_oper>
-				
-				<!-- client -->
-				<tns:operation>
-					<tns:sequence_oper>
-						<tns:operation>
-							<tns:invoke_oper action="resolve" id="2" />
-						</tns:operation>
-						<tns:operation>
-							<tns:invoke_oper action="deploy" id="2" />
-						</tns:operation>
-						<tns:operation>
-							<tns:invoke_oper action="instantiate" id="2" />
-						</tns:operation>
-					</tns:sequence_oper>
-				</tns:operation>
-			
-				<!-- server -->
-				<tns:operation>
-					<tns:sequence_oper>
-						<tns:operation>
-							<tns:invoke_oper action="resolve" id="3" />
-						</tns:operation>
-						<tns:operation>
-							<tns:invoke_oper action="deploy" id="3" />
-						</tns:operation>
-						<tns:operation>
-							<tns:invoke_oper action="instantiate" id="3" />
-						</tns:operation>
-					</tns:sequence_oper>
-				</tns:operation>
-				
-				<!-- queue -->
-				<tns:operation>
-					<tns:sequence_oper>
-						<tns:operation>
-							<tns:invoke_oper action="resolve" id="4" />
-						</tns:operation>
-						<tns:operation>
-							<tns:invoke_oper action="deploy" id="4" />
-						</tns:operation>
-						<tns:operation>
-							<tns:invoke_oper action="instantiate" id="4" />
-						</tns:operation>
-					</tns:sequence_oper>
-				</tns:operation>
-				
-			</tns:parallel_oper>
-		</tns:operation>
+		
 		
 		<!-- connect application uses port -->
 		<tns:operation>
