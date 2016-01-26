@@ -1,5 +1,6 @@
 package br.ufc.montage.proxies;
 
+import br.montage.stubs.mFitExec.IMFitExecImplService;
 import br.ufc.mdcc.pargo.safe.framework.exception.HShelfException;
 import br.ufc.mdcc.pargo.safe.framework.port.HShelfUsesPort;
 import br.ufc.mdcc.pargo.safe.framework.services.IHShelfService;
@@ -49,6 +50,7 @@ public class MFitExecProxie extends MontageShelfComputationComponent {
 		
 		String tblValueIn = null;
 		String dirValue = null;
+		IMFitExecImplService service = new IMFitExecImplService();
 
 		try {
 			this.tblPortUses = (HShelfUsesPort) this.services
@@ -64,6 +66,8 @@ public class MFitExecProxie extends MontageShelfComputationComponent {
 			// comunicar com o web service uses aqui, passando o parâmetro a
 			// ele, conseguido da local
 			// WS_USES.SET_VALUE...
+			service.getIMFitExecImplPort().setDirPortUses(dirValue);
+			service.getIMFitExecImplPort().setTblPortUses(tblValueIn);
 		} catch (HShelfException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -73,9 +77,11 @@ public class MFitExecProxie extends MontageShelfComputationComponent {
 		// WS_GO.GO
 		// begin some computation...
 		//mFitExec diffs.tbl fits.tbl diffdir
-		String tblValueOut = "fits.tbl";
-		String cmd = "mFitExec " + tblValueIn + " " + tblValueOut + " " + dirValue;
-		System.out.println(cmd);
+		
+		/*String cmd = "mFitExec " + tblValueIn + " " + tblValueOut + " " + dirValue;
+		System.out.println(cmd);*/
+		service.getIMFitExecImplPort().go();
+		String tblValueOut = service.getIMFitExecImplPort().getTblPortProvides();
 		// end some computation!
 		// FIM DA SIMULAÇÃO
 		

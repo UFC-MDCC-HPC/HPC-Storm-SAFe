@@ -1,5 +1,6 @@
 package br.ufc.montage.proxies;
 
+import br.montage.stubs.mProjExec.IMProjExecImplService;
 import br.ufc.mdcc.pargo.safe.framework.exception.HShelfException;
 import br.ufc.mdcc.pargo.safe.framework.port.HShelfUsesPort;
 import br.ufc.mdcc.pargo.safe.framework.services.IHShelfService;
@@ -55,7 +56,7 @@ public class MProjExecProxie extends MontageShelfComputationComponent{
 		String dirOutValue = null;
 		String tblValue = null;
 		String hdrValue = null;
-		
+		IMProjExecImplService service = new IMProjExecImplService();
 		try {
 			this.tblPortUses = (HShelfUsesPort)this.services.getPort("mprojexec-tbl-port-uses");
 			this.dirPortUsesIn = (HShelfUsesPort)this.services.getPort("mprojexec-dir-port-uses-in");
@@ -70,6 +71,11 @@ public class MProjExecProxie extends MontageShelfComputationComponent{
 			//comunicar com o web service uses aqui, passando os 4 parâmetros a ele, conseguido da local
 			//4 x WS_USES.SET_VALUE..
 			
+			service.getIMProjExecImplPort().setDirPortUsesIn(dirInValue);
+			service.getIMProjExecImplPort().setDirPortUsesOut(dirOutValue);
+			service.getIMProjExecImplPort().setTblPortUses(tblValue);
+			service.getIMProjExecImplPort().setHdrPortUses(hdrValue);
+			
 		} catch (HShelfException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -78,9 +84,11 @@ public class MProjExecProxie extends MontageShelfComputationComponent{
 		//SIMULAÇAO DA CHAMADA REMOTA DO WEB SERVICE PELA PORTA GO
 		//WS_GO.GO
 		//begin some computation...
-		String tblValueOut = " mprojexec.tbl";
-		String cmd = "mProjExec -p " + dirInValue + " " + tblValue + " " + hdrValue + " " + dirOutValue + " " + tblValueOut;
-		System.out.println(cmd);
+		
+		/*String cmd = "mProjExec -p " + dirInValue + " " + tblValue + " " + hdrValue + " " + dirOutValue + " " + tblValueOut;
+		System.out.println(cmd);*/
+		service.getIMProjExecImplPort().go();
+		String tblValueOut = service.getIMProjExecImplPort().getTblPortProvides();
 		//end some computation!
 		//FIM DA SIMULAÇÃO
 		

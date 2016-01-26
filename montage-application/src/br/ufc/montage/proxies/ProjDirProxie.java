@@ -1,5 +1,6 @@
 package br.ufc.montage.proxies;
 
+import br.montage.stubs.mMontageDir.IMontageDirImplService;
 import br.ufc.mdcc.pargo.safe.framework.component.HShelfComponent;
 import br.ufc.mdcc.pargo.safe.framework.exception.HShelfException;
 import br.ufc.mdcc.pargo.safe.framework.services.IHShelfService;
@@ -15,7 +16,8 @@ public class ProjDirProxie extends HShelfComponent{
 		this.dirPortProvides = new DirPortProvides();
 		this.dirPortProvides.setName("proj-dir-port");
 		//GET VALUE FROM WS.GET
-		String projValue = "projDir";
+		IMontageDirImplService service = new IMontageDirImplService();
+		String projValue = service.getIMontageDirImplPort().getProjDir();
 		this.dirPortProvides.setValue(projValue);
 		try {
 			this.services.setProvidesPort(this.dirPortProvides);

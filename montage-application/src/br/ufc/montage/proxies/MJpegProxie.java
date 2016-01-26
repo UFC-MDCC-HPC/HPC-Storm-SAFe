@@ -1,5 +1,6 @@
 package br.ufc.montage.proxies;
 
+import br.montage.stubs.mJpeg.IMJpegImplService;
 import br.ufc.mdcc.pargo.safe.framework.exception.HShelfException;
 import br.ufc.mdcc.pargo.safe.framework.port.HShelfUsesPort;
 import br.ufc.mdcc.pargo.safe.framework.services.IHShelfService;
@@ -44,7 +45,8 @@ public class MJpegProxie extends MontageShelfComputationComponent {
 	@Override
 	public void go() {
 		String fitsValue = null;
-
+		IMJpegImplService service = new IMJpegImplService();
+		
 		try {
 			this.fitsPortUses = (HShelfUsesPort) this.services
 					.getPort("mjpeg-fits-port-uses");
@@ -55,13 +57,17 @@ public class MJpegProxie extends MontageShelfComputationComponent {
 			e.printStackTrace();
 		}
 
+		service.getIMJpegImplPort().setFitsPortUses(fitsValue);
+		
 		// SIMULAÇAO DA CHAMADA REMOTA DO WEB SERVICE PELA PORTA GO
 		// WS_GO.GO
 		// begin some computation...
 		//mJPEG -gray final/m101_mosaic.fits 0s max gaussian-log -out final/m101_mosaic.jpg
-		String jpgValue = "m101_mosaic.jpg";
-		String cmd = "mJPEG -gray " + fitsValue + " 0s max gaussian-log -out " + jpgValue;
-		System.out.println(cmd);
+		
+		/*String cmd = "mJPEG -gray " + fitsValue + " 0s max gaussian-log -out " + jpgValue;
+		System.out.println(cmd);*/
+		service.getIMJpegImplPort().go();
+		String jpgValue = service.getIMJpegImplPort().getJpgPortProvides();
 		// end some computation!
 		// FIM DA SIMULAÇÃO
 

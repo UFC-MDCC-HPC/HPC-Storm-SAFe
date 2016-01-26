@@ -1,5 +1,6 @@
 package br.ufc.montage.proxies;
 
+import br.montage.stubs.mBgExec.IMBgExecImplService;
 import br.ufc.mdcc.pargo.safe.framework.exception.HShelfException;
 import br.ufc.mdcc.pargo.safe.framework.port.HShelfUsesPort;
 import br.ufc.mdcc.pargo.safe.framework.services.IHShelfService;
@@ -50,6 +51,7 @@ public class MBgExecProxie extends MontageShelfComputationComponent {
 		String dirInValue = null;
 		String dirOutValue = null;
 		String tblValueB = null;
+		IMBgExecImplService service = new IMBgExecImplService();
 
 		try {
 			this.tblPortUsesA = (HShelfUsesPort) this.services
@@ -73,6 +75,10 @@ public class MBgExecProxie extends MontageShelfComputationComponent {
 			// comunicar com o web service uses aqui, passando os 4 parâmetros a
 			// ele, conseguido da local
 			// 4 x WS_USES.SET_VALUE..
+			service.getIMBgExecImplPort().setDirPortUsesIn(dirInValue);
+			service.getIMBgExecImplPort().setDirPortUsesOut(dirOutValue);
+			service.getIMBgExecImplPort().setTblPortUsesA(tblValueA);
+			service.getIMBgExecImplPort().setTblPortUsesB(tblValueB);
 
 		} catch (HShelfException e) {
 			// TODO Auto-generated catch block
@@ -83,9 +89,10 @@ public class MBgExecProxie extends MontageShelfComputationComponent {
 		// WS_GO.GO
 		// begin some computation...
 		// mBgExec -p projdir images.tbl corrections.tbl corrdir
-		String cmd = "mBgExec -p " + dirInValue + " " + tblValueA + " "
-				+ tblValueB + " " + dirOutValue;
-		System.out.println(cmd);
+		//String cmd = "mBgExec -p " + dirInValue + " " + tblValueA + " "
+		//		+ tblValueB + " " + dirOutValue;
+		//System.out.println(cmd);
+		service.getIMBgExecImplPort().go();
 		// end some computation!
 		// FIM DA SIMULAÇÃO
 

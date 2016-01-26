@@ -1,5 +1,6 @@
 package br.ufc.montage.proxies;
 
+import br.montage.stubs.mBgModel.IMBgModelImplService;
 import br.ufc.mdcc.pargo.safe.framework.exception.HShelfException;
 import br.ufc.mdcc.pargo.safe.framework.port.HShelfUsesPort;
 import br.ufc.mdcc.pargo.safe.framework.services.IHShelfService;
@@ -50,6 +51,7 @@ public class MBgModelProxie extends MontageShelfComputationComponent {
 
 		String tblAValue = null;
 		String tblBValue = null;
+		IMBgModelImplService service = new IMBgModelImplService();
 
 		try {
 			this.tblPortUsesA = (HShelfUsesPort) this.services
@@ -65,15 +67,20 @@ public class MBgModelProxie extends MontageShelfComputationComponent {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		service.getIMBgModelImplPort().setTblPortUsesA(tblAValue);
+		service.getIMBgModelImplPort().settblPortUsesB(tblBValue);
 
 		// SIMULAÇAO DA CHAMADA REMOTA DO WEB SERVICE PELA PORTA GO
 		// WS_GO.GO
 		// begin some computation...
 		// mBgModel images.tbl fits.tbl corrections.tbl
-		String tblValueOut = "corrections.tbl";
-		String cmd = "mBgModel " + tblAValue + " " + tblBValue + " "
+		
+		/*String cmd = "mBgModel " + tblAValue + " " + tblBValue + " "
 				+ tblValueOut;
-		System.out.println(cmd);
+		System.out.println(cmd);*/
+		service.getIMBgModelImplPort().go();
+		String tblValueOut = service.getIMBgModelImplPort().getTblPortProvides();
 		// end some computation!
 		// FIM DA SIMULAÇÃO
 
@@ -81,7 +88,7 @@ public class MBgModelProxie extends MontageShelfComputationComponent {
 		// calculado e colocar na porta local
 		// WS_PROVIDES.GET_VALUE
 		this.tblPortProvides.setValue(tblValueOut);
-
+		
 	}
 
 }

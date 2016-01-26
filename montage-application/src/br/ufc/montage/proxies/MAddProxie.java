@@ -1,5 +1,6 @@
 package br.ufc.montage.proxies;
 
+import br.montage.stubs.mAdd.IMAddImplService;
 import br.ufc.mdcc.pargo.safe.framework.exception.HShelfException;
 import br.ufc.mdcc.pargo.safe.framework.port.HShelfUsesPort;
 import br.ufc.mdcc.pargo.safe.framework.services.IHShelfService;
@@ -55,6 +56,7 @@ public class MAddProxie extends MontageShelfComputationComponent {
 		String tblValueIn = null;
 		String dirValue = null;
 		String hdrValue = null;
+		IMAddImplService service = new IMAddImplService();
 
 		try {
 			this.tblPortUses = (HShelfUsesPort) this.services
@@ -75,6 +77,10 @@ public class MAddProxie extends MontageShelfComputationComponent {
 			// comunicar com o web service uses aqui, passando o parâmetro a
 			// ele, conseguido da local
 			// WS_USES.SET_VALUE...
+			
+			service.getIMAddImplPort().setDirPortUses(dirValue);
+			service.getIMAddImplPort().setHdrPortUses(hdrValue);
+			service.getIMAddImplPort().setTblPortUses(tblValueIn);
 		} catch (HShelfException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -84,10 +90,12 @@ public class MAddProxie extends MontageShelfComputationComponent {
 		// WS_GO.GO
 		// begin some computation...
 		// mAdd -p corrdir images.tbl template.hdr final/m101_mosaic.fits
-		String fitsOut = "m101_mosaic.fits";
-		String cmd = "mAdd -p " + dirValue + " " + tblValueIn + " "
-				+ hdrValue + " " + fitsOut;
-		System.out.println(cmd);
+		
+		//String cmd = "mAdd -p " + dirValue + " " + tblValueIn + " "
+			//	+ hdrValue + " " + fitsOut;
+		//System.out.println(cmd);
+		service.getIMAddImplPort().go();
+		String fitsOut = service.getIMAddImplPort().getfitsPortProvides();
 		// end some computation!
 		// FIM DA SIMULAÇÃO
 

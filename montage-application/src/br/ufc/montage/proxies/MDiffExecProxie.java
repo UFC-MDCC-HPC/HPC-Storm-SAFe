@@ -1,5 +1,6 @@
 package br.ufc.montage.proxies;
 
+import br.montage.stubs.mDiffExec.IMDiffExecImplService;
 import br.ufc.mdcc.pargo.safe.framework.exception.HShelfException;
 import br.ufc.mdcc.pargo.safe.framework.port.HShelfUsesPort;
 import br.ufc.mdcc.pargo.safe.framework.services.IHShelfService;
@@ -45,7 +46,8 @@ public class MDiffExecProxie extends MontageShelfComputationComponent {
 		String dirInValue = null;
 		String dirOutValue = null;
 		String hdrValue = null;
-
+		IMDiffExecImplService service = new IMDiffExecImplService();
+		
 		try {
 			this.tblPortUses = (HShelfUsesPort) this.services
 					.getPort("mdiffexec-tbl-port-uses");
@@ -68,7 +70,11 @@ public class MDiffExecProxie extends MontageShelfComputationComponent {
 			// comunicar com o web service uses aqui, passando os 4 parâmetros a
 			// ele, conseguido da local
 			// 4 x WS_USES.SET_VALUE..
-
+			service.getIMDiffExecImplPort().setDirPortUsesIn(dirInValue);
+			service.getIMDiffExecImplPort().setDirPortUsesOut(dirOutValue);
+			service.getIMDiffExecImplPort().setTblPortUses(tblValue);
+			service.getIMDiffExecImplPort().setHdrPortUses(hdrValue);
+			
 		} catch (HShelfException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -78,9 +84,10 @@ public class MDiffExecProxie extends MontageShelfComputationComponent {
 		// WS_GO.GO
 		// begin some computation...
 		// mDiffExec -p projdir diffs.tbl template.hdr diffdir
-		String cmd = "mDiffExec -p " + dirInValue + " " + tblValue + " "
+		/*String cmd = "mDiffExec -p " + dirInValue + " " + tblValue + " "
 				+ hdrValue + " " + dirOutValue;
-		System.out.println(cmd);
+		System.out.println(cmd);*/
+		service.getIMDiffExecImplPort().go();
 		// end some computation!
 		// FIM DA SIMULAÇÃO
 

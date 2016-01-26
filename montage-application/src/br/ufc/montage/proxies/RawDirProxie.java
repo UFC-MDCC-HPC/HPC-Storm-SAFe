@@ -1,5 +1,6 @@
 package br.ufc.montage.proxies;
 
+import br.montage.stubs.mMontageDir.IMontageDirImplService;
 import br.ufc.mdcc.pargo.safe.framework.component.HShelfComponent;
 import br.ufc.mdcc.pargo.safe.framework.exception.HShelfException;
 import br.ufc.mdcc.pargo.safe.framework.services.IHShelfService;
@@ -16,7 +17,8 @@ public class RawDirProxie extends HShelfComponent{
 		this.dirPortProvides = new DirPortProvides();
 		this.dirPortProvides.setName("raw-dir-port");
 		//GET VALUE FROM WS.GET
-		String rawValue = "rawDir";
+		IMontageDirImplService service = new IMontageDirImplService();
+		String rawValue = service.getIMontageDirImplPort().getRawDir();
 		this.dirPortProvides.setValue(rawValue);
 		try {
 			this.services.setProvidesPort(this.dirPortProvides);

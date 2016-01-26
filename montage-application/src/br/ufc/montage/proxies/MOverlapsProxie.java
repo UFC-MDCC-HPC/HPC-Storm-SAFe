@@ -1,5 +1,6 @@
 package br.ufc.montage.proxies;
 
+import br.montage.stubs.mOverlaps.IMOverlapsImplService;
 import br.ufc.mdcc.pargo.safe.framework.exception.HShelfException;
 import br.ufc.mdcc.pargo.safe.framework.port.HShelfUsesPort;
 import br.ufc.mdcc.pargo.safe.framework.services.IHShelfService;
@@ -45,7 +46,7 @@ public class MOverlapsProxie extends MontageShelfComputationComponent {
 	@Override
 	public void go() {
 		// mOverlaps images.tbl diffs.tbl
-
+		IMOverlapsImplService service = new IMOverlapsImplService();
 		String tblValueIn = null;
 		try {
 			this.tblPortUses = (HShelfUsesPort) this.services
@@ -56,17 +57,20 @@ public class MOverlapsProxie extends MontageShelfComputationComponent {
 			// comunicar com o web service uses aqui, passando o parâmetro a
 			// ele, conseguido da local
 			// WS_USES.SET_VALUE...
+			service.getIMOverlapsImplPort().setTblPortUses(tblValueIn);
 		} catch (HShelfException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
+		
 		// SIMULAÇAO DA CHAMADA REMOTA DO WEB SERVICE PELA PORTA GO
 		// WS_GO.GO
 		// begin some computation...
-		String tblValueOut = "diffs.tbl";
-		String cmd = "mOverlaps " + tblValueIn + " " + tblValueOut;
-		System.out.println(cmd);
+		
+		/*String cmd = "mOverlaps " + tblValueIn + " " + tblValueOut;
+		System.out.println(cmd);*/
+		service.getIMOverlapsImplPort().go();
+		String tblValueOut = service.getIMOverlapsImplPort().getTblPortProvides();
 		// end some computation!
 		// FIM DA SIMULAÇÃO
 

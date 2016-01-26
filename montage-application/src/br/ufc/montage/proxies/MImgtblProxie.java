@@ -1,5 +1,6 @@
 package br.ufc.montage.proxies;
 
+import br.montage.stubs.mImgtbl.IMIgtblImplService;
 import br.ufc.mdcc.pargo.safe.framework.exception.HShelfException;
 import br.ufc.mdcc.pargo.safe.framework.port.HShelfUsesPort;
 import br.ufc.mdcc.pargo.safe.framework.services.IHShelfService;
@@ -51,6 +52,7 @@ public class MImgtblProxie extends MontageShelfComputationComponent{
 	@Override
 	public void go() {
 		String dirPortValue = null;
+		IMIgtblImplService service = new IMIgtblImplService();
 		try {
 			
 			if(turn==0){
@@ -64,6 +66,7 @@ public class MImgtblProxie extends MontageShelfComputationComponent{
 				
 			//comunicar com o web service uses aqui, passando o parâmetro a ele, conseguido da local
 			//WS_USES.SET_VALUE...
+			service.getIMIgtblImplPort().setDirPortUses(dirPortValue);
 		} catch (HShelfException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -72,14 +75,17 @@ public class MImgtblProxie extends MontageShelfComputationComponent{
 		//SIMULAÇAO DA CHAMADA REMOTA DO WEB SERVICE PELA PORTA GO
 		//WS_GO.GO
 		//begin some computation... 
-		String tblValue = "imgbtl.tbl";
-		String cmd = "mImgtbl "+dirPortValue+" "+tblValue;
-		System.out.println(cmd);
+		
+		/*String cmd = "mImgtbl "+dirPortValue+" "+tblValue;
+		System.out.println(cmd);*/
+		service.getIMIgtblImplPort().go();
+		String tblValue = service.getIMIgtblImplPort().getTblPortProvides();
 		//end some computation!
 		//FIM DA SIMULAÇÃO
 		
 		//comunicar com o web services aqui, provides, para pegar o valor calculado e colocar na porta local
 		//WS_PROVIDES.GET_VALUE
+		
 		this.tblPortProvides.setValue(tblValue);
 		
 	}
