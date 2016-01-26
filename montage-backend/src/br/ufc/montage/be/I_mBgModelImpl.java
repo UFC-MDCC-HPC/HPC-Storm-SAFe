@@ -28,9 +28,10 @@ public class I_mBgModelImpl implements I_mBgModel{
 	@Override
 	public void go() {
 		this.tblPortProvides = "corrections.tbl";
-		String cmd = "mBgModel " + this.tblPortUsesA + " " + this.tblPortUsesB + " "
-				+ this.tblPortProvides;
+		String cmd = "mBgModel " + UnixUtil.home_dir+this.tblPortUsesA + " " + UnixUtil.home_dir+this.tblPortUsesB + " "
+				+ UnixUtil.home_dir+this.tblPortProvides;
 		System.out.println(cmd);
+		UnixUtil.executeCommand(cmd);
 	}
 
 }

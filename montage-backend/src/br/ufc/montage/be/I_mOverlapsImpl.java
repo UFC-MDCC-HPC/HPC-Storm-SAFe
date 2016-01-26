@@ -21,8 +21,9 @@ public class I_mOverlapsImpl implements I_mOverlaps{
 	@Override
 	public void go() {
 		this.tblPortProvides = "diffs.tbl";
-		String cmd = "mOverlaps " + this.tblPortUses + " " + this.tblPortProvides;
+		String cmd = "mOverlaps " + UnixUtil.home_dir+this.tblPortUses + " " + UnixUtil.home_dir+this.tblPortProvides;
 		System.out.println(cmd);
+		UnixUtil.executeCommand(cmd);
 	}
 
 }

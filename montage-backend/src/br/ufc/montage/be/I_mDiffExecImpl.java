@@ -32,9 +32,10 @@ public class I_mDiffExecImpl implements I_mDiffExec{
 
 	@Override
 	public void go() {
-		String cmd = "mDiffExec -p " + this.dirPortUsesIn + " " + this.tblPortUses + " "
-				+ this.hdrPortUses + " " + this.dirPortUsesOut;
+		String cmd = "mDiffExec -p " + UnixUtil.home_dir+this.dirPortUsesIn + " " + UnixUtil.home_dir+this.tblPortUses + " "
+				+ UnixUtil.home_dir+this.hdrPortUses + " " + UnixUtil.home_dir+this.dirPortUsesOut;
 		System.out.println(cmd);
+		UnixUtil.executeCommand(cmd);
 	}
 
 }

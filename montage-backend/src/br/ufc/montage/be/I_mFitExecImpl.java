@@ -28,8 +28,9 @@ public class I_mFitExecImpl implements I_mFitExec{
 	@Override
 	public void go() {
 		this.tblPortProvides = "fits.tbl";
-		String cmd = "mFitExec " + this.tblPortUses + " " + this.tblPortProvides + " " + this.dirPortUses;
+		String cmd = "mFitExec " + UnixUtil.home_dir+this.tblPortUses + " " + UnixUtil.home_dir+this.tblPortProvides + " " + UnixUtil.home_dir+this.dirPortUses;
 		System.out.println(cmd);
+		UnixUtil.executeCommand(cmd);
 	}
 
 }

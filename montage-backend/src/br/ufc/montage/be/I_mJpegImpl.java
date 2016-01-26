@@ -21,8 +21,9 @@ public class I_mJpegImpl implements I_mJpeg{
 	@Override
 	public void go() {
 		this.jpgPortProvides = "m101_mosaic.jpg";
-		String cmd = "mJPEG -gray " + this.fitsPortUses + " 0s max gaussian-log -out " + this.jpgPortProvides;
+		String cmd = "mJPEG -gray " + UnixUtil.home_dir+this.fitsPortUses + " 0s max gaussian-log -out " + UnixUtil.home_dir+this.jpgPortProvides;
 		System.out.println(cmd);
+		UnixUtil.executeCommand(cmd);
 	}
 
 }

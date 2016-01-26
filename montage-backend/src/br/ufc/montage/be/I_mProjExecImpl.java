@@ -40,9 +40,10 @@ public class I_mProjExecImpl implements I_mProjExec{
 
 	@Override
 	public void go() {
-		this.tblPortProvides = " mprojexec.tbl";
-		String cmd = "mProjExec -p " + this.dirPortUsesIn + " " + this.tblPortUses + " " + this.hdrPortUses + " " + this.dirPortUsesOut + " " + this.tblPortProvides;
+		this.tblPortProvides = "mprojexec.tbl";
+		String cmd = "mProjExec -p " + UnixUtil.home_dir+this.dirPortUsesIn + " " + UnixUtil.home_dir+this.tblPortUses + " " + UnixUtil.home_dir+this.hdrPortUses + " " + UnixUtil.home_dir+this.dirPortUsesOut + " " + UnixUtil.home_dir+this.tblPortProvides;
 		System.out.println(cmd);
+		UnixUtil.executeCommand(cmd);
 	}
 
 }

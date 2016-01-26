@@ -36,9 +36,10 @@ public class I_mBgExecImpl implements I_mBgExec{
 
 	@Override
 	public void go() {
-		String cmd = "mBgExec -p " + this.dirPortUsesIn + " " + this.tblPortUsesA + " "
-				+ this.tblPortUsesB + " " + this.dirPortUsesOut;
+		String cmd = "mBgExec -p " + UnixUtil.home_dir+this.dirPortUsesIn + " " + UnixUtil.home_dir+this.tblPortUsesA + " "
+				+ UnixUtil.home_dir+this.tblPortUsesB + " " + UnixUtil.home_dir+this.dirPortUsesOut;
 		System.out.println(cmd);
+		UnixUtil.executeCommand(cmd);
 	}
 
 }

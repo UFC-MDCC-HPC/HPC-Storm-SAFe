@@ -23,9 +23,10 @@ public class I_mIgtblImpl implements I_mIgtbl{
 
 	@Override
 	public void go() {
-		this.tblPortProvides = "imgbtl.tbl";
-		String cmd = "mImgtbl "+this.dirPortUses+" "+this.tblPortProvides;
+		this.tblPortProvides = "imgtbl.tbl";
+		String cmd = "mImgtbl "+UnixUtil.home_dir+this.dirPortUses+" "+UnixUtil.home_dir+this.tblPortProvides;
 		System.out.println(cmd);
+		UnixUtil.executeCommand(cmd);
 	}
 
 }

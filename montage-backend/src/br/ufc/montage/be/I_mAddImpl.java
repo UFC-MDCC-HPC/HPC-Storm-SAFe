@@ -34,9 +34,10 @@ public class I_mAddImpl implements I_mAdd{
 	@Override
 	public void go() {
 		this.fitsPortProvides = "m101_mosaic.fits";
-		String cmd = "mAdd -p " + this.dirPortUses + " " + this.tblPortUses + " "
-				+ this.hdrPortUses + " " + this.fitsPortProvides;
+		String cmd = "mAdd -p " + UnixUtil.home_dir+this.dirPortUses + " " + UnixUtil.home_dir+this.tblPortUses + " "
+				+ UnixUtil.home_dir+this.hdrPortUses + " " + UnixUtil.home_dir+this.fitsPortProvides;
 		System.out.println(cmd);
+		UnixUtil.executeCommand(cmd);
 	}
 
 }
