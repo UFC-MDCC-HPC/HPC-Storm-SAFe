@@ -1,5 +1,6 @@
 package br.ufc.montage.proxies;
 
+import br.montage.stubs.mArchiveExec.IMArchiveExecImplService;
 import br.ufc.mdcc.pargo.safe.framework.exception.HShelfException;
 import br.ufc.mdcc.pargo.safe.framework.port.HShelfUsesPort;
 import br.ufc.mdcc.pargo.safe.framework.port.IHShelfPortTypes;
@@ -35,6 +36,7 @@ public class MArchiveExecProxie extends MontageShelfComputationComponent{
 	public void go() {
 		String tblPortValue = null;
 		String dirPortValue = null;
+		IMArchiveExecImplService service = new IMArchiveExecImplService();
 		try {
 			this.dirUses = (HShelfUsesPort)this.services.getPort("marchive-uses-raw");
 			dirPortValue = ((MontageShelfProvidesPort)this.dirUses.getProvidesPort()).getValue();
@@ -46,15 +48,15 @@ public class MArchiveExecProxie extends MontageShelfComputationComponent{
 			e.printStackTrace();
 		}
 		
-		
+		service.getIMArchiveExecImplPort().setDirUses(dirPortValue);
+		service.getIMArchiveExecImplPort().setTblUses(tblPortValue);
 		
 		//SIMULAÇAO DA CHAMADA REMOTA DO WEB SERVICE PELA PORTA GO
 		//WS_GO.GO
 		//begin some computation... 
 		
-		String cmd = "cd "+dirPortValue+"\n";
-		cmd += " mArchiveExec "+tblPortValue;
-		System.out.println(cmd);
+		service.getIMArchiveExecImplPort().go();
+		
 		//end some computation!
 		//FIM DA SIMULAÇÃO
 		

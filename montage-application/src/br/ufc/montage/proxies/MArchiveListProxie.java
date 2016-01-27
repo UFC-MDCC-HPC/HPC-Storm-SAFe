@@ -1,5 +1,6 @@
 package br.ufc.montage.proxies;
 
+import br.montage.stubs.mArchiveList.IMArchiveListImplService;
 import br.ufc.mdcc.pargo.safe.framework.exception.HShelfException;
 import br.ufc.mdcc.pargo.safe.framework.port.HShelfUsesPort;
 import br.ufc.mdcc.pargo.safe.framework.port.IHShelfPortTypes;
@@ -36,6 +37,7 @@ public class MArchiveListProxie extends MontageShelfComputationComponent{
 	@Override
 	public void go() {
 		String dirPortValue = null;
+		IMArchiveListImplService service = new IMArchiveListImplService();
 		try {
 			this.rawUses = (HShelfUsesPort)this.services.getPort("marchivelist-uses-raw");
 			dirPortValue = ((MontageShelfProvidesPort)this.rawUses.getProvidesPort()).getValue();
@@ -44,21 +46,23 @@ public class MArchiveListProxie extends MontageShelfComputationComponent{
 			e.printStackTrace();
 		}
 		
+		service.getIMArchiveListImplPort().setRawUses(dirPortValue);
 		
 		
 		//SIMULAÇAO DA CHAMADA REMOTA DO WEB SERVICE PELA PORTA GO
 		//WS_GO.GO
 		//begin some computation... 
-		String tblValue = "imgbtl.tbl";
+		/*String tblValue = "imgbtl.tbl";
 		String cmd = "cd "+dirPortValue+"\n";
 		cmd += "mArchiveList dss DSS2B \"56.5 23.75\" 3 3 "+tblValue;
-		System.out.println(cmd);
+		System.out.println(cmd);*/
+		service.getIMArchiveListImplPort().go();
 		//end some computation!
 		//FIM DA SIMULAÇÃO
 		
 		//comunicar com o web services aqui, provides, para pegar o valor calculado e colocar na porta local
 		//WS_PROVIDES.GET_VALUE
-		this.tblProvides.setValue(tblValue);
+		this.tblProvides.setValue(service.getIMArchiveListImplPort().getTblProvides());
 		
 	}
 

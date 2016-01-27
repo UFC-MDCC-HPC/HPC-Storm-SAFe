@@ -67,6 +67,20 @@ public class StartMontageServices {
 		System.out.println(url);
 	}
 	
+	public void start_mArchiveExec(){
+		String url = "http://localhost:10014/mArchiveExec";
+		I_mArchiveExec service = new I_mArchiveExecImpl();
+		Endpoint.publish(url, service);
+		System.out.println(url);
+	}
+	
+	public void start_mArchiveList(){
+		String url = "http://localhost:10015/mArchiveList";
+		I_mArchiveList service = new I_mArchiveListImpl();
+		Endpoint.publish(url, service);
+		System.out.println(url);
+	}
+	
 	public static void main(String[] args) {
 		StartMontageServices sms = new StartMontageServices();
 		sms.startAll();
@@ -83,6 +97,8 @@ public class StartMontageServices {
 		start_mMontageDir();
 		start_mOverlaps();
 		start_mProjexec();
+		start_mArchiveExec();
+		start_mArchiveList();
 		
 	}
 }

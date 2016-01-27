@@ -29,7 +29,7 @@ public class PleiadesApplication extends HShelfApplication{
 			this.services.registerUsesPort(HShelfWorkflow.SAFE_WORKFLOW_GO_PORT,IHShelfPortTypes.DEFAULT);
 			this.services.registerUsesPort("jpg-uses", IHShelfPortTypes.NO_TYPE);
 			HdrPortProvides hdrPortProvides = new HdrPortProvides();
-			hdrPortProvides.setValue("template-hdr");
+			hdrPortProvides.setValue("template.hdr");
 			hdrPortProvides.setName("tmpl-hdr-prov");
 			this.services.setProvidesPort(hdrPortProvides);
 		} catch (HShelfException e) {

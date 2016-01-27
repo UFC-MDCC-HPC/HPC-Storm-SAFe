@@ -5,6 +5,8 @@ import javax.jws.WebService;
 @WebService(endpointInterface="br.ufc.montage.be.I_mAdd")
 public class I_mAddImpl implements I_mAdd{
 
+	private int index = 0;
+	
 	private String fitsPortProvides;
 
 	private String tblPortUses;
@@ -33,11 +35,13 @@ public class I_mAddImpl implements I_mAdd{
 
 	@Override
 	public void go() {
-		this.fitsPortProvides = "m101_mosaic.fits";
+		this.fitsPortProvides = "mosaic"+index+".fits";
+		index++;
 		String cmd = "mAdd -p " + UnixUtil.home_dir+this.dirPortUses + " " + UnixUtil.home_dir+this.tblPortUses + " "
 				+ UnixUtil.home_dir+this.hdrPortUses + " " + UnixUtil.home_dir+this.fitsPortProvides;
 		System.out.println(cmd);
 		UnixUtil.executeCommand(cmd);
+		
 	}
 
 }
