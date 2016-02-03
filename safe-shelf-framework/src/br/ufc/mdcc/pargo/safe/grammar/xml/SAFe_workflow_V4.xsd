@@ -124,7 +124,7 @@
 								<extension base="tns:XML_SAFe_Base">
 									<sequence>
 										<element minOccurs="1"
-											maxOccurs="1" name="operation"
+											maxOccurs="unbounded" name="operation"
 											type="tns:XML_SAFe_Operation">
 										</element>
 									</sequence>

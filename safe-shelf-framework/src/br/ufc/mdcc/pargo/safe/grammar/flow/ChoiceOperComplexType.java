@@ -2,7 +2,7 @@
 // Este arquivo foi gerado pela Arquitetura JavaTM para Implementação de Referência (JAXB) de Bind XML, v2.2.8-b130911.1802 
 // Consulte <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
 // Todas as modificações neste arquivo serão perdidas após a recompilação do esquema de origem. 
-// Gerado em: 2016.01.07 às 01:06:50 PM BRT 
+// Gerado em: 2016.02.02 às 08:24:51 PM BRT 
 //
 
 
@@ -32,7 +32,7 @@ import javax.xml.bind.annotation.XmlType;
  *             &lt;complexContent>
  *               &lt;extension base="{http://www.example.org/SAFe_workflow_V4}XML_SAFe_Base">
  *                 &lt;sequence>
- *                   &lt;element name="operation" type="{http://www.example.org/SAFe_workflow_V4}XML_SAFe_Operation"/>
+ *                   &lt;element name="operation" type="{http://www.example.org/SAFe_workflow_V4}XML_SAFe_Operation" maxOccurs="unbounded"/>
  *                 &lt;/sequence>
  *                 &lt;attribute name="action_id" type="{http://www.w3.org/2001/XMLSchema}string" />
  *               &lt;/extension>
@@ -125,7 +125,7 @@ public class ChoiceOperComplexType
      *   &lt;complexContent>
      *     &lt;extension base="{http://www.example.org/SAFe_workflow_V4}XML_SAFe_Base">
      *       &lt;sequence>
-     *         &lt;element name="operation" type="{http://www.example.org/SAFe_workflow_V4}XML_SAFe_Operation"/>
+     *         &lt;element name="operation" type="{http://www.example.org/SAFe_workflow_V4}XML_SAFe_Operation" maxOccurs="unbounded"/>
      *       &lt;/sequence>
      *       &lt;attribute name="action_id" type="{http://www.w3.org/2001/XMLSchema}string" />
      *     &lt;/extension>
@@ -144,32 +144,37 @@ public class ChoiceOperComplexType
     {
 
         @XmlElement(required = true)
-        protected XMLSAFeOperation operation;
+        protected List<XMLSAFeOperation> operation;
         @XmlAttribute(name = "action_id")
         protected String actionId;
 
         /**
-         * Obtém o valor da propriedade operation.
+         * Gets the value of the operation property.
          * 
-         * @return
-         *     possible object is
-         *     {@link XMLSAFeOperation }
-         *     
-         */
-        public XMLSAFeOperation getOperation() {
-            return operation;
-        }
-
-        /**
-         * Define o valor da propriedade operation.
+         * <p>
+         * This accessor method returns a reference to the live list,
+         * not a snapshot. Therefore any modification you make to the
+         * returned list will be present inside the JAXB object.
+         * This is why there is not a <CODE>set</CODE> method for the operation property.
          * 
-         * @param value
-         *     allowed object is
-         *     {@link XMLSAFeOperation }
-         *     
+         * <p>
+         * For example, to add a new item, do as follows:
+         * <pre>
+         *    getOperation().add(newItem);
+         * </pre>
+         * 
+         * 
+         * <p>
+         * Objects of the following type(s) are allowed in the list
+         * {@link XMLSAFeOperation }
+         * 
+         * 
          */
-        public void setOperation(XMLSAFeOperation value) {
-            this.operation = value;
+        public List<XMLSAFeOperation> getOperation() {
+            if (operation == null) {
+                operation = new ArrayList<XMLSAFeOperation>();
+            }
+            return this.operation;
         }
 
         /**

@@ -94,9 +94,20 @@ public class MontageAppMain extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				workflow = MontageUtil.deserializeWorkflow();
-				//System.out.println(workflow);
+				System.out.println(workflow);
 				centerPanel.setWorkflow(workflow);
 				centerPanel.updatePanel();
+				lateralPanel.setWorkflow(workflow);
+			}
+		});
+		
+		
+		menuItemArch.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				
 			}
 		});
 		
@@ -120,5 +131,9 @@ public class MontageAppMain extends JFrame {
 	
 	public static void main(String[] args) {
 		new MontageAppMain();
+	}
+	
+	public void printWorkflow(MontageWorkflow workflow){
+		
 	}
 }

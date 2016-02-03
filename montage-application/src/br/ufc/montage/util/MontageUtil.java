@@ -14,7 +14,7 @@ import br.ufc.montage.workflow.MontageWorkflow;
 
 public class MontageUtil {
 	
-	public static final String path_ser = "/home/jefferson/workflow.dat"; 
+	public static final String path_ser = "/home/jefferson/moex_data/workflow.dat"; 
 
 	public static List<MontageComponent> createComponents(){
 		

@@ -13,7 +13,7 @@ public class MontageComponentDAO {
 	
 	public List<MontageComponent> listComponents(){
 		List<MontageComponent> components;
-		components = MontageXML.parseXMLWorkflow("src/components.xml");
+		components = MontageXML.parseXMLWorkflow("src/components_mr.xml");
 		return components;
 	}
 	

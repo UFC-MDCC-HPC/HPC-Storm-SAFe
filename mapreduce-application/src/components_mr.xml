@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<components>
+	<component name="Application" kind="APPLICATION" id="0">
+		<env_ports>
+			<env_port name="wf_safeSWL" type="USES_PORT" id="100"/>
+			<env_port name="wf_go" type="USES_PORT" id="101"/>
+		</env_ports>
+	</component>
+	<component name="Workflow" kind="WORKFLOW" id="1">
+		 <env_ports>
+		 	<env_port name="wf_safeSWL" type="PROVIDES_PORT" id="200"/>
+			<env_port name="wf_go" type="PROVIDES_PORT" id="201"/>
+		 </env_ports>
+		 <tsk_ports>
+			<tsk_port name="wf_ss_splitter" id="202"/>
+			<tsk_port name="wf_chunk_splitter" id="202"/>
+			<tsk_port name="wf_chunk_shuffler" id="203"/>
+			<tsk_port name="wf_chunk_reduce" id="204"/>
+			<tsk_port name="wf_chunk_mapper" id="205"/>
+		</tsk_ports>
+	</component>
+	<component name="SPLITTER" kind="CONECTOR" id="3">
+		<env_ports>
+			<env_port name="SPLITTER_USES_CHUNK" type="USES_PORT" id="300"/>
+			<env_port name="SPLITTER_USES_SOURCE" type="USES_PORT" id="301"/>
+			<env_port name="SPLITTER_USES_SINK" type="USES_PORT" id="302"/>
+			<env_port name="SPLITTER_PROV" type="PROVIDES_PORT" id="303"/>
+		</env_ports>
+		<tsk_ports>
+			<tsk_port name="SPLITTER_CHUNK" id="305"/>
+			<tsk_port name="SPLITTER_SS" id="306"/>
+		</tsk_ports>
+	</component>
+	
+	<component name="SHUFFLER" kind="COMPUTATION" id="4">
+		<env_ports>
+			<env_port name="SHUFFLER_USES" type="USES_PORT" id="400"/>
+			<env_port name="SHUFFLER_PROV" type="PROVIDES_PORT" id="401"/>
+		</env_ports>
+		<tsk_ports>
+			<tsk_port name="SHUFFLER_CHUNK" id="405"/>
+		</tsk_ports>
+	</component>
+	
+	<component name="MAPPER" kind="COMPUTATION" id="5">
+		<env_ports>
+			<env_port name="MAPPER_USES" type="USES_PORT" id="500"/>
+			<env_port name="MAPPER_PROV" type="PROVIDES_PORT" id="501"/>
+		</env_ports>
+		<tsk_ports>
+			<tsk_port name="MAPPER_CHUNK" id="502"/>
+		</tsk_ports>
+	</component>
+	
+	<component name="REDUCER_0" kind="COMPUTATION" id="6">
+		<env_ports>
+			<env_port name="REDUCER_0_USES" type="USES_PORT" id="600"/>
+			<env_port name="REDUCER_0_PROV" type="PROVIDES_PORT" id="601"/>
+		</env_ports>
+		<tsk_ports>
+			<tsk_port name="REDUCER_0_CHUNK" id="602"/>
+		</tsk_ports>
+	</component>
+	
+	<component name="REDUCER_1" kind="COMPUTATION" id="9">
+		<env_ports>
+			<env_port name="REDUCER_1_USES" type="USES_PORT" id="900"/>
+			<env_port name="REDUCER_1_PROV" type="PROVIDES_PORT" id="901"/>
+		</env_ports>
+		<tsk_ports>
+			<tsk_port name="REDUCER_1_CHUNK" id="902"/>
+		</tsk_ports>
+	</component>
+	
+	<component name="DATA_SINK" kind="REPOSITORY" id="7">
+		<env_ports>
+			<env_port name="DATA_SINK_PROV" type="PROVIDES_PORT" id="701"/>
+		</env_ports>
+	</component>
+	
+	<component name="DATA_SOURCE" kind="REPOSITORY" id="8">
+		<env_ports>
+			<env_port name="DATA_SOURCE_PROV" type="PROVIDES_PORT" id="801"/>
+		</env_ports>
+	</component>
+</components>

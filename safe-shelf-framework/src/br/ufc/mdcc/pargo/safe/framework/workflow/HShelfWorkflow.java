@@ -300,19 +300,20 @@ public class HShelfWorkflow extends HShelfComponent {
 		}
 	}
 
-	public synchronized void compute(String method, String portName) {
+	public synchronized Object compute(String method, String portName) {
 		try {
 
 			HShelfTaskPort port = (HShelfTaskPort)this.services.getTaskPort(portName);
 			
 			if (port != null && port.isConnected()) {
 				
-				HShelfReflectionUtil.invokeMethod(port, method, null);
+				return HShelfReflectionUtil.invokeMethod(port, method, null);
 
 			}
 		} catch (HShelfException e) {
 			e.printStackTrace();
 		}
+		return null;
 	}
 
 	private void sendMessageToApp(String message, HShelfEventType eventType) {
