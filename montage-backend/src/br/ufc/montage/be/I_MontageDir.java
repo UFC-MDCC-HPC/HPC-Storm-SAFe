@@ -20,5 +20,8 @@ public interface I_MontageDir {
 	public String getDss2rDir();
 	@WebMethod
 	public String getDss2irDir();
+	@WebMethod
+	public String getFitsDir();
+	
 	
 }

@@ -169,9 +169,9 @@ public class HShelfFramework extends HShelfBuilderService {
 	@Override
 	public void connect(String usesPortName, String providesPortName) {
 
-		if (usesPortName.equals(HShelfWorkflow.SAFE_WORKFLOW_SWL_PORT)
-				|| usesPortName.equals(HShelfWorkflow.SAFE_WORKFLOW_GO_PORT)
-				|| usesPortName.equals(HShelfWorkflow.SAFE_WORKFLOW_EVENT_PORT)) {
+		if (usesPortName.startsWith(HShelfWorkflow.SAFE_WORKFLOW_SWL_PORT)
+				|| usesPortName.startsWith(HShelfWorkflow.SAFE_WORKFLOW_GO_PORT)
+				|| usesPortName.startsWith(HShelfWorkflow.SAFE_WORKFLOW_EVENT_PORT)) {
 			HShelfProvidesPort providesPort = (HShelfProvidesPort) this.providesPortMap
 					.get(usesPortName);
 			HShelfPort port = this.usesPortMap.get(usesPortName);

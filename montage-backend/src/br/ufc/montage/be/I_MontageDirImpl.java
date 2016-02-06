@@ -40,4 +40,9 @@ public class I_MontageDirImpl implements I_MontageDir{
 		return "dss2irDir";
 	}
 
+	@Override
+	public String getFitsDir() {
+		return "fitsDir";
+	}
+
 }

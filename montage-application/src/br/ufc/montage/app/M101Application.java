@@ -1,5 +1,7 @@
 package br.ufc.montage.app;
 
+import java.util.GregorianCalendar;
+
 import br.ufc.mdcc.pargo.safe.framework.application.HShelfApplication;
 import br.ufc.mdcc.pargo.safe.framework.exception.HShelfException;
 import br.ufc.mdcc.pargo.safe.framework.port.HShelfProvidesPort;
@@ -26,8 +28,8 @@ public class M101Application extends HShelfApplication{
 		this.services = services;
 		
 		try {
-			this.services.registerUsesPort(HShelfWorkflow.SAFE_WORKFLOW_SWL_PORT,IHShelfPortTypes.DEFAULT);
-			this.services.registerUsesPort(HShelfWorkflow.SAFE_WORKFLOW_GO_PORT,IHShelfPortTypes.DEFAULT);
+			this.services.registerUsesPort(HShelfWorkflow.SAFE_WORKFLOW_SWL_PORT+1,IHShelfPortTypes.DEFAULT);
+			this.services.registerUsesPort(HShelfWorkflow.SAFE_WORKFLOW_GO_PORT+1,IHShelfPortTypes.DEFAULT);
 			this.services.registerUsesPort("jpg-uses", IHShelfPortTypes.NO_TYPE);
 			HdrPortProvides hdrPortProvides = new HdrPortProvides();
 			hdrPortProvides.setValue("template.hdr");
@@ -44,15 +46,15 @@ public class M101Application extends HShelfApplication{
 	public void run() throws HShelfException{
 		if(this.services!=null){
 			
-			this.getFramework().connect(HShelfWorkflow.SAFE_WORKFLOW_SWL_PORT, HShelfWorkflow.SAFE_WORKFLOW_SWL_PORT);
-			HShelfSAFeSWLPort safeSWLPort = (HShelfSAFeSWLPort)((HShelfUsesPort)this.services.getPort(HShelfWorkflow.SAFE_WORKFLOW_SWL_PORT)).getProvidesPort();
+			this.getFramework().connect(HShelfWorkflow.SAFE_WORKFLOW_SWL_PORT+1, HShelfWorkflow.SAFE_WORKFLOW_SWL_PORT+1);
+			HShelfSAFeSWLPort safeSWLPort = (HShelfSAFeSWLPort)((HShelfUsesPort)this.services.getPort(HShelfWorkflow.SAFE_WORKFLOW_SWL_PORT+1)).getProvidesPort();
 			String archFile = "/home/jefferson/Git/HPC-Storm-SAFe/montage-application/src/br/ufc/montage/xml/m101-arch.xml";
 			String flowFile = "/home/jefferson/Git/HPC-Storm-SAFe/montage-application/src/br/ufc/montage/xml/m101-flow.xml";
 			safeSWLPort.setSAFeSWLArchFilePath(archFile);
 			safeSWLPort.setSAFeSWLFlowFilePath(flowFile);
 			
-			this.getFramework().connect(HShelfWorkflow.SAFE_WORKFLOW_GO_PORT, HShelfWorkflow.SAFE_WORKFLOW_GO_PORT);
-			HShelfGoWorkflowPortImpl goWorkflowPort = (HShelfGoWorkflowPortImpl)((HShelfUsesPort)this.services.getPort(HShelfWorkflow.SAFE_WORKFLOW_GO_PORT)).getProvidesPort();
+			this.getFramework().connect(HShelfWorkflow.SAFE_WORKFLOW_GO_PORT+1, HShelfWorkflow.SAFE_WORKFLOW_GO_PORT+1);
+			HShelfGoWorkflowPortImpl goWorkflowPort = (HShelfGoWorkflowPortImpl)((HShelfUsesPort)this.services.getPort(HShelfWorkflow.SAFE_WORKFLOW_GO_PORT+1)).getProvidesPort();
 			goWorkflowPort.loadArchitectureFile();
 			goWorkflowPort.loadWorkflowFile();
 			
@@ -68,12 +70,15 @@ public class M101Application extends HShelfApplication{
 	
 	public static void main(String[] args) {
 		M101Application m101Application = new M101Application("app-101");
+		long time1 = new GregorianCalendar().getTimeInMillis();
 		try {
 			m101Application.run();
 		} catch (HShelfException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		long time2 = new GregorianCalendar().getTimeInMillis();
+		System.out.println("elapsed: "+(time2-time1));
 	}
 
 }

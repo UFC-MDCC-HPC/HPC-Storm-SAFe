@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.sun.org.apache.xalan.internal.xsltc.compiler.sym;
+
 import br.ufc.mdcc.pargo.safe.framework.HShelfFramework;
 import br.ufc.mdcc.pargo.safe.framework.component.HShelfComponent;
 import br.ufc.mdcc.pargo.safe.framework.core.HShelfCoreImpl;
@@ -34,6 +36,7 @@ import br.ufc.mdcc.pargo.safe.grammar.arch.ArchWorkflow;
 
 public class HShelfWorkflow extends HShelfComponent {
 
+	public static int number = 1;
 	public static final String SAFE_WORKFLOW_SWL_PORT = "port_SAFeSWL";
 	public static final String SAFE_WORKFLOW_GO_PORT = "port_Go";
 	public static final String SAFE_WORKFLOW_EVENT_PORT = "port_Event";
@@ -73,20 +76,20 @@ public class HShelfWorkflow extends HShelfComponent {
 		this.services = services;
 		try {
 			safeSWLPort = new HShelfSAFeSWLPortImpl();
-			safeSWLPort.setName(HShelfWorkflow.SAFE_WORKFLOW_SWL_PORT);
+			safeSWLPort.setName(HShelfWorkflow.SAFE_WORKFLOW_SWL_PORT+HShelfWorkflow.number);
 			this.services.setProvidesPort(safeSWLPort);
 
 			safeGoPort = new HShelfGoWorkflowPortImpl();
 			((HShelfGoWorkflowPortImpl) safeGoPort).workflow = this;
-			safeGoPort.setName(HShelfWorkflow.SAFE_WORKFLOW_GO_PORT);
+			safeGoPort.setName(HShelfWorkflow.SAFE_WORKFLOW_GO_PORT+HShelfWorkflow.number);
 			this.services.setProvidesPort(safeGoPort);
 
 			safeWorkflowEventPort = new HShelfWorkflowEventPortImpl();
 			safeWorkflowEventPort
-					.setName(HShelfWorkflow.SAFE_WORKFLOW_EVENT_PORT);
+					.setName(HShelfWorkflow.SAFE_WORKFLOW_EVENT_PORT+HShelfWorkflow.number);
 			this.services.setProvidesPort(safeWorkflowEventPort);
 			 
-
+			HShelfWorkflow.number = HShelfWorkflow.number + 1; 
 		} catch (HShelfException e) {
 
 			e.printStackTrace();
@@ -96,7 +99,7 @@ public class HShelfWorkflow extends HShelfComponent {
 	/**
 	 * loads architecture file.
 	 */
-	public void loadArchitectureFile() {
+	public synchronized void loadArchitectureFile() {
 		this.archParser = null;
 		String filePath = ((HShelfSAFeSWLPort) safeSWLPort)
 				.getSAFeSWLArchFilePath();
@@ -135,7 +138,7 @@ public class HShelfWorkflow extends HShelfComponent {
 	/**
 	 * loads workflow file
 	 */
-	public void loadWorkflowFile() {
+	public synchronized void loadWorkflowFile() {
 		this.flowParser = null;
 		String filePath = ((HShelfSAFeSWLPort) safeSWLPort)
 				.getSAFeSWLFlowFilePath();
@@ -153,7 +156,7 @@ public class HShelfWorkflow extends HShelfComponent {
 	/**
 	 * Run worklfow flow control logic
 	 */
-	public void run() {
+	public synchronized void run() {
 		if (this.flowParser != null) {
 			HShelfConsoleLogger.write("**WORKFLOW READING STARTED**");
 			this.sendMessageToApp("**WORKFLOW READING STARTED**",

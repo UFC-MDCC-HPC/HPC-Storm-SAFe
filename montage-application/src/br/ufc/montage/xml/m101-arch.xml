@@ -6,16 +6,16 @@ xsi:schemaLocation="http://www.example.org/SAFe_architecture_V4 SAFe_architectur
   
   <!-- application -->
   <tns:application id="0" name="app-101">
-    <tns:uses_port id="13" name="port_SAFeSWL" id_component="0"/>
-    <tns:uses_port id="14" name="port_Go" id_component="0"/>
+    <tns:uses_port id="13" name="port_SAFeSWL1" id_component="0"/>
+    <tns:uses_port id="14" name="port_Go1" id_component="0"/>
   	<tns:uses_port id="11" name="jpg-uses" id_component="0"/>
   	<tns:provides_port id="12" name="tmpl-hdr-prov" id_component="0"/>
   </tns:application>
   
   <!-- workflow -->
   <tns:workflow id="1" name="workflow-101">
-    <tns:provides_port id="21" name="port_SAFeSWL" id_component="1"/>
-    <tns:provides_port id="22" name="port_Go" id_component="1"/>
+    <tns:provides_port id="21" name="port_SAFeSWL1" id_component="1"/>
+    <tns:provides_port id="22" name="port_Go1" id_component="1"/>
     
     <tns:task_port id="23" name="wf-mimgtbl-tsk" id_component="1"/>
   	<tns:task_port id="24" name="wf-mprojexec-tsk" id_component="1"/>
@@ -133,12 +133,12 @@ xsi:schemaLocation="http://www.example.org/SAFe_architecture_V4 SAFe_architectur
   
   <!-- Application bindings -->
   <tns:env_binding>
-  	<tns:uses_port id="13" name="port_SAFeSWL" id_component="0"/> 
-  	<tns:provides_port id="21" name="port_SAFeSWL" id_component="1"/>
+  	<tns:uses_port id="13" name="port_SAFeSWL1" id_component="0"/> 
+  	<tns:provides_port id="21" name="port_SAFeSWL1" id_component="1"/>
   </tns:env_binding>
   <tns:env_binding>
-  	<tns:uses_port id="14" name="port_Go" id_component="0"/> 
-  	<tns:provides_port id="22" name="port_Go" id_component="1"/>
+  	<tns:uses_port id="14" name="port_Go1" id_component="0"/> 
+  	<tns:provides_port id="22" name="port_Go1" id_component="1"/>
   </tns:env_binding>
   <tns:env_binding>
   	<tns:uses_port id="11" name="jpg-uses" id_component="0"/> 

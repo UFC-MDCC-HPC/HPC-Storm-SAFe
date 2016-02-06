@@ -52,16 +52,17 @@
 		</tsk_ports>
 	</component>
 	
-	<component name="REDUCER_0" kind="COMPUTATION" id="6">
+	<component name="REDUCER" kind="COMPUTATION" id="6">
 		<env_ports>
-			<env_port name="REDUCER_0_USES" type="USES_PORT" id="600"/>
-			<env_port name="REDUCER_0_PROV" type="PROVIDES_PORT" id="601"/>
+			<env_port name="REDUCER_USES" type="USES_PORT" id="600"/>
+			<env_port name="REDUCER_PROV" type="PROVIDES_PORT" id="601"/>
 		</env_ports>
 		<tsk_ports>
-			<tsk_port name="REDUCER_0_CHUNK" id="602"/>
+			<tsk_port name="REDUCER_CHUNK" id="602"/>
 		</tsk_ports>
 	</component>
 	
+	<!--  
 	<component name="REDUCER_1" kind="COMPUTATION" id="9">
 		<env_ports>
 			<env_port name="REDUCER_1_USES" type="USES_PORT" id="900"/>
@@ -69,6 +70,17 @@
 		</env_ports>
 		<tsk_ports>
 			<tsk_port name="REDUCER_1_CHUNK" id="902"/>
+		</tsk_ports>
+	</component>
+	-->
+	
+	<component name="COMBINER" kind="COMPUTATION" id="10">
+		<env_ports>
+			<env_port name="COMBINER_USES" type="USES_PORT" id="1000"/>
+			<env_port name="COMBINER_PROV" type="PROVIDES_PORT" id="1001"/>
+		</env_ports>
+		<tsk_ports>
+			<tsk_port name="COMBINER_CHUNK" id="1002"/>
 		</tsk_ports>
 	</component>
 	

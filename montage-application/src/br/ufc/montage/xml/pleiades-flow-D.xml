@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tns:workflow xmlns:tns="http://www.example.org/SAFe_workflow_V4"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.example.org/SAFe_workflow_V4 SAFe_workflow_V4.xsd ">
+	<tns:sequence_oper>
+		
+		
+		
+
+		<!-- CONNECT -->
+		<tns:operation>
+			<tns:invoke_oper action="connect" id="2" />
+		</tns:operation>
+		
+		
+		
+		 
+<tns:operation>
+	<tns:sequence_oper>
+		<!-- ACTIONS -->
+		
+		<!-- mJpeg3-go -->
+		<tns:operation>
+			<tns:invoke_oper action="compute" id="341" />
+		</tns:operation>
+		
+	</tns:sequence_oper>
+  </tns:operation>		
+		
+		
+
+		
+	</tns:sequence_oper>
+</tns:workflow>

@@ -20,30 +20,10 @@
 			<tns:invoke_oper action="connect" id="4" />
 		</tns:operation>
 		
-		<tns:operation>
-			<tns:invoke_oper action="connect" id="5" />
-		</tns:operation>
-		
-		<tns:operation>
-			<tns:invoke_oper action="connect" id="6" />
-		</tns:operation>
-		
-		
-		
+		 
 <tns:operation>
- <tns:iterate_oper max="3">
-  <tns:operation>
 	<tns:sequence_oper>
 		<!-- ACTIONS -->
-		<!-- mArchiveList-go -->
-		<tns:operation>
-			<tns:invoke_oper action="compute" id="541" />
-		</tns:operation>
-		
-		<!-- mArchiveExec-go -->
-		<tns:operation>
-			<tns:invoke_oper action="compute" id="631" />
-		</tns:operation>
 		
 		<!-- mImgtbl-go -->
 		<tns:operation>
@@ -65,18 +45,9 @@
 			<tns:invoke_oper action="compute" id="451" />
 		</tns:operation>
 	</tns:sequence_oper>
-  </tns:operation>
- </tns:iterate_oper>
-</tns:operation>
-			
-		<tns:operation>
-			<tns:invoke_oper action="connect" id="10" />
-		</tns:operation>
+  </tns:operation>		
 		
-		<!-- mJpeg-go -->
-		<tns:operation>
-			<tns:invoke_oper action="compute" id="1031" />
-		</tns:operation>
+		
 
 		
 	</tns:sequence_oper>

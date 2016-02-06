@@ -5,7 +5,7 @@ import javax.jws.WebService;
 @WebService(endpointInterface="br.ufc.montage.be.I_mIgtbl")
 public class I_mIgtblImpl implements I_mIgtbl{
 
-	
+	private static int index = 1;
 	public String dirPortUses;
 	public String tblPortProvides;
 	
@@ -22,8 +22,9 @@ public class I_mIgtblImpl implements I_mIgtbl{
 	}
 
 	@Override
-	public void go() {
-		this.tblPortProvides = "imgtbl.tbl";
+	public synchronized void go() {
+		this.tblPortProvides = "imgtbl"+index+".tbl";
+		index++;
 		String cmd = "mImgtbl "+UnixUtil.home_dir+this.dirPortUses+" "+UnixUtil.home_dir+this.tblPortProvides;
 		System.out.println(cmd);
 		UnixUtil.executeCommand(cmd);

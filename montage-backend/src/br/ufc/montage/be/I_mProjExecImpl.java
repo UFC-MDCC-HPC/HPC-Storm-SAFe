@@ -5,7 +5,10 @@ import javax.jws.WebService;
 @WebService(endpointInterface="br.ufc.montage.be.I_mProjExec")
 public class I_mProjExecImpl implements I_mProjExec{
 
+	private static int index = 1;
+	
 	private String tblPortProvides;
+	
 	
 	private String tblPortUses;
 	private String dirPortUsesIn;
@@ -39,8 +42,9 @@ public class I_mProjExecImpl implements I_mProjExec{
 	}
 
 	@Override
-	public void go() {
-		this.tblPortProvides = "mprojexec.tbl";
+	public synchronized void go() {
+		this.tblPortProvides = "mprojexec"+index+".tbl";
+		index++;
 		String cmd = "mProjExec -p " + UnixUtil.home_dir+this.dirPortUsesIn + " " + UnixUtil.home_dir+this.tblPortUses + " " + UnixUtil.home_dir+this.hdrPortUses + " " + UnixUtil.home_dir+this.dirPortUsesOut + " " + UnixUtil.home_dir+this.tblPortProvides;
 		System.out.println(cmd);
 		UnixUtil.executeCommand(cmd);

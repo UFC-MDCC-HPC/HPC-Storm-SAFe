@@ -107,4 +107,16 @@ public interface IMontageDir {
     @Action(input = "http://be.montage.ufc.br/I_MontageDir/getDss2irDirRequest", output = "http://be.montage.ufc.br/I_MontageDir/getDss2irDirResponse")
     public String getDss2IrDir();
 
+    /**
+     * 
+     * @return
+     *     returns java.lang.String
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "getFitsDir", targetNamespace = "http://be.montage.ufc.br/", className = "br.montage.stubs.mMontageDir.GetFitsDir")
+    @ResponseWrapper(localName = "getFitsDirResponse", targetNamespace = "http://be.montage.ufc.br/", className = "br.montage.stubs.mMontageDir.GetFitsDirResponse")
+    @Action(input = "http://be.montage.ufc.br/I_MontageDir/getFitsDirRequest", output = "http://be.montage.ufc.br/I_MontageDir/getFitsDirResponse")
+    public String getFitsDir();
+
 }

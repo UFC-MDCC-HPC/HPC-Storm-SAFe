@@ -30,11 +30,13 @@ public class ObjectFactory {
     private final static QName _GetCorrDir_QNAME = new QName("http://be.montage.ufc.br/", "getCorrDir");
     private final static QName _GetDss2RDir_QNAME = new QName("http://be.montage.ufc.br/", "getDss2rDir");
     private final static QName _GetDss2IrDirResponse_QNAME = new QName("http://be.montage.ufc.br/", "getDss2irDirResponse");
+    private final static QName _GetFitsDir_QNAME = new QName("http://be.montage.ufc.br/", "getFitsDir");
     private final static QName _GetDiffDirResponse_QNAME = new QName("http://be.montage.ufc.br/", "getDiffDirResponse");
     private final static QName _GetProjDir_QNAME = new QName("http://be.montage.ufc.br/", "getProjDir");
     private final static QName _GetDiffDir_QNAME = new QName("http://be.montage.ufc.br/", "getDiffDir");
     private final static QName _GetDss2RDirResponse_QNAME = new QName("http://be.montage.ufc.br/", "getDss2rDirResponse");
     private final static QName _GetRawDirResponse_QNAME = new QName("http://be.montage.ufc.br/", "getRawDirResponse");
+    private final static QName _GetFitsDirResponse_QNAME = new QName("http://be.montage.ufc.br/", "getFitsDirResponse");
     private final static QName _GetDss2IrDir_QNAME = new QName("http://be.montage.ufc.br/", "getDss2irDir");
     private final static QName _GetCorrDirResponse_QNAME = new QName("http://be.montage.ufc.br/", "getCorrDirResponse");
     private final static QName _GetDss2BDir_QNAME = new QName("http://be.montage.ufc.br/", "getDss2bDir");
@@ -111,6 +113,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link GetFitsDirResponse }
+     * 
+     */
+    public GetFitsDirResponse createGetFitsDirResponse() {
+        return new GetFitsDirResponse();
+    }
+
+    /**
      * Create an instance of {@link GetCorrDir }
      * 
      */
@@ -148,6 +158,14 @@ public class ObjectFactory {
      */
     public GetProjDirResponse createGetProjDirResponse() {
         return new GetProjDirResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetFitsDir }
+     * 
+     */
+    public GetFitsDir createGetFitsDir() {
+        return new GetFitsDir();
     }
 
     /**
@@ -213,6 +231,15 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetFitsDir }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://be.montage.ufc.br/", name = "getFitsDir")
+    public JAXBElement<GetFitsDir> createGetFitsDir(GetFitsDir value) {
+        return new JAXBElement<GetFitsDir>(_GetFitsDir_QNAME, GetFitsDir.class, null, value);
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link GetDiffDirResponse }{@code >}}
      * 
      */
@@ -255,6 +282,15 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://be.montage.ufc.br/", name = "getRawDirResponse")
     public JAXBElement<GetRawDirResponse> createGetRawDirResponse(GetRawDirResponse value) {
         return new JAXBElement<GetRawDirResponse>(_GetRawDirResponse_QNAME, GetRawDirResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetFitsDirResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://be.montage.ufc.br/", name = "getFitsDirResponse")
+    public JAXBElement<GetFitsDirResponse> createGetFitsDirResponse(GetFitsDirResponse value) {
+        return new JAXBElement<GetFitsDirResponse>(_GetFitsDirResponse_QNAME, GetFitsDirResponse.class, null, value);
     }
 
     /**

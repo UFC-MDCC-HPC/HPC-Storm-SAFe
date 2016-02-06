@@ -1,4 +1,4 @@
-package br.ufc.montage.be;
+package br.ufc.montage.util;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -11,7 +11,7 @@ import java.io.PrintWriter;
 public class UnixUtil {
 
 	//public static final String home_dir = "/home/jefferson/TEMP/m101/";
-	public static final String home_dir = "/home/jefferson/TEMP/pleiades/";
+	//public static final String home_dir = "/home/jefferson/TEMP/pleiades/";
 	
 	public static synchronized String executeCommand(String command) {
 

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tns:architecture xmlns:tns="http://www.example.org/SAFe_architecture_V4" 
+xmlns:tns1="http://www.example.org/instantiator" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:schemaLocation="http://www.example.org/SAFe_architecture_V4 SAFe_architecture_V4.xsd ">
+  
+   <!-- application -->
+  <tns:application id="0" name="pleiades-D">
+    <tns:uses_port id="13" name="port_SAFeSWL4" id_component="0"/>
+    <tns:uses_port id="14" name="port_Go4" id_component="0"/>
+  </tns:application>
+  
+  <!-- workflow -->
+  <tns:workflow id="1" name="wf-pleiades-D">
+    <tns:provides_port id="21" name="port_SAFeSWL4" id_component="1"/>
+    <tns:provides_port id="22" name="port_Go4" id_component="1"/>
+    <tns:task_port id="23" name="wf-mjpeg3-tsk-D" id_component="1"/>
+  </tns:workflow>
+ <tns:body>
+  
+  <!-- repository -->
+  <tns:computation name="fitsDir" id="200">
+    <tns:provides_port id="2001" name="fits-dir-port-A-D" id_component="200"/>
+    <tns:provides_port id="2002" name="fits-dir-port-B-D" id_component="200"/>
+    <tns:provides_port id="2003" name="fits-dir-port-C-D" id_component="200"/>
+  </tns:computation>
+  
+  <!-- computation -->
+    <tns:computation name="mJpeg3" id="2">
+      <tns:uses_port id="31" name="mjpeg-fits-port-uses0" id_component="2"/>
+      <tns:uses_port id="32" name="mjpeg-fits-port-uses1" id_component="2"/>
+      <tns:uses_port id="33" name="mjpeg-fits-port-uses2" id_component="2"/>
+      <tns:task_port name="mjpeg3-go" id="34" id_component="2">
+      		<tns:action id="341" name="go"/>	
+      </tns:task_port>
+    </tns:computation>
+       
+ </tns:body>
+ 
+ <!-- Application bindings -->
+  <tns:env_binding>
+  	<tns:uses_port id="13" name="port_SAFeSWL4" id_component="0"/> 
+  	<tns:provides_port id="21" name="port_SAFeSWL4" id_component="1"/>
+  </tns:env_binding>
+  <tns:env_binding>
+  	<tns:uses_port id="14" name="port_Go4" id_component="0"/> 
+  	<tns:provides_port id="22" name="port_Go4" id_component="1"/>
+  </tns:env_binding>
+  
+  <tns:env_binding>
+    <tns:uses_port id="31" name="mjpeg-fits-port-uses0" id_component="2"/>
+  	<tns:provides_port id="2001" name="fits-dir-port-A-D" id_component="200"/>
+  </tns:env_binding>
+  <tns:env_binding>
+  	<tns:uses_port id="32" name="mjpeg-fits-port-uses1" id_component="2"/>
+  	<tns:provides_port id="2002" name="fits-dir-port-B-D" id_component="200"/>
+  </tns:env_binding>
+  <tns:env_binding>
+    <tns:uses_port id="33" name="mjpeg-fits-port-uses2" id_component="2"/>
+  	<tns:provides_port id="2003" name="fits-dir-port-C-D" id_component="200"/>
+  </tns:env_binding>
+  
+    
+  
+  
+  
+  
+  <!-- TASK bindings -->
+  <tns:task_binding>
+  	<tns:left_peer id="23" name="wf-mjpeg3-tsk-D" id_component="1"/>
+  	<tns:right_peer name="mjpeg3-go" id="34" id_component="2"/>
+  </tns:task_binding>
+  
+  
+</tns:architecture>
