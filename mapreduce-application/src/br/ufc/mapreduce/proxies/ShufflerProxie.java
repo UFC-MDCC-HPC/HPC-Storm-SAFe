@@ -7,7 +7,7 @@ import br.ufc.mdcc.pargo.safe.framework.exception.HShelfException;
 import br.ufc.mdcc.pargo.safe.framework.port.HShelfUsesPort;
 import br.ufc.mdcc.pargo.safe.framework.services.IHShelfService;
 
-public class Combiner extends HShelfComponent implements MRAdapter{
+public class ShufflerProxie extends HShelfComponent implements MRAdapter{
 
 	private MRPort providesPort;
 	private HShelfUsesPort usesPort;
@@ -23,12 +23,12 @@ public class Combiner extends HShelfComponent implements MRAdapter{
 		
 		try {
 			providesPort = new MRPort();
-			providesPort.setName("combiner-provides");
+			providesPort.setName("shuffler-provides");
 			this.services.setProvidesPort(providesPort);
 			taskChunk = new TaskChunk(this);
-			taskChunk.setName("combiner-task");
+			taskChunk.setName("shuffler-task-chunk");
 			this.services.registerTaskPort(taskChunk);
-			this.services.registerUsesPort("combiner-uses", "?");
+			this.services.registerUsesPort("shuffler-uses", "?");
 			
 		} catch (HShelfException e) {
 			// TODO Auto-generated catch block
@@ -43,8 +43,8 @@ public class Combiner extends HShelfComponent implements MRAdapter{
 	}
 
 	@Override
-	public void terminate() {
-		// TODO Auto-generated method stub
+	public boolean terminate() {
+		return false;
 		
 	}
 
@@ -57,7 +57,7 @@ public class Combiner extends HShelfComponent implements MRAdapter{
 	@Override
 	public void read_chunk() {
 		try {
-			usesPort = ((HShelfUsesPort)this.services.getPort("combiner-uses"));
+			usesPort = ((HShelfUsesPort)this.services.getPort("shuffler-uses"));
 			this.chunk_in = ((MRPort)usesPort.getProvidesPort()).getChunk();
 		} catch (HShelfException e) {
 			// TODO Auto-generated catch block
@@ -70,8 +70,8 @@ public class Combiner extends HShelfComponent implements MRAdapter{
 	@Override
 	public void perform() {
 		try {
-			Thread.sleep(500);
-			this.chunk_out = "OUT: "+chunk_in;
+			Thread.sleep(2000);
+			this.chunk_out = "SHUFFLER-OUT: "+chunk_in;
 			this.providesPort.setChunk(chunk_out);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
@@ -82,11 +82,17 @@ public class Combiner extends HShelfComponent implements MRAdapter{
 
 	@Override
 	public boolean chunk_ready() {
-		if(!this.chunk_out.equalsIgnoreCase("")){
-			this.chunk_out="";
-			return true;
+		try {
+			usesPort = ((HShelfUsesPort)this.services.getPort("shuffler-uses"));
+			String chunk = ((MRPort)usesPort.getProvidesPort()).getChunk();
+			if(chunk!=null && !chunk.equals("")){
+				((MRPort)usesPort.getProvidesPort()).setChunk("");
+				return true;
+			}
+		} catch (HShelfException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-			
 		return false;
 	}
 

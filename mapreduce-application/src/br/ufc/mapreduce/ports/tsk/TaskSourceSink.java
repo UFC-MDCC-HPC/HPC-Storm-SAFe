@@ -13,8 +13,8 @@ public class TaskSourceSink extends HShelfTaskPort{
 	public void read_source(){
 		this.mr.read_source();
 	}
-	public void terminate(){
-		this.mr.terminate();
+	public boolean terminate(){
+		return this.mr.terminate();
 	}
 	public void write_sink(){
 		this.mr.write_sink();

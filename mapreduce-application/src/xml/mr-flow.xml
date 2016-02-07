@@ -13,7 +13,7 @@
 		</tns:operation>
 		
 		<tns:operation>
-			<tns:invoke_oper action="connect" id="11" />
+			<tns:invoke_oper action="connect" id="3" />
 		</tns:operation>
 		
 		<tns:operation>
@@ -21,63 +21,84 @@
 		</tns:operation>
 		
 		<tns:operation>
-			<tns:invoke_oper action="connect" id="5" />
-		</tns:operation>
-		
-		<tns:operation>
 			<tns:invoke_oper action="connect" id="6" />
 		</tns:operation>
 		
-		
-		
-<tns:operation>
- <tns:iterate_oper max="3">
-  <tns:operation>
-	<tns:sequence_oper>
-		<!-- ACTIONS -->
-		<!-- mArchiveList-go -->
 		<tns:operation>
-			<tns:invoke_oper action="compute" id="541" />
+			<tns:invoke_oper action="connect" id="7" />
 		</tns:operation>
 		
-		<!-- mArchiveExec-go -->
-		<tns:operation>
-			<tns:invoke_oper action="compute" id="631" />
-		</tns:operation>
-		
-		<!-- mImgtbl-go -->
+		<!-- splitter read source -->
 		<tns:operation>
 			<tns:invoke_oper action="compute" id="341" />
 		</tns:operation>
-
-		<!-- mProjExec-go -->
+		<!-- splitter perform -->
 		<tns:operation>
-			<tns:invoke_oper action="compute" id="1151" />
+			<tns:invoke_oper action="compute" id="352" />
 		</tns:operation>
-
-		<!-- mImgtbl-go -->
+		
 		<tns:operation>
-			<tns:invoke_oper action="compute" id="341" />
-		</tns:operation>
-
-		<!-- mAdd-go -->
+	    <tns:iterate_oper max="6">
+		
 		<tns:operation>
-			<tns:invoke_oper action="compute" id="451" />
+			<tns:choice_oper>
+				
+				<tns:select action_id="453">
+					<tns:operation>
+						<tns:invoke_oper action="compute" id="451"/>
+					</tns:operation>
+					<tns:operation>
+						<tns:invoke_oper action="compute" id="452"/>
+					</tns:operation>
+				</tns:select>
+				
+				<tns:select action_id="553">
+					<tns:operation>
+						<tns:invoke_oper action="compute" id="551"/>
+					</tns:operation>
+					<tns:operation>
+						<tns:invoke_oper action="compute" id="552"/>
+					</tns:operation>
+				</tns:select>
+				
+				<tns:select action_id="653">
+					<tns:operation>
+						<tns:invoke_oper action="compute" id="651"/>
+					</tns:operation>
+					<tns:operation>
+						<tns:invoke_oper action="compute" id="652"/>
+					</tns:operation>
+				</tns:select>
+				
+				<tns:select action_id="753">
+					<tns:operation>
+						<tns:invoke_oper action="compute" id="751"/>
+					</tns:operation>
+					<tns:operation>
+						<tns:invoke_oper action="compute" id="752"/>
+					</tns:operation>
+				</tns:select>
+				
+				<tns:select action_id="342">
+					<tns:operation>
+						<tns:invoke_oper action="compute" id="351"/>
+					</tns:operation>
+					<tns:operation>
+						<tns:invoke_oper action="compute" id="352"/>
+					</tns:operation>
+					<tns:operation>
+						<tns:invoke_oper action="compute" id="343"/>
+					</tns:operation>
+				</tns:select>
+				
+			</tns:choice_oper>
 		</tns:operation>
-	</tns:sequence_oper>
-  </tns:operation>
- </tns:iterate_oper>
-</tns:operation>
+		
+		</tns:iterate_oper>
+		</tns:operation>
+		
+				 
 			
-		<tns:operation>
-			<tns:invoke_oper action="connect" id="10" />
-		</tns:operation>
-		
-		<!-- mJpeg-go -->
-		<tns:operation>
-			<tns:invoke_oper action="compute" id="1031" />
-		</tns:operation>
-
 		
 	</tns:sequence_oper>
 </tns:workflow>

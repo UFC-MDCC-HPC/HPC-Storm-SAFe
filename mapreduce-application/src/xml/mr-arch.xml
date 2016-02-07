@@ -5,11 +5,9 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 xsi:schemaLocation="http://www.example.org/SAFe_architecture_V4 SAFe_architecture_V4.xsd ">
   
    <!-- application -->
-  <tns:application id="0" name="app-101">
+  <tns:application id="0" name="application-mr">
     <tns:uses_port id="13" name="port_SAFeSWL" id_component="0"/>
     <tns:uses_port id="14" name="port_Go" id_component="0"/>
-  	<tns:uses_port id="11" name="jpg-uses" id_component="0"/>
-  	<tns:provides_port id="12" name="tmpl-hdr-prov" id_component="0"/>
   </tns:application>
   
   <!-- workflow -->
@@ -19,39 +17,79 @@ xsi:schemaLocation="http://www.example.org/SAFe_architecture_V4 SAFe_architectur
     <tns:task_port id="23" name="wf-splitter-ss" id_component="1"/>
   	<tns:task_port id="24" name="wf-splitter-ck" id_component="1"/>
   	<tns:task_port id="25" name="wf-mapper-ck" id_component="1"/>
-  	<tns:task_port id="27" name="wf-reducer-ck" id_component="1"/>
-  	<tns:task_port id="28" name="wf-shuffler-ck" id_component="1"/>
+  	<tns:task_port id="26" name="wf-reducer-ck" id_component="1"/>
+  	<tns:task_port id="27" name="wf-shuffler-ck" id_component="1"/>
+  	<tns:task_port id="28" name="wf-combiner-ck" id_component="1"/>
   </tns:workflow>
   
   
  <tns:body>
   
   <!-- repository -->
-  <tns:repository name="DATA_SINK" id="200">
-    <tns:provides_port id="2001" name="data_sink_prov" id_component="200"/>
-  </tns:repository>
+  <tns:computation name="DataSink" id="200">
+    <tns:provides_port id="2001" name="sink-provides" id_component="200"/>
+  </tns:computation>
   
-  <tns:repository name="DATA_SOURCE" id="201">
-    <tns:provides_port id="2010" name="data_source_prov" id_component="201"/>
-  </tns:repository>
+  <tns:computation name="DataSource" id="201">
+    <tns:provides_port id="2010" name="source-provides" id_component="201"/>
+  </tns:computation>
   
-  <tns:computation name="SPLITTER" id="2">
-    <tns:uses_port id="31" name="splitter_source_uses" id_component="2"/>
-    <tns:uses_port id="32" name="splitter_sink_uses" id_component="2"/>
-    <tns:uses_port id="36" name="splitter_chunk_uses" id_component="2"/>
-  	<tns:provides_port id="33" name="splitter_chunk_prov" id_component="2"/>
-    <tns:task_port name="splitter_ss" id="34" id_component="2">
+  <tns:computation name="Splitter" id="2">
+    <tns:uses_port id="31" name="splitter-uses-source" id_component="2"/>
+    <tns:uses_port id="32" name="splitter-uses-sink" id_component="2"/>
+    <tns:uses_port id="36" name="splitter-uses" id_component="2"/>
+  	<tns:provides_port id="33" name="splitter-provides" id_component="2"/>
+    <tns:task_port name="splitter-task-ss" id="34" id_component="2">
       	<tns:action id="341" name="read_source"/>
       	<tns:action id="342" name="terminate"/>
       	<tns:action id="343" name="write_sink"/>	
     </tns:task_port>
-    <tns:task_port name="splitter_chunk" id="35" id_component="2">
+    <tns:task_port name="splitter-task-chunk" id="35" id_component="2">
       	<tns:action id="351" name="read_chunk"/>
       	<tns:action id="352" name="perform"/>
       	<tns:action id="353" name="chunk_ready"/>	
     </tns:task_port>
   </tns:computation>
   
+  <tns:computation name="Mapper" id="3">
+    <tns:uses_port id="41" name="mapper-uses" id_component="3"/>
+  	<tns:provides_port id="43" name="mapper-provides" id_component="3"/>
+    <tns:task_port name="mapper-task-chunk" id="45" id_component="3">
+      	<tns:action id="451" name="read_chunk"/>
+      	<tns:action id="452" name="perform"/>
+      	<tns:action id="453" name="chunk_ready"/>	
+    </tns:task_port>
+  </tns:computation>
+  
+  <tns:computation name="Combiner" id="4">
+    <tns:uses_port id="51" name="combiner-uses" id_component="4"/>
+  	<tns:provides_port id="53" name="combiner-provides" id_component="4"/>
+    <tns:task_port name="combiner-task-chunk" id="55" id_component="4">
+      	<tns:action id="551" name="read_chunk"/>
+      	<tns:action id="552" name="perform"/>
+      	<tns:action id="553" name="chunk_ready"/>	
+    </tns:task_port>
+  </tns:computation>
+  
+  <tns:computation name="Shuffler" id="6">
+    <tns:uses_port id="61" name="shuffler-uses" id_component="6"/>
+  	<tns:provides_port id="63" name="shuffler-provides" id_component="6"/>
+    <tns:task_port name="shuffler-task-chunk" id="65" id_component="6">
+      	<tns:action id="651" name="read_chunk"/>
+      	<tns:action id="652" name="perform"/>
+      	<tns:action id="653" name="chunk_ready"/>	
+    </tns:task_port>
+  </tns:computation>
+  
+  <tns:computation name="Reducer" id="7">
+    <tns:uses_port id="71" name="reducer-uses" id_component="7"/>
+  	<tns:provides_port id="73" name="reducer-provides" id_component="7"/>
+    <tns:task_port name="reducer-task-chunk" id="75" id_component="7">
+      	<tns:action id="751" name="read_chunk"/>
+      	<tns:action id="752" name="perform"/>
+      	<tns:action id="753" name="chunk_ready"/>	
+    </tns:task_port>
+  </tns:computation>
      
  </tns:body>
  
@@ -65,132 +103,72 @@ xsi:schemaLocation="http://www.example.org/SAFe_architecture_V4 SAFe_architectur
   	<tns:provides_port id="22" name="port_Go" id_component="1"/>
   </tns:env_binding>
   
-  
-  
-    
-    
-    
   <!-- splitter bindings -->
   <tns:env_binding>
-  	<tns:uses_port id="31" name="splitter_source_uses" id_component="2"/>
-  	 <tns:provides_port id="2010" name="data_source_prov" id_component="201"/>
+  	<tns:uses_port id="31" name="splitter-uses-source" id_component="2"/>
+  	<tns:provides_port id="2010" name="source-provides" id_component="201"/>
   </tns:env_binding>
   <tns:env_binding>
-  	<tns:uses_port id="32" name="splitter_sink_uses" id_component="2"/>
-  	 <tns:provides_port id="2001" name="data_sink_prov" id_component="200"/>
+  	<tns:uses_port id="32" name="splitter-uses-sink" id_component="2"/>
+  	<tns:provides_port id="2001" name="sink-provides" id_component="200"/>
   </tns:env_binding>
   <tns:env_binding>
-  	<tns:uses_port id="36" name="splitter_chunk_uses" id_component="2"/>
-  	<tns:provides_port id="41" name="reducer_02_prov_ck" id_component="4"/>
+  	<tns:uses_port id="36" name="splitter-uses" id_component="2"/>
+  	<tns:provides_port id="73" name="reducer-provides" id_component="7"/>
   </tns:env_binding>
   
+  <!-- mapper bindings -->
+  <tns:env_binding>
+  	<tns:uses_port id="41" name="mapper-uses" id_component="3"/>
+  	<tns:provides_port id="33" name="splitter-provides" id_component="2"/>
+  </tns:env_binding>
   
+  <!-- combiner bindings -->
+  <tns:env_binding>
+  	<tns:uses_port id="51" name="combiner-uses" id_component="4"/>
+  	<tns:provides_port id="43" name="mapper-provides" id_component="3"/>
+  </tns:env_binding>
+  
+  <!-- shuffler bindings -->
+  <tns:env_binding>
+  	<tns:uses_port id="61" name="shuffler-uses" id_component="6"/>
+  	<tns:provides_port id="53" name="shuffler-provides" id_component="4"/>
+  </tns:env_binding>
     
+  <!-- reducer bindings -->
+  <tns:env_binding>
+  	<tns:uses_port id="71" name="reducer-uses" id_component="7"/>
+  	<tns:provides_port id="63" name="reducer-provides" id_component="6"/>
+  </tns:env_binding>	
   	
   	
   	
-  	
   
   <tns:task_binding>
-  	<tns:task_port id="23" name="wf-splitter-ss" id_component="1"/>
-  	<tns:right_peer name="splitter_ss" id="34" id_component="3"/>
+  	<tns:left_peer id="23" name="wf-splitter-ss" id_component="1"/>
+  	<tns:right_peer name="splitter-task-ss" id="34" id_component="2"/>
   </tns:task_binding>
   <tns:task_binding>
-  	<tns:task_port id="24" name="wf-splitter-ck" id_component="1"/>
-  	<tns:right_peer name="splitter_chunk" id="35" id_component="3"/>
+  	<tns:left_peer id="24" name="wf-splitter-ck" id_component="1"/>
+  	<tns:right_peer name="splitter-task-chunk" id="35" id_component="2"/>
   </tns:task_binding>
   <tns:task_binding>
-  	<tns:task_port id="25" name="wf-mapper-ck" id_component="1"/>
-  	<tns:right_peer name="wf_mapper_ck" id="45" id_component="4"/>
+  	<tns:left_peer id="25" name="wf-mapper-ck" id_component="1"/>
+  	<tns:right_peer name="mapper-task-chunk" id="45" id_component="3"/>
   </tns:task_binding>
   <tns:task_binding>
-  	<tns:task_port id="27" name="wf-reducer-ck" id_component="1"/>
-  	<tns:right_peer name="wf_reducer-ck" id="55" id_component="5"/>
+  	<tns:left_peer id="28" name="wf-combiner-ck" id_component="1"/>
+  	<tns:right_peer name="combiner-task-chunk" id="55" id_component="4"/>
   </tns:task_binding>
   <tns:task_binding>
-  	<tns:task_port id="28" name="wf-shuffler-ck" id_component="1"/>
-  	<tns:right_peer name="wf_shuffler_ck" id="6" id_component="6"/>
+  	<tns:left_peer id="26" name="wf-reducer-ck" id_component="1"/>
+  	<tns:right_peer name="reducer-task-chunk" id="75" id_component="7"/>
   </tns:task_binding>
-  
-  <!-- mProjExec bindings -->
-  <tns:env_binding>
-  	<tns:uses_port id="111" name="mprojexec-tbl-port-uses" id_component="11"/> 
-  	<tns:provides_port id="33" name="mimgtbl-tbl-port-provides" id_component="2"/>
-  </tns:env_binding>
-  <tns:env_binding>
-  	<tns:uses_port id="112" name="mprojexec-dir-port-uses-in" id_component="11"/> 
-  	<tns:provides_port id="2002" name="dss-dir-raw" id_component="200"/>
-  </tns:env_binding>
-  <tns:env_binding>
-  	<tns:uses_port id="113" name="mprojexec-dir-port-uses-out" id_component="11"/> 
-  	<tns:provides_port id="2001" name="dss-dir-proj" id_component="200"/>
-  </tns:env_binding>
-  <tns:env_binding>
-  	<tns:uses_port id="114" name="mprojexec-hdr-port-uses" id_component="11"/> 
-  	<tns:provides_port id="12" name="tmpl-hdr-prov" id_component="0"/>
-  </tns:env_binding>
-  
-  <!-- mAdd bindings -->
-  <tns:env_binding>
-  	<tns:uses_port id="41" name="madd-tbl-port-uses" id_component="4"/> 
-  	<tns:provides_port id="33" name="mimgtbl-tbl-port-provides" id_component="2"/>
-  </tns:env_binding>
-  <tns:env_binding>
-  	<tns:uses_port id="42" name="madd-dir-port-uses" id_component="4"/> 
-  	<tns:provides_port id="2001" name="dss-dir-proj" id_component="200"/>
-  </tns:env_binding>
-  <tns:env_binding>
-  	<tns:uses_port id="43" name="madd-hdr-port-uses" id_component="4"/> 
-  	<tns:provides_port id="12" name="tmpl-hdr-prov" id_component="0"/>
-  </tns:env_binding>
-  
-  <!-- mJpeg bindings --> 
-  <tns:env_binding>
-  	<tns:uses_port id="101" name="mjpeg-fits-port-uses" id_component="10"/> 
-  	<tns:provides_port id="44" name="madd-fits-port-provides" id_component="4"/>
-  </tns:env_binding>
-  
-  <!-- mArchiveList bindings --> 
-  <tns:env_binding>
-  	<tns:uses_port id="51" name="marchivelist-uses-raw" id_component="5"/> 
-  	<tns:provides_port id="2002" name="dss-dir-raw" id_component="200"/>
-  </tns:env_binding>
-  	  
-  <!-- mArchiveExec bindings --> 
-  <tns:env_binding>
-  	<tns:uses_port id="61" name="marchive-uses-tbl" id_component="6"/> 
-  	<tns:provides_port id="53" name="marchivelist-prov-tbl" id_component="5"/>
-  </tns:env_binding>
-  <tns:env_binding>
-  	<tns:uses_port id="62" name="marchive-uses-raw" id_component="6"/> 
-  	<tns:provides_port id="2002" name="dss-dir-raw" id_component="200"/>
-  </tns:env_binding>
-  
-  <!-- TASK bindings -->
+ 
   <tns:task_binding>
-  	<tns:left_peer id="23" name="wf-mimgtbl-tsk" id_component="1"/>
-  	<tns:right_peer name="mimgtbl-go" id="34" id_component="2"/>
-  </tns:task_binding>
-  <tns:task_binding>
-  	<tns:left_peer id="24" name="wf-mprojexec-tsk" id_component="1"/>
-  	<tns:right_peer name="mprojexec-go" id="115" id_component="11"/>
-  </tns:task_binding>
-  <tns:task_binding>
-  	<tns:left_peer id="25" name="wf-madd-tsk" id_component="1"/>
-  	<tns:right_peer name="madd-go" id="45" id_component="4"/>
-  </tns:task_binding>
-  <tns:task_binding>
-  	<tns:left_peer id="31" name="wf-mjpeg-tsk" id_component="1"/>
-  	<tns:right_peer name="mjpeg-go" id="103" id_component="10"/>
+  	<tns:left_peer id="27" name="wf-shuffler-ck" id_component="1"/>
+  	<tns:right_peer name="shuffler-task-chunk" id="65" id_component="6"/>
   </tns:task_binding>
   
-  <tns:task_binding>
-  	<tns:left_peer id="27" name="wf-marchivelist-tsk" id_component="1"/>
-  	<tns:right_peer name="marchivelist-go" id="54" id_component="5"/>
-  </tns:task_binding>
-  <tns:task_binding>
-  	<tns:left_peer id="28" name="wf-marchivexec-tsk" id_component="1"/>
-  	<tns:right_peer name="marchiveexec-go" id="63" id_component="6"/>
-  </tns:task_binding>	 
  
 </tns:architecture>
