@@ -12,21 +12,36 @@ public class LogicChoiceOper extends AbstractSAFeElementLogic{
 	@Override
 	public void logic(SAFeOrchestrationElement element) {
 		
-		System.out.println("ENTER CHOICE");
+		SAFeConsoleLogger.write("ENTER CHOICE");
 		for(int i=element.getChildren().size()-1;i>=0;i--){
 			SAFeOrchestrationElement select = element.getChildren().get(i);
 			Select select_oper = (Select)select.getElement();
-			System.out.println(select_oper.getActionId());
+			//System.out.println(select_oper.getActionId());
 			ArchAction archAction = this.sAFeSWLArcherParser
 					.getArchActionId(Integer.parseInt(select_oper.getActionId()));
 			SAFeConsoleLogger.write("invoking action: " + archAction.getName()
 					+ "; from port: " + archAction.getParent().getName());
-			for(int j=select.getChildren().size()-1;j>=0;j--){
-				XMLSAFeAction action = (XMLSAFeAction)select.getChildren().get(j).getElement();
-				System.out.println("-->"+action.getId());
+			if (this.workflowFacade != null) {
+				Boolean  res = (Boolean)this.workflowFacade.compute(archAction.getName(), archAction
+						.getParent().getName());
+				System.out.println(":"+res);
+				if(res.booleanValue()==true){
+					for(int j=select.getChildren().size()-1;j>=0;j--){
+						XMLSAFeAction action = (XMLSAFeAction)select.getChildren().get(j).getElement();
+						//System.out.println("-->"+action.getId());
+						ArchAction archActionChild = this.sAFeSWLArcherParser
+								.getArchActionId(Integer.parseInt(action.getId()));
+						SAFeConsoleLogger.write("--->invoking action: " + archActionChild.getName()
+								+ "; from port: " + archActionChild.getParent().getName());
+						this.workflowFacade.compute(archActionChild.getName(), archActionChild
+								.getParent().getName());
+					}
+					break;
+				}//IF
 			}
+			
 		}
-		 
+		SAFeConsoleLogger.write("EXITING CHOICE");
 		
 		//ChoiceOperComplexType choice_oper = (ChoiceOperComplexType)element.getElement();
 		

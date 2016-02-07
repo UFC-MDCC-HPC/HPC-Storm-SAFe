@@ -309,6 +309,7 @@ public class SAFeOrquestrationArchitecture {
 		}
 
 		public boolean isThereTaskConnection(String partnerA, String partnerB) {
+
 			for(ArchTaskBinding task:this.attachmentTaskList){
 				if(task.getTaskA().getName().equals(partnerA) &&
 				   task.getTaskB().getName().equals(partnerB))

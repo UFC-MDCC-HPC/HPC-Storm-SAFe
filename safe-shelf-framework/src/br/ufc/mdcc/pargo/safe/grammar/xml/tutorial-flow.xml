@@ -26,10 +26,12 @@
 					<tns:operation>
 						<tns:invoke_oper action="resolve" id="321"/>
 					</tns:operation>
+					
 				</tns:select>
 				
 			</tns:choice_oper>
 		</tns:operation>
+		
 		
 
 	</tns:sequence_oper>
