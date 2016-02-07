@@ -1,0 +1,22 @@
+package br.ufc.mapreduce.ports.tsk;
+
+import br.ufc.mapreduce.proxies.MRAdapter;
+import br.ufc.mdcc.pargo.safe.framework.port.HShelfTaskPort;
+
+public class TaskSourceSink extends HShelfTaskPort{
+
+	private MRAdapter mr;
+	public TaskSourceSink(MRAdapter mr){
+		this.mr = mr;
+	}
+	
+	public void read_source(){
+		this.mr.read_source();
+	}
+	public void terminate(){
+		this.mr.terminate();
+	}
+	public void write_sink(){
+		this.mr.write_sink();
+	}
+}
