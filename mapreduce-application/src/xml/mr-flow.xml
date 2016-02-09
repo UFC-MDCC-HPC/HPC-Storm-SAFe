@@ -38,7 +38,7 @@
 		</tns:operation>
 		
 		<tns:operation>
-	    <tns:iterate_oper max="6">
+	    <tns:iterate_oper max="-1" iter_label="LABEL_A">
 		
 		<tns:operation>
 			<tns:choice_oper>
@@ -81,15 +81,23 @@
 				
 				<tns:select action_id="342">
 					<tns:operation>
+						<tns:invoke_oper action="compute" id="343"/>
+					</tns:operation>
+					<tns:operation>
+						<tns:break_oper base_label="LABEL_A"/>
+					</tns:operation>
+				</tns:select>
+				
+				<tns:select action_id="353">
+					<tns:operation>
 						<tns:invoke_oper action="compute" id="351"/>
 					</tns:operation>
 					<tns:operation>
 						<tns:invoke_oper action="compute" id="352"/>
 					</tns:operation>
-					<tns:operation>
-						<tns:invoke_oper action="compute" id="343"/>
-					</tns:operation>
 				</tns:select>
+				
+				
 				
 			</tns:choice_oper>
 		</tns:operation>

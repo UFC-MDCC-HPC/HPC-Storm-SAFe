@@ -43,10 +43,14 @@
 								<extension base="tns:XML_SAFe_Base">
 									<sequence>
 										<element name="operation"
-											type="tns:XML_SAFe_Operation" maxOccurs="unbounded" minOccurs="1">
+											type="tns:XML_SAFe_Operation" maxOccurs="unbounded"
+											minOccurs="1">
 										</element>
 									</sequence>
 									<attribute name="max" type="int">
+									</attribute>
+									<attribute name="iter_label"
+										type="string">
 									</attribute>
 								</extension>
 							</complexContent>
@@ -64,7 +68,8 @@
 		<attribute name="value" type="string"></attribute>
 		<attribute name="oper_name" type="string"></attribute>
 		<attribute name="level" type="int"></attribute>
-	</complexType>
+        <attribute name="base_label" type="string"></attribute>
+    </complexType>
 
 	<complexType name="XML_SAFe_Action">
 		<complexContent>

@@ -2,7 +2,7 @@
 // Este arquivo foi gerado pela Arquitetura JavaTM para Implementação de Referência (JAXB) de Bind XML, v2.2.8-b130911.1802 
 // Consulte <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
 // Todas as modificações neste arquivo serão perdidas após a recompilação do esquema de origem. 
-// Gerado em: 2016.02.02 às 08:24:51 PM BRT 
+// Gerado em: 2016.02.09 às 01:00:37 PM BRT 
 //
 
 
@@ -45,6 +45,7 @@ import javax.xml.bind.annotation.XmlType;
  *                   &lt;element name="operation" type="{http://www.example.org/SAFe_workflow_V4}XML_SAFe_Operation" maxOccurs="unbounded"/>
  *                 &lt;/sequence>
  *                 &lt;attribute name="max" type="{http://www.w3.org/2001/XMLSchema}int" />
+ *                 &lt;attribute name="iter_label" type="{http://www.w3.org/2001/XMLSchema}string" />
  *               &lt;/extension>
  *             &lt;/complexContent>
  *           &lt;/complexType>
@@ -376,6 +377,7 @@ public class XMLSAFeOperation
      *         &lt;element name="operation" type="{http://www.example.org/SAFe_workflow_V4}XML_SAFe_Operation" maxOccurs="unbounded"/>
      *       &lt;/sequence>
      *       &lt;attribute name="max" type="{http://www.w3.org/2001/XMLSchema}int" />
+     *       &lt;attribute name="iter_label" type="{http://www.w3.org/2001/XMLSchema}string" />
      *     &lt;/extension>
      *   &lt;/complexContent>
      * &lt;/complexType>
@@ -395,6 +397,8 @@ public class XMLSAFeOperation
         protected List<XMLSAFeOperation> operation;
         @XmlAttribute(name = "max")
         protected Integer max;
+        @XmlAttribute(name = "iter_label")
+        protected String iterLabel;
 
         /**
          * Gets the value of the operation property.
@@ -447,6 +451,30 @@ public class XMLSAFeOperation
          */
         public void setMax(Integer value) {
             this.max = value;
+        }
+
+        /**
+         * Obtém o valor da propriedade iterLabel.
+         * 
+         * @return
+         *     possible object is
+         *     {@link String }
+         *     
+         */
+        public String getIterLabel() {
+            return iterLabel;
+        }
+
+        /**
+         * Define o valor da propriedade iterLabel.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link String }
+         *     
+         */
+        public void setIterLabel(String value) {
+            this.iterLabel = value;
         }
 
     }

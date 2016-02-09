@@ -9,7 +9,7 @@ import br.ufc.mdcc.pargo.safe.grammar.flow.SAFeOrchestrationElement;
 
 public abstract class AbstractSAFeElementLogic {
 
-	private Map<String, Object> variables;
+	private static final Map<String, Object> variables =  new HashMap<String, Object>();
 	protected ISAFeSWLArcherParser sAFeSWLArcherParser;
 	protected HShelfWorkflowFacade workflowFacade;
 	
@@ -22,16 +22,16 @@ public abstract class AbstractSAFeElementLogic {
 	}
 	
 	public AbstractSAFeElementLogic() {
-		this.variables = new HashMap<String, Object>();
+		
 	}
 	
 	public abstract void logic(SAFeOrchestrationElement element);
 	 
 	public void addVariable(String name, Object value){
-		this.variables.put(name, value);
+		AbstractSAFeElementLogic.variables.put(name, value);
 	}
 	
 	public Object getVariable(String name){
-		return this.variables.get(name);
+		return AbstractSAFeElementLogic.variables.get(name);
 	}
 }

@@ -3,6 +3,7 @@ package br.ufc.mdcc.pargo.safe.grammar.flow.visitor.logic;
 import br.ufc.mdcc.pargo.safe.grammar.arch.ArchAction;
 import br.ufc.mdcc.pargo.safe.grammar.flow.ChoiceOperComplexType.Select;
 import br.ufc.mdcc.pargo.safe.grammar.flow.SAFeOrchestrationElement;
+import br.ufc.mdcc.pargo.safe.grammar.flow.SAFeOrchestrationOperation;
 import br.ufc.mdcc.pargo.safe.grammar.flow.XMLSAFeAction;
 import br.ufc.mdcc.pargo.safe.grammar.flow.visitor.AbstractSAFeElementLogic;
 import br.ufc.mdcc.pargo.safe.grammar.util.SAFeConsoleLogger;
@@ -11,6 +12,8 @@ public class LogicChoiceOper extends AbstractSAFeElementLogic{
 
 	@Override
 	public void logic(SAFeOrchestrationElement element) {
+		
+		
 		
 		SAFeConsoleLogger.write("ENTER CHOICE");
 		for(int i=element.getChildren().size()-1;i>=0;i--){
@@ -24,9 +27,22 @@ public class LogicChoiceOper extends AbstractSAFeElementLogic{
 			if (this.workflowFacade != null) {
 				Boolean  res = (Boolean)this.workflowFacade.compute(archAction.getName(), archAction
 						.getParent().getName());
-				System.out.println(":"+res);
+				//System.out.println(":"+res);
 				if(res.booleanValue()==true){
 					for(int j=select.getChildren().size()-1;j>=0;j--){
+						//System.out.println("TESTE:" + select.getChildren().get(j).getElement().getOperName());
+						
+						
+						if(select.getChildren().get(j).getOperation().equals(SAFeOrchestrationOperation.BREAKOPER)){
+							String myLabel = select.getChildren().get(j).getElement().getBaseLabel();
+							if(myLabel!=null && myLabel!=""){
+								this.addVariable(myLabel, true);
+								return;
+							}
+							
+						}
+						
+						
 						XMLSAFeAction action = (XMLSAFeAction)select.getChildren().get(j).getElement();
 						//System.out.println("-->"+action.getId());
 						ArchAction archActionChild = this.sAFeSWLArcherParser

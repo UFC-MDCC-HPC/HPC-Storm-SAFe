@@ -64,7 +64,7 @@ public class SplitterProxie extends HShelfComponent implements MRAdapter{
 
 	@Override
 	public boolean terminate() {
-		if(counter==5)
+		if(counter>=3)
 			return true;
 		return false;
 		
@@ -104,6 +104,7 @@ public class SplitterProxie extends HShelfComponent implements MRAdapter{
 			this.total+=chunk_out;
 			this.providesPort.setChunk(chunk_out);
 			this.counter++;
+			System.out.println("SPLITTER COUNTER: "+counter);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

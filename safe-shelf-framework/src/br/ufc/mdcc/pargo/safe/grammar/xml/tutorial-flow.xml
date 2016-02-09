@@ -26,7 +26,13 @@
 					<tns:operation>
 						<tns:invoke_oper action="resolve" id="321"/>
 					</tns:operation>
-					
+					<tns:operation>
+						<tns:break_oper base_label="teste"/>
+					</tns:operation>
+					<tns:operation>
+						<tns:iterate_oper iter_label="">
+						</tns:iterate_oper>
+					</tns:operation>
 				</tns:select>
 				
 			</tns:choice_oper>

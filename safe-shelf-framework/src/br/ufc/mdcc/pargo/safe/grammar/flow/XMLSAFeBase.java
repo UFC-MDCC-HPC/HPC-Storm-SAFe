@@ -2,7 +2,7 @@
 // Este arquivo foi gerado pela Arquitetura JavaTM para Implementação de Referência (JAXB) de Bind XML, v2.2.8-b130911.1802 
 // Consulte <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
 // Todas as modificações neste arquivo serão perdidas após a recompilação do esquema de origem. 
-// Gerado em: 2016.02.02 às 08:24:51 PM BRT 
+// Gerado em: 2016.02.09 às 01:00:37 PM BRT 
 //
 
 
@@ -28,6 +28,7 @@ import javax.xml.bind.annotation.XmlType;
  *       &lt;attribute name="value" type="{http://www.w3.org/2001/XMLSchema}string" />
  *       &lt;attribute name="oper_name" type="{http://www.w3.org/2001/XMLSchema}string" />
  *       &lt;attribute name="level" type="{http://www.w3.org/2001/XMLSchema}int" />
+ *       &lt;attribute name="base_label" type="{http://www.w3.org/2001/XMLSchema}string" />
  *     &lt;/restriction>
  *   &lt;/complexContent>
  * &lt;/complexType>
@@ -56,6 +57,8 @@ public class XMLSAFeBase {
     protected String operName;
     @XmlAttribute(name = "level")
     protected Integer level;
+    @XmlAttribute(name = "base_label")
+    protected String baseLabel;
 
     /**
      * Obtém o valor da propriedade order.
@@ -151,6 +154,30 @@ public class XMLSAFeBase {
      */
     public void setLevel(Integer value) {
         this.level = value;
+    }
+
+    /**
+     * Obtém o valor da propriedade baseLabel.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getBaseLabel() {
+        return baseLabel;
+    }
+
+    /**
+     * Define o valor da propriedade baseLabel.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setBaseLabel(String value) {
+        this.baseLabel = value;
     }
 
 }
