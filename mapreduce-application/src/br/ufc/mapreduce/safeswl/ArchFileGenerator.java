@@ -69,8 +69,13 @@ public class ArchFileGenerator {
 		for(String in:this.envs){
 			geral+=in;
 		}
+		geral+="\n\n";
 		
-		geral+="</tns:architecture>";
+		for(String in:this.tsks){
+			geral+=in;
+		}
+		
+		geral+="\n\n</tns:architecture>";
 		System.out.println(geral);
 		
 	}
@@ -146,7 +151,7 @@ public class ArchFileGenerator {
   </tns:task_binding>
 	 */
 	public String generateTaskBindingXML(MapReduceTskConnection tskConn){
-		String res = "<tns:task_binding>";
+		String res = "<tns:task_binding>\n";
 		MapReduceTskPort ta = MapReduceUtil.getTskPortByName(workflow, tskConn.getPortAName());
 		MapReduceTskPort tb = MapReduceUtil.getTskPortByName(workflow, tskConn.getPortBName());
 		res+="\t<tns:left_peer id=\""+ta.getId()+"\" name=\""+ta.getName()+"\" id_component=\""+ta.getId_component()+"\"/>\n";

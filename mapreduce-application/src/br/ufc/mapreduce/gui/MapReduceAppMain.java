@@ -99,7 +99,7 @@ public class MapReduceAppMain extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				workflow = MapReduceUtil.deserializeWorkflow();
-				System.out.println(workflow);
+				//System.out.println(workflow);
 				centerPanel.setWorkflow(workflow);
 				centerPanel.updatePanel();
 				lateralPanel.setWorkflow(workflow);
