@@ -23,11 +23,11 @@ public class ArchFileGenerator {
 	
 	public void generate(MapReduceWorkflow workflow){
 		this.workflow = workflow;
-		String geral = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"+
-						"<tns:architecture xmlns:tns=\"http://www.example.org/SAFe_architecture_V4\"\n"+ 
-						"xmlns:tns1=\"http://www.example.org/instantiator\"\n"+ 
-						"xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n"+ 
-						"xsi:schemaLocation=\"http://www.example.org/SAFe_architecture_V4 SAFe_architecture_V4.xsd\">\n\n\n";
+		String geral = "<?xml version=\"1.0\" encoding=\"UTF-8\"?> \n"+
+						"<tns:architecture xmlns:tns=\"http://www.example.org/SAFe_architecture_V4\" \n"+ 
+						" xmlns:tns1=\"http://www.example.org/instantiator\" \n"+ 
+						" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" \n"+ 
+						" xsi:schemaLocation=\"http://www.example.org/SAFe_architecture_V4 SAFe_architecture_V4.xsd\"> \n\n\n";
 		for(MapReduceComponent cmp:workflow.listComponents()){
 			String res = this.generateComponentXML(cmp);
 			if(cmp.getName().equalsIgnoreCase("application")){
@@ -83,6 +83,9 @@ public class ArchFileGenerator {
 	/*<tns:computation name="Mapper" id="3">
     <tns:uses_port id="41" name="mapper-uses" id_component="3"/>
   	<tns:provides_port id="43" name="mapper-provides" id_component="3"/>
+  	<tns:contract id="31">
+        <tns:uri>http://tempuri-client.org</tns:uri>
+     </tns:contract>
     <tns:task_port name="mapper-task-chunk" id="45" id_component="3">
       	<tns:action id="451" name="read_chunk"/>
       	<tns:action id="452" name="perform"/>
@@ -107,6 +110,12 @@ public class ArchFileGenerator {
 			if(env.getType().equals("PROVIDES_PORT")){
 				res+="\t<tns:provides_port id=\""+env.getId()+"\" name=\""+env.getName()+"\" id_component=\""+env.getId_component()+"\"/>\n";
 			}
+		}
+		
+		if(component.getContract()!=null && !component.getContract().equals("")){
+			res+="\t<tns:contract id=\""+component.getId()*10+"\">\n";
+			res+="\t\t<tns:uri>"+component.getContract()+"</tns:uri>\n";
+			res+="\t</tns:contract>\n";		
 		}
 		
 		for(MapReduceTskPort tsk:component.getTskPorts()){

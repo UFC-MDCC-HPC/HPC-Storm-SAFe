@@ -20,7 +20,7 @@
 			<tsk_port name="wf_chunk_combiner" id="206" id_component="1"/>
 		</tsk_ports>
 	</component>
-	<component name="SPLITTER" kind="CONECTOR" id="3">
+	<component name="SPLITTER" kind="COMPUTATION" id="3">
 		<env_ports>
 			<env_port name="SPLITTER_USES_CHUNK" type="USES_PORT" id="300" id_component="3"/>
 			<env_port name="SPLITTER_USES_SOURCE" type="USES_PORT" id="301" id_component="3"/>

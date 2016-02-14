@@ -14,6 +14,7 @@ import javax.swing.JMenuItem;
 import br.ufc.mapreduce.dao.MapReduceComponentDAO;
 import br.ufc.mapreduce.model.MapReduceComponent;
 import br.ufc.mapreduce.safeswl.ArchFileGenerator;
+import br.ufc.mapreduce.safeswl.FlowFileGenerator;
 import br.ufc.mapreduce.util.MapReduceUtil;
 import br.ufc.mapreduce.workflow.MapReduceWorkflow;
 
@@ -111,7 +112,17 @@ public class MapReduceAppMain extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				System.out.println("****ARCH FILE****\n");
 				archGenerator.generate(workflow);	
+			}
+		});
+		
+		menuItemFlow.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("****FLOW FILE****\n");
+				FlowFileGenerator.generate(workflow);	
 			}
 		});
 		

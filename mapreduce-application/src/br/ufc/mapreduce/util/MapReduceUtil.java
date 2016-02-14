@@ -8,6 +8,7 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.ufc.mapreduce.model.MapReduceAction;
 import br.ufc.mapreduce.model.MapReduceComponent;
 import br.ufc.mapreduce.model.MapReduceEnvPort;
 import br.ufc.mapreduce.model.MapReduceTskPort;
@@ -100,6 +101,17 @@ public class MapReduceUtil {
 			}
 		}
 		return null;
+	}
+	
+	public static int getActionIdByName(MapReduceComponent cmp,String name){
+		int id = -1;
+		for(MapReduceTskPort tsk:cmp.getTskPorts()){
+			for(MapReduceAction action: tsk.getActions()){
+				if(action.getName().equals(name))
+					return action.getId();
+			}
+		}
+		return id;
 	}
 	
 	public static int generateID(){

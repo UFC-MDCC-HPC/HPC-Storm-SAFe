@@ -2,11 +2,16 @@ package br.ufc.mapreduce.gui;
 
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
+import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -26,6 +31,8 @@ public class MapReducePopUpPanel extends JPanel {
 	MapReduceComponent component;
 	MapReduceWorkflow workflow;
 	Integer actPosition;
+	JFileChooser fileChooser = new JFileChooser();
+	String contractPath="";
 
 	public MapReducePopUpPanel(MapReduceComponent component,
 			MapReduceWorkflow workflow, Integer actPosition) {
@@ -115,6 +122,30 @@ public class MapReducePopUpPanel extends JPanel {
 
 			}
 		}
+		
+		
+		if(component.getKind().equals(MapReduceComponent.COMPUTATION_KIND)){
+			JLabel labelFile = new JLabel("Contextual Contract: ");
+			this.add(labelFile);
+			JButton buttonFile = new JButton("Select File...");
+			buttonFile.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					 int returnValue = fileChooser.showOpenDialog(MapReducePopUpPanel.this);
+					 if (returnValue == JFileChooser.APPROVE_OPTION) {
+			                File file = fileChooser.getSelectedFile();
+			                //System.out.println(file.getAbsolutePath());
+			                contractPath = file.getAbsolutePath();
+					 }
+				}
+			});
+			this.add(buttonFile);
+			
+			
+		}
+		
+		
 
 	}
 
@@ -155,6 +186,10 @@ public class MapReducePopUpPanel extends JPanel {
 				}
 				i++;
 			}
+		}
+		
+		if(contractPath!=null && !contractPath.equals("")){
+			this.component.setContract(contractPath);
 		}
 	}
 
