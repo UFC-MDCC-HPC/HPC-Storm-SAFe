@@ -11,12 +11,14 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
+import br.ufc.mapreduce.app.MRApplication;
 import br.ufc.mapreduce.dao.MapReduceComponentDAO;
 import br.ufc.mapreduce.model.MapReduceComponent;
 import br.ufc.mapreduce.safeswl.ArchFileGenerator;
 import br.ufc.mapreduce.safeswl.FlowFileGenerator;
 import br.ufc.mapreduce.util.MapReduceUtil;
 import br.ufc.mapreduce.workflow.MapReduceWorkflow;
+import br.ufc.mdcc.pargo.safe.framework.exception.HShelfException;
 
 public class MapReduceAppMain extends JFrame {
 
@@ -123,6 +125,27 @@ public class MapReduceAppMain extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("****FLOW FILE****\n");
 				FlowFileGenerator.generate(workflow);	
+			}
+		});
+		
+		menuItemRun.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String archContent = archGenerator.generate(workflow);
+				String flowContent = FlowFileGenerator.generate(workflow);
+				
+				String archPath = MapReduceUtil.writeToAFile("arch-file-mr.xml", archContent);
+				String flowPath = MapReduceUtil.writeToAFile("flow-file-mr.xml", flowContent);
+				
+				MRApplication applicationMR = new MRApplication("mr-application");
+				applicationMR.setArchFlow(archPath, flowPath);
+				try {
+					applicationMR.run();
+				} catch (HShelfException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 		

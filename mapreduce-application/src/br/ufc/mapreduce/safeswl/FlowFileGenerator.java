@@ -141,7 +141,7 @@ public class FlowFileGenerator {
 		res+="</tns:sequence_oper>\n"+
 			 "</tns:workflow>";
 		
-		System.out.println(res);
+		//System.out.println(res);
 		
 		return res;
 	}

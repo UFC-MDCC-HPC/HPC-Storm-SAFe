@@ -21,7 +21,7 @@ public class ArchFileGenerator {
 	private List<String> tsks = new ArrayList<String>();
 	private MapReduceWorkflow workflow;
 	
-	public void generate(MapReduceWorkflow workflow){
+	public String generate(MapReduceWorkflow workflow){
 		this.workflow = workflow;
 		String geral = "<?xml version=\"1.0\" encoding=\"UTF-8\"?> \n"+
 						"<tns:architecture xmlns:tns=\"http://www.example.org/SAFe_architecture_V4\" \n"+ 
@@ -77,7 +77,7 @@ public class ArchFileGenerator {
 		}
 		
 		geral+="\n\n</tns:architecture>";
-		System.out.println(geral);
+		return geral;
 		
 	}
 	

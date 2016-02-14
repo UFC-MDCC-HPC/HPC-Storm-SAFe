@@ -1,10 +1,13 @@
 package br.ufc.mapreduce.util;
 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -116,5 +119,23 @@ public class MapReduceUtil {
 	
 	public static int generateID(){
 		return MapReduceUtil.id++;
+	}
+	
+	public static String writeToAFile(String fileName, String content){
+		String path="/home/jefferson/moex_data/"+fileName;
+		PrintWriter writer;
+		try {
+			writer = new PrintWriter(path, "UTF-8");
+			writer.println(content);
+			writer.close();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return path;
 	}
 }

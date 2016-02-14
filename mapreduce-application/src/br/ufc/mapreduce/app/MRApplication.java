@@ -11,13 +11,19 @@ import br.ufc.mdcc.pargo.safe.framework.workflow.HShelfWorkflow;
 
 public class MRApplication extends HShelfApplication{
 
-	 
+	private String archFilePath;
+	private String flowFilePath;
 
 	public MRApplication(String name) {
 		super(name);
 		this.getFramework().createWorkflow();
 	}
 
+	public void setArchFlow(String arch, String flow){
+		this.archFilePath = arch;
+		this.flowFilePath = flow;
+	}
+	
 	@Override
 	public void setServices(IHShelfService services) {
 		
@@ -40,10 +46,10 @@ public class MRApplication extends HShelfApplication{
 			
 			this.getFramework().connect(HShelfWorkflow.SAFE_WORKFLOW_SWL_PORT+1, HShelfWorkflow.SAFE_WORKFLOW_SWL_PORT+1);
 			HShelfSAFeSWLPort safeSWLPort = (HShelfSAFeSWLPort)((HShelfUsesPort)this.services.getPort(HShelfWorkflow.SAFE_WORKFLOW_SWL_PORT+1)).getProvidesPort();
-			String archFile = "/home/jefferson/Git/HPC-Storm-SAFe/mapreduce-application/src/xml/mr-arch-teste.xml";
-			String flowFile = "/home/jefferson/Git/HPC-Storm-SAFe/mapreduce-application/src/xml/mr-flow-teste.xml";
-			safeSWLPort.setSAFeSWLArchFilePath(archFile);
-			safeSWLPort.setSAFeSWLFlowFilePath(flowFile);
+			//String archFile = "/home/jefferson/Git/HPC-Storm-SAFe/mapreduce-application/src/xml/mr-arch-teste.xml";
+			//String flowFile = "/home/jefferson/Git/HPC-Storm-SAFe/mapreduce-application/src/xml/mr-flow-teste.xml";
+			safeSWLPort.setSAFeSWLArchFilePath(archFilePath);
+			safeSWLPort.setSAFeSWLFlowFilePath(flowFilePath);
 			
 			this.getFramework().connect(HShelfWorkflow.SAFE_WORKFLOW_GO_PORT+1, HShelfWorkflow.SAFE_WORKFLOW_GO_PORT+1);
 			HShelfGoWorkflowPortImpl goWorkflowPort = (HShelfGoWorkflowPortImpl)((HShelfUsesPort)this.services.getPort(HShelfWorkflow.SAFE_WORKFLOW_GO_PORT+1)).getProvidesPort();
@@ -56,7 +62,7 @@ public class MRApplication extends HShelfApplication{
 		
 	}
 	
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		MRApplication mr = new MRApplication("mr-application");
 		try {
 			mr.run();
@@ -64,5 +70,5 @@ public class MRApplication extends HShelfApplication{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
+	}*/
 }
