@@ -5,7 +5,8 @@ import java.io.Serializable;
 public class MapReduceModel implements Serializable{
 
 	private String name;
-	private Long id;
+	private int id;
+	private int id_component;
 	
 	public String getName() {
 		return name;
@@ -13,11 +14,17 @@ public class MapReduceModel implements Serializable{
 	public void setName(String name) {
 		this.name = name;
 	}
-	public Long getId() {
+	public int getId() {
 		return id;
 	}
-	public void setId(Long id) {
+	public void setId(int id) {
 		this.id = id;
+	}
+	public int getId_component() {
+		return id_component;
+	}
+	public void setId_component(int id_component) {
+		this.id_component = id_component;
 	}
 	
 	

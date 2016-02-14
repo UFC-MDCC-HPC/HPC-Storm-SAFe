@@ -12,6 +12,7 @@ import javax.swing.tree.TreeSelectionModel;
 
 import br.ufc.mapreduce.dao.MapReduceComponentDAO;
 import br.ufc.mapreduce.listener.MapReduceTreeListener;
+import br.ufc.mapreduce.model.MapReduceAction;
 import br.ufc.mapreduce.model.MapReduceComponent;
 import br.ufc.mapreduce.model.MapReduceEnvPort;
 import br.ufc.mapreduce.model.MapReduceTskPort;
@@ -80,8 +81,8 @@ public class MapReduceLateralPanel extends JPanel {
 			DefaultMutableTreeNode typeP = new DefaultMutableTreeNode("provides");
 			DefaultMutableTreeNode typeU = new DefaultMutableTreeNode("uses");
 			for(MapReduceEnvPort env:component.getEnvPorts()){
+				//DefaultMutableTreeNode port = new DefaultMutableTreeNode(env.getId_component()+"-"+env.getName());
 				DefaultMutableTreeNode port = new DefaultMutableTreeNode(env.getName());
-				 
 				if(env.getType().equals(MapReduceEnvPort.PROVIDES_PORT)){
 					typeP.add(port);
 				}else typeU.add(port);
@@ -95,8 +96,13 @@ public class MapReduceLateralPanel extends JPanel {
 			DefaultMutableTreeNode tskNode = new DefaultMutableTreeNode("tsk_ports");
 			node.add(tskNode);
 			for(MapReduceTskPort tsk:component.getTskPorts()){
+				//DefaultMutableTreeNode port = new DefaultMutableTreeNode(tsk.getId_component()+"-"+tsk.getName());
 				DefaultMutableTreeNode port = new DefaultMutableTreeNode(tsk.getName());
 				tskNode.add(port);
+				for(MapReduceAction action:tsk.getActions()){
+					DefaultMutableTreeNode actionNode = new DefaultMutableTreeNode(action.getId()+"-"+action.getName());
+					port.add(actionNode);
+				}
 			}
 		}
 		

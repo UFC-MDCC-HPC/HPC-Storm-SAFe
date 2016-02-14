@@ -3,9 +3,11 @@ package br.ufc.mapreduce.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.ufc.mapreduce.util.MapReduceUtil;
+
 public class MapReduceComponent extends MapReduceModel{
 
-	public static final String APPLICATION_KIND="APPLICATION";
+	//public static final String APPLICATION_KIND="APPLICATION";
 	public static final String WORKFLOW_KIND="WORKFLOW";
 	public static final String COMPUTATION_KIND="COMPUTATION";
 	public static final String REPOSITORY_KIND="REPOSITORY";
@@ -13,10 +15,12 @@ public class MapReduceComponent extends MapReduceModel{
 	private List<MapReduceEnvPort> envPorts;
 	private List<MapReduceTskPort> tskPorts;
 	private String kind;
+	private String contract;
 	
 	public MapReduceComponent() {
 		this.envPorts = new ArrayList<MapReduceEnvPort>();
 		this.tskPorts = new ArrayList<MapReduceTskPort>();
+		this.setId(MapReduceUtil.generateID());
 	}
 	
 	public void addEnvPort(MapReduceEnvPort envPort){
@@ -41,6 +45,15 @@ public class MapReduceComponent extends MapReduceModel{
 
 	public void setKind(String kind) {
 		this.kind = kind;
+	 
+	}
+
+	public String getContract() {
+		return contract;
+	}
+
+	public void setContract(String contract) {
+		this.contract = contract;
 	}
 
 	@Override

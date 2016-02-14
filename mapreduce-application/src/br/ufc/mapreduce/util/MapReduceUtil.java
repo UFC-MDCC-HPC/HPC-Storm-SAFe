@@ -10,11 +10,13 @@ import java.util.List;
 
 import br.ufc.mapreduce.model.MapReduceComponent;
 import br.ufc.mapreduce.model.MapReduceEnvPort;
+import br.ufc.mapreduce.model.MapReduceTskPort;
 import br.ufc.mapreduce.workflow.MapReduceWorkflow;
 
-public class MontageUtil {
+public class MapReduceUtil {
 	
-	public static final String path_ser = "/home/jefferson/moex_data/workflow.dat"; 
+	public static final String path_ser = "/home/jefferson/moex_data/mapreduce.dat";
+	private static int id = 100;
 
 	public static List<MapReduceComponent> createComponents(){
 		
@@ -78,5 +80,29 @@ public class MontageUtil {
 	         return null;
 	      }
 		return workflow;
+	}
+	
+	public static MapReduceEnvPort getEnvPortByName(MapReduceWorkflow workflow, String name, String type){
+		for(MapReduceComponent cmp:workflow.listComponents()){
+			for(MapReduceEnvPort env:cmp.getEnvPorts()){
+				if(env.getName().equals(name) && env.getType().equals(type))
+					return env;
+			}
+		}
+		return null;
+	}
+	
+	public static MapReduceTskPort getTskPortByName(MapReduceWorkflow workflow, String name){
+		for(MapReduceComponent cmp:workflow.listComponents()){
+			for(MapReduceTskPort tsk:cmp.getTskPorts()){
+				if(tsk.getName().equals(name))
+					return tsk;
+			}
+		}
+		return null;
+	}
+	
+	public static int generateID(){
+		return MapReduceUtil.id++;
 	}
 }

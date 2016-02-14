@@ -5,7 +5,7 @@ import java.util.List;
 import br.ufc.mapreduce.model.MapReduceComponent;
 import br.ufc.mapreduce.model.MapReduceEnvPort;
 import br.ufc.mapreduce.model.MapReduceTskPort;
-import br.ufc.mapreduce.util.MontageXML;
+import br.ufc.mapreduce.util.MapReduceXML;
 
 public class MapReduceComponentDAO {
 
@@ -13,7 +13,7 @@ public class MapReduceComponentDAO {
 	
 	public List<MapReduceComponent> listComponents(){
 		List<MapReduceComponent> components;
-		components = MontageXML.parseXMLWorkflow("src/components_mr.xml");
+		components = MapReduceXML.parseXMLWorkflow("src/components_mr.xml");
 		return components;
 	}
 	

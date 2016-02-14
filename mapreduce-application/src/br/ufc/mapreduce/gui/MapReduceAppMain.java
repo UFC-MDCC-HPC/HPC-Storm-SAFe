@@ -13,7 +13,8 @@ import javax.swing.JMenuItem;
 
 import br.ufc.mapreduce.dao.MapReduceComponentDAO;
 import br.ufc.mapreduce.model.MapReduceComponent;
-import br.ufc.mapreduce.util.MontageUtil;
+import br.ufc.mapreduce.safeswl.ArchFileGenerator;
+import br.ufc.mapreduce.util.MapReduceUtil;
 import br.ufc.mapreduce.workflow.MapReduceWorkflow;
 
 public class MapReduceAppMain extends JFrame {
@@ -23,6 +24,8 @@ public class MapReduceAppMain extends JFrame {
 	private MapReduceBottonPanel bottomPanel;
 	private MapReduceWorkflow workflow;
 	private MapReduceComponentDAO componentDAO;
+	
+	private ArchFileGenerator archGenerator;
 	
 	 
 
@@ -44,6 +47,8 @@ public class MapReduceAppMain extends JFrame {
 		this.lateralPanel.setComponentDAO(componentDAO);
 		this.lateralPanel.setCenterPanel(centerPanel);
 		this.bottomPanel = new MapReduceBottonPanel();
+		
+		this.archGenerator = new ArchFileGenerator();
 		
 
 		//loading components...
@@ -85,7 +90,7 @@ public class MapReduceAppMain extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				MontageUtil.serializeWorkflow(workflow);
+				MapReduceUtil.serializeWorkflow(workflow);
 			}
 		});
 		
@@ -93,7 +98,7 @@ public class MapReduceAppMain extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				workflow = MontageUtil.deserializeWorkflow();
+				workflow = MapReduceUtil.deserializeWorkflow();
 				System.out.println(workflow);
 				centerPanel.setWorkflow(workflow);
 				centerPanel.updatePanel();
@@ -106,8 +111,7 @@ public class MapReduceAppMain extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
-				
+				archGenerator.generate(workflow);	
 			}
 		});
 		
