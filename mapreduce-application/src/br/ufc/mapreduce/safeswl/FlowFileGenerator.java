@@ -52,7 +52,7 @@ public class FlowFileGenerator {
 		 */
 		res+="\n";
 		for(MapReduceComponent cmp:workflow.listComponents()){
-			 if(cmp.getName().startsWith("SPLITTER")){
+			 if(cmp.getName().startsWith("Splitter")){
 				 
 				 int id_read_source = MapReduceUtil.getActionIdByName(cmp, read_source);
 				 int id_perform = MapReduceUtil.getActionIdByName(cmp, perform);
@@ -84,7 +84,8 @@ public class FlowFileGenerator {
 				</tns:select>
 		 */
 		for(MapReduceComponent cmp:workflow.listComponents()){
-			if(cmp.getKind().equals(MapReduceComponent.COMPUTATION_KIND)){
+			if(cmp.getKind().equals(MapReduceComponent.COMPUTATION_KIND) &&
+			   !cmp.getName().startsWith("Splitter")){
 				int id_chunk_ready = MapReduceUtil.getActionIdByName(cmp, chunk_ready);
 				int id_read_chunk = MapReduceUtil.getActionIdByName(cmp, read_chunk);
 				int id_perform = MapReduceUtil.getActionIdByName(cmp, perform);
@@ -102,7 +103,7 @@ public class FlowFileGenerator {
 		}
 		
 		for(MapReduceComponent cmp:workflow.listComponents()){
-			if(cmp.getName().startsWith("SPLITTER")){
+			if(cmp.getName().startsWith("Splitter")){
 				
 				int id_terminate = MapReduceUtil.getActionIdByName(cmp, terminate);
 				int id_write_sink = MapReduceUtil.getActionIdByName(cmp, write_sink);

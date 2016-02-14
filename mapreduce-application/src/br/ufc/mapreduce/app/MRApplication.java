@@ -40,8 +40,8 @@ public class MRApplication extends HShelfApplication{
 			
 			this.getFramework().connect(HShelfWorkflow.SAFE_WORKFLOW_SWL_PORT+1, HShelfWorkflow.SAFE_WORKFLOW_SWL_PORT+1);
 			HShelfSAFeSWLPort safeSWLPort = (HShelfSAFeSWLPort)((HShelfUsesPort)this.services.getPort(HShelfWorkflow.SAFE_WORKFLOW_SWL_PORT+1)).getProvidesPort();
-			String archFile = "/home/jefferson/Git/HPC-Storm-SAFe/mapreduce-application/src/xml/mr-arch.xml";
-			String flowFile = "/home/jefferson/Git/HPC-Storm-SAFe/mapreduce-application/src/xml/mr-flow.xml";
+			String archFile = "/home/jefferson/Git/HPC-Storm-SAFe/mapreduce-application/src/xml/mr-arch-teste.xml";
+			String flowFile = "/home/jefferson/Git/HPC-Storm-SAFe/mapreduce-application/src/xml/mr-flow-teste.xml";
 			safeSWLPort.setSAFeSWLArchFilePath(archFile);
 			safeSWLPort.setSAFeSWLFlowFilePath(flowFile);
 			

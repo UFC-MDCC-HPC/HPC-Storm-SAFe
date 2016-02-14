@@ -12,7 +12,7 @@
 			<env_port name="port_Go" type="PROVIDES_PORT" id="201" id_component="1"/>
 		 </env_ports>
 		 <tsk_ports>
-			<tsk_port name="wf-splitter-ss" id="202" id_component="1"/>
+			<tsk_port name="wf-splitter-ss" id="207" id_component="1"/>
 			<tsk_port name="wf-splitter-ck" id="202" id_component="1"/>
 			<tsk_port name="wf-shuffler-ck" id="203" id_component="1"/>
 			<tsk_port name="wf-reducer-ck" id="204" id_component="1"/>

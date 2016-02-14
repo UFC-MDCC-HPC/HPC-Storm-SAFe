@@ -31,9 +31,10 @@ public class ArchFileGenerator {
 		for(MapReduceComponent cmp:workflow.listComponents()){
 			String res = this.generateComponentXML(cmp);
 			if(cmp.getName().equalsIgnoreCase("application")){
-				this.application = res;
+				this.application = res.replaceAll("computation", "application");
+				
 			}else if(cmp.getName().equalsIgnoreCase("workflow")){
-				this.workflowStr = res;
+				this.workflowStr = res.replaceAll("computation", "workflow");
 			}else{
 				this.body.add(res);
 			}
@@ -165,7 +166,7 @@ public class ArchFileGenerator {
 		MapReduceTskPort tb = MapReduceUtil.getTskPortByName(workflow, tskConn.getPortBName());
 		res+="\t<tns:left_peer id=\""+ta.getId()+"\" name=\""+ta.getName()+"\" id_component=\""+ta.getId_component()+"\"/>\n";
 		res+="\t<tns:right_peer name=\""+tb.getName()+"\" id=\""+tb.getId()+"\" id_component=\""+tb.getId_component()+"\"/>\n";
-		res+="</tns:task_binding>";
+		res+="</tns:task_binding>\n";
 		
 		return res;
 	}
