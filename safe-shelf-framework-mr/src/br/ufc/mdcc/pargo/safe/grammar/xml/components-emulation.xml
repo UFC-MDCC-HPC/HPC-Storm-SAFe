@@ -1,0 +1,13 @@
+<!-- THIS INFO EMULATES AFTER-INSTANTIATE COMPONENTS BY CORE -->
+<instantiate>
+	<component id="2" name="client">
+		<port id="20" name="env-client" url="http://localhost:10005/client-env?wsdl" />
+		<port id="21" name="task-client" url="http://localhost:10004/client-task?wsdl" />
+	</component>
+
+	<component id="3" name="server">
+		<port id="30" name="env-server" url="http://localhost:10003/server-env?wsdl" />
+		<port id="31" name="task-server" url="http://localhost:10002/server-task?wsdl" />
+	</component>
+</instantiate>
+
