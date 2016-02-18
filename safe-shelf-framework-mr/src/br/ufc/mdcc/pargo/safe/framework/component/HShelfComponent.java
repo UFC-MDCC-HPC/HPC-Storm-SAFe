@@ -15,7 +15,7 @@ import br.ufc.mdcc.pargo.safe.grammar.util.XMLManipulator;
 public abstract class HShelfComponent {
 
 	private String name;
-	private String contract;
+	private String contractPath;
 	protected IHShelfService services;
 	
 	private IHShelfCore core = new HShelfCoreHPEImpl();
@@ -43,11 +43,11 @@ public abstract class HShelfComponent {
 	}
 	
 	public String getContract() {
-		return contract;
+		return contractPath;
 	}
 
 	public void setContract(String contract) {
-		this.contract = contract;
+		this.contractPath = contract;
 	}
 
 	 
@@ -63,7 +63,7 @@ public abstract class HShelfComponent {
 	/**CORE COM**/
 	public void resolve(){
 		System.out.println("Calling RESOLVE from :"+this.getName());
-		String content = FileUtil.readFileAsString(contract); //CONTEÚDO DO CONTRATO CONTEXTUAL DESSE COMPONENTE
+		String content = FileUtil.readFileAsString(contractPath); //CONTEÚDO DO CONTRATO CONTEXTUAL DESSE COMPONENTE
 		this.coreXMLReturn = this.core.resolve(content); //RETORNO DO CORE COM OS COMPONENTES QUE ATENDEM
 		try {
 			HShelfUsesPort uses = (HShelfUsesPort) this.services.getPort("application-selection-"+this.getName()+"-port-uses");
@@ -81,7 +81,8 @@ public abstract class HShelfComponent {
 			System.out.println("Calling DEPLOY from :"+this.getName());
 			
 			for(Object candidate:this.permuted){
-				this.backEndAdress = this.core.deploy(candidate); 
+				String safeSWLCode = FileUtil.readFileAsString(safeSWLPath);
+				this.backEndAdress = this.core.deploy(safeSWLCode,this.getName(),candidate); 
 				if(this.backEndAdress!=null){
 					XMLManipulator.changeComponentAddressAtt(safeSWLPath, this.name, this.backEndAdress);
 					isInstantiateActivated = true;
@@ -96,7 +97,7 @@ public abstract class HShelfComponent {
 		if(isInstantiateActivated){
 			System.out.println("Calling INSTANTIATE from :"+this.getName());
 			String safeSWLCode = FileUtil.readFileAsString(safeSWLPath);
-			this.core.instantiate(safeSWLCode,this.selectedCandidate);
+			this.core.instantiate(safeSWLCode,this.getName());
 		}
 		
 		

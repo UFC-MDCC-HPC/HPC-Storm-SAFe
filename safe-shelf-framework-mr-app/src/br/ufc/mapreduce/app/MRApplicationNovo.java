@@ -46,8 +46,8 @@ public class MRApplicationNovo extends HShelfApplication{
 			
 			this.getFramework().connect(HShelfWorkflow.SAFE_WORKFLOW_SWL_PORT+1, HShelfWorkflow.SAFE_WORKFLOW_SWL_PORT+1);
 			HShelfSAFeSWLPort safeSWLPort = (HShelfSAFeSWLPort)((HShelfUsesPort)this.services.getPort(HShelfWorkflow.SAFE_WORKFLOW_SWL_PORT+1)).getProvidesPort();
-			String archFile = "/home/jefferson/Workspaces/workspace-luna/safe-shelf-framework-mr-app/src/xml/mr-arch-novo.xml";
-			String flowFile = "/home/jefferson/Workspaces/workspace-luna/safe-shelf-framework-mr-app/src/xml/mr-flow-novo.xml";
+			String archFile = "/home/jefferson/Git/HPC-Storm-SAFe/safe-shelf-framework-mr-app/src/xml/mr-arch-novo.xml";
+			String flowFile = "/home/jefferson/Git/HPC-Storm-SAFe/safe-shelf-framework-mr-app/src/xml/mr-flow-novo.xml";
 			safeSWLPort.setSAFeSWLArchFilePath(archFile);
 			safeSWLPort.setSAFeSWLFlowFilePath(flowFile);
 			

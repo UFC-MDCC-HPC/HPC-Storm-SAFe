@@ -9,13 +9,13 @@ public class HShelfCoreHPEImpl implements IHShelfCore{
 	}
 
 	@Override
-	public String deploy(Object candidate) {
+	public String deploy(String safeSWLCode, String componentReference, Object candidate) {
 		// TODO Auto-generated method stub
 		return "http://....";
 	}
 
 	@Override
-	public String instantiate(String safeSWLCode, Object compReference) {
+	public String instantiate(String safeSWLCode, String componentReference) {
 		// TODO Auto-generated method stub
 		return null;
 	}
