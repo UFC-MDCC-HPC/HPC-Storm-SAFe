@@ -264,7 +264,7 @@ public class SAFeSWLArchParser implements ISAFeSWLArcherParser{
 				conn.setKind(SAFeOrquestrationArchitecture.CONNECTOR);
 				body.addArchComponent(conn);
 			} else if (child.getName().equalsIgnoreCase(SAFeOrquestrationArchitecture.PLATFORM)) {
-				System.out.println("TESTE");
+				
 				ArchPlatform plat = (ArchPlatform) this.architectureMain
 						.createArchPlatform(child);
 				this.readComponentPorts(child, plat);

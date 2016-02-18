@@ -14,6 +14,69 @@
 	<tns:invoke_oper action="instantiate" id="1000" />
 </tns:operation>
 
+<tns:operation>
+	<tns:invoke_oper action="resolve" id="2000" />
+</tns:operation>
+<tns:operation>
+	<tns:invoke_oper action="deploy" id="2000" />
+</tns:operation>
+<tns:operation>
+	<tns:invoke_oper action="instantiate" id="2000" />
+</tns:operation>
+
+<tns:operation>
+	<tns:invoke_oper action="resolve" id="4" />
+</tns:operation>
+<tns:operation>
+	<tns:invoke_oper action="deploy" id="4" />
+</tns:operation>
+<tns:operation>
+	<tns:invoke_oper action="instantiate" id="4" />
+</tns:operation>
+
+<tns:operation>
+	<tns:invoke_oper action="resolve" id="3" />
+</tns:operation>
+<tns:operation>
+	<tns:invoke_oper action="deploy" id="3" />
+</tns:operation>
+<tns:operation>
+	<tns:invoke_oper action="instantiate" id="3" />
+</tns:operation>
+
+
+<tns:operation>
+	<tns:invoke_oper action="resolve" id="5" />
+</tns:operation>
+<tns:operation>
+	<tns:invoke_oper action="deploy" id="5" />
+</tns:operation>
+<tns:operation>
+	<tns:invoke_oper action="instantiate" id="5" />
+</tns:operation>
+
+<tns:operation>
+	<tns:invoke_oper action="resolve" id="6" />
+</tns:operation>
+<tns:operation>
+	<tns:invoke_oper action="deploy" id="6" />
+</tns:operation>
+<tns:operation>
+	<tns:invoke_oper action="instantiate" id="6" />
+</tns:operation>
+
+<tns:operation>
+	<tns:invoke_oper action="resolve" id="10" />
+</tns:operation>
+<tns:operation>
+	<tns:invoke_oper action="deploy" id="10" />
+</tns:operation>
+<tns:operation>
+	<tns:invoke_oper action="instantiate" id="10" />
+</tns:operation>
+
+
+
 
 
 <!--Splitter-->
