@@ -4,7 +4,6 @@ import java.util.List;
 
 import br.ufc.mdcc.pargo.safe.framework.component.HShelfComponent;
 import br.ufc.mdcc.pargo.safe.framework.exception.HShelfException;
-import br.ufc.mdcc.pargo.safe.framework.workflow.HShelfWorkflow;
 
 public abstract class HShelfBuilderService extends HShelfPort {
 

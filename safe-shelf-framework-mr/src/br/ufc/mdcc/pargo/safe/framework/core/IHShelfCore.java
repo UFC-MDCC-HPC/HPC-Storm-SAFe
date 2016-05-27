@@ -19,7 +19,7 @@ public interface IHShelfCore {
 	 * @param ID of the first candidate deployed
 	 * @return URL informations from its ports in XML format. See documentation.
 	 */
-	public String instantiate(String safeSWLCode, String componentReference);
+	public String instantiate(String arch_desc_xml, String arch_ref);
 	/**
 	 * 
 	 * @param ID of the component to be released

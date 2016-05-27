@@ -1,17 +1,9 @@
 package br.ufc.mdcc.pargo.safe.framework.workflow;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
-
-
 
 import br.ufc.mdcc.pargo.safe.framework.HShelfFramework;
 import br.ufc.mdcc.pargo.safe.framework.component.HShelfComponent;
-import br.ufc.mdcc.pargo.safe.framework.core.info.HShelfComponentCoreInfo;
-import br.ufc.mdcc.pargo.safe.framework.core.info.HShelfCoreXMLReaderImpl;
-import br.ufc.mdcc.pargo.safe.framework.core.info.IHShelfCoreXMLReader;
 import br.ufc.mdcc.pargo.safe.framework.exception.HShelfException;
 import br.ufc.mdcc.pargo.safe.framework.port.HShelfProvidesPort;
 import br.ufc.mdcc.pargo.safe.framework.port.HShelfTaskPort;
@@ -34,7 +26,6 @@ import br.ufc.mdcc.pargo.safe.grammar.arch.ArchTask;
 import br.ufc.mdcc.pargo.safe.grammar.arch.ArchUses;
 import br.ufc.mdcc.pargo.safe.grammar.arch.ArchWorkflow;
 import br.ufc.mdcc.pargo.safe.grammar.arch.SAFeOrquestrationArchitecture;
-import br.ufc.mdcc.pargo.safe.grammar.util.FileUtil;
 
 public class HShelfWorkflow extends HShelfComponent {
 
@@ -54,7 +45,7 @@ public class HShelfWorkflow extends HShelfComponent {
 	//private IHShelfCoreXMLReader xmlReader;
 
 	// language
-	private Map<String, HShelfComponentCoreInfo> componentVariableMap;
+	//private Map<String, HShelfComponentCoreInfo> componentVariableMap;
 	private ISAFeSWLArcherParser archParser;
 	private ISAFeSWLFlowParser flowParser;
 	private HShelfWorkflowFacade workflowFacade;
@@ -68,7 +59,7 @@ public class HShelfWorkflow extends HShelfComponent {
 
 		//this.core = new HShelfCoreImpl();
 		//this.xmlReader = new HShelfCoreXMLReaderImpl();
-		this.componentVariableMap = new HashMap<String, HShelfComponentCoreInfo>();
+		//this.componentVariableMap = new HashMap<String, HShelfComponentCoreInfo>();
 		this.workflowFacade = new HShelfWorkflowFacade(this);
 
 	}
@@ -326,6 +317,7 @@ public class HShelfWorkflow extends HShelfComponent {
 				//newComponent.setSafeSWLCode(safeSWLCode);
 				
 				newComponent.setSafeSWLPath(filePath);
+				newComponent.setKind(archComponent.getKind());
 				newComponent.setContract(archComponent.getContract().getUri());
 			}
 			

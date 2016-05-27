@@ -286,11 +286,11 @@ public class SAFeSWLArchParser implements ISAFeSWLArcherParser{
 	}
 
 	public ArchComponent getArchComponentByID(Integer id){
-		return this.architectureMain.getArchComponentByID(id);
+		return this.architectureMain.getArchComponentById(id);
 	}
 	
 	public ArchAction getArchActionId(Integer id){
-		return this.architectureMain.getArchActionBy(id);
+		return this.architectureMain.getArchActionById(id);
 	}
 
 	@Override

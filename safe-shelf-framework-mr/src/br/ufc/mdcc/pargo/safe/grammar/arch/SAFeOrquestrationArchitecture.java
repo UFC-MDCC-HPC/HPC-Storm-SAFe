@@ -280,15 +280,16 @@ public class SAFeOrquestrationArchitecture {
 		}
 		
 		//some services...
-		public ArchComponent getArchComponentByID(Integer id){
+		public ArchComponent getArchComponentById(Integer id){
 			return this.body.getArchComponentById(id);
 		}
 		
-		public ArchAction getArchActionBy(Integer id){
+		public ArchAction getArchActionById(Integer id){
 			return this.body.getArchActionById(id);
 		}
 	
 		public String getProvidesPortNameByUsesPortName(String usesPortName) {
+			
 			
 			for(ArchEnvBinding env:this.attachmentEnvList){
 				ArchUses uses = env.getUses();

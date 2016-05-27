@@ -117,7 +117,7 @@
 <tns:choice_oper>
 
 <!--Mapper-->
-<tns:select action_id="553">
+<tns:select action_id="353">
 <tns:operation>
 	<tns:invoke_oper action="compute" id="551" />
 </tns:operation>
@@ -127,7 +127,7 @@
 </tns:select>
 
 <!--Combiner-->
-<tns:select action_id="1053">
+<tns:select action_id="553">
 <tns:operation>
 	<tns:invoke_oper action="compute" id="1051" />
 </tns:operation>
@@ -137,7 +137,7 @@
 </tns:select>
 
 <!--Shuffler-->
-<tns:select action_id="453">
+<tns:select action_id="1053">
 <tns:operation>
 	<tns:invoke_oper action="compute" id="451" />
 </tns:operation>
@@ -147,7 +147,7 @@
 </tns:select>
 
 <!--Reducer-->
-<tns:select action_id="653">
+<tns:select action_id="453">
 <tns:operation>
 	<tns:invoke_oper action="compute" id="651" />
 </tns:operation>
@@ -157,6 +157,16 @@
 </tns:select>
 
 <!--Splitter-->
+<tns:select action_id="653">
+<tns:operation>
+	<tns:invoke_oper action="compute" id="351" />
+</tns:operation>
+<tns:operation>
+	<tns:invoke_oper action="compute" id="352" />
+</tns:operation>
+</tns:select>
+
+
 <tns:select action_id="342">
 <tns:operation>
 	<tns:invoke_oper action="compute" id="343"/>
@@ -165,15 +175,8 @@
 	<tns:break_oper base_label="LABEL_A"/>
 </tns:operation>
 </tns:select>
-<tns:select action_id="353">
-<tns:operation>
-	<tns:invoke_oper action="compute" id="351" />
-</tns:operation>
-<tns:operation>
-	<tns:invoke_oper action="compute" id="352" />
-</tns:operation>
 
-</tns:select>
+
 </tns:choice_oper>
 </tns:operation>
 </tns:iterate_oper>

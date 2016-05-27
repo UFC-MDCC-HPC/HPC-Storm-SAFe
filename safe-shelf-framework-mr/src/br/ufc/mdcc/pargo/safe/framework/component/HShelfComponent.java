@@ -9,6 +9,7 @@ import br.ufc.mdcc.pargo.safe.framework.exception.HShelfException;
 import br.ufc.mdcc.pargo.safe.framework.port.HShelfSelectionPort;
 import br.ufc.mdcc.pargo.safe.framework.port.HShelfUsesPort;
 import br.ufc.mdcc.pargo.safe.framework.services.IHShelfService;
+import br.ufc.mdcc.pargo.safe.grammar.arch.SAFeOrquestrationArchitecture;
 import br.ufc.mdcc.pargo.safe.grammar.util.FileUtil;
 import br.ufc.mdcc.pargo.safe.grammar.util.XMLManipulator;
 
@@ -16,11 +17,12 @@ public abstract class HShelfComponent {
 
 	private String name;
 	private String contractPath;
+	private String kind;
 	protected IHShelfService services;
 	
 	private IHShelfCore core = new HShelfCoreHPEImpl();
 	private String safeSWLPath;
-	private String backEndAdress;
+	private String backEndAdress = null;
 	private String coreXMLReturn; // RETORNO DO CORE
 	private List<Object> permuted; //RETORNO DA APLICAÇÃO
 	private boolean isDeployActivated = false; 
@@ -60,9 +62,17 @@ public abstract class HShelfComponent {
 		this.safeSWLPath = safeSWLPath;
 	}
 
+	public String getKind() {
+		return kind;
+	}
+
+	public void setKind(String kind) {
+		this.kind = kind;
+	}
+
 	/**CORE COM**/
 	public void resolve(){
-		System.out.println("Calling RESOLVE from :"+this.getName());
+		System.out.println("Calling RESOLVE from :"+this.getName()+", KIND: " + this.getKind());
 		String content = FileUtil.readFileAsString(contractPath); //CONTEÚDO DO CONTRATO CONTEXTUAL DESSE COMPONENTE
 		this.coreXMLReturn = this.core.resolve(content); //RETORNO DO CORE COM OS COMPONENTES QUE ATENDEM
 		try {
@@ -70,7 +80,7 @@ public abstract class HShelfComponent {
 			HShelfSelectionPort selection = (HShelfSelectionPort)uses.getProvidesPort();
 		    this.permuted = selection.selection(this.createDataStructureFromCoreXML(this.coreXMLReturn));//ENVIA OS OBJETOS PARA A APLICAÇÃO QUE OS RETORNA PERMUTADOS
 		} catch (HShelfException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 		this.isDeployActivated = true; //ATIVA A AÇÃO? GAMBI TOTAL
@@ -78,24 +88,33 @@ public abstract class HShelfComponent {
 	
 	public void deploy(){
 		if(isDeployActivated){
-			System.out.println("Calling DEPLOY from :"+this.getName());
+			System.out.println("Calling DEPLOY from :"+this.getName()+", KIND: " + this.getKind());
 			
 			for(Object candidate:this.permuted){
 				String safeSWLCode = FileUtil.readFileAsString(safeSWLPath);
-				this.backEndAdress = this.core.deploy(safeSWLCode,this.getName(),candidate); 
-				if(this.backEndAdress!=null){
-					XMLManipulator.changeComponentAddressAtt(safeSWLPath, this.name, this.backEndAdress);
-					isInstantiateActivated = true;
-					selectedCandidate = candidate;
-					break;
+				if(this.kind.equals(SAFeOrquestrationArchitecture.PLATFORM)){
+					this.backEndAdress = this.core.deploy(safeSWLCode,this.getName(),candidate); 
+					if(this.backEndAdress!=null){
+						XMLManipulator.changeComponentAddressAtt(safeSWLPath, this.name, this.backEndAdress);
+						isInstantiateActivated = true;
+						selectedCandidate = candidate;
+						break;
+					}
+				}else if(this.kind.equals(SAFeOrquestrationArchitecture.COMPUTATION) ||
+						this.kind.equals(SAFeOrquestrationArchitecture.CONNECTOR)) {
+						this.core.deploy(safeSWLCode,this.getName(),candidate);
+						isInstantiateActivated = true;
+						selectedCandidate = candidate;
+						break;
 				}
+				
 			}
 		}
 	}
 	
 	public void instantiate(){
 		if(isInstantiateActivated){
-			System.out.println("Calling INSTANTIATE from :"+this.getName());
+			System.out.println("Calling INSTANTIATE from :"+this.getName()+", KIND: " + this.getKind());
 			String safeSWLCode = FileUtil.readFileAsString(safeSWLPath);
 			this.core.instantiate(safeSWLCode,this.getName());
 		}

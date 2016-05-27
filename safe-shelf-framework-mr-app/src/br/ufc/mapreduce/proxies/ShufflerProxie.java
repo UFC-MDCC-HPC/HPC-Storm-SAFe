@@ -16,6 +16,7 @@ public class ShufflerProxie extends HShelfComponent implements MRAdapter{
 	private String chunk_out = "";
 	
 	private TaskChunk taskChunk;
+	private boolean ready;
 	@Override
 	public void setServices(IHShelfService services) {
 		this.services = services;
@@ -72,6 +73,8 @@ public class ShufflerProxie extends HShelfComponent implements MRAdapter{
 		try {
 			Thread.sleep(2000);
 			this.chunk_out = "SHUFFLER-OUT: "+chunk_in;
+			this.chunk_in = "";
+			this.ready = true;
 			this.providesPort.setChunk(chunk_out);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
@@ -82,18 +85,13 @@ public class ShufflerProxie extends HShelfComponent implements MRAdapter{
 
 	@Override
 	public boolean chunk_ready() {
-		try {
-			usesPort = ((HShelfUsesPort)this.services.getPort("shuffler-uses"));
-			String chunk = ((MRPort)usesPort.getProvidesPort()).getChunk();
-			if(chunk!=null && !chunk.equals("")){
-				((MRPort)usesPort.getProvidesPort()).setChunk("");
-				return true;
-			}
-		} catch (HShelfException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return false;
+		 if(this.ready){
+			 ready= false;
+			 return true;
+		 }
+		 
+		 return false;
+		 
 	}
 
 }

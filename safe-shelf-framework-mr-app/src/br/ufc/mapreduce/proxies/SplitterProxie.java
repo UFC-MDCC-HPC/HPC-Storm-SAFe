@@ -15,6 +15,7 @@ public class SplitterProxie extends HShelfComponent implements MRAdapter{
 	private HShelfUsesPort usesPortSource;
 	private HShelfUsesPort usesPortSink;
 	private HShelfUsesPort usesPort;
+	private boolean ready = false;
 	
 	private String chunk_in = "";
 	private String chunk_out = "";
@@ -101,9 +102,17 @@ public class SplitterProxie extends HShelfComponent implements MRAdapter{
 		try {
 			Thread.sleep(2000);
 			this.chunk_out = "SPLITTER-OUT: "+chunk_in;
+			this.chunk_in = "";
 			this.total+=chunk_out;
-			this.providesPort.setChunk(chunk_out);
 			this.counter++;
+			this.ready = true;
+			if(this.counter>=3){
+				this.providesPort.setChunk("");
+				this.ready = false;
+			}
+				
+			else
+				this.providesPort.setChunk(chunk_out);
 			System.out.println("SPLITTER COUNTER: "+counter);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
@@ -114,18 +123,13 @@ public class SplitterProxie extends HShelfComponent implements MRAdapter{
 
 	@Override
 	public boolean chunk_ready() {
-		try {
-			usesPort = ((HShelfUsesPort)this.services.getPort("splitter-uses"));
-			String chunk = ((MRPort)usesPort.getProvidesPort()).getChunk();
-			if(chunk!=null && !chunk.equals("")){
-				((MRPort)usesPort.getProvidesPort()).setChunk("");
-				return true;
-			}
-		} catch (HShelfException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return false;
+		 if(this.ready){
+			 ready= false;
+			 return true;
+		 }
+		 
+		 return false;
+		 
 	}
 
 }

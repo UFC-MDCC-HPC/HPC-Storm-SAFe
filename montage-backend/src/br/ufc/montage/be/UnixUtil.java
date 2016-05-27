@@ -15,8 +15,8 @@ public class UnixUtil {
 	
 	public static synchronized String executeCommand(String command) {
 
-		//return "";
-		
+		return "";
+		/*
 		StringBuffer output = new StringBuffer();
 
 		Process p;
@@ -36,7 +36,7 @@ public class UnixUtil {
 		}
 
 		
-		return output.toString();
+		return output.toString();*/
 
 	}
 	

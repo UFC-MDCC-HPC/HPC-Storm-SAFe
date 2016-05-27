@@ -12,7 +12,6 @@ import br.ufc.mdcc.pargo.safe.framework.port.HShelfProvidesPort;
 import br.ufc.mdcc.pargo.safe.framework.port.HShelfTaskPort;
 import br.ufc.mdcc.pargo.safe.framework.port.HShelfUsesPort;
 import br.ufc.mdcc.pargo.safe.framework.util.HShelfConsoleLogger;
-import br.ufc.mdcc.pargo.safe.framework.workflow.HShelfWorkflow;
 
 public class HShelfServiceImpl implements IHShelfService{
 
