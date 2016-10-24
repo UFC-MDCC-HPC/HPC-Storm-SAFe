@@ -33,6 +33,7 @@ public class HShelfWorkflow extends HShelfComponent {
 	public static final String SAFE_WORKFLOW_SWL_PORT = "port_SAFeSWL";
 	public static final String SAFE_WORKFLOW_GO_PORT = "port_Go";
 	public static final String SAFE_WORKFLOW_EVENT_PORT = "port_Event";
+	
 
 	// ports
 	private HShelfProvidesPort safeSWLPort;
@@ -306,6 +307,7 @@ public class HShelfWorkflow extends HShelfComponent {
 			HShelfComponent newComponent = this.framework.createComponent(
 					compName, proxiePkgName + "." + capCompName
 							+ proxieClassName);
+			
 			this.framework.addComponent(newComponent);
 			this.sendMessageToApp(compName, HShelfEventType.Component_Added);
 			

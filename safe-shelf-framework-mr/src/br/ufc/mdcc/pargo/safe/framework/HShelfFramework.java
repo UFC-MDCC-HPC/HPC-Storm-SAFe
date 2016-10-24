@@ -8,6 +8,7 @@ import java.util.concurrent.Semaphore;
 
 import br.ufc.mdcc.pargo.safe.framework.application.HShelfApplication;
 import br.ufc.mdcc.pargo.safe.framework.component.HShelfComponent;
+import br.ufc.mdcc.pargo.safe.framework.core.HShelfCoreComponent;
 import br.ufc.mdcc.pargo.safe.framework.exception.HShelfException;
 import br.ufc.mdcc.pargo.safe.framework.port.HShelfBuilderService;
 import br.ufc.mdcc.pargo.safe.framework.port.HShelfPort;
@@ -32,6 +33,7 @@ public class HShelfFramework extends HShelfBuilderService {
 
 	//private HShelfWorkflow workflow;
 	private HShelfApplication application;
+
 
 	// private ISAFeSWLArcherParser archParser;
 
@@ -69,10 +71,16 @@ public class HShelfFramework extends HShelfBuilderService {
 		this.application.setServices(serviceApp);
 
 		// adding
-		//this.addComponent(this.workflow);
-		
-	
 		this.addComponent(this.application);
+		
+		//Core Component
+		HShelfCoreComponent coreComponent = new HShelfCoreComponent();
+		coreComponent.setName("core-component");
+		IHShelfService serviceImpl = new HShelfServiceImpl();
+		serviceImpl.initialize(this, coreComponent);
+		coreComponent.setServices(serviceImpl);
+		this.addComponent(coreComponent);
+		
 
 	}
 
@@ -156,6 +164,16 @@ public class HShelfFramework extends HShelfBuilderService {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			
+			/*Workflow*/
+			try {
+				serviceImpl.registerUsesPort("workflow-services-"+component.getName()+"-port-uses","DEFAULT");
+				this.connect("workflow-services-"+component.getName()+"-port-uses", "workflow-services-port-provides");
+			} catch (HShelfException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 			component.setServices(serviceImpl);
 		}
 
@@ -190,12 +208,7 @@ public class HShelfFramework extends HShelfBuilderService {
 		return this.taskPortMap.get(name);
 	}
 
-	// workflow repassa
-	/*
-	 * public void setArchParser(ISAFeSWLArcherParser archParser) {
-	 * this.archParser = archParser; }
-	 */
-
+	
 	@Override
 	public void connect(String usesPortName, String providesPortName) {
 

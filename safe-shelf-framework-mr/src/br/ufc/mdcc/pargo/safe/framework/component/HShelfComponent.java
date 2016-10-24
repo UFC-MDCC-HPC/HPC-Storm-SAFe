@@ -9,6 +9,7 @@ import br.ufc.mdcc.pargo.safe.framework.exception.HShelfException;
 import br.ufc.mdcc.pargo.safe.framework.port.HShelfSelectionPort;
 import br.ufc.mdcc.pargo.safe.framework.port.HShelfUsesPort;
 import br.ufc.mdcc.pargo.safe.framework.services.IHShelfService;
+import br.ufc.mdcc.pargo.safe.framework.util.HShelfConsoleLogger;
 import br.ufc.mdcc.pargo.safe.grammar.arch.SAFeOrquestrationArchitecture;
 import br.ufc.mdcc.pargo.safe.grammar.util.FileUtil;
 import br.ufc.mdcc.pargo.safe.grammar.util.XMLManipulator;
@@ -21,13 +22,19 @@ public abstract class HShelfComponent {
 	protected IHShelfService services;
 	
 	private IHShelfCore core = new HShelfCoreHPEImpl();
+	private HShelfUsesPort workflowServicesUsesPort;
+	
 	private String safeSWLPath;
 	private String backEndAdress = null;
 	private String coreXMLReturn; // RETORNO DO CORE
+	
 	private List<Object> permuted; //RETORNO DA APLICAÇÃO
+	private Object selectedCandidate;
+	
 	private boolean isDeployActivated = false; 
 	private boolean isInstantiateActivated = false;
-	private Object selectedCandidate;
+	
+	
 	
 	public abstract void setServices(IHShelfService services);
 
@@ -72,7 +79,7 @@ public abstract class HShelfComponent {
 
 	/**CORE COM**/
 	public void resolve(){
-		System.out.println("Calling RESOLVE from :"+this.getName()+", KIND: " + this.getKind());
+		HShelfConsoleLogger.write("Calling RESOLVE from :"+this.getName()+", KIND: " + this.getKind());
 		String content = FileUtil.readFileAsString(contractPath); //CONTEÚDO DO CONTRATO CONTEXTUAL DESSE COMPONENTE
 		this.coreXMLReturn = this.core.resolve(content); //RETORNO DO CORE COM OS COMPONENTES QUE ATENDEM
 		try {
@@ -83,13 +90,13 @@ public abstract class HShelfComponent {
 			
 			e.printStackTrace();
 		}
-		this.isDeployActivated = true; //ATIVA A AÇÃO? GAMBI TOTAL
+		this.isDeployActivated = true; //ATIVA A AÇÃO? 
 	}
 	
 	public void deploy(){
 		if(isDeployActivated){
-			System.out.println("Calling DEPLOY from :"+this.getName()+", KIND: " + this.getKind());
 			
+			HShelfConsoleLogger.write("Calling DEPLOY from :"+this.getName()+", KIND: " + this.getKind());
 			for(Object candidate:this.permuted){
 				String safeSWLCode = FileUtil.readFileAsString(safeSWLPath);
 				if(this.kind.equals(SAFeOrquestrationArchitecture.PLATFORM)){
@@ -114,7 +121,7 @@ public abstract class HShelfComponent {
 	
 	public void instantiate(){
 		if(isInstantiateActivated){
-			System.out.println("Calling INSTANTIATE from :"+this.getName()+", KIND: " + this.getKind());
+			HShelfConsoleLogger.write("Calling INSTANTIATE from :"+this.getName()+", KIND: " + this.getKind());
 			String safeSWLCode = FileUtil.readFileAsString(safeSWLPath);
 			this.core.instantiate(safeSWLCode,this.getName());
 		}

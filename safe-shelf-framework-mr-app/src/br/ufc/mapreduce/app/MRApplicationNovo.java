@@ -11,18 +11,13 @@ import br.ufc.mdcc.pargo.safe.framework.workflow.HShelfWorkflow;
 
 public class MRApplicationNovo extends HShelfApplication{
 
-	private String archFilePath;
-	private String flowFilePath;
-
+	 
 	public MRApplicationNovo(String name) {
 		super(name);
 		this.getFramework().createWorkflow();
 	}
 
-	public void setArchFlow(String arch, String flow){
-		this.archFilePath = arch;
-		this.flowFilePath = flow;
-	}
+	 
 	
 	@Override
 	public void setServices(IHShelfService services) {
@@ -46,8 +41,8 @@ public class MRApplicationNovo extends HShelfApplication{
 			
 			this.getFramework().connect(HShelfWorkflow.SAFE_WORKFLOW_SWL_PORT+1, HShelfWorkflow.SAFE_WORKFLOW_SWL_PORT+1);
 			HShelfSAFeSWLPort safeSWLPort = (HShelfSAFeSWLPort)((HShelfUsesPort)this.services.getPort(HShelfWorkflow.SAFE_WORKFLOW_SWL_PORT+1)).getProvidesPort();
-			String archFile = "/home/jefferson/git/HPC-Storm-SAFe/safe-shelf-framework-mr-app/src/xml/mr-arch-novo.xml";
-			String flowFile = "/home/jefferson/git/HPC-Storm-SAFe/safe-shelf-framework-mr-app/src/xml/mr-flow-novo.xml";
+			String archFile = "/home/jefferson/git/HPC-Storm-SAFe/safe-shelf-framework-mr-app/src/xml/mr-arch-stub.xml";
+			String flowFile = "/home/jefferson/git/HPC-Storm-SAFe/safe-shelf-framework-mr-app/src/xml/mr-flow-stub.xml";
 			safeSWLPort.setSAFeSWLArchFilePath(archFile);
 			safeSWLPort.setSAFeSWLFlowFilePath(flowFile);
 			
