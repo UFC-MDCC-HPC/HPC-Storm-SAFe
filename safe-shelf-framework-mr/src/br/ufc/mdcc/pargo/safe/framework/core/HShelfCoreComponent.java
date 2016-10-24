@@ -2,7 +2,7 @@ package br.ufc.mdcc.pargo.safe.framework.core;
 
 import br.ufc.mdcc.pargo.safe.framework.component.HShelfComponent;
 import br.ufc.mdcc.pargo.safe.framework.exception.HShelfException;
-import br.ufc.mdcc.pargo.safe.framework.port.dflt.HShelfWorkflowServices;
+import br.ufc.mdcc.pargo.safe.framework.port.dflt.HShelfWorkflowServicesProvidesPort;
 import br.ufc.mdcc.pargo.safe.framework.services.IHShelfService;
 
 public class HShelfCoreComponent extends HShelfComponent{
@@ -11,7 +11,7 @@ public class HShelfCoreComponent extends HShelfComponent{
 	public void setServices(IHShelfService services) {
 		this.services = services;
 		
-		HShelfWorkflowServices workflowServices = new HShelfWorkflowServices();
+		HShelfWorkflowServicesProvidesPort workflowServices = new HShelfWorkflowServicesProvidesPort();
 		workflowServices.setName("workflow-services-port-provides");
 		try {
 			this.services.setProvidesPort(workflowServices);

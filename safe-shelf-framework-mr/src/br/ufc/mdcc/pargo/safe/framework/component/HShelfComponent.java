@@ -8,6 +8,7 @@ import br.ufc.mdcc.pargo.safe.framework.core.IHShelfCore;
 import br.ufc.mdcc.pargo.safe.framework.exception.HShelfException;
 import br.ufc.mdcc.pargo.safe.framework.port.HShelfSelectionPort;
 import br.ufc.mdcc.pargo.safe.framework.port.HShelfUsesPort;
+import br.ufc.mdcc.pargo.safe.framework.port.dflt.HShelfWorkflowServicesProvidesPort;
 import br.ufc.mdcc.pargo.safe.framework.services.IHShelfService;
 import br.ufc.mdcc.pargo.safe.framework.util.HShelfConsoleLogger;
 import br.ufc.mdcc.pargo.safe.grammar.arch.SAFeOrquestrationArchitecture;
@@ -21,7 +22,7 @@ public abstract class HShelfComponent {
 	private String kind;
 	protected IHShelfService services;
 	
-	private IHShelfCore core = new HShelfCoreHPEImpl();
+	//private IHShelfCore core = new HShelfCoreHPEImpl();
 	private HShelfUsesPort workflowServicesUsesPort;
 	
 	private String safeSWLPath;
@@ -38,6 +39,95 @@ public abstract class HShelfComponent {
 	
 	public abstract void setServices(IHShelfService services);
 
+	
+
+	/**CORE COM**/
+	public void resolve(){
+		HShelfConsoleLogger.write("Calling RESOLVE from :"+this.getName()+", KIND: " + this.getKind());
+		String content = FileUtil.readFileAsString(contractPath); //CONTEÚDO DO CONTRATO CONTEXTUAL DESSE COMPONENTE
+		
+		try {
+			if(this.workflowServicesUsesPort==null)
+				this.workflowServicesUsesPort = (HShelfUsesPort) this.services.getPort("workflow-services-"+this.getName()+"-port-uses");
+		} catch (HShelfException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		this.coreXMLReturn = ((HShelfWorkflowServicesProvidesPort)this.workflowServicesUsesPort.getProvidesPort()).resolve(content);
+		//this.coreXMLReturn = this.core.resolve(content); //RETORNO DO CORE COM OS COMPONENTES QUE ATENDEM
+		
+		try {
+			HShelfUsesPort uses = (HShelfUsesPort) this.services.getPort("application-selection-"+this.getName()+"-port-uses");
+			HShelfSelectionPort selection = (HShelfSelectionPort)uses.getProvidesPort();
+		    this.permuted = selection.selection(this.createDataStructureFromCoreXML(this.coreXMLReturn));//ENVIA OS OBJETOS PARA A APLICAÇÃO QUE OS RETORNA PERMUTADOS
+		} catch (HShelfException e) {
+			
+			e.printStackTrace();
+		}
+		this.isDeployActivated = true; //ATIVA A AÇÃO? 
+	}
+	
+	public void deploy(){
+		if(isDeployActivated){
+			
+			try {
+				if(this.workflowServicesUsesPort==null)
+					this.workflowServicesUsesPort = (HShelfUsesPort) this.services.getPort("workflow-services-"+this.getName()+"-port-uses");
+			} catch (HShelfException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
+			HShelfConsoleLogger.write("Calling DEPLOY from :"+this.getName()+", KIND: " + this.getKind());
+			for(Object candidate:this.permuted){
+				String safeSWLCode = FileUtil.readFileAsString(safeSWLPath);
+				if(this.kind.equals(SAFeOrquestrationArchitecture.PLATFORM)){
+					
+					this.backEndAdress = ((HShelfWorkflowServicesProvidesPort)this.workflowServicesUsesPort.getProvidesPort()).deploy(safeSWLCode,this.getName(),candidate); 
+					
+					if(this.backEndAdress!=null){
+						XMLManipulator.changeComponentAddressAtt(safeSWLPath, this.name, this.backEndAdress);
+						isInstantiateActivated = true;
+						selectedCandidate = candidate;
+						break;
+					}
+				}else if(this.kind.equals(SAFeOrquestrationArchitecture.COMPUTATION) ||
+						this.kind.equals(SAFeOrquestrationArchitecture.CONNECTOR)) {
+						((HShelfWorkflowServicesProvidesPort)this.workflowServicesUsesPort.getProvidesPort()).deploy(safeSWLCode,this.getName(),candidate);
+						isInstantiateActivated = true;
+						selectedCandidate = candidate;
+						break;
+				}
+				
+			}
+		}
+	}
+	
+	public void instantiate(){
+		if(isInstantiateActivated){
+			
+			try {
+				if(this.workflowServicesUsesPort==null)
+					this.workflowServicesUsesPort = (HShelfUsesPort) this.services.getPort("workflow-services-"+this.getName()+"-port-uses");
+			} catch (HShelfException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
+			HShelfConsoleLogger.write("Calling INSTANTIATE from :"+this.getName()+", KIND: " + this.getKind());
+			String safeSWLCode = FileUtil.readFileAsString(safeSWLPath);
+			((HShelfWorkflowServicesProvidesPort)this.workflowServicesUsesPort.getProvidesPort()).instantiate(safeSWLCode,this.getName());
+		}
+		
+		
+	}
+	
+	private List<Object> createDataStructureFromCoreXML(String coreXML){
+		List<Object> res = new ArrayList<Object>();
+		res.add(new Object());
+		return res;
+	}
+	 
 	public String getName() {
 		return name;
 	}
@@ -76,65 +166,6 @@ public abstract class HShelfComponent {
 	public void setKind(String kind) {
 		this.kind = kind;
 	}
-
-	/**CORE COM**/
-	public void resolve(){
-		HShelfConsoleLogger.write("Calling RESOLVE from :"+this.getName()+", KIND: " + this.getKind());
-		String content = FileUtil.readFileAsString(contractPath); //CONTEÚDO DO CONTRATO CONTEXTUAL DESSE COMPONENTE
-		this.coreXMLReturn = this.core.resolve(content); //RETORNO DO CORE COM OS COMPONENTES QUE ATENDEM
-		try {
-			HShelfUsesPort uses = (HShelfUsesPort) this.services.getPort("application-selection-"+this.getName()+"-port-uses");
-			HShelfSelectionPort selection = (HShelfSelectionPort)uses.getProvidesPort();
-		    this.permuted = selection.selection(this.createDataStructureFromCoreXML(this.coreXMLReturn));//ENVIA OS OBJETOS PARA A APLICAÇÃO QUE OS RETORNA PERMUTADOS
-		} catch (HShelfException e) {
-			
-			e.printStackTrace();
-		}
-		this.isDeployActivated = true; //ATIVA A AÇÃO? 
-	}
-	
-	public void deploy(){
-		if(isDeployActivated){
-			
-			HShelfConsoleLogger.write("Calling DEPLOY from :"+this.getName()+", KIND: " + this.getKind());
-			for(Object candidate:this.permuted){
-				String safeSWLCode = FileUtil.readFileAsString(safeSWLPath);
-				if(this.kind.equals(SAFeOrquestrationArchitecture.PLATFORM)){
-					this.backEndAdress = this.core.deploy(safeSWLCode,this.getName(),candidate); 
-					if(this.backEndAdress!=null){
-						XMLManipulator.changeComponentAddressAtt(safeSWLPath, this.name, this.backEndAdress);
-						isInstantiateActivated = true;
-						selectedCandidate = candidate;
-						break;
-					}
-				}else if(this.kind.equals(SAFeOrquestrationArchitecture.COMPUTATION) ||
-						this.kind.equals(SAFeOrquestrationArchitecture.CONNECTOR)) {
-						this.core.deploy(safeSWLCode,this.getName(),candidate);
-						isInstantiateActivated = true;
-						selectedCandidate = candidate;
-						break;
-				}
-				
-			}
-		}
-	}
-	
-	public void instantiate(){
-		if(isInstantiateActivated){
-			HShelfConsoleLogger.write("Calling INSTANTIATE from :"+this.getName()+", KIND: " + this.getKind());
-			String safeSWLCode = FileUtil.readFileAsString(safeSWLPath);
-			this.core.instantiate(safeSWLCode,this.getName());
-		}
-		
-		
-	}
-	
-	private List<Object> createDataStructureFromCoreXML(String coreXML){
-		List<Object> res = new ArrayList<Object>();
-		res.add(new Object());
-		return res;
-	}
-	 
 	
 	@Override
 	public boolean equals(Object obj) {
