@@ -59,7 +59,7 @@ public class ReducerProxie extends HShelfComponent implements MRAdapter{
 	public void read_chunk() {
 		try {
 			usesPort = ((HShelfUsesPort)this.services.getPort("reducer-uses"));
-			this.chunk_in = ((MRPort)usesPort.getProvidesPort()).getChunk();
+			//this.chunk_in = ((MRPort)usesPort.getProvidesPort()).getChunk();
 		} catch (HShelfException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

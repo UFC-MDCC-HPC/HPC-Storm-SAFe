@@ -2,7 +2,6 @@ package br.ufc.mapreduce.app;
 
 import br.ufc.mdcc.pargo.safe.framework.application.HShelfApplication;
 import br.ufc.mdcc.pargo.safe.framework.exception.HShelfException;
-import br.ufc.mdcc.pargo.safe.framework.port.HShelfUsesPort;
 import br.ufc.mdcc.pargo.safe.framework.port.IHShelfPortTypes;
 import br.ufc.mdcc.pargo.safe.framework.port.dflt.HShelfGoWorkflowPortImpl;
 import br.ufc.mdcc.pargo.safe.framework.port.dflt.HShelfSAFeSWLPort;
@@ -40,14 +39,14 @@ public class MRApplicationNovo extends HShelfApplication{
 		if(this.services!=null){
 			
 			this.getFramework().connect(HShelfWorkflow.SAFE_WORKFLOW_SWL_PORT+1, HShelfWorkflow.SAFE_WORKFLOW_SWL_PORT+1);
-			HShelfSAFeSWLPort safeSWLPort = (HShelfSAFeSWLPort)((HShelfUsesPort)this.services.getPort(HShelfWorkflow.SAFE_WORKFLOW_SWL_PORT+1)).getProvidesPort();
+			HShelfSAFeSWLPort safeSWLPort = (HShelfSAFeSWLPort)this.services.getConnectedProvidesPort(HShelfWorkflow.SAFE_WORKFLOW_SWL_PORT+1);
 			String archFile = "/home/jefferson/git/HPC-Storm-SAFe/safe-shelf-framework-mr-app/src/xml/mr-arch-stub.xml";
 			String flowFile = "/home/jefferson/git/HPC-Storm-SAFe/safe-shelf-framework-mr-app/src/xml/mr-flow-stub.xml";
 			safeSWLPort.setSAFeSWLArchFilePath(archFile);
 			safeSWLPort.setSAFeSWLFlowFilePath(flowFile);
 			
 			this.getFramework().connect(HShelfWorkflow.SAFE_WORKFLOW_GO_PORT+1, HShelfWorkflow.SAFE_WORKFLOW_GO_PORT+1);
-			HShelfGoWorkflowPortImpl goWorkflowPort = (HShelfGoWorkflowPortImpl)((HShelfUsesPort)this.services.getPort(HShelfWorkflow.SAFE_WORKFLOW_GO_PORT+1)).getProvidesPort();
+			HShelfGoWorkflowPortImpl goWorkflowPort = (HShelfGoWorkflowPortImpl)this.services.getConnectedProvidesPort(HShelfWorkflow.SAFE_WORKFLOW_GO_PORT+1);
 			goWorkflowPort.loadArchitectureFile();
 			goWorkflowPort.loadWorkflowFile();
 			

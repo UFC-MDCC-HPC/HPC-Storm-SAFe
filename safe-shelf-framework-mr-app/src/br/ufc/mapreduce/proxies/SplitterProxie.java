@@ -55,7 +55,7 @@ public class SplitterProxie extends HShelfComponent implements MRAdapter{
 	public void read_source() {
 		try {
 			usesPortSource = ((HShelfUsesPort)this.services.getPort("splitter-uses-source"));
-			this.chunk_in = ((MRPort)usesPortSource.getProvidesPort()).getChunk();
+			//this.chunk_in = ((MRPort)usesPortSource.getProvidesPort()).getChunk();
 		} catch (HShelfException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -76,7 +76,7 @@ public class SplitterProxie extends HShelfComponent implements MRAdapter{
 		try {
 			usesPortSink = ((HShelfUsesPort)this.services.getPort("splitter-uses-sink"));
 			System.out.println("TOTAL="+total);
-			((MRPort)usesPortSink.getProvidesPort()).setChunk(total);
+			//((MRPort)usesPortSink.getProvidesPort()).setChunk(total);
 		} catch (HShelfException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -88,7 +88,7 @@ public class SplitterProxie extends HShelfComponent implements MRAdapter{
 	public void read_chunk() {
 		try {
 			usesPort = ((HShelfUsesPort)this.services.getPort("splitter-uses"));
-			this.chunk_in = ((MRPort)usesPort.getProvidesPort()).getChunk();
+			//this.chunk_in = ((MRPort)usesPort.getProvidesPort()).getChunk();
 		} catch (HShelfException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

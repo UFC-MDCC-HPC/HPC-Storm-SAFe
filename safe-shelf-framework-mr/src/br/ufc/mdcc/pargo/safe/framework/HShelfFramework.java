@@ -29,6 +29,7 @@ public class HShelfFramework extends HShelfBuilderService {
 	private Map<String, HShelfTaskPort> taskPortMap;
 	private Map<String, HShelfComponent> componentMap;
 	private Map<String, Semaphore> semaphoreUses;
+	private Map<String, String> envConnections;
 	private List<HShelfWorkflow> workflows;
 
 	//private HShelfWorkflow workflow;
@@ -44,6 +45,7 @@ public class HShelfFramework extends HShelfBuilderService {
 		this.componentMap = new HashMap<String, HShelfComponent>();
 		this.taskPortMap = new HashMap<String, HShelfTaskPort>();
 		this.semaphoreUses = new HashMap<String, Semaphore>();
+		this.envConnections = new HashMap<String, String>();
 		this.workflows = new ArrayList<HShelfWorkflow>();
 	}
 
@@ -187,15 +189,17 @@ public class HShelfFramework extends HShelfBuilderService {
 
 	}
 
-	// strange...CONNECT
-	// getPort
-	public HShelfUsesPort getPort(String usesPortName) {
-		// name é o nome da porta usuário
-		// buscar quem está ligado nessa porta usuária
-		// via mapa criado a partir da descricao arquitetural
-		// retornas a porta usuária conectada com a porta provedora...
-		// this.connect(usesPortName);
-		return this.usesPortMap.get(usesPortName);
+	 
+	public HShelfPort getPort(String portName) {
+		
+		if(this.usesPortMap.containsKey(portName))
+			return this.usesPortMap.get(portName);
+		
+		
+		if(this.providesPortMap.containsKey(portName))
+			return this.providesPortMap.get(portName);
+		
+		return null;
 	}
 
 	public void addTaskPort(HShelfTaskPort port) {
@@ -208,42 +212,56 @@ public class HShelfFramework extends HShelfBuilderService {
 		return this.taskPortMap.get(name);
 	}
 
+	 
 	
+	public Map<String, String> getEnvConnections() {
+		return envConnections;
+	}
+
+	public Map<String, HShelfProvidesPort> getProvidesPortMap() {
+		return providesPortMap;
+	}
+
+	public Map<String, HShelfUsesPort> getUsesPortMap() {
+		return usesPortMap;
+	}
+
 	@Override
 	public void connect(String usesPortName, String providesPortName) {
 
 		if (usesPortName.startsWith(HShelfWorkflow.SAFE_WORKFLOW_SWL_PORT)
 				|| usesPortName.startsWith(HShelfWorkflow.SAFE_WORKFLOW_GO_PORT)
 				|| usesPortName.startsWith(HShelfWorkflow.SAFE_WORKFLOW_EVENT_PORT)) {
-			HShelfProvidesPort providesPort = (HShelfProvidesPort) this.providesPortMap
+			/*HShelfProvidesPort providesPort = (HShelfProvidesPort) this.providesPortMap
 					.get(usesPortName);
 			HShelfPort port = this.usesPortMap.get(usesPortName);
-			HShelfUsesPort usesPort = (HShelfUsesPort) port;
-			usesPort.setProvidesPort(providesPort);
+			HShelfUsesPort usesPort = (HShelfUsesPort) port;*/
+			
+			//usesPort.setProvidesPort(providesPort);
 			
 			
 			Semaphore s = this.semaphoreUses.get(usesPortName);
 			if(s!=null) s.release();
 			
-			return;
+			
 		}
 
 		
 		HShelfPort uses = this.usesPortMap.get(usesPortName);
 		if (uses != null && uses instanceof HShelfUsesPort) {
-			HShelfUsesPort usesPort = (HShelfUsesPort) uses;
+			/*HShelfUsesPort usesPort = (HShelfUsesPort) uses;
 	
 			HShelfProvidesPort providesPort = (HShelfProvidesPort) this.providesPortMap
-					.get(providesPortName);
-			usesPort.setProvidesPort(providesPort);
+					.get(providesPortName);*/
+			//usesPort.setProvidesPort(providesPort);
 			
-			System.out.println(usesPortName+"<->"+providesPortName);
+			HShelfConsoleLogger.write(usesPortName+"<->"+providesPortName);
 			
 			Semaphore s = this.semaphoreUses.get(usesPortName);
 			if(s!=null) s.release();
 		}
 		
-
+		this.envConnections.put(usesPortName,providesPortName);
 	}
 
 	public void registerUsesPort(HShelfUsesPort port) {
@@ -254,7 +272,7 @@ public class HShelfFramework extends HShelfBuilderService {
 		HShelfUsesPort uses = this.usesPortMap.get(name);
 		if(uses==null) return; // throw exception here!
 		
-		if(uses.isConnected()) return;
+		if(this.envConnections.get(name)!=null) return;
 		
 		Semaphore s = this.semaphoreUses.get(name);
 		if(s==null){
@@ -272,7 +290,7 @@ public class HShelfFramework extends HShelfBuilderService {
 	public boolean testPort(String name) {
 		HShelfUsesPort uses = this.usesPortMap.get(name);
 		if(uses==null) return false;
-		return uses.isConnected();
+		return this.envConnections.get(name)!=null;
 	}
 
 	@Override

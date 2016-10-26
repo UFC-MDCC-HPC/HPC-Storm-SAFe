@@ -40,7 +40,13 @@ public class HShelfWorkflowServicesProvidesPort extends HShelfProvidesPort imple
 
 	@Override
 	public void release(String ID) {
-		HShelfConsoleLogger.write("CORE SERVICES: release "+ID);
+		HShelfConsoleLogger.write("CORE SERVICES: release ");
 		
+	}
+
+	@Override
+	public String parameterList(String contract) {
+		HShelfConsoleLogger.write("CORE SERVICES: parameterList ");
+		return "TESTE-PARAMETER-LIST";
 	}
 }

@@ -2,10 +2,7 @@ package br.ufc.mdcc.pargo.safe.grammar.test;
 
 import br.ufc.mdcc.pargo.safe.framework.application.HShelfApplication;
 import br.ufc.mdcc.pargo.safe.framework.exception.HShelfException;
-import br.ufc.mdcc.pargo.safe.framework.port.HShelfUsesPort;
 import br.ufc.mdcc.pargo.safe.framework.port.IHShelfPortTypes;
-import br.ufc.mdcc.pargo.safe.framework.port.dflt.HShelfGoWorkflowPortImpl;
-import br.ufc.mdcc.pargo.safe.framework.port.dflt.HShelfSAFeSWLPort;
 import br.ufc.mdcc.pargo.safe.framework.services.IHShelfService;
 import br.ufc.mdcc.pargo.safe.framework.workflow.HShelfWorkflow;
 
@@ -36,8 +33,9 @@ public class TestApplication extends HShelfApplication {
 	public void run() throws HShelfException {
 		if (this.services != null) {
 
-			this.getFramework().connect(HShelfWorkflow.SAFE_WORKFLOW_SWL_PORT,
+			/*this.getFramework().connect(HShelfWorkflow.SAFE_WORKFLOW_SWL_PORT,
 					HShelfWorkflow.SAFE_WORKFLOW_SWL_PORT);
+			this.services.getConnectedProvidesPort(usesPortName)
 			HShelfSAFeSWLPort safeSWLPort = (HShelfSAFeSWLPort) ((HShelfUsesPort) this.services
 					.getPort(HShelfWorkflow.SAFE_WORKFLOW_SWL_PORT))
 					.getProvidesPort();
@@ -54,7 +52,7 @@ public class TestApplication extends HShelfApplication {
 			goWorkflowPort.loadArchitectureFile();
 			goWorkflowPort.loadWorkflowFile();
 
-			goWorkflowPort.go();
+			goWorkflowPort.go();*/
 		}
 	}
 	

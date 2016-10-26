@@ -3,8 +3,7 @@ package br.ufc.mdcc.pargo.safe.framework.component;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.ufc.mdcc.pargo.safe.framework.core.HShelfCoreHPEImpl;
-import br.ufc.mdcc.pargo.safe.framework.core.IHShelfCore;
+
 import br.ufc.mdcc.pargo.safe.framework.exception.HShelfException;
 import br.ufc.mdcc.pargo.safe.framework.port.HShelfSelectionPort;
 import br.ufc.mdcc.pargo.safe.framework.port.HShelfUsesPort;
@@ -28,6 +27,7 @@ public abstract class HShelfComponent {
 	private String safeSWLPath;
 	private String backEndAdress = null;
 	private String coreXMLReturn; // RETORNO DO CORE
+	private String parameterList;
 	
 	private List<Object> permuted; //RETORNO DA APLICAÇÃO
 	private Object selectedCandidate;
@@ -53,17 +53,28 @@ public abstract class HShelfComponent {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		this.coreXMLReturn = ((HShelfWorkflowServicesProvidesPort)this.workflowServicesUsesPort.getProvidesPort()).resolve(content);
-		//this.coreXMLReturn = this.core.resolve(content); //RETORNO DO CORE COM OS COMPONENTES QUE ATENDEM
+		
+
+		try {
+			HShelfWorkflowServicesProvidesPort providesPort = (HShelfWorkflowServicesProvidesPort)this.services.getConnectedProvidesPort(this.workflowServicesUsesPort.getName());
+			this.coreXMLReturn = providesPort.resolve(content);
+			this.parameterList = providesPort.parameterList(content);
+		} catch (HShelfException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		
 		
 		try {
-			HShelfUsesPort uses = (HShelfUsesPort) this.services.getPort("application-selection-"+this.getName()+"-port-uses");
-			HShelfSelectionPort selection = (HShelfSelectionPort)uses.getProvidesPort();
-		    this.permuted = selection.selection(this.createDataStructureFromCoreXML(this.coreXMLReturn));//ENVIA OS OBJETOS PARA A APLICAÇÃO QUE OS RETORNA PERMUTADOS
+			HShelfUsesPort usesSelectionPort = (HShelfUsesPort) this.services.getPort("application-selection-"+this.getName()+"-port-uses");
+			HShelfSelectionPort selectionPort = (HShelfSelectionPort)this.services.getConnectedProvidesPort(usesSelectionPort.getName());
+		    this.permuted = selectionPort.selection(this.createDataStructureFromCoreXML(this.coreXMLReturn));//ENVIA OS OBJETOS PARA A APLICAÇÃO QUE OS RETORNA PERMUTADOS
 		} catch (HShelfException e) {
 			
 			e.printStackTrace();
 		}
+		
 		this.isDeployActivated = true; //ATIVA A AÇÃO? 
 	}
 	
@@ -73,17 +84,27 @@ public abstract class HShelfComponent {
 			try {
 				if(this.workflowServicesUsesPort==null)
 					this.workflowServicesUsesPort = (HShelfUsesPort) this.services.getPort("workflow-services-"+this.getName()+"-port-uses");
+				
 			} catch (HShelfException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 			
 			HShelfConsoleLogger.write("Calling DEPLOY from :"+this.getName()+", KIND: " + this.getKind());
+			
+			HShelfWorkflowServicesProvidesPort providesWorkflowPort = null;
+			try {
+				providesWorkflowPort = (HShelfWorkflowServicesProvidesPort)this.services.getConnectedProvidesPort(this.workflowServicesUsesPort.getName());
+			} catch (HShelfException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 			for(Object candidate:this.permuted){
 				String safeSWLCode = FileUtil.readFileAsString(safeSWLPath);
 				if(this.kind.equals(SAFeOrquestrationArchitecture.PLATFORM)){
 					
-					this.backEndAdress = ((HShelfWorkflowServicesProvidesPort)this.workflowServicesUsesPort.getProvidesPort()).deploy(safeSWLCode,this.getName(),candidate); 
+					this.backEndAdress = providesWorkflowPort.deploy(safeSWLCode,this.getName(),candidate); 
 					
 					if(this.backEndAdress!=null){
 						XMLManipulator.changeComponentAddressAtt(safeSWLPath, this.name, this.backEndAdress);
@@ -93,7 +114,7 @@ public abstract class HShelfComponent {
 					}
 				}else if(this.kind.equals(SAFeOrquestrationArchitecture.COMPUTATION) ||
 						this.kind.equals(SAFeOrquestrationArchitecture.CONNECTOR)) {
-						((HShelfWorkflowServicesProvidesPort)this.workflowServicesUsesPort.getProvidesPort()).deploy(safeSWLCode,this.getName(),candidate);
+						providesWorkflowPort.deploy(safeSWLCode,this.getName(),candidate);
 						isInstantiateActivated = true;
 						selectedCandidate = candidate;
 						break;
@@ -104,11 +125,13 @@ public abstract class HShelfComponent {
 	}
 	
 	public void instantiate(){
+		HShelfWorkflowServicesProvidesPort providesWorkflowPort = null;
 		if(isInstantiateActivated){
 			
 			try {
 				if(this.workflowServicesUsesPort==null)
 					this.workflowServicesUsesPort = (HShelfUsesPort) this.services.getPort("workflow-services-"+this.getName()+"-port-uses");
+				providesWorkflowPort = (HShelfWorkflowServicesProvidesPort)this.services.getConnectedProvidesPort(this.workflowServicesUsesPort.getName());
 			} catch (HShelfException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -116,7 +139,7 @@ public abstract class HShelfComponent {
 			
 			HShelfConsoleLogger.write("Calling INSTANTIATE from :"+this.getName()+", KIND: " + this.getKind());
 			String safeSWLCode = FileUtil.readFileAsString(safeSWLPath);
-			((HShelfWorkflowServicesProvidesPort)this.workflowServicesUsesPort.getProvidesPort()).instantiate(safeSWLCode,this.getName());
+			providesWorkflowPort.instantiate(safeSWLCode,this.getName());
 		}
 		
 		

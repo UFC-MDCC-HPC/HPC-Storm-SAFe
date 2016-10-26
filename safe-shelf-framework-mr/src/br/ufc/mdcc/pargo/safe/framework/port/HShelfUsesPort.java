@@ -4,7 +4,7 @@ public class HShelfUsesPort extends HShelfEnvironmentPort{
 
 	protected HShelfProvidesPort providesPort;
 	
-	public boolean isConnected(){
+	/*public boolean isConnected(){
 		if(providesPort==null) return false;
 		return true;
 	}
@@ -15,6 +15,7 @@ public class HShelfUsesPort extends HShelfEnvironmentPort{
 
 	public void setProvidesPort(HShelfProvidesPort providesPort) {
 		this.providesPort = providesPort;
-	}
+	}*/
+	
 	
 }

@@ -16,7 +16,8 @@ public interface IHShelfService {
 	public void registerUsesPort(String name, String type) throws HShelfException;
 	public void registerTaskPort(HShelfTaskPort port) throws HShelfException;
 	
-	public HShelfPort getPort(String name) throws HShelfException; 
+	public HShelfPort getPort(String name) throws HShelfException;
+	public HShelfProvidesPort getConnectedProvidesPort(String usesPortName) throws HShelfException;
 	public HShelfPort getTaskPort(String name) throws HShelfException;
 	
 	public void waitPort(String name);

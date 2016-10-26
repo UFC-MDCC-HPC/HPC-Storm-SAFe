@@ -72,15 +72,28 @@ public class HShelfServiceImpl implements IHShelfService{
 
 	
 	//@Override
-	public HShelfPort getPort(String usesPortName) throws HShelfException{
+	public HShelfPort getPort(String portName) throws HShelfException{
 		
-		HShelfUsesPort usesImpl = this.framework.getPort(usesPortName);
+		return this.framework.getPort(portName);
+		
+		/*HShelfUsesPort usesImpl = this.framework.getPort(portName);
 		if(usesImpl !=null){ 
 			return usesImpl;
 		}else{
 			throw new HShelfException();
-		}
+		}*/
 		
+	}
+	
+	public HShelfProvidesPort getConnectedProvidesPort(String usesPortName) throws HShelfException{
+		String providesName = this.framework.getEnvConnections().get(usesPortName);
+		
+
+		if(providesName!=null){
+			HShelfProvidesPort providesPort =  this.framework.getProvidesPortMap().get(providesName);
+			return providesPort;
+		}
+		return null;
 	}
 
 	

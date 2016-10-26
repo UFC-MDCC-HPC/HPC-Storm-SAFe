@@ -25,4 +25,6 @@ public interface IHShelfCore {
 	 * @param ID of the component to be released
 	 */
 	public void release(String ID);
+	
+	public String parameterList(String contract);
 }
