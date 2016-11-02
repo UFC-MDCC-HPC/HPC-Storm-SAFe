@@ -26,10 +26,11 @@ public abstract class HShelfComponent {
 	
 	private String safeSWLPath;
 	private String backEndAdress = null;
-	private String coreXMLReturn; // RETORNO DO CORE
+	private String componentList; // RETORNO DO CORE
 	private String parameterList;
 	
-	private List<Object> permuted; //RETORNO DA APLICAÇÃO
+	private String valorationSet;
+	private List<Object> permuted; 
 	private Object selectedCandidate;
 	
 	private boolean isDeployActivated = false; 
@@ -41,26 +42,28 @@ public abstract class HShelfComponent {
 
 	
 
-	/**CORE COM**/
 	public void resolve(){
 		HShelfConsoleLogger.write("Calling RESOLVE from :"+this.getName()+", KIND: " + this.getKind());
-		String content = FileUtil.readFileAsString(contractPath); //CONTEÚDO DO CONTRATO CONTEXTUAL DESSE COMPONENTE
+		String contractContent = FileUtil.readFileAsString(contractPath); //CONTEÚDO DO CONTRATO CONTEXTUAL DESSE COMPONENTE
 		
 		try {
 			if(this.workflowServicesUsesPort==null)
 				this.workflowServicesUsesPort = (HShelfUsesPort) this.services.getPort("workflow-services-"+this.getName()+"-port-uses");
 		} catch (HShelfException e1) {
-			// TODO Auto-generated catch block
+			 
 			e1.printStackTrace();
 		}
 		
 
 		try {
 			HShelfWorkflowServicesProvidesPort providesPort = (HShelfWorkflowServicesProvidesPort)this.services.getConnectedProvidesPort(this.workflowServicesUsesPort.getName());
-			this.coreXMLReturn = providesPort.resolve(content);
-			this.parameterList = providesPort.parameterList(content);
+			/*1 - CHAMADA DO MÉTODO RESOLVE, PASSANDO O CONTEÚDO DO CONTRATO DESSE STUB*/
+			this.componentList = providesPort.resolve(contractContent);
+			
+			/*2 - RECEBE A LISTA DE PARÂMETROS QUE GORVENAM A ORDENAÇÃO DA LISTA DE COMPONENTES*/
+			this.parameterList = providesPort.parameterList(contractContent);
 		} catch (HShelfException e1) {
-			// TODO Auto-generated catch block
+			 
 			e1.printStackTrace();
 		}
 		
@@ -69,11 +72,20 @@ public abstract class HShelfComponent {
 		try {
 			HShelfUsesPort usesSelectionPort = (HShelfUsesPort) this.services.getPort("application-selection-"+this.getName()+"-port-uses");
 			HShelfSelectionPort selectionPort = (HShelfSelectionPort)this.services.getConnectedProvidesPort(usesSelectionPort.getName());
-		    this.permuted = selectionPort.selection(this.createDataStructureFromCoreXML(this.coreXMLReturn));//ENVIA OS OBJETOS PARA A APLICAÇÃO QUE OS RETORNA PERMUTADOS
+		    /*3 - REPASSA PARA A APLICAÇÃO A LISTA DE PARÂMETROS RECEBIDA EM 2*/
+			/*4 - RECEBE COMO RETORNO UM CONJUNTO DE VALORAÇÕES*/
+			this.valorationSet = selectionPort.selection(this.parameterList);
+			
+			/*5 - ATUALIZA, PARA O CORE, A LISTA ORDENADA DE COMPONENTES*/
+			HShelfWorkflowServicesProvidesPort providesPort = (HShelfWorkflowServicesProvidesPort)this.services.getConnectedProvidesPort(this.workflowServicesUsesPort.getName());
+			providesPort.setComponentList(this.componentList);
+			
 		} catch (HShelfException e) {
 			
 			e.printStackTrace();
 		}
+		
+		
 		
 		this.isDeployActivated = true; //ATIVA A AÇÃO? 
 	}
@@ -100,7 +112,16 @@ public abstract class HShelfComponent {
 				e.printStackTrace();
 			}
 			
-			for(Object candidate:this.permuted){
+			
+			if(this.kind.equals(SAFeOrquestrationArchitecture.PLATFORM)){
+				/*1 - CHAMANDO O DEPLOY PASSANDO O WORKFLOW_SESSION E A REFERENCIA DESTE COMPONENTE*/
+				providesWorkflowPort.deploy(null, null);
+				
+			}else{
+				
+			}
+			
+			/*for(Object candidate:this.permuted){
 				String safeSWLCode = FileUtil.readFileAsString(safeSWLPath);
 				if(this.kind.equals(SAFeOrquestrationArchitecture.PLATFORM)){
 					
@@ -120,7 +141,7 @@ public abstract class HShelfComponent {
 						break;
 				}
 				
-			}
+			}*/
 		}
 	}
 	
@@ -139,17 +160,13 @@ public abstract class HShelfComponent {
 			
 			HShelfConsoleLogger.write("Calling INSTANTIATE from :"+this.getName()+", KIND: " + this.getKind());
 			String safeSWLCode = FileUtil.readFileAsString(safeSWLPath);
-			providesWorkflowPort.instantiate(safeSWLCode,this.getName());
+			/*1 - */
+			providesWorkflowPort.instantiate(null,null);
 		}
 		
 		
 	}
 	
-	private List<Object> createDataStructureFromCoreXML(String coreXML){
-		List<Object> res = new ArrayList<Object>();
-		res.add(new Object());
-		return res;
-	}
 	 
 	public String getName() {
 		return name;

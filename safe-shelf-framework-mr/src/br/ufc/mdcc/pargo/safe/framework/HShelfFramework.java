@@ -30,7 +30,7 @@ public class HShelfFramework extends HShelfBuilderService {
 	private Map<String, HShelfComponent> componentMap;
 	private Map<String, Semaphore> semaphoreUses;
 	private Map<String, String> envConnections;
-	private List<HShelfWorkflow> workflows;
+	private HShelfWorkflow workflow;
 
 	//private HShelfWorkflow workflow;
 	private HShelfApplication application;
@@ -46,7 +46,7 @@ public class HShelfFramework extends HShelfBuilderService {
 		this.taskPortMap = new HashMap<String, HShelfTaskPort>();
 		this.semaphoreUses = new HashMap<String, Semaphore>();
 		this.envConnections = new HashMap<String, String>();
-		this.workflows = new ArrayList<HShelfWorkflow>();
+		
 	}
 
 	public void initialize(HShelfApplication application) {
@@ -318,13 +318,19 @@ public class HShelfFramework extends HShelfBuilderService {
 
 	@Override
 	public void createWorkflow() {
-		HShelfWorkflow workflow = new HShelfWorkflow(this.application.getName()
+		this.workflow = new HShelfWorkflow(this.application.getName()
 				+ "-worflow", this);
 		IHShelfService serviceWf = new HShelfServiceImpl();
 		serviceWf.initialize(this,workflow);
+		
+		try {
+			serviceWf.registerUsesPort("workflow-services-port-uses","DEFAULT");
+			this.connect("workflow-services-port-uses", "workflow-services-port-provides");
+		} catch (HShelfException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		workflow.setServices(serviceWf);
-		//this.addComponent(this.workflow);
-		this.workflows.add(workflow);
 		
 	}
 

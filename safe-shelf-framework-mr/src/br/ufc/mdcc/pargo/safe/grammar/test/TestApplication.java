@@ -1,5 +1,7 @@
 package br.ufc.mdcc.pargo.safe.grammar.test;
 
+import java.util.List;
+
 import br.ufc.mdcc.pargo.safe.framework.application.HShelfApplication;
 import br.ufc.mdcc.pargo.safe.framework.exception.HShelfException;
 import br.ufc.mdcc.pargo.safe.framework.port.IHShelfPortTypes;
@@ -64,6 +66,12 @@ public class TestApplication extends HShelfApplication {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public String selection(String objects) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

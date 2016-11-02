@@ -1,7 +1,5 @@
 package br.ufc.mdcc.pargo.safe.framework.port;
 
-import java.util.List;
-
 import br.ufc.mdcc.pargo.safe.framework.application.HShelfApplication;
 
 public class HShelfSelectionPort extends HShelfProvidesPort{
@@ -12,7 +10,7 @@ public class HShelfSelectionPort extends HShelfProvidesPort{
 		this.app = application;
 	}
 	
-	public List<Object> selection(List<Object> objects){
+	public String selection(String objects){
 		return this.app.selection(objects);
 	}
 	

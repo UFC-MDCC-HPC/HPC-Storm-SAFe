@@ -1,7 +1,5 @@
 package br.ufc.mdcc.pargo.safe.framework.application;
 
-import java.util.List;
-
 import br.ufc.mdcc.pargo.safe.framework.HShelfFramework;
 import br.ufc.mdcc.pargo.safe.framework.component.HShelfComponent;
 import br.ufc.mdcc.pargo.safe.framework.util.HShelfConsoleLogger;
@@ -26,9 +24,6 @@ public abstract class HShelfApplication extends HShelfComponent{
 		return this.framework;
 	}
 
-	public List<Object> selection(List<Object> objects) {
-		System.out.println("###Calling selection in Application");
-		return objects;
-	}
+	public abstract String selection(String objects);	
 	
 }

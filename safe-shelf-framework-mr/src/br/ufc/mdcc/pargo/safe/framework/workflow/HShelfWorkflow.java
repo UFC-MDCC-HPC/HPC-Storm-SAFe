@@ -12,6 +12,7 @@ import br.ufc.mdcc.pargo.safe.framework.port.dflt.HShelfLifeCyclePort;
 import br.ufc.mdcc.pargo.safe.framework.port.dflt.HShelfSAFeSWLPort;
 import br.ufc.mdcc.pargo.safe.framework.port.dflt.HShelfSAFeSWLPortImpl;
 import br.ufc.mdcc.pargo.safe.framework.port.dflt.HShelfWorkflowEventPortImpl;
+import br.ufc.mdcc.pargo.safe.framework.port.dflt.HShelfWorkflowServicesProvidesPort;
 import br.ufc.mdcc.pargo.safe.framework.port.event.HShelfEventType;
 import br.ufc.mdcc.pargo.safe.framework.services.IHShelfService;
 import br.ufc.mdcc.pargo.safe.framework.util.HShelfConsoleLogger;
@@ -29,7 +30,7 @@ import br.ufc.mdcc.pargo.safe.grammar.arch.SAFeOrquestrationArchitecture;
 
 public class HShelfWorkflow extends HShelfComponent {
 
-	public static int number = 1;
+	 
 	public static final String SAFE_WORKFLOW_SWL_PORT = "port_SAFeSWL";
 	public static final String SAFE_WORKFLOW_GO_PORT = "port_Go";
 	public static final String SAFE_WORKFLOW_EVENT_PORT = "port_Event";
@@ -70,20 +71,23 @@ public class HShelfWorkflow extends HShelfComponent {
 		this.services = services;
 		try {
 			safeSWLPort = new HShelfSAFeSWLPortImpl();
-			safeSWLPort.setName(HShelfWorkflow.SAFE_WORKFLOW_SWL_PORT+HShelfWorkflow.number);
+			safeSWLPort.setName(HShelfWorkflow.SAFE_WORKFLOW_SWL_PORT);
 			this.services.setProvidesPort(safeSWLPort);
 
 			safeGoPort = new HShelfGoWorkflowPortImpl();
 			((HShelfGoWorkflowPortImpl) safeGoPort).workflow = this;
-			safeGoPort.setName(HShelfWorkflow.SAFE_WORKFLOW_GO_PORT+HShelfWorkflow.number);
+			safeGoPort.setName(HShelfWorkflow.SAFE_WORKFLOW_GO_PORT);
 			this.services.setProvidesPort(safeGoPort);
 
 			safeWorkflowEventPort = new HShelfWorkflowEventPortImpl();
 			safeWorkflowEventPort
-					.setName(HShelfWorkflow.SAFE_WORKFLOW_EVENT_PORT+HShelfWorkflow.number);
+					.setName(HShelfWorkflow.SAFE_WORKFLOW_EVENT_PORT);
 			this.services.setProvidesPort(safeWorkflowEventPort);
 			 
-			HShelfWorkflow.number = HShelfWorkflow.number + 1; 
+			
+			
+			
+			
 		} catch (HShelfException e) {
 
 			e.printStackTrace();
@@ -94,6 +98,16 @@ public class HShelfWorkflow extends HShelfComponent {
 	 * loads architecture file.
 	 */
 	public synchronized void loadArchitectureFile() {
+		
+		HShelfWorkflowServicesProvidesPort providesPort = null;
+		try {
+			providesPort = (HShelfWorkflowServicesProvidesPort)this.services.getConnectedProvidesPort("workflow-services-port-uses");
+		} catch (HShelfException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		
 		this.archParser = null;
 		String filePath = ((HShelfSAFeSWLPort) safeSWLPort)
 				.getSAFeSWLArchFilePath();
@@ -102,7 +116,7 @@ public class HShelfWorkflow extends HShelfComponent {
 			HShelfConsoleLogger.write("Architecture file loaded");
 			this.sendMessageToApp("Architecture file loaded",
 					HShelfEventType.Message);
-			
+			providesPort.openWorkflowSession(filePath);
 		}
 		
 		if(this.services!=null){
