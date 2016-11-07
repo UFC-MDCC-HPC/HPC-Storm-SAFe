@@ -69,7 +69,7 @@ public class TestApplication extends HShelfApplication {
 	}
 
 	@Override
-	public String selection(String objects) {
+	public Object selection(Object objects) {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -7,13 +7,13 @@ public interface IHShelfCore {
 	 * @param contract of a component;
 	 * @return a list of candidates;
 	 */
-	public String resolve(String contract);
+	public Object resolve(String contract);
 	/**
 	 * 
 	 * @param candidates ordered
 	 * @return ID of the first candidate deployed.
 	 */
-	public String deploy(String safeSWLCode, String componentReference);
+	public Object deploy(String safeSWLCode, Object componentReference);
 	/**
 	 * 
 	 * @param ID of the first candidate deployed
@@ -26,6 +26,6 @@ public interface IHShelfCore {
 	 */
 	public void release(String ID);
 	
-	public String parameterList(String contract);
-	public void setComponentList(String componentList);
+	public Object listParameter(String contract);
+	public void setComponentList(Object componentList);
 }

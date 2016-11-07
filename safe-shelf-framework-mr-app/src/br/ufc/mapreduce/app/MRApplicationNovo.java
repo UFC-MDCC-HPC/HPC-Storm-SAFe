@@ -72,7 +72,7 @@ public class MRApplicationNovo extends HShelfApplication{
 
 
 	@Override
-	public String selection(String objects) {
+	public Object selection(Object objects) {
 		HShelfConsoleLogger.write("CALLING SELECTION METHOD - APPLICATION SIDE");
 		return objects;
 	}

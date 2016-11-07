@@ -327,7 +327,7 @@ public class HShelfFramework extends HShelfBuilderService {
 			serviceWf.registerUsesPort("workflow-services-port-uses","DEFAULT");
 			this.connect("workflow-services-port-uses", "workflow-services-port-provides");
 		} catch (HShelfException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 		workflow.setServices(serviceWf);

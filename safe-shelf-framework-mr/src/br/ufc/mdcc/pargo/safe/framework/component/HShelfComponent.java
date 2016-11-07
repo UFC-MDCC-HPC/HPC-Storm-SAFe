@@ -1,9 +1,5 @@
 package br.ufc.mdcc.pargo.safe.framework.component;
 
-import java.util.ArrayList;
-import java.util.List;
-
-
 import br.ufc.mdcc.pargo.safe.framework.exception.HShelfException;
 import br.ufc.mdcc.pargo.safe.framework.port.HShelfSelectionPort;
 import br.ufc.mdcc.pargo.safe.framework.port.HShelfUsesPort;
@@ -12,30 +8,20 @@ import br.ufc.mdcc.pargo.safe.framework.services.IHShelfService;
 import br.ufc.mdcc.pargo.safe.framework.util.HShelfConsoleLogger;
 import br.ufc.mdcc.pargo.safe.grammar.arch.SAFeOrquestrationArchitecture;
 import br.ufc.mdcc.pargo.safe.grammar.util.FileUtil;
-import br.ufc.mdcc.pargo.safe.grammar.util.XMLManipulator;
 
 public abstract class HShelfComponent {
 
 	private String name;
 	private String contractPath;
 	private String kind;
-	protected IHShelfService services;
-	
-	//private IHShelfCore core = new HShelfCoreHPEImpl();
-	private HShelfUsesPort workflowServicesUsesPort;
-	
 	private String safeSWLPath;
-	private String backEndAdress = null;
-	private String componentList; // RETORNO DO CORE
-	private String parameterList;
-	
-	private String valorationSet;
-	private List<Object> permuted; 
-	private Object selectedCandidate;
-	
+	private Object parameterList;
+	private Object valorationSet;
 	private boolean isDeployActivated = false; 
 	private boolean isInstantiateActivated = false;
 	
+	private HShelfUsesPort workflowServicesUsesPort;
+	protected IHShelfService services;
 	
 	
 	public abstract void setServices(IHShelfService services);
@@ -57,11 +43,11 @@ public abstract class HShelfComponent {
 
 		try {
 			HShelfWorkflowServicesProvidesPort providesPort = (HShelfWorkflowServicesProvidesPort)this.services.getConnectedProvidesPort(this.workflowServicesUsesPort.getName());
-			/*1 - CHAMADA DO MÉTODO RESOLVE, PASSANDO O CONTEÚDO DO CONTRATO DESSE STUB*/
-			this.componentList = providesPort.resolve(contractContent);
+			/*B -1 : CHAMADA DO MÉTODO RESOLVE, PASSANDO O CONTEÚDO DO CONTRATO DESSE STUB*/
+			providesPort.resolve(contractContent);
 			
 			/*2 - RECEBE A LISTA DE PARÂMETROS QUE GORVENAM A ORDENAÇÃO DA LISTA DE COMPONENTES*/
-			this.parameterList = providesPort.parameterList(contractContent);
+			this.parameterList = providesPort.listParameter(contractContent);
 		} catch (HShelfException e1) {
 			 
 			e1.printStackTrace();
@@ -76,9 +62,9 @@ public abstract class HShelfComponent {
 			/*4 - RECEBE COMO RETORNO UM CONJUNTO DE VALORAÇÕES*/
 			this.valorationSet = selectionPort.selection(this.parameterList);
 			
-			/*5 - ATUALIZA, PARA O CORE, A LISTA ORDENADA DE COMPONENTES*/
+			/*5 - ATUALIZA, PARA O CORE, A LISTA ORDENADA DE COMPONENTES PASSANDO O VALORATION SET*/
 			HShelfWorkflowServicesProvidesPort providesPort = (HShelfWorkflowServicesProvidesPort)this.services.getConnectedProvidesPort(this.workflowServicesUsesPort.getName());
-			providesPort.setComponentList(this.componentList);
+			providesPort.setComponentList(this.valorationSet);
 			
 		} catch (HShelfException e) {
 			
@@ -87,7 +73,7 @@ public abstract class HShelfComponent {
 		
 		
 		
-		this.isDeployActivated = true; //ATIVA A AÇÃO? 
+		this.isDeployActivated = true;  
 	}
 	
 	public void deploy(){
@@ -98,7 +84,6 @@ public abstract class HShelfComponent {
 					this.workflowServicesUsesPort = (HShelfUsesPort) this.services.getPort("workflow-services-"+this.getName()+"-port-uses");
 				
 			} catch (HShelfException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 			
@@ -108,13 +93,13 @@ public abstract class HShelfComponent {
 			try {
 				providesWorkflowPort = (HShelfWorkflowServicesProvidesPort)this.services.getConnectedProvidesPort(this.workflowServicesUsesPort.getName());
 			} catch (HShelfException e) {
-				// TODO Auto-generated catch block
+				
 				e.printStackTrace();
 			}
 			
 			
 			if(this.kind.equals(SAFeOrquestrationArchitecture.PLATFORM)){
-				/*1 - CHAMANDO O DEPLOY PASSANDO O WORKFLOW_SESSION E A REFERENCIA DESTE COMPONENTE*/
+				/*C-1 : CHAMANDO O DEPLOY PASSANDO O WORKFLOW_SESSION E A REFERENCIA DESTE COMPONENTE*/
 				providesWorkflowPort.deploy(null, null);
 				
 			}else{
@@ -154,13 +139,12 @@ public abstract class HShelfComponent {
 					this.workflowServicesUsesPort = (HShelfUsesPort) this.services.getPort("workflow-services-"+this.getName()+"-port-uses");
 				providesWorkflowPort = (HShelfWorkflowServicesProvidesPort)this.services.getConnectedProvidesPort(this.workflowServicesUsesPort.getName());
 			} catch (HShelfException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 			
 			HShelfConsoleLogger.write("Calling INSTANTIATE from :"+this.getName()+", KIND: " + this.getKind());
 			String safeSWLCode = FileUtil.readFileAsString(safeSWLPath);
-			/*1 - */
+			/*D-1 : PASSA COMO ARGUMENTO O MANIPULADOR DE SESSÃO E A REFERENCIA DO COMPONENTENO CÓDIGO */
 			providesWorkflowPort.instantiate(null,null);
 		}
 		

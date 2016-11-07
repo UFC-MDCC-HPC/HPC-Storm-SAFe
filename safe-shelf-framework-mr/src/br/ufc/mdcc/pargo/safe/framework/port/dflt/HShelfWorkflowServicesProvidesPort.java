@@ -8,7 +8,7 @@ import br.ufc.mdcc.pargo.safe.framework.workflow.HShelfWorkflowSession;
 public class HShelfWorkflowServicesProvidesPort extends HShelfProvidesPort implements IHShelfCore{
 
 	public Object openWorkflowSession(String safeSWLCode){
-		HShelfConsoleLogger.write("CORE SERVICES: oper workflow session");
+		HShelfConsoleLogger.write("CORE SERVICES: open workflow session");
 		return new HShelfWorkflowSession();
 	}
 	
@@ -21,15 +21,15 @@ public class HShelfWorkflowServicesProvidesPort extends HShelfProvidesPort imple
 	}
 
 	@Override
-	public String resolve(String contract) {
+	public Object resolve(String contract) {
 		HShelfConsoleLogger.write("CORE SERVICES: resolve");
-		return "TESTE-RESOLVE";
+		return null;
 	}
 
 	@Override
-	public String deploy(String safeSWLCode, String componentReference) {
+	public Object deploy(String safeSWLCode, Object componentReference) {
 		HShelfConsoleLogger.write("CORE SERVICES: deploy");
-		return "TESTE-DEPLOY";
+		return null;
 	}
 
 	@Override
@@ -45,13 +45,13 @@ public class HShelfWorkflowServicesProvidesPort extends HShelfProvidesPort imple
 	}
 
 	@Override
-	public String parameterList(String contract) {
-		HShelfConsoleLogger.write("CORE SERVICES: parameterList ");
-		return "TESTE-PARAMETER-LIST";
+	public Object listParameter(String contract) {
+		HShelfConsoleLogger.write("CORE SERVICES: listaParameter ");
+		return null;
 	}
 
 	@Override
-	public void setComponentList(String componentList) {
+	public void setComponentList(Object componentList) {
 		HShelfConsoleLogger.write("CORE SERVICES: setComponentList ");
 		
 	}

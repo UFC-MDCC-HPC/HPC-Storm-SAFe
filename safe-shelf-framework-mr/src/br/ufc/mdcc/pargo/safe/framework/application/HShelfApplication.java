@@ -24,6 +24,6 @@ public abstract class HShelfApplication extends HShelfComponent{
 		return this.framework;
 	}
 
-	public abstract String selection(String objects);	
+	public abstract Object selection(Object objects);	
 	
 }

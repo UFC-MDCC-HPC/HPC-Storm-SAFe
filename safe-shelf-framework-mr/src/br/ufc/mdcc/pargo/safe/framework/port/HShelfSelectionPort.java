@@ -10,7 +10,7 @@ public class HShelfSelectionPort extends HShelfProvidesPort{
 		this.app = application;
 	}
 	
-	public String selection(String objects){
+	public Object selection(Object objects){
 		return this.app.selection(objects);
 	}
 	
