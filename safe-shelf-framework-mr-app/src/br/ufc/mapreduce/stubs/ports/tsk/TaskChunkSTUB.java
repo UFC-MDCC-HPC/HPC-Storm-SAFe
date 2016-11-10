@@ -1,5 +1,6 @@
 package br.ufc.mapreduce.stubs.ports.tsk;
 
+import br.ufc.mapreduce.stubs.StubHelper;
 import br.ufc.mdcc.pargo.safe.framework.port.HShelfTaskPort;
 
 public class TaskChunkSTUB extends HShelfTaskPort{
@@ -17,11 +18,15 @@ public class TaskChunkSTUB extends HShelfTaskPort{
 			e.printStackTrace();
 		}
 		System.out.println(this.getName()+"-END perform");
+		
+		StubHelper.perform(this.getName());
+		
 	}
 	
 	public boolean chunk_ready(){
-		System.out.println(this.getName()+"-chunk_ready");
-		return true;
+		
+		return StubHelper.is_ready(this.getName());
+		
 	}
 	
 
