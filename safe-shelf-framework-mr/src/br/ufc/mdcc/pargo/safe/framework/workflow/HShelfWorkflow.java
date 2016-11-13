@@ -125,7 +125,7 @@ public class HShelfWorkflow extends HShelfComponent {
 			for(ArchTask task:archWorkflow.getTaskList()){
 				HShelfTaskPort taskPort = new HShelfTaskPort();
 				taskPort.setName(task.getName());
-				HShelfConsoleLogger.write("TASK-NAME: " + task.getName());
+				//HShelfConsoleLogger.write("TASK-NAME: " + task.getName());
 				try {
 					this.services.registerTaskPort(taskPort);
 				} catch (HShelfException e) {
@@ -307,7 +307,7 @@ public class HShelfWorkflow extends HShelfComponent {
 			for(ArchTask cTask:archComponent.getTaskList()){
 				if(this.archParser.isThereTaskConnection(wfTask.getName(), cTask.getName())){
 					this.framework.connectPartners(wfTask.getName(), cTask.getName());
-					HShelfConsoleLogger.write("TASK CONNECTED: " + wfTask.getName() + "<->" + cTask.getName());
+					//HShelfConsoleLogger.write("TASK CONNECTED: " + wfTask.getName() + "<->" + cTask.getName());
 				}
 					
 			}

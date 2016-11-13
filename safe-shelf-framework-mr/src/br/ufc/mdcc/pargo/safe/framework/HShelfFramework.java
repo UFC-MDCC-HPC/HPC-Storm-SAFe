@@ -16,6 +16,7 @@ import br.ufc.mdcc.pargo.safe.framework.port.HShelfProvidesPort;
 import br.ufc.mdcc.pargo.safe.framework.port.HShelfSelectionPort;
 import br.ufc.mdcc.pargo.safe.framework.port.HShelfTaskPort;
 import br.ufc.mdcc.pargo.safe.framework.port.HShelfUsesPort;
+import br.ufc.mdcc.pargo.safe.framework.port.IHShelfPortTypes;
 import br.ufc.mdcc.pargo.safe.framework.port.dflt.HShelfLifeCyclePort;
 import br.ufc.mdcc.pargo.safe.framework.services.HShelfServiceImpl;
 import br.ufc.mdcc.pargo.safe.framework.services.IHShelfService;
@@ -52,16 +53,25 @@ public class HShelfFramework extends HShelfBuilderService {
 	public void initialize(HShelfApplication application) {
 		this.application = application;
 
-		// workflow
-		/*this.workflow = new HShelfWorkflow(this.application.getName()
-				+ "-worflow", this);
-		IHShelfService serviceWf = new HShelfServiceImpl();
-		serviceWf.initialize(this, this.workflow);
-		this.workflow.setServices(serviceWf);*/
+		
 
 		// application
 		IHShelfService serviceApp = new HShelfServiceImpl();
 		serviceApp.initialize(this, this.application);
+		
+		//default ports
+		try {
+			serviceApp.registerUsesPort(HShelfWorkflow.SAFE_WORKFLOW_SWL_PORT,IHShelfPortTypes.DEFAULT);
+			serviceApp.registerUsesPort(HShelfWorkflow.SAFE_WORKFLOW_GO_PORT,IHShelfPortTypes.DEFAULT);
+			this.connect(HShelfWorkflow.SAFE_WORKFLOW_SWL_PORT, HShelfWorkflow.SAFE_WORKFLOW_SWL_PORT);
+			this.connect(HShelfWorkflow.SAFE_WORKFLOW_GO_PORT, HShelfWorkflow.SAFE_WORKFLOW_GO_PORT);
+		} catch (HShelfException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		
+		//selection port
 		HShelfSelectionPort selectionPort = new HShelfSelectionPort(this.application);
 		selectionPort.setName("application-selection-port-provides");
 		try {
@@ -184,7 +194,7 @@ public class HShelfFramework extends HShelfBuilderService {
 	}
 
 	public void addProvidesPort(HShelfProvidesPort port) {
-		// System.out.println("ADDING PROVIDES PORT: " + port.getName());
+		
 		this.providesPortMap.put(port.getName(), port);
 
 	}
@@ -203,7 +213,7 @@ public class HShelfFramework extends HShelfBuilderService {
 	}
 
 	public void addTaskPort(HShelfTaskPort port) {
-		System.out.println("ADDING: " + port.getName());
+		//System.out.println("ADDING: " + port.getName());
 		this.taskPortMap.put(port.getName(), port);
 
 	}
@@ -232,12 +242,7 @@ public class HShelfFramework extends HShelfBuilderService {
 		if (usesPortName.startsWith(HShelfWorkflow.SAFE_WORKFLOW_SWL_PORT)
 				|| usesPortName.startsWith(HShelfWorkflow.SAFE_WORKFLOW_GO_PORT)
 				|| usesPortName.startsWith(HShelfWorkflow.SAFE_WORKFLOW_EVENT_PORT)) {
-			/*HShelfProvidesPort providesPort = (HShelfProvidesPort) this.providesPortMap
-					.get(usesPortName);
-			HShelfPort port = this.usesPortMap.get(usesPortName);
-			HShelfUsesPort usesPort = (HShelfUsesPort) port;*/
 			
-			//usesPort.setProvidesPort(providesPort);
 			
 			
 			Semaphore s = this.semaphoreUses.get(usesPortName);
@@ -249,13 +254,9 @@ public class HShelfFramework extends HShelfBuilderService {
 		
 		HShelfPort uses = this.usesPortMap.get(usesPortName);
 		if (uses != null && uses instanceof HShelfUsesPort) {
-			/*HShelfUsesPort usesPort = (HShelfUsesPort) uses;
-	
-			HShelfProvidesPort providesPort = (HShelfProvidesPort) this.providesPortMap
-					.get(providesPortName);*/
-			//usesPort.setProvidesPort(providesPort);
 			
-			HShelfConsoleLogger.write(usesPortName+"<->"+providesPortName);
+			
+			//HShelfConsoleLogger.write(usesPortName+"<->"+providesPortName);
 			
 			Semaphore s = this.semaphoreUses.get(usesPortName);
 			if(s!=null) s.release();
@@ -293,7 +294,7 @@ public class HShelfFramework extends HShelfBuilderService {
 		return this.envConnections.get(name)!=null;
 	}
 
-	@Override
+	
 	public void connectPartners(String taskA, String taskB) {
 		
 		HShelfTaskPort taskPortA = this.getTaskPort(taskA);
@@ -318,9 +319,10 @@ public class HShelfFramework extends HShelfBuilderService {
 
 	@Override
 	public void createWorkflow() {
+		
+		IHShelfService serviceWf = new HShelfServiceImpl();
 		this.workflow = new HShelfWorkflow(this.application.getName()
 				+ "-worflow", this);
-		IHShelfService serviceWf = new HShelfServiceImpl();
 		serviceWf.initialize(this,workflow);
 		
 		try {

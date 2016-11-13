@@ -97,7 +97,6 @@ public abstract class HShelfComponent {
 				e.printStackTrace();
 			}
 			
-			
 			if(this.kind.equals(SAFeOrquestrationArchitecture.PLATFORM)){
 				/*C-1 : CHAMANDO O DEPLOY PASSANDO O WORKFLOW_SESSION E A REFERENCIA DESTE COMPONENTE*/
 				providesWorkflowPort.deploy(null, null);
@@ -128,6 +127,9 @@ public abstract class HShelfComponent {
 				
 			}*/
 		}
+		
+		isInstantiateActivated = true;
+
 	}
 	
 	public void instantiate(){

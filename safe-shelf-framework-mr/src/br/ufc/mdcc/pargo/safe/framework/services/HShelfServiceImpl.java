@@ -23,18 +23,17 @@ public class HShelfServiceImpl implements IHShelfService{
 	
 	
 	public HShelfServiceImpl() {
-		HShelfConsoleLogger.write("Creating HShelfServiceImpl");
+		
 		this.providesPortMap = new HashMap<String, HShelfProvidesPort>();
 		this.usesPortMap = new HashMap<String, HShelfUsesPort>();
-		//this.usesPortBidingMap = new HashMap<String, HShelfUsesPort>();
 		this.taskPortMap = new HashMap<String, HShelfTaskPort>();
-		//this.taskPortBidingMap = new HashMap<String, HShelfTaskPort>();
 	}
 	
 	@Override
 	public void initialize(HShelfFramework framework, HShelfComponent component) {
 		this.framework = framework;
 		this.component = component;
+		HShelfConsoleLogger.write("Initializing HShelfServiceImpl for "+this.component.getName());
 	}
 
 	@Override
@@ -53,14 +52,7 @@ public class HShelfServiceImpl implements IHShelfService{
 		this.framework.registerUsesPort(usesPort);
 		this.usesPortMap.put(name, usesPort);
 		
-		//default connections
-		/*if (name.equals(HShelfWorkflow.SAFE_WORKFLOW_SWL_PORT)
-				|| name.equals(HShelfWorkflow.SAFE_WORKFLOW_GO_PORT)
-				|| name.equals(HShelfWorkflow.SAFE_WORKFLOW_EVENT_PORT)){
-			
-			this.framework.connect(name, name);
-			
-		}*/
+		
 	}
 	
 	@Override
@@ -76,12 +68,7 @@ public class HShelfServiceImpl implements IHShelfService{
 		
 		return this.framework.getPort(portName);
 		
-		/*HShelfUsesPort usesImpl = this.framework.getPort(portName);
-		if(usesImpl !=null){ 
-			return usesImpl;
-		}else{
-			throw new HShelfException();
-		}*/
+		
 		
 	}
 	

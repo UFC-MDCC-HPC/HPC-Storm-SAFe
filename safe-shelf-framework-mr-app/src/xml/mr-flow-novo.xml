@@ -1,186 +1,186 @@
 <?xml version="1.0" encoding="UTF-8"?>
- <tns:workflow xmlns:tns="http://www.example.org/SAFe_workflow_V4" 
- xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
- xsi:schemaLocation="http://www.example.org/SAFe_workflow_V4 SAFe_workflow_V4.xsd "> 
-<tns:sequence_oper>
+<tns:workflow xmlns:tns="http://www.example.org/SAFe_workflow_V4"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.example.org/SAFe_workflow_V4 SAFe_workflow_V4.xsd ">
+	<tns:sequence_oper>
 
-<tns:operation>
-	<tns:invoke_oper action="resolve" id="1000" />
-</tns:operation>
-<tns:operation>
-	<tns:invoke_oper action="deploy" id="1000" />
-</tns:operation>
-<tns:operation>
-	<tns:invoke_oper action="instantiate" id="1000" />
-</tns:operation>
+		<tns:operation>
+			<tns:invoke_oper action="resolve" id="1000" />
+		</tns:operation>
+		<tns:operation>
+			<tns:invoke_oper action="deploy" id="1000" />
+		</tns:operation>
+		<tns:operation>
+			<tns:invoke_oper action="instantiate" id="1000" />
+		</tns:operation>
 
-<tns:operation>
-	<tns:invoke_oper action="resolve" id="2000" />
-</tns:operation>
-<tns:operation>
-	<tns:invoke_oper action="deploy" id="2000" />
-</tns:operation>
-<tns:operation>
-	<tns:invoke_oper action="instantiate" id="2000" />
-</tns:operation>
+		<tns:operation>
+			<tns:invoke_oper action="resolve" id="2000" />
+		</tns:operation>
+		<tns:operation>
+			<tns:invoke_oper action="deploy" id="2000" />
+		</tns:operation>
+		<tns:operation>
+			<tns:invoke_oper action="instantiate" id="2000" />
+		</tns:operation>
 
-<tns:operation>
-	<tns:invoke_oper action="resolve" id="4" />
-</tns:operation>
-<tns:operation>
-	<tns:invoke_oper action="deploy" id="4" />
-</tns:operation>
-<tns:operation>
-	<tns:invoke_oper action="instantiate" id="4" />
-</tns:operation>
+		<tns:operation>
+			<tns:invoke_oper action="resolve" id="4" />
+		</tns:operation>
+		<tns:operation>
+			<tns:invoke_oper action="deploy" id="4" />
+		</tns:operation>
+		<tns:operation>
+			<tns:invoke_oper action="instantiate" id="4" />
+		</tns:operation>
 
-<tns:operation>
-	<tns:invoke_oper action="resolve" id="3" />
-</tns:operation>
-<tns:operation>
-	<tns:invoke_oper action="deploy" id="3" />
-</tns:operation>
-<tns:operation>
-	<tns:invoke_oper action="instantiate" id="3" />
-</tns:operation>
-
-
-<tns:operation>
-	<tns:invoke_oper action="resolve" id="5" />
-</tns:operation>
-<tns:operation>
-	<tns:invoke_oper action="deploy" id="5" />
-</tns:operation>
-<tns:operation>
-	<tns:invoke_oper action="instantiate" id="5" />
-</tns:operation>
-
-<tns:operation>
-	<tns:invoke_oper action="resolve" id="6" />
-</tns:operation>
-<tns:operation>
-	<tns:invoke_oper action="deploy" id="6" />
-</tns:operation>
-<tns:operation>
-	<tns:invoke_oper action="instantiate" id="6" />
-</tns:operation>
-
-<tns:operation>
-	<tns:invoke_oper action="resolve" id="10" />
-</tns:operation>
-<tns:operation>
-	<tns:invoke_oper action="deploy" id="10" />
-</tns:operation>
-<tns:operation>
-	<tns:invoke_oper action="instantiate" id="10" />
-</tns:operation>
+		<tns:operation>
+			<tns:invoke_oper action="resolve" id="3" />
+		</tns:operation>
+		<tns:operation>
+			<tns:invoke_oper action="deploy" id="3" />
+		</tns:operation>
+		<tns:operation>
+			<tns:invoke_oper action="instantiate" id="3" />
+		</tns:operation>
 
 
+		<tns:operation>
+			<tns:invoke_oper action="resolve" id="5" />
+		</tns:operation>
+		<tns:operation>
+			<tns:invoke_oper action="deploy" id="5" />
+		</tns:operation>
+		<tns:operation>
+			<tns:invoke_oper action="instantiate" id="5" />
+		</tns:operation>
 
+		<tns:operation>
+			<tns:invoke_oper action="resolve" id="6" />
+		</tns:operation>
+		<tns:operation>
+			<tns:invoke_oper action="deploy" id="6" />
+		</tns:operation>
+		<tns:operation>
+			<tns:invoke_oper action="instantiate" id="6" />
+		</tns:operation>
 
-
-<!--Splitter-->
-<tns:operation>
-	<tns:invoke_oper action="connect" id="3" />
-</tns:operation>
-<!--Mapper-->
-<tns:operation>
-	<tns:invoke_oper action="connect" id="5" />
-</tns:operation>
-<!--Combiner-->
-<tns:operation>
-	<tns:invoke_oper action="connect" id="10" />
-</tns:operation>
-<!--Shuffler-->
-<tns:operation>
-	<tns:invoke_oper action="connect" id="4" />
-</tns:operation>
-<!--Reducer-->
-<tns:operation>
-	<tns:invoke_oper action="connect" id="6" />
-</tns:operation>
+		<tns:operation>
+			<tns:invoke_oper action="resolve" id="10" />
+		</tns:operation>
+		<tns:operation>
+			<tns:invoke_oper action="deploy" id="10" />
+		</tns:operation>
+		<tns:operation>
+			<tns:invoke_oper action="instantiate" id="10" />
+		</tns:operation>
 
 
 
 
-<!--Splitter-->
-<tns:operation>
-	<tns:invoke_oper action="compute" id="341" />
-</tns:operation>
-<tns:operation>
-	<tns:invoke_oper action="compute" id="352" />
-</tns:operation>
 
-<tns:operation>
-<tns:iterate_oper max="-1" iter_label="LABEL_A">
-<tns:operation>
-<tns:choice_oper>
-
-<!--Mapper-->
-<tns:select action_id="353">
-<tns:operation>
-	<tns:invoke_oper action="compute" id="551" />
-</tns:operation>
-<tns:operation>
-	<tns:invoke_oper action="compute" id="552" />
-</tns:operation>
-</tns:select>
-
-<!--Combiner-->
-<tns:select action_id="553">
-<tns:operation>
-	<tns:invoke_oper action="compute" id="1051" />
-</tns:operation>
-<tns:operation>
-	<tns:invoke_oper action="compute" id="1052" />
-</tns:operation>
-</tns:select>
-
-<!--Shuffler-->
-<tns:select action_id="1053">
-<tns:operation>
-	<tns:invoke_oper action="compute" id="451" />
-</tns:operation>
-<tns:operation>
-	<tns:invoke_oper action="compute" id="452" />
-</tns:operation>
-</tns:select>
-
-<!--Reducer-->
-<tns:select action_id="453">
-<tns:operation>
-	<tns:invoke_oper action="compute" id="651" />
-</tns:operation>
-<tns:operation>
-	<tns:invoke_oper action="compute" id="652" />
-</tns:operation>
-</tns:select>
-
-<!--Splitter-->
-<tns:select action_id="653">
-<tns:operation>
-	<tns:invoke_oper action="compute" id="351" />
-</tns:operation>
-<tns:operation>
-	<tns:invoke_oper action="compute" id="352" />
-</tns:operation>
-</tns:select>
+		<!--Splitter -->
+		<tns:operation>
+			<tns:invoke_oper action="connect" id="3" />
+		</tns:operation>
+		<!--Mapper -->
+		<tns:operation>
+			<tns:invoke_oper action="connect" id="5" />
+		</tns:operation>
+		<!--Combiner -->
+		<tns:operation>
+			<tns:invoke_oper action="connect" id="10" />
+		</tns:operation>
+		<!--Shuffler -->
+		<tns:operation>
+			<tns:invoke_oper action="connect" id="4" />
+		</tns:operation>
+		<!--Reducer -->
+		<tns:operation>
+			<tns:invoke_oper action="connect" id="6" />
+		</tns:operation>
 
 
-<tns:select action_id="342">
-<tns:operation>
-	<tns:invoke_oper action="compute" id="343"/>
-</tns:operation>
-<tns:operation>
-	<tns:break_oper base_label="LABEL_A"/>
-</tns:operation>
-</tns:select>
 
 
-</tns:choice_oper>
-</tns:operation>
-</tns:iterate_oper>
-</tns:operation>
+		<!--Splitter -->
+		<tns:operation>
+			<tns:invoke_oper action="compute" id="341" />
+		</tns:operation>
+		<tns:operation>
+			<tns:invoke_oper action="compute" id="352" />
+		</tns:operation>
 
-</tns:sequence_oper>
+		<tns:operation>
+			<tns:iterate_oper max="-1" iter_label="LABEL_A">
+				<tns:operation>
+					<tns:choice_oper>
+
+						<!--Mapper -->
+						<tns:select action_id="353">
+							<tns:operation>
+								<tns:invoke_oper action="compute" id="551" />
+							</tns:operation>
+							<tns:operation>
+								<tns:invoke_oper action="compute" id="552" />
+							</tns:operation>
+						</tns:select>
+
+						<!--Combiner -->
+						<tns:select action_id="553">
+							<tns:operation>
+								<tns:invoke_oper action="compute" id="1051" />
+							</tns:operation>
+							<tns:operation>
+								<tns:invoke_oper action="compute" id="1052" />
+							</tns:operation>
+						</tns:select>
+
+						<!--Shuffler -->
+						<tns:select action_id="1053">
+							<tns:operation>
+								<tns:invoke_oper action="compute" id="451" />
+							</tns:operation>
+							<tns:operation>
+								<tns:invoke_oper action="compute" id="452" />
+							</tns:operation>
+						</tns:select>
+
+						<!--Reducer -->
+						<tns:select action_id="453">
+							<tns:operation>
+								<tns:invoke_oper action="compute" id="651" />
+							</tns:operation>
+							<tns:operation>
+								<tns:invoke_oper action="compute" id="652" />
+							</tns:operation>
+						</tns:select>
+
+						<!--Splitter -->
+						<tns:select action_id="653">
+							<tns:operation>
+								<tns:invoke_oper action="compute" id="351" />
+							</tns:operation>
+							<tns:operation>
+								<tns:invoke_oper action="compute" id="352" />
+							</tns:operation>
+						</tns:select>
+
+
+						<tns:select action_id="342">
+							<tns:operation>
+								<tns:invoke_oper action="compute" id="343" />
+							</tns:operation>
+							<tns:operation>
+								<tns:break_oper base_label="LABEL_A" />
+							</tns:operation>
+						</tns:select>
+
+
+					</tns:choice_oper>
+				</tns:operation>
+			</tns:iterate_oper>
+		</tns:operation>
+
+	</tns:sequence_oper>
 </tns:workflow>
