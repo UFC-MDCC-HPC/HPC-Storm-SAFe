@@ -15,7 +15,6 @@ public class MRApplicationNovo extends HShelfApplication{
 	 
 	public MRApplicationNovo(String name) {
 		super(name);
-		//a aplicação que cria o workflow
 		this.getFramework().createWorkflow();
 	}
 
@@ -23,22 +22,7 @@ public class MRApplicationNovo extends HShelfApplication{
 	
 	@Override
 	public void setServices(IHShelfService services) {
-		
 		this.services = services;
-		
-		try {
-			
-			
-			this.safeSWLPort = (HShelfSAFeSWLPort)this.services.getConnectedProvidesPort(HShelfWorkflow.SAFE_WORKFLOW_SWL_PORT);
-			this.goPort = (HShelfGoPort)this.services.getConnectedProvidesPort(HShelfWorkflow.SAFE_WORKFLOW_GO_PORT);
-			
-			
-		} catch (HShelfException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		
 	}
 	
 	public void run() throws HShelfException{
