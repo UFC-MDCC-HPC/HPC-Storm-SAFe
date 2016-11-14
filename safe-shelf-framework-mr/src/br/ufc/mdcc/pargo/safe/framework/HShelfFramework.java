@@ -73,7 +73,7 @@ public class HShelfFramework extends HShelfBuilderService {
 		
 		//selection port
 		HShelfSelectionPort selectionPort = new HShelfSelectionPort(this.application);
-		selectionPort.setName("application-selection-port-provides");
+		selectionPort.setName(HShelfApplication.SELECTION_PORT_PRV);
 		try {
 			serviceApp.setProvidesPort(selectionPort);
 		} catch (HShelfException e) {
@@ -161,7 +161,7 @@ public class HShelfFramework extends HShelfBuilderService {
 			serviceImpl.initialize(this, component);
 			/*LifeCyclePort*/
 			HShelfLifeCyclePort lcPort = new HShelfLifeCyclePort(component);
-			lcPort.setName("lyfe-cycle-"+component.getName()+"-port");
+			lcPort.setName(component.getLifeCyclePortName());
 			try {
 				serviceImpl.registerTaskPort(lcPort);
 			} catch (HShelfException e) {
@@ -170,8 +170,8 @@ public class HShelfFramework extends HShelfBuilderService {
 			}
 			/*Selection*/
 			try {
-				serviceImpl.registerUsesPort("application-selection-"+component.getName()+"-port-uses","DEFAULT");
-				this.connect("application-selection-"+component.getName()+"-port-uses", "application-selection-port-provides");
+				serviceImpl.registerUsesPort(component.getSelectionPortName(),"DEFAULT");
+				this.connect(component.getSelectionPortName(), HShelfApplication.SELECTION_PORT_PRV);
 			} catch (HShelfException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -179,8 +179,8 @@ public class HShelfFramework extends HShelfBuilderService {
 			
 			/*Workflow*/
 			try {
-				serviceImpl.registerUsesPort("workflow-services-"+component.getName()+"-port-uses","DEFAULT");
-				this.connect("workflow-services-"+component.getName()+"-port-uses", "workflow-services-port-provides");
+				serviceImpl.registerUsesPort(component.getWorkflowServicesPortName(),"DEFAULT");
+				this.connect(component.getWorkflowServicesPortName(), HShelfCoreComponent.WORKFLOW_SERVICES_PRV);
 			} catch (HShelfException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -326,8 +326,8 @@ public class HShelfFramework extends HShelfBuilderService {
 		serviceWf.initialize(this,workflow);
 		
 		try {
-			serviceWf.registerUsesPort("workflow-services-port-uses","DEFAULT");
-			this.connect("workflow-services-port-uses", "workflow-services-port-provides");
+			serviceWf.registerUsesPort(HShelfCoreComponent.WORKFLOW_SERVICES_USE,"DEFAULT");
+			this.connect(HShelfCoreComponent.WORKFLOW_SERVICES_USE, HShelfCoreComponent.WORKFLOW_SERVICES_PRV);
 		} catch (HShelfException e) {
 			
 			e.printStackTrace();

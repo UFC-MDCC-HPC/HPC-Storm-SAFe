@@ -20,6 +20,8 @@ public abstract class HShelfComponent {
 	private boolean isDeployActivated = false; 
 	private boolean isInstantiateActivated = false;
 	
+	
+	
 	private HShelfUsesPort workflowServicesUsesPort;
 	protected IHShelfService services;
 	
@@ -34,7 +36,7 @@ public abstract class HShelfComponent {
 		
 		try {
 			if(this.workflowServicesUsesPort==null)
-				this.workflowServicesUsesPort = (HShelfUsesPort) this.services.getPort("workflow-services-"+this.getName()+"-port-uses");
+				this.workflowServicesUsesPort = (HShelfUsesPort) this.services.getPort(this.getWorkflowServicesPortName());
 		} catch (HShelfException e1) {
 			 
 			e1.printStackTrace();
@@ -56,7 +58,7 @@ public abstract class HShelfComponent {
 		
 		
 		try {
-			HShelfUsesPort usesSelectionPort = (HShelfUsesPort) this.services.getPort("application-selection-"+this.getName()+"-port-uses");
+			HShelfUsesPort usesSelectionPort = (HShelfUsesPort) this.services.getPort(this.getSelectionPortName());
 			HShelfSelectionPort selectionPort = (HShelfSelectionPort)this.services.getConnectedProvidesPort(usesSelectionPort.getName());
 		    /*3 - REPASSA PARA A APLICAÇÃO A LISTA DE PARÂMETROS RECEBIDA EM 2*/
 			/*4 - RECEBE COMO RETORNO UM CONJUNTO DE VALORAÇÕES*/
@@ -81,7 +83,7 @@ public abstract class HShelfComponent {
 			
 			try {
 				if(this.workflowServicesUsesPort==null)
-					this.workflowServicesUsesPort = (HShelfUsesPort) this.services.getPort("workflow-services-"+this.getName()+"-port-uses");
+					this.workflowServicesUsesPort = (HShelfUsesPort) this.services.getPort(this.getWorkflowServicesPortName());
 				
 			} catch (HShelfException e1) {
 				e1.printStackTrace();
@@ -138,7 +140,7 @@ public abstract class HShelfComponent {
 			
 			try {
 				if(this.workflowServicesUsesPort==null)
-					this.workflowServicesUsesPort = (HShelfUsesPort) this.services.getPort("workflow-services-"+this.getName()+"-port-uses");
+					this.workflowServicesUsesPort = (HShelfUsesPort) this.services.getPort(this.getWorkflowServicesPortName());
 				providesWorkflowPort = (HShelfWorkflowServicesProvidesPort)this.services.getConnectedProvidesPort(this.workflowServicesUsesPort.getName());
 			} catch (HShelfException e1) {
 				e1.printStackTrace();
@@ -191,6 +193,18 @@ public abstract class HShelfComponent {
 
 	public void setKind(String kind) {
 		this.kind = kind;
+	}
+	
+	public String getSelectionPortName(){
+		return  "application-selection-"+this.getName()+"-port-uses";
+	}
+	
+	public String getWorkflowServicesPortName(){
+		return "workflow-services-"+this.getName()+"-port-uses";
+	}
+	
+	public String getLifeCyclePortName(){
+		return "lyfe-cycle-"+this.getName()+"-port";
 	}
 	
 	@Override

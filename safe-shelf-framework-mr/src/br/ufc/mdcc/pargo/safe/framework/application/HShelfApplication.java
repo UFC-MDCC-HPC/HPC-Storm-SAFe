@@ -6,6 +6,11 @@ import br.ufc.mdcc.pargo.safe.framework.util.HShelfConsoleLogger;
 
 public abstract class HShelfApplication extends HShelfComponent{
 	
+	
+	public static final String SELECTION_PORT_PRV = "application-selection-port-provides";
+	public static final String SELECTION_PORT_USE = "application-selection-port-uses";
+
+	
 	private HShelfFramework framework;
 	
 	

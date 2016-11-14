@@ -4,6 +4,7 @@ import java.util.List;
 
 import br.ufc.mdcc.pargo.safe.framework.HShelfFramework;
 import br.ufc.mdcc.pargo.safe.framework.component.HShelfComponent;
+import br.ufc.mdcc.pargo.safe.framework.core.HShelfCoreComponent;
 import br.ufc.mdcc.pargo.safe.framework.exception.HShelfException;
 import br.ufc.mdcc.pargo.safe.framework.port.HShelfProvidesPort;
 import br.ufc.mdcc.pargo.safe.framework.port.HShelfTaskPort;
@@ -98,7 +99,7 @@ public class HShelfWorkflow extends HShelfComponent {
 		
 		HShelfWorkflowServicesProvidesPort workfloweServicesProvidesPort = null;
 		try {
-			workfloweServicesProvidesPort = (HShelfWorkflowServicesProvidesPort)this.services.getConnectedProvidesPort("workflow-services-port-uses");
+			workfloweServicesProvidesPort = (HShelfWorkflowServicesProvidesPort)this.services.getConnectedProvidesPort(HShelfCoreComponent.WORKFLOW_SERVICES_USE);
 		} catch (HShelfException e1) {
 			 
 			e1.printStackTrace();
@@ -179,7 +180,7 @@ public class HShelfWorkflow extends HShelfComponent {
 			HShelfWorkflowServicesProvidesPort workfloweServicesProvidesPort = null;
 			try {
 				workfloweServicesProvidesPort = (HShelfWorkflowServicesProvidesPort)
-						this.services.getConnectedProvidesPort("workflow-services-port-uses");
+						this.services.getConnectedProvidesPort(HShelfCoreComponent.WORKFLOW_SERVICES_USE);
 			} catch (HShelfException e1) {
 				 
 				e1.printStackTrace();
@@ -260,7 +261,7 @@ public class HShelfWorkflow extends HShelfComponent {
 		HShelfWorkflowServicesProvidesPort workfloweServicesProvidesPort = null;
 		try {
 			workfloweServicesProvidesPort = (HShelfWorkflowServicesProvidesPort)
-					this.services.getConnectedProvidesPort("workflow-services-port-uses");
+					this.services.getConnectedProvidesPort(HShelfCoreComponent.WORKFLOW_SERVICES_USE);
 		} catch (HShelfException e1) {
 			 
 			e1.printStackTrace();
