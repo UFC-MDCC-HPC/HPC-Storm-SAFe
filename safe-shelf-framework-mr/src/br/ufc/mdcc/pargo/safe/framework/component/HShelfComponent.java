@@ -145,7 +145,7 @@ public abstract class HShelfComponent {
 			}
 			
 			HShelfConsoleLogger.write("Calling INSTANTIATE from :"+this.getName()+", KIND: " + this.getKind());
-			String safeSWLCode = FileUtil.readFileAsString(safeSWLPath);
+			//String safeSWLCode = FileUtil.readFileAsString(safeSWLPath);
 			/*D-1 : PASSA COMO ARGUMENTO O MANIPULADOR DE SESSÃO E A REFERENCIA DO COMPONENTENO CÓDIGO */
 			providesWorkflowPort.instantiate(null,null);
 		}
