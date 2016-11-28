@@ -1,5 +1,8 @@
 package br.ufc.mdcc.pargo.safe.framework.workflow;
 
+import br.ufc.mdcc.pargo.safe.framework.port.IHShelfActionFuture;
+
+
 
 public class HShelfWorkflowFacade {
 
@@ -24,6 +27,10 @@ public class HShelfWorkflowFacade {
 	
 	public Object compute(String method, String portName){
 		return this.workflow.compute(method, portName);
+	}
+	
+	public IHShelfActionFuture computeActionFuture(String method, String portName){
+		return this.workflow.computeActionFuture(method, portName);
 	}
 	
 	public void connect(String compID){

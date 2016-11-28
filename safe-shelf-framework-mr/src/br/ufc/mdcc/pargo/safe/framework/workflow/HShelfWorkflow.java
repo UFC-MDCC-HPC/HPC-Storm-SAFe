@@ -6,8 +6,10 @@ import br.ufc.mdcc.pargo.safe.framework.HShelfFramework;
 import br.ufc.mdcc.pargo.safe.framework.component.HShelfComponent;
 import br.ufc.mdcc.pargo.safe.framework.core.HShelfCoreComponent;
 import br.ufc.mdcc.pargo.safe.framework.exception.HShelfException;
+import br.ufc.mdcc.pargo.safe.framework.port.HShelfActionFutureImpl;
 import br.ufc.mdcc.pargo.safe.framework.port.HShelfProvidesPort;
 import br.ufc.mdcc.pargo.safe.framework.port.HShelfTaskPort;
+import br.ufc.mdcc.pargo.safe.framework.port.IHShelfActionFuture;
 import br.ufc.mdcc.pargo.safe.framework.port.dflt.HShelfGoWorkflowPortImpl;
 import br.ufc.mdcc.pargo.safe.framework.port.dflt.HShelfLifeCyclePort;
 import br.ufc.mdcc.pargo.safe.framework.port.dflt.HShelfSAFeSWLPort;
@@ -18,7 +20,6 @@ import br.ufc.mdcc.pargo.safe.framework.port.event.HShelfEventType;
 import br.ufc.mdcc.pargo.safe.framework.services.IHShelfService;
 import br.ufc.mdcc.pargo.safe.framework.util.HShelfConsoleLogger;
 import br.ufc.mdcc.pargo.safe.framework.util.HShelfFileUtil;
-import br.ufc.mdcc.pargo.safe.framework.util.HShelfReflectionUtil;
 import br.ufc.mdcc.pargo.safe.grammar.ISAFeSWLArcherParser;
 import br.ufc.mdcc.pargo.safe.grammar.ISAFeSWLFlowParser;
 import br.ufc.mdcc.pargo.safe.grammar.SAFeSWLArchParser;
@@ -345,7 +346,8 @@ public class HShelfWorkflow extends HShelfComponent {
 			
 			if (port != null && port.isConnected()) {
 				
-				return HShelfReflectionUtil.invokeMethod(port, method, null);
+				//return HShelfReflectionUtil.invokeMethod(port, method, null);
+				port.invoke(method);
 
 			}
 		} catch (HShelfException e) {
@@ -353,6 +355,28 @@ public class HShelfWorkflow extends HShelfComponent {
 		}
 		return null;
 	}
+	
+	public synchronized IHShelfActionFuture computeActionFuture(String method, String portName) {
+		try {
+
+			HShelfTaskPort port = (HShelfTaskPort)this.services.getTaskPort(portName);
+			
+			if (port != null && port.isConnected()) {
+				
+				//return HShelfReflectionUtil.invokeMethod(port, method, null);
+				IHShelfActionFuture actionFuture = null;
+				port.invoke(method,actionFuture);
+				actionFuture = new HShelfActionFutureImpl();
+				return actionFuture;
+
+			}
+		} catch (HShelfException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	
 
 	private void sendMessageToApp(String message, HShelfEventType eventType) {
 		if (safeWorkflowEventPort != null)

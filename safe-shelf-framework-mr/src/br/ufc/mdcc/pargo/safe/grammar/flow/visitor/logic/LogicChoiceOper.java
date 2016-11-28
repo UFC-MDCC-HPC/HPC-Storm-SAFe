@@ -1,5 +1,6 @@
 package br.ufc.mdcc.pargo.safe.grammar.flow.visitor.logic;
 
+import br.ufc.mdcc.pargo.safe.framework.port.IHShelfActionFuture;
 import br.ufc.mdcc.pargo.safe.grammar.arch.ArchAction;
 import br.ufc.mdcc.pargo.safe.grammar.flow.ChoiceOperComplexType.Select;
 import br.ufc.mdcc.pargo.safe.grammar.flow.SAFeOrchestrationElement;
@@ -25,8 +26,13 @@ public class LogicChoiceOper extends AbstractSAFeElementLogic{
 			SAFeConsoleLogger.write("invoking action: " + archAction.getName()
 					+ "; from port: " + archAction.getParent().getName());
 			if (this.workflowFacade != null) {
-				Boolean  res = (Boolean)this.workflowFacade.compute(archAction.getName(), archAction
+				IHShelfActionFuture actionFuture = null;
+				 
+				actionFuture = this.workflowFacade.computeActionFuture(archAction.getName(), archAction
 						.getParent().getName());
+				
+				Boolean  res = actionFuture.test(); //(Boolean)this.workflowFacade.compute(archAction.getName(), archAction
+						//.getParent().getName());
 				//System.out.println(":"+res);
 				if(res.booleanValue()==true){
 					for(int j=select.getChildren().size()-1;j>=0;j--){

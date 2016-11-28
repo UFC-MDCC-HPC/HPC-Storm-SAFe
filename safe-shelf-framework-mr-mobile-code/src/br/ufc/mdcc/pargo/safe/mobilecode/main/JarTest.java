@@ -8,6 +8,7 @@ public class JarTest {
 		JarManipulator jarManipulator = new JarManipulator();
 		Class<?> clazz = jarManipulator.createClass("file:/home/jefferson/jar-test.jar","br.ufc.FooClass");
 		
-		jarManipulator.invokeClassMethod(clazz, "method_1");
+		Integer out = (Integer)jarManipulator.invokeClassMethod(clazz, "method_5",5,6);
+		System.out.println(out);
 	}
 }
