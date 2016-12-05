@@ -7,6 +7,14 @@ public class HShelfTaskPort extends HShelfPort{
 	private HShelfTaskPort partner;
 	
 	public void invoke(Object action){
+		/*if(action.toString().equals("perform")){
+			try {
+				Thread.sleep(500);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}*/
 		HShelfConsoleLogger.write(action.toString());
 	}
 	
