@@ -63,10 +63,14 @@ public class MRApplicationNovo extends HShelfApplication{
 			this.services.setProvidesPort(pPortReducer);
 			
 			//CONNECTING ENV PORTS
-			//this.getFramework().connect(usesPortName, providesPortName);
+			this.getFramework().connectAllEnvironmentPorts();
+			
+			//TESTING
+			System.out.println("ahahahahahahahaha"+this.services.getConnectedProvidesPort("port-A-splitter-uses").getName());
 			
 			//RUN WORKFLOW
 			this.goPort.go();
+			
 		}
 		
 		

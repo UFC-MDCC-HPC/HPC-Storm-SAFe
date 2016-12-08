@@ -343,6 +343,13 @@ public class HShelfWorkflow extends HShelfComponent {
 			this.sendMessageToApp(usesPort.getName(), HShelfEventType.Port_Connected);
 		}
 	}
+	
+	public void connectAllEnvironmentPorts(){
+		this.connect("0");
+		for(ArchComponent ac:this.archParser.getComponents()){
+			this.connect(ac.getId().toString());
+		}
+	}
 
 	public synchronized Object compute(String method, String portName) {
 		try {

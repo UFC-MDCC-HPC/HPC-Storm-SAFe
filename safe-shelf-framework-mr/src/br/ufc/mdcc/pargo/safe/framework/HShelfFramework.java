@@ -256,7 +256,7 @@ public class HShelfFramework extends HShelfBuilderService {
 		if (uses != null && uses instanceof HShelfUsesPort) {
 			
 			
-			//HShelfConsoleLogger.write(usesPortName+"<->"+providesPortName);
+			HShelfConsoleLogger.write(usesPortName+"<->"+providesPortName);
 			
 			Semaphore s = this.semaphoreUses.get(usesPortName);
 			if(s!=null) s.release();
@@ -334,6 +334,10 @@ public class HShelfFramework extends HShelfBuilderService {
 		}
 		workflow.setServices(serviceWf);
 		
+	}
+	
+	public void connectAllEnvironmentPorts(){
+		this.workflow.connectAllEnvironmentPorts();
 	}
 
 }
