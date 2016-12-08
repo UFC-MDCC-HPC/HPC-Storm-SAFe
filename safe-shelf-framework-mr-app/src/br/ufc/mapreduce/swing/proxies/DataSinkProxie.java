@@ -1,18 +1,17 @@
-package br.ufc.mapreduce.proxies;
+package br.ufc.mapreduce.swing.proxies;
 
 import br.ufc.mapreduce.ports.env.MRPort;
 import br.ufc.mdcc.pargo.safe.framework.component.HShelfComponent;
 import br.ufc.mdcc.pargo.safe.framework.exception.HShelfException;
 import br.ufc.mdcc.pargo.safe.framework.services.IHShelfService;
 
-public class DataSourceProxie extends HShelfComponent{
+public class DataSinkProxie extends HShelfComponent{
 
 	@Override
 	public void setServices(IHShelfService services) {
 		this.services = services;
 		MRPort mr = new MRPort();
-		mr.setChunk("SOURCE");
-		mr.setName("source-provides");
+		mr.setName("sink-provides");
 		try {
 			this.services.setProvidesPort(mr);
 		} catch (HShelfException e) {
@@ -22,5 +21,4 @@ public class DataSourceProxie extends HShelfComponent{
 		
 	}
 
-	
 }

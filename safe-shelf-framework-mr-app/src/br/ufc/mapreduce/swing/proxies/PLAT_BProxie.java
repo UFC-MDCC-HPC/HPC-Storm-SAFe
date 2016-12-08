@@ -1,9 +1,9 @@
-package br.ufc.mapreduce.proxies;
+package br.ufc.mapreduce.swing.proxies;
 
 import br.ufc.mdcc.pargo.safe.framework.component.HShelfComponent;
 import br.ufc.mdcc.pargo.safe.framework.services.IHShelfService;
 
-public class PLAT_AProxie extends HShelfComponent{
+public class PLAT_BProxie extends HShelfComponent{
 
 	@Override
 	public void setServices(IHShelfService services) {

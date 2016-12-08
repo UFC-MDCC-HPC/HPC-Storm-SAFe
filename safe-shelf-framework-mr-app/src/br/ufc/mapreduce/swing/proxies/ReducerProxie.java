@@ -1,4 +1,4 @@
-package br.ufc.mapreduce.proxies;
+package br.ufc.mapreduce.swing.proxies;
 
 import br.ufc.mapreduce.ports.env.MRPort;
 import br.ufc.mapreduce.ports.tsk.TaskChunk;
@@ -7,7 +7,7 @@ import br.ufc.mdcc.pargo.safe.framework.exception.HShelfException;
 import br.ufc.mdcc.pargo.safe.framework.port.HShelfUsesPort;
 import br.ufc.mdcc.pargo.safe.framework.services.IHShelfService;
 
-public class MapperProxie extends HShelfComponent implements MRAdapter{
+public class ReducerProxie extends HShelfComponent implements MRAdapter{
 
 	private MRPort providesPort;
 	private HShelfUsesPort usesPort;
@@ -24,12 +24,12 @@ public class MapperProxie extends HShelfComponent implements MRAdapter{
 		
 		try {
 			providesPort = new MRPort();
-			providesPort.setName("mapper-provides");
+			providesPort.setName("reducer-provides");
 			this.services.setProvidesPort(providesPort);
 			taskChunk = new TaskChunk(this);
-			taskChunk.setName("mapper-task-chunk");
+			taskChunk.setName("reducer-task-chunk");
 			this.services.registerTaskPort(taskChunk);
-			this.services.registerUsesPort("mapper-uses", "?");
+			this.services.registerUsesPort("reducer-uses", "?");
 			
 		} catch (HShelfException e) {
 			// TODO Auto-generated catch block
@@ -58,7 +58,7 @@ public class MapperProxie extends HShelfComponent implements MRAdapter{
 	@Override
 	public void read_chunk() {
 		try {
-			usesPort = ((HShelfUsesPort)this.services.getPort("mapper-uses"));
+			usesPort = ((HShelfUsesPort)this.services.getPort("reducer-uses"));
 			//this.chunk_in = ((MRPort)usesPort.getProvidesPort()).getChunk();
 		} catch (HShelfException e) {
 			// TODO Auto-generated catch block
@@ -72,8 +72,8 @@ public class MapperProxie extends HShelfComponent implements MRAdapter{
 	public void perform() {
 		try {
 			Thread.sleep(2000);
-			this.chunk_out = "MAPPER-OUT: "+chunk_in;
-			this.chunk_in = "";
+			this.chunk_out = "REDUCER-OUT: "+chunk_in;
+			this.chunk_in="";
 			this.ready = true;
 			this.providesPort.setChunk(chunk_out);
 		} catch (InterruptedException e) {

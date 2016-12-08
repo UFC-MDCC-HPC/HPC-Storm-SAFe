@@ -25,6 +25,7 @@ import br.ufc.mdcc.pargo.safe.grammar.ISAFeSWLFlowParser;
 import br.ufc.mdcc.pargo.safe.grammar.SAFeSWLArchParser;
 import br.ufc.mdcc.pargo.safe.grammar.SAFeSWLFlowParser;
 import br.ufc.mdcc.pargo.safe.grammar.arch.ArchComponent;
+import br.ufc.mdcc.pargo.safe.grammar.arch.ArchProvides;
 import br.ufc.mdcc.pargo.safe.grammar.arch.ArchTask;
 import br.ufc.mdcc.pargo.safe.grammar.arch.ArchUses;
 import br.ufc.mdcc.pargo.safe.grammar.arch.ArchWorkflow;
@@ -299,7 +300,11 @@ public class HShelfWorkflow extends HShelfComponent {
 			}
 			
 			
-			
+			/*System.out.println("-->"+archComponent.getName());
+			for(ArchUses uses:archComponent.getUsesList())
+				System.out.println("---->"+uses.getName());
+			for(ArchProvides prov:archComponent.getProvidesList())
+				System.out.println("---->"+prov.getName());*/
 			
 		}
 		

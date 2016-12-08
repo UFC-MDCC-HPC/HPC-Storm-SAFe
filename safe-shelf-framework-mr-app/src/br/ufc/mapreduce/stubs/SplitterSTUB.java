@@ -1,5 +1,6 @@
 package br.ufc.mapreduce.stubs;
 
+import br.ufc.mapreduce.stubs.ports.env.MRStubProvidesPort;
 import br.ufc.mdcc.pargo.safe.framework.component.HShelfComponent;
 import br.ufc.mdcc.pargo.safe.framework.exception.HShelfException;
 import br.ufc.mdcc.pargo.safe.framework.port.HShelfTaskPort;
@@ -23,6 +24,9 @@ public class SplitterSTUB extends HShelfComponent{
 		try {
 			this.services.registerTaskPort(taskChunk);
 			this.services.registerTaskPort(taskSourceSink);
+			MRStubProvidesPort provides = new MRStubProvidesPort();provides.setName("port-A-splitter-provides");
+			this.services.setProvidesPort(provides);
+			this.services.registerUsesPort("port-B-splitter-uses", null);
 		} catch (HShelfException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

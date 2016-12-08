@@ -1,5 +1,6 @@
 package br.ufc.mapreduce.app;
 
+import br.ufc.mapreduce.stubs.ports.env.MRStubProvidesPort;
 import br.ufc.mdcc.pargo.safe.framework.application.HShelfApplication;
 import br.ufc.mdcc.pargo.safe.framework.exception.HShelfException;
 import br.ufc.mdcc.pargo.safe.framework.port.dflt.HShelfGoPort;
@@ -28,18 +29,43 @@ public class MRApplicationNovo extends HShelfApplication{
 	public void run() throws HShelfException{
 		if(this.services!=null){
 			
-			
+			//loading files 
 			this.safeSWLPort = (HShelfSAFeSWLPort)this.services.getConnectedProvidesPort(HShelfWorkflow.SAFE_WORKFLOW_SWL_PORT);
 			String archFile = "/home/jefferson/git/HPC-Storm-SAFe/safe-shelf-framework-mr-app/src/xml/mr-arch-stub.xml";
 			String flowFile = "/home/jefferson/git/HPC-Storm-SAFe/safe-shelf-framework-mr-app/src/xml/mr-flow-stub.xml";
 			this.safeSWLPort.setSAFeSWLArchFilePath(archFile);
 			this.safeSWLPort.setSAFeSWLFlowFilePath(flowFile);
 			
-			
+			//GO PORT
 			this.goPort = (HShelfGoPort)this.services.getConnectedProvidesPort(HShelfWorkflow.SAFE_WORKFLOW_GO_PORT);
 			this.goPort.loadArchitectureFile();
 			this.goPort.loadWorkflowFile();
 			
+			//REGISTER USES PORTS
+			this.services.registerUsesPort("port-A-splitter-uses", null);
+			this.services.registerUsesPort("port-A-mapper-uses", null);
+			this.services.registerUsesPort("port-A-combiner-uses", null);
+			this.services.registerUsesPort("port-A-shuffler-uses", null);
+			this.services.registerUsesPort("port-A-reducer-uses", null);
+			
+			
+			//REGISTER PROVIDES PORTS
+			MRStubProvidesPort pPortSplitter = new MRStubProvidesPort();pPortSplitter.setName("port-B-splitter-provides");
+			MRStubProvidesPort pPortMapper = new MRStubProvidesPort();pPortMapper.setName("port-B-mapper-provides");
+			MRStubProvidesPort pPortCombiner = new MRStubProvidesPort();pPortCombiner.setName("port-B-combiner-provides");
+			MRStubProvidesPort pPortShuffler = new MRStubProvidesPort();pPortShuffler.setName("port-B-shuffler-provides");
+			MRStubProvidesPort pPortReducer = new MRStubProvidesPort();pPortReducer.setName("port-B-reducer-provides");
+			
+			this.services.setProvidesPort(pPortSplitter);
+			this.services.setProvidesPort(pPortMapper);
+			this.services.setProvidesPort(pPortCombiner);
+			this.services.setProvidesPort(pPortShuffler);
+			this.services.setProvidesPort(pPortReducer);
+			
+			//CONNECTING ENV PORTS
+			//this.getFramework().connect(usesPortName, providesPortName);
+			
+			//RUN WORKFLOW
 			this.goPort.go();
 		}
 		

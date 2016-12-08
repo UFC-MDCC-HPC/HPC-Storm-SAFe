@@ -1,4 +1,4 @@
-package br.ufc.mapreduce.proxies;
+package br.ufc.mapreduce.swing.proxies;
 
 public interface MRAdapter {
 

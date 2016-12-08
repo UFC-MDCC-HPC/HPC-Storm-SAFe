@@ -1,4 +1,4 @@
-package br.ufc.mapreduce.proxies;
+package br.ufc.mapreduce.swing.proxies;
 
 import br.ufc.mapreduce.ports.env.MRPort;
 import br.ufc.mapreduce.ports.tsk.TaskChunk;
@@ -7,7 +7,7 @@ import br.ufc.mdcc.pargo.safe.framework.exception.HShelfException;
 import br.ufc.mdcc.pargo.safe.framework.port.HShelfUsesPort;
 import br.ufc.mdcc.pargo.safe.framework.services.IHShelfService;
 
-public class CombinerProxie extends HShelfComponent implements MRAdapter{
+public class ShufflerProxie extends HShelfComponent implements MRAdapter{
 
 	private MRPort providesPort;
 	private HShelfUsesPort usesPort;
@@ -24,12 +24,12 @@ public class CombinerProxie extends HShelfComponent implements MRAdapter{
 		
 		try {
 			providesPort = new MRPort();
-			providesPort.setName("combiner-provides");
+			providesPort.setName("shuffler-provides");
 			this.services.setProvidesPort(providesPort);
 			taskChunk = new TaskChunk(this);
-			taskChunk.setName("combiner-task-chunk");
+			taskChunk.setName("shuffler-task-chunk");
 			this.services.registerTaskPort(taskChunk);
-			this.services.registerUsesPort("combiner-uses", "?");
+			this.services.registerUsesPort("shuffler-uses", "?");
 			
 		} catch (HShelfException e) {
 			// TODO Auto-generated catch block
@@ -58,7 +58,7 @@ public class CombinerProxie extends HShelfComponent implements MRAdapter{
 	@Override
 	public void read_chunk() {
 		try {
-			usesPort = ((HShelfUsesPort)this.services.getPort("combiner-uses"));
+			usesPort = ((HShelfUsesPort)this.services.getPort("shuffler-uses"));
 			//this.chunk_in = ((MRPort)usesPort.getProvidesPort()).getChunk();
 		} catch (HShelfException e) {
 			// TODO Auto-generated catch block
@@ -72,7 +72,7 @@ public class CombinerProxie extends HShelfComponent implements MRAdapter{
 	public void perform() {
 		try {
 			Thread.sleep(2000);
-			this.chunk_out = "COMBINER-OUT: "+chunk_in;
+			this.chunk_out = "SHUFFLER-OUT: "+chunk_in;
 			this.chunk_in = "";
 			this.ready = true;
 			this.providesPort.setChunk(chunk_out);

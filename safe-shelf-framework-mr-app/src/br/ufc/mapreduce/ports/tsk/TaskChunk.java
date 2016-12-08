@@ -1,6 +1,6 @@
 package br.ufc.mapreduce.ports.tsk;
 
-import br.ufc.mapreduce.proxies.MRAdapter;
+import br.ufc.mapreduce.swing.proxies.MRAdapter;
 import br.ufc.mdcc.pargo.safe.framework.port.HShelfTaskPort;
 
 public class TaskChunk extends HShelfTaskPort{

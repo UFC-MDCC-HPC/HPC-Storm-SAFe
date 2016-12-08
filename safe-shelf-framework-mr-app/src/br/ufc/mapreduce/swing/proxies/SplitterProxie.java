@@ -1,4 +1,4 @@
-package br.ufc.mapreduce.proxies;
+package br.ufc.mapreduce.swing.proxies;
 
 import br.ufc.mapreduce.ports.env.MRPort;
 import br.ufc.mapreduce.ports.tsk.TaskChunk;
