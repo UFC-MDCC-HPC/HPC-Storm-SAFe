@@ -26,6 +26,22 @@ public class ShufflerSTUB extends HShelfComponent{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		Thread t = new Thread(){
+			public void run() {
+				try {
+					Thread.sleep(2000);
+					MRStubProvidesPort shuffler = (MRStubProvidesPort)services.getConnectedProvidesPort("port-B-shuffler-uses");
+					shuffler.invoke("STUB-TESTE-SHUFFLER " + shuffler.getName());
+				} catch (HShelfException | InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			};
+			
+		};
+		
+		t.start();
 
 	}
 }

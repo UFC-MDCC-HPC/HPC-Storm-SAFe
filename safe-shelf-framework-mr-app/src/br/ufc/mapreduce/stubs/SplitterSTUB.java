@@ -31,6 +31,22 @@ public class SplitterSTUB extends HShelfComponent{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		Thread t = new Thread(){
+			public void run() {
+				try {
+					Thread.sleep(2000);
+					MRStubProvidesPort splitter = (MRStubProvidesPort)services.getConnectedProvidesPort("port-B-splitter-uses");
+					splitter.invoke("STUB-TESTE-SPLITTER " + splitter.getName());
+				} catch (HShelfException | InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			};
+			
+		};
+		
+		t.start();
 
 	}
 

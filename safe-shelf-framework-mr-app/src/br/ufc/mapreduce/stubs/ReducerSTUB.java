@@ -26,6 +26,23 @@ public class ReducerSTUB extends HShelfComponent{
 			e.printStackTrace();
 		}
 		
+		
+		Thread t = new Thread(){
+			public void run() {
+				try {
+					Thread.sleep(2000);
+					MRStubProvidesPort reducer = (MRStubProvidesPort)services.getConnectedProvidesPort("port-B-reducer-uses");
+					reducer.invoke("STUB-TESTE-REDUCER " + reducer.getName());
+				} catch (HShelfException | InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			};
+			
+		};
+		
+		t.start();
+		
 	}
 
 }

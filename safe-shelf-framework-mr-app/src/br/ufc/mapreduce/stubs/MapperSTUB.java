@@ -25,6 +25,23 @@ public class MapperSTUB extends HShelfComponent {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		
+		Thread t = new Thread(){
+			public void run() {
+				try {
+					Thread.sleep(2000);
+					MRStubProvidesPort mapper = (MRStubProvidesPort)services.getConnectedProvidesPort("port-B-mapper-uses");
+					mapper.invoke("STUB-TESTE-MAPPER " + mapper.getName());
+				} catch (HShelfException | InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			};
+			
+		};
+		
+		t.start();
 
 	}
 }

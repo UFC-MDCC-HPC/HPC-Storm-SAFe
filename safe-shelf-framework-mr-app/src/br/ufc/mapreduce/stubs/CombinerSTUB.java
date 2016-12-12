@@ -31,6 +31,22 @@ public class CombinerSTUB extends HShelfComponent{
 			e.printStackTrace();
 		}
 		
+		
+		Thread t = new Thread(){
+			public void run() {
+				try {
+					Thread.sleep(2000);
+					MRStubProvidesPort combiner = (MRStubProvidesPort)services.getConnectedProvidesPort("port-B-combiner-uses");
+					combiner.invoke("STUB-TESTE-COMBINER " + combiner.getName());
+				} catch (HShelfException | InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			};
+			
+		};
+		
+		t.start();
 	}
 
 }

@@ -41,7 +41,7 @@ public class MRApplicationNovo extends HShelfApplication{
 			this.goPort.loadArchitectureFile();
 			this.goPort.loadWorkflowFile();
 			
-			//REGISTER USES PORTS
+			//REGISTER USES PORTS (APPLICATION SIDE)
 			this.services.registerUsesPort("port-A-splitter-uses", null);
 			this.services.registerUsesPort("port-A-mapper-uses", null);
 			this.services.registerUsesPort("port-A-combiner-uses", null);
@@ -49,7 +49,7 @@ public class MRApplicationNovo extends HShelfApplication{
 			this.services.registerUsesPort("port-A-reducer-uses", null);
 			
 			
-			//REGISTER PROVIDES PORTS
+			//REGISTER PROVIDES PORTS (APPLICATION SIDE)
 			MRStubProvidesPort pPortSplitter = new MRStubProvidesPort();pPortSplitter.setName("port-B-splitter-provides");
 			MRStubProvidesPort pPortMapper = new MRStubProvidesPort();pPortMapper.setName("port-B-mapper-provides");
 			MRStubProvidesPort pPortCombiner = new MRStubProvidesPort();pPortCombiner.setName("port-B-combiner-provides");
@@ -65,11 +65,29 @@ public class MRApplicationNovo extends HShelfApplication{
 			//CONNECTING ENV PORTS
 			this.getFramework().connectAllEnvironmentPorts();
 			
-			//TESTING
-			System.out.println("ahahahahahahahaha"+this.services.getConnectedProvidesPort("port-A-splitter-uses").getName());
-			
 			//RUN WORKFLOW
-			this.goPort.go();
+			Thread t = new Thread(){
+				public void run() {
+					goPort.go();
+				};
+			};
+			t.start();
+			
+			//TESTING uses->provides from application
+			MRStubProvidesPort splitter = (MRStubProvidesPort)this.services.getConnectedProvidesPort("port-A-splitter-uses");
+			MRStubProvidesPort mapper = (MRStubProvidesPort)this.services.getConnectedProvidesPort("port-A-mapper-uses");
+			MRStubProvidesPort combiner = (MRStubProvidesPort)this.services.getConnectedProvidesPort("port-A-combiner-uses");
+			MRStubProvidesPort shuffler = (MRStubProvidesPort)this.services.getConnectedProvidesPort("port-A-shuffler-uses");
+			MRStubProvidesPort reducer = (MRStubProvidesPort)this.services.getConnectedProvidesPort("port-A-reducer-uses");
+			
+			splitter.invoke("TESTE-SPLITTER " + splitter.getName());
+			mapper.invoke("TESTE-MAPPER " + mapper.getName());
+			combiner.invoke("TESTE-COMBINER " + combiner.getName());
+			shuffler.invoke("TESTE-SHUFFLER " + shuffler.getName());
+			reducer.invoke("TESTE-REDUCER " + reducer.getName());
+			
+			
+			
 			
 		}
 		
