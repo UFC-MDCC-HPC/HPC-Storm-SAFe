@@ -23,6 +23,7 @@ public class CombinerSTUB extends HShelfComponent{
 			this.services.registerTaskPort(taskChunk);
 			MRStubProvidesPort provides = new MRStubProvidesPort();provides.setName("port-A-combiner-provides");
 			this.services.setProvidesPort(provides);
+			this.services.registerUsesPort("cluster_A-combiner-uses", null);
 			this.services.registerUsesPort("port-B-combiner-uses", null);
 			
 			

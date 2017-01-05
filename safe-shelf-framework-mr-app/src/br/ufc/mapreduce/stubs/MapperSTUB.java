@@ -21,6 +21,7 @@ public class MapperSTUB extends HShelfComponent {
 			MRStubProvidesPort provides = new MRStubProvidesPort();provides.setName("port-A-mapper-provides");
 			this.services.setProvidesPort(provides);
 			this.services.registerUsesPort("port-B-mapper-uses", null);
+			this.services.registerUsesPort("cluster_A-mapper-uses", null);
 		} catch (HShelfException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

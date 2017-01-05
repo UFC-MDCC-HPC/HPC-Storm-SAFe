@@ -22,6 +22,7 @@ public class ShufflerSTUB extends HShelfComponent{
 			MRStubProvidesPort provides = new MRStubProvidesPort();provides.setName("port-A-shuffler-provides");
 			this.services.setProvidesPort(provides);
 			this.services.registerUsesPort("port-B-shuffler-uses", null);
+			this.services.registerUsesPort("cluster_A-shuffler-uses", null);
 		} catch (HShelfException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

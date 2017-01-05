@@ -7,6 +7,9 @@
 		<tns:uses_port id="10002" id_component="0" name="port-A-combiner-uses"/>
 		<tns:uses_port id="10003" id_component="0" name="port-A-shuffler-uses"/>
 		<tns:uses_port id="10004" id_component="0" name="port-A-reducer-uses"/>
+		
+		<tns:uses_port id="10025" id_component="0" name="sink-uses"/>
+		<tns:uses_port id="10026" id_component="0" name="source-uses"/> 
 		 
 		<tns:provides_port id="20000" id_component="0" name="port-B-splitter-provides"/>
 		<tns:provides_port id="20001" id_component="0" name="port-B-mapper-provides"/>
@@ -39,6 +42,7 @@
 			
 			
 			<tns:uses_port id="30000" id_component="3" name="port-B-splitter-uses"/>
+			<tns:uses_port id="9990" id_component="3" name="cluster_A-splitter-uses"/>
 			<tns:provides_port id="40000" id_component="3" name="port-A-splitter-provides"/>
 			
 			<tns:contract id="30">
@@ -59,6 +63,7 @@
 		<tns:computation id="5" name="Mapper">
 			
 			<tns:uses_port id="30001" id_component="5" name="port-B-mapper-uses"/>
+			<tns:uses_port id="9991" id_component="5" name="cluster_A-mapper-uses"/>
 			
 			<tns:provides_port id="40001" id_component="5" name="port-A-mapper-provides"/>
 			<tns:contract id="50">
@@ -74,6 +79,8 @@
 		<tns:computation id="10" name="Combiner">
 			
 			<tns:uses_port id="30002" id_component="10" name="port-B-combiner-uses"/>
+			<tns:uses_port id="9992" id_component="10" name="cluster_A-combiner-uses"/>
+			
 			
 			<tns:provides_port id="40002" id_component="10" name="port-A-combiner-provides"/>
 			<tns:contract id="100">
@@ -89,6 +96,8 @@
 		<tns:connector id="4" name="Shuffler">
 			
 			<tns:uses_port id="30003" id_component="4" name="port-B-shuffler-uses"/>
+			<tns:uses_port id="9993" id_component="4" name="cluster_A-shuffler-uses"/>
+			
 			
 			<tns:provides_port id="40003" id_component="4" name="port-A-shuffler-provides"/>
 			<tns:contract id="40">
@@ -104,6 +113,7 @@
 		<tns:computation id="6" name="Reducer">
 			
 			<tns:uses_port id="30004" id_component="6" name="port-B-reducer-uses"/>
+			<tns:uses_port id="9994" id_component="6" name="cluster_A-reducer-uses"/>
 			
 			<tns:provides_port id="40004" id_component="6" name="port-A-reducer-provides"/>
 			<tns:contract id="60">
@@ -115,6 +125,13 @@
 				<tns:action id="653" name="chunk_ready"/>
 			</tns:task_port>
 		</tns:computation>
+		
+		<tns:platform id="5555" name="Cluster_A">
+			<tns:provides_port id="55550" id_component="5555" name="cluster_A_provides"/>
+			<tns:contract id="55560">
+				<tns:uri>/home/jefferson/moex_data/cluster_a.cc</tns:uri>
+			</tns:contract>
+		</tns:platform>
 
 	</tns:body>
 
@@ -169,7 +186,42 @@
 		<tns:uses_port id="30004" id_component="6" name="port-B-reducer-uses"/>
 		<tns:provides_port id="20004" id_component="0" name="port-B-reducer-provides"/>
 	</tns:env_binding>
-
+	
+	<tns:env_binding>
+		<tns:uses_port id="9990" id_component="3" name="cluster_A-splitter-uses"/>
+		<tns:provides_port id="55550" id_component="5555" name="cluster_A_provides"/>
+	</tns:env_binding>
+	
+	<tns:env_binding>
+		<tns:uses_port id="9991" id_component="5" name="cluster_A-mapper-uses"/>
+		<tns:provides_port id="55550" id_component="5555" name="cluster_A_provides"/>
+	</tns:env_binding>
+	
+	<tns:env_binding>
+		<tns:uses_port id="9992" id_component="10" name="cluster_A-combiner-uses"/>
+		<tns:provides_port id="55550" id_component="5555" name="cluster_A_provides"/>
+	</tns:env_binding>
+	
+	<tns:env_binding>
+		<tns:uses_port id="9993" id_component="4" name="cluster_A-shuffler-uses"/>
+		<tns:provides_port id="55550" id_component="5555" name="cluster_A_provides"/>
+	</tns:env_binding>
+	
+	<tns:env_binding>
+		<tns:uses_port id="9994" id_component="6" name="cluster_A-reducer-uses"/>
+		<tns:provides_port id="55550" id_component="5555" name="cluster_A_provides"/>
+	</tns:env_binding>
+	
+	<tns:env_binding>
+		<tns:uses_port id="10025" id_component="0" name="sink-uses"/>
+		<tns:provides_port id="701" name="sink-provides"/>
+	</tns:env_binding>
+	
+	<tns:env_binding>
+		<tns:uses_port id="10026" id_component="0" name="source-uses"/>
+		<tns:provides_port id="801" name="source-provides"/>
+	</tns:env_binding>
+	
 	<tns:task_binding>
 		<tns:left_peer id="207" id_component="1" name="wf-splitter-ss"/>
 		<tns:right_peer id="306" id_component="3" name="splitter-task-ss"/>

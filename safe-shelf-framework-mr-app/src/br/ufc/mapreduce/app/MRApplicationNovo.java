@@ -79,12 +79,16 @@ public class MRApplicationNovo extends HShelfApplication{
 			MRStubProvidesPort combiner = (MRStubProvidesPort)this.services.getConnectedProvidesPort("port-A-combiner-uses");
 			MRStubProvidesPort shuffler = (MRStubProvidesPort)this.services.getConnectedProvidesPort("port-A-shuffler-uses");
 			MRStubProvidesPort reducer = (MRStubProvidesPort)this.services.getConnectedProvidesPort("port-A-reducer-uses");
+			MRStubProvidesPort sink = (MRStubProvidesPort)this.services.getConnectedProvidesPort("sink-uses");
+			MRStubProvidesPort source = (MRStubProvidesPort)this.services.getConnectedProvidesPort("source-uses");
 			
 			splitter.invoke("TESTE-SPLITTER " + splitter.getName());
 			mapper.invoke("TESTE-MAPPER " + mapper.getName());
 			combiner.invoke("TESTE-COMBINER " + combiner.getName());
 			shuffler.invoke("TESTE-SHUFFLER " + shuffler.getName());
 			reducer.invoke("TESTE-REDUCER " + reducer.getName());
+			sink.invoke("TESTE-SINK " + sink.getName());
+			source.invoke("TESTE-SOURCE " + source.getName());
 			
 			
 			
