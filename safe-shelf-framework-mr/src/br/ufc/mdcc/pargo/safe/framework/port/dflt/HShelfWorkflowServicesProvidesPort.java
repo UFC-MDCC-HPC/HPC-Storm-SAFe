@@ -1,12 +1,20 @@
 package br.ufc.mdcc.pargo.safe.framework.port.dflt;
 
 import br.ufc.mdcc.pargo.safe.framework.core.IHShelfCore;
+import br.ufc.mdcc.pargo.safe.framework.fcore.client.ShelfCoreClient;
 import br.ufc.mdcc.pargo.safe.framework.port.HShelfProvidesPort;
 import br.ufc.mdcc.pargo.safe.framework.util.HShelfConsoleLogger;
 import br.ufc.mdcc.pargo.safe.framework.workflow.HShelfWorkflowSession;
 
+/**
+ * Core communication class
+ * @author jefferson
+ *
+ */
 public class HShelfWorkflowServicesProvidesPort extends HShelfProvidesPort implements IHShelfCore{
 
+	private ShelfCoreClient coreClient = new ShelfCoreClient();
+	
 	public Object openWorkflowSession(String safeSWLCode){
 		HShelfConsoleLogger.write("CORE SERVICES: open workflow session");
 		return new HShelfWorkflowSession();
@@ -16,24 +24,25 @@ public class HShelfWorkflowServicesProvidesPort extends HShelfProvidesPort imple
 		HShelfConsoleLogger.write("CORE SERVICES: register contract");
 	}
 	
-	public void closeWorkflowSession(Object session){
+	public void closeWorkflowSession(String session){
 		HShelfConsoleLogger.write("CORE SERVICES: close workflow session");
 	}
 
 	@Override
-	public Object resolve(String contract) {
+	public String resolve(String contract) {
 		HShelfConsoleLogger.write("CORE SERVICES: resolve");
-		return null;
+		String out = coreClient.resolve(contract);
+		return out;
 	}
 
 	@Override
-	public Object deploy(String safeSWLCode, Object componentReference) {
+	public String deploy(String safeSWLCode, String componentReference) {
 		HShelfConsoleLogger.write("CORE SERVICES: deploy");
 		return null;
 	}
 
 	@Override
-	public String instantiate(Object wsession, Object reference) {
+	public String instantiate(String wsession, String reference) {
 		HShelfConsoleLogger.write("CORE SERVICES: instantiate");
 		return "TESTE-INSTANTIATE";
 	}
@@ -45,13 +54,14 @@ public class HShelfWorkflowServicesProvidesPort extends HShelfProvidesPort imple
 	}
 
 	@Override
-	public Object listParameter(String contract) {
+	public String listParameter(String contract) {
 		HShelfConsoleLogger.write("CORE SERVICES: listaParameter ");
-		return null;
+		String out = coreClient.listParameter(contract);
+		return out;
 	}
 
 	@Override
-	public void setComponentList(Object componentList) {
+	public void setComponentList(String componentList) {
 		HShelfConsoleLogger.write("CORE SERVICES: setComponentList ");
 		
 	}

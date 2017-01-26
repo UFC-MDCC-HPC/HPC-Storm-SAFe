@@ -1,4 +1,8 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><tns:architecture xmlns:tns="http://www.example.org/SAFe_architecture_V4" xmlns:tns1="http://www.example.org/instantiator" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.example.org/SAFe_architecture_V4 SAFe_architecture_V4.xsd">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<tns:architecture xmlns:tns="http://www.example.org/SAFe_architecture_V4"
+				  xmlns:tns1="http://www.example.org/instantiator" 
+				  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+				  xsi:schemaLocation="http://www.example.org/SAFe_architecture_V4 SAFe_architecture_V4.xsd">
 
 
 	<tns:application id="0" name="Application">
@@ -44,9 +48,8 @@
 			<tns:uses_port id="30000" id_component="3" name="port-B-splitter-uses"/>
 			<tns:uses_port id="9990" id_component="3" name="cluster_A-splitter-uses"/>
 			<tns:provides_port id="40000" id_component="3" name="port-A-splitter-provides"/>
-			
 			<tns:contract id="30">
-				<tns:uri>/home/jefferson/moex_data/sppliter-contract.cc</tns:uri>
+				<tns:uri>/home/jefferson/moex_data/splitter-contract.cc</tns:uri>
 			</tns:contract>
 			<tns:task_port id="305" id_component="3" name="splitter-task-chunk">
 				<tns:action id="351" name="read_chunk"/>

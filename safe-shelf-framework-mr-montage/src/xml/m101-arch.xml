@@ -1,0 +1,419 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<tns:architecture xmlns:tns="http://www.example.org/SAFe_architecture_V4"
+				  xmlns:tns1="http://www.example.org/instantiator" 
+				  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+				  xsi:schemaLocation="http://www.example.org/SAFe_architecture_V4 SAFe_architecture_V4.xsd">
+  
+  <!-- application -->
+  <tns:application id="0" name="app-101">
+  	<tns:uses_port id="3311" name="jpg-uses-app" id_component="0"/>
+  	<tns:uses_port id="3312" name="rawdir-uses-app" id_component="0"/>
+  	<tns:uses_port id="3313" name="projdir-uses-app" id_component="0"/>
+  	<tns:uses_port id="3314" name="diffdir-uses-app" id_component="0"/>
+  	<tns:uses_port id="3315" name="corrdir-uses-app" id_component="0"/>
+  	<tns:uses_port id="3316" name="mimgtbl-uses-app" id_component="0"/>
+  	<tns:uses_port id="3317" name="mprojecexec-uses-app" id_component="0"/>
+  	<tns:uses_port id="3318" name="madd-uses-app" id_component="0"/>
+  	<tns:uses_port id="3319" name="mbgmodel-uses-app" id_component="0"/>
+  	<tns:uses_port id="3324" name="mbgexec-uses-app" id_component="0"/>
+  	<tns:uses_port id="3320" name="mdiffexec-uses-app" id_component="0"/>
+  	<tns:uses_port id="3321" name="mfitexec-uses-app" id_component="0"/>
+  	<tns:uses_port id="3322" name="moverlaps-uses-app" id_component="0"/>
+  	
+  	<tns:provides_port id="3323" name="tmpl-hdr-prov" id_component="0"/>
+  </tns:application>
+  
+  <!-- workflow -->
+  <tns:workflow id="1" name="workflow-101">
+    <tns:task_port id="23" name="wf-mimgtbl-tsk" id_component="1"/>
+  	<tns:task_port id="24" name="wf-mprojexec-tsk" id_component="1"/>
+  	<tns:task_port id="25" name="wf-madd-tsk" id_component="1"/>
+  	<tns:task_port id="26" name="wf-mbgmodel-tsk" id_component="1"/>
+  	<tns:task_port id="27" name="wf-mbgexec-tsk" id_component="1"/>
+  	<tns:task_port id="28" name="wf-mdiffexec-tsk" id_component="1"/>
+  	<tns:task_port id="29" name="wf-mfitexec-tsk" id_component="1"/>
+  	<tns:task_port id="30" name="wf-moverlaps-tsk" id_component="1"/>
+  	<tns:task_port id="31" name="wf-mjpeg-tsk" id_component="1"/>
+  </tns:workflow>
+  
+  <tns:body>
+  	
+  	<!-- repository -->
+  	<tns:computation name="RawDir" id="200">
+      <tns:provides_port id="2001" name="raw-dir-port" id_component="200"/>
+      <tns:provides_port id="4412" name="rawdir-prov-app" id_component="200"/>
+      <tns:contract id="30">
+				<tns:uri>/home/jefferson/moex_data/rawdir-contract.cc</tns:uri>
+	  </tns:contract>
+    </tns:computation>
+    
+  	<tns:computation name="ProjDir" id="201">
+      <tns:provides_port id="2011" name="proj-dir-port" id_component="201"/>
+      <tns:provides_port id="4413" name="projdir-prov-app" id_component="201"/>
+      <tns:contract id="30">
+				<tns:uri>/home/jefferson/moex_data/projdir-contract.cc</tns:uri>
+	  </tns:contract>
+    </tns:computation>
+    
+    <tns:computation name="DiffDir" id="202">
+      <tns:provides_port id="2021" name="diff-dir-port" id_component="202"/>
+      <tns:provides_port id="4414" name="diffdir-prov-app" id_component="202"/>
+      <tns:contract id="30">
+				<tns:uri>/home/jefferson/moex_data/diffdir-contract.cc</tns:uri>
+	  </tns:contract>
+    </tns:computation>
+    
+    <tns:computation name="CorrDir" id="203">
+      <tns:provides_port id="2031" name="corr-dir-port" id_component="203"/>
+      <tns:provides_port id="4415" name="corrdir-prov-app" id_component="203"/>
+      <tns:contract id="30">
+				<tns:uri>/home/jefferson/moex_data/corrdir-contract.cc</tns:uri>
+	  </tns:contract>
+    </tns:computation>
+  
+    <!-- computation -->
+    <tns:computation name="MImgtbl" id="2">
+      <tns:uses_port id="31" name="mimgtbl-raw-dir-port-uses" id_component="2"/>
+      <tns:uses_port id="32" name="mimgtbl-proj-dir-port-uses" id_component="2"/>
+  	  <tns:provides_port id="33" name="mimgtbl-tbl-port-provides" id_component="2"/>
+  	  <tns:provides_port id="4416" name="mimgtbl-prov-app" id_component="2"/>
+  	  <tns:contract id="30">
+				<tns:uri>/home/jefferson/moex_data/mimgtbl-contract.cc</tns:uri>
+	  </tns:contract>
+      <tns:task_port name="mimgtbl-go" id="34" id_component="2">
+      		<tns:action id="341" name="go"/>	
+      </tns:task_port>
+    </tns:computation>
+    
+    <tns:computation name="MProjExec" id="11">
+      <tns:uses_port id="111" name="mprojexec-tbl-port-uses" id_component="11"/>
+      <tns:uses_port id="112" name="mprojexec-dir-port-uses-in" id_component="11"/>
+      <tns:uses_port id="113" name="mprojexec-dir-port-uses-out" id_component="11"/>
+      <tns:uses_port id="114" name="mprojexec-hdr-port-uses" id_component="11"/>
+      <tns:provides_port id="4417" name="mprojecexec-prov-app" id_component="11"/>
+      <tns:contract id="30">
+				<tns:uri>/home/jefferson/moex_data/mprojexec-contract.cc</tns:uri>
+	  </tns:contract>
+      <tns:task_port name="mprojexec-go" id="115" id_component="11">
+      		<tns:action id="1151" name="go"/>	
+      </tns:task_port>
+    </tns:computation>
+    
+    <tns:computation name="MAdd" id="4">
+      <tns:uses_port id="41" name="madd-tbl-port-uses" id_component="4"/>
+      <tns:uses_port id="42" name="madd-dir-port-uses" id_component="4"/>
+      <tns:uses_port id="43" name="madd-hdr-port-uses" id_component="4"/>
+      <tns:provides_port id="44" name="madd-fits-port-provides" id_component="4"/>
+      <tns:provides_port id="4418" name="madd-prov-app" id_component="4"/>
+      <tns:contract id="30">
+				<tns:uri>/home/jefferson/moex_data/madd-contract.cc</tns:uri>
+	  </tns:contract>
+      <tns:task_port name="madd-go" id="45" id_component="4">
+      		<tns:action id="451" name="go"/>	
+      </tns:task_port>
+    </tns:computation>
+    
+    <tns:computation name="MBgModel" id="5">
+      <tns:uses_port id="51" name="mbgmodel-tbl-port-uses-a" id_component="5"/>
+      <tns:uses_port id="52" name="mbgmodel-tbl-port-uses-b" id_component="5"/>
+      <tns:provides_port id="53" name="mbgmodel-tbl-port-provides" id_component="5"/>
+      <tns:provides_port id="4419" name="mbgmodel-prov-app" id_component="5"/>
+      <tns:contract id="30">
+				<tns:uri>/home/jefferson/moex_data/mbgmodel-contract.cc</tns:uri>
+	  </tns:contract>
+      <tns:task_port name="mbgmodel-go" id="54" id_component="5">
+      		<tns:action id="541" name="go"/>	
+      </tns:task_port>
+    </tns:computation>
+    
+    <tns:computation name="MBgExec" id="6">
+      <tns:uses_port id="61" name="mbgexec-go-tbl-port-uses-a" id_component="6"/>
+      <tns:uses_port id="62" name="mbgexec-go-dir-port-uses-in" id_component="6"/>
+      <tns:uses_port id="63" name="mbgexec-go-dir-port-uses-out" id_component="6"/>
+      <tns:uses_port id="64" name="mbgexec-go-tbl-port-uses-b" id_component="6"/>
+      <tns:provides_port id="4424" name="mbgexec-prov-app" id_component="6"/>
+      <tns:contract id="30">
+				<tns:uri>/home/jefferson/moex_data/mbgexec-contract.cc</tns:uri>
+	  </tns:contract>
+      <tns:task_port name="mbgexec-go" id="65" id_component="6">
+      		<tns:action id="651" name="go"/>	
+      </tns:task_port>
+    </tns:computation>
+    
+    <tns:computation name="MDiffExec" id="7">
+      <tns:uses_port id="71" name="mdiffexec-tbl-port-uses" id_component="7"/>
+      <tns:uses_port id="72" name="mdiffexec-dir-port-uses-in" id_component="7"/>
+      <tns:uses_port id="73" name="mdiffexec-dir-port-uses-out" id_component="7"/>
+      <tns:uses_port id="74" name="mdiffexec-hdr-port-uses" id_component="7"/>
+      <tns:provides_port id="4420" name="mdiffexec-prov-app" id_component="7"/>
+      <tns:contract id="30">
+				<tns:uri>/home/jefferson/moex_data/mdiffexec-contract.cc</tns:uri>
+	  </tns:contract>
+      <tns:task_port name="mdiffexec-go" id="75" id_component="7">
+      		<tns:action id="751" name="go"/>	
+      </tns:task_port>
+    </tns:computation>
+    
+    <tns:computation name="MFitExec" id="8">
+      <tns:uses_port id="81" name="mfitexec-tbl-port-uses" id_component="8"/>
+      <tns:uses_port id="82" name="mfitexec-dir-port-uses" id_component="8"/>
+      <tns:provides_port id="83" name="mfitexec-tbl-port-provides" id_component="8"/>
+      <tns:provides_port id="4421" name="mfitexec-prov-app" id_component="8"/>
+      <tns:contract id="30">
+				<tns:uri>/home/jefferson/moex_data/mfiexec-contract.cc</tns:uri>
+	  </tns:contract>
+      <tns:task_port name="mfitexec-go" id="84" id_component="8">
+      		<tns:action id="841" name="go"/>	
+      </tns:task_port>
+    </tns:computation>
+    
+    <tns:computation name="MOverlaps" id="9">
+      <tns:uses_port id="91" name="moverlaps-tbl-port-uses" id_component="9"/>
+      <tns:provides_port id="92" name="moverlaps-tbl-port-provides" id_component="9"/>
+      <tns:provides_port id="4422" name="moverlaps-prov-app" id_component="9"/>
+      <tns:contract id="30">
+				<tns:uri>/home/jefferson/moex_data/moverlaps-contract.cc</tns:uri>
+	  </tns:contract>
+      <tns:task_port name="moverlaps-go" id="93" id_component="9">
+      		<tns:action id="931" name="go"/>	
+      </tns:task_port>
+    </tns:computation>
+    
+    <tns:computation name="MJpeg" id="10">
+      <tns:uses_port id="101" name="mjpeg-fits-port-uses" id_component="10"/>
+      <tns:provides_port id="102" name="mjpeg-jpg-port-provides" id_component="10"/>
+      
+      <tns:contract id="30">
+				<tns:uri>/home/jefferson/moex_data/mjpeg-contract.cc</tns:uri>
+	  </tns:contract>
+      <tns:task_port name="mjpeg-go" id="103" id_component="10">
+      		<tns:action id="1031" name="go"/>	
+      </tns:task_port>
+    </tns:computation>
+   
+  </tns:body>
+  
+  
+  <!-- Application bindings -->
+  <tns:env_binding>
+  	<tns:uses_port id="3311" name="jpg-uses-app" id_component="0"/> 
+  	<tns:provides_port id="102" name="mjpeg-jpg-port-provides" id_component="10"/>
+  </tns:env_binding>
+  
+  <tns:env_binding>
+  	<tns:uses_port id="3312" name="rawdir-uses-app" id_component="0"/>
+  	<tns:provides_port id="4412" name="rawdir-prov-app" id_component="200"/>
+  </tns:env_binding>
+  
+  <tns:env_binding>
+  	<tns:uses_port id="3313" name="projdir-uses-app" id_component="0"/>
+  	<tns:provides_port id="4413" name="projdir-prov-app" id_component="201"/>
+  </tns:env_binding>
+  
+  <tns:env_binding>
+  	<tns:uses_port id="3314" name="diffdir-uses-app" id_component="0"/>
+  	<tns:provides_port id="4414" name="diffdir-prov-app" id_component="202"/>
+  </tns:env_binding>
+  
+  <tns:env_binding>
+  	<tns:uses_port id="3315" name="corrdir-uses-app" id_component="0"/>
+  	<tns:provides_port id="4415" name="corrdir-prov-app" id_component="203"/>
+  </tns:env_binding>
+  
+  <tns:env_binding>
+  	<tns:uses_port id="3316" name="mimgtbl-uses-app" id_component="0"/>
+  	<tns:provides_port id="4416" name="mimgtbl-prov-app" id_component="2"/>
+  </tns:env_binding>
+  
+  <tns:env_binding>
+  	<tns:uses_port id="3317" name="mprojecexec-uses-app" id_component="0"/>
+  	<tns:provides_port id="4417" name="mprojecexec-prov-app" id_component="11"/>
+  </tns:env_binding>
+  
+  <tns:env_binding>
+  	<tns:uses_port id="3318" name="madd-uses-app" id_component="0"/>
+  	<tns:provides_port id="4418" name="madd-prov-app" id_component="4"/>
+  </tns:env_binding>
+  
+  <tns:env_binding>
+  	<tns:uses_port id="3319" name="mbgmodel-uses-app" id_component="0"/>
+  	<tns:provides_port id="4419" name="mbgmodel-prov-app" id_component="5"/>
+  </tns:env_binding>
+  
+  <tns:env_binding>
+  	<tns:uses_port id="3324" name="mbgexec-uses-app" id_component="0"/>
+  	<tns:provides_port id="4424" name="mbgexec-prov-app" id_component="6"/>
+  </tns:env_binding>
+  
+  <tns:env_binding>
+  	<tns:uses_port id="3320" name="mdiffexec-uses-app" id_component="0"/>
+  	<tns:provides_port id="4420" name="mdiffexec-prov-app" id_component="7"/>
+  </tns:env_binding>
+  
+  <tns:env_binding>
+  	<tns:uses_port id="3321" name="mfitexec-uses-app" id_component="0"/>
+  	<tns:provides_port id="4421" name="mfitexec-prov-app" id_component="8"/>
+  </tns:env_binding>
+  
+  <tns:env_binding>
+  	<tns:uses_port id="3322" name="moverlaps-uses-app" id_component="0"/>
+  	<tns:provides_port id="4422" name="moverlaps-prov-app" id_component="9"/>
+  </tns:env_binding>
+  
+  
+  
+  <!-- mImgtbl bindings -->
+  <tns:env_binding>
+  	<tns:uses_port id="31" name="mimgtbl-raw-dir-port-uses" id_component="2"/> 
+  	<tns:provides_port id="2001" name="raw-dir-port" id_component="200"/>
+  </tns:env_binding>
+  <tns:env_binding>
+  	<tns:uses_port id="32" name="mimgtbl-proj-dir-port-uses" id_component="2"/> 
+  	<tns:provides_port id="2011" name="proj-dir-port" id_component="201"/>
+  </tns:env_binding>
+  
+  <!-- mProjExec bindings -->
+  <tns:env_binding>
+  	<tns:uses_port id="111" name="mprojexec-tbl-port-uses" id_component="11"/> 
+  	<tns:provides_port id="33" name="mimgtbl-tbl-port-provides" id_component="2"/>
+  </tns:env_binding>
+  <tns:env_binding>
+  	<tns:uses_port id="112" name="mprojexec-dir-port-uses-in" id_component="11"/> 
+  	<tns:provides_port id="2001" name="raw-dir-port" id_component="200"/>
+  </tns:env_binding>
+  <tns:env_binding>
+  	<tns:uses_port id="113" name="mprojexec-dir-port-uses-out" id_component="11"/> 
+  	<tns:provides_port id="2011" name="proj-dir-port" id_component="201"/>
+  </tns:env_binding>
+  <tns:env_binding>
+  	<tns:uses_port id="114" name="mprojexec-hdr-port-uses" id_component="11"/> 
+  	<tns:provides_port id="12" name="tmpl-hdr-prov" id_component="0"/>
+  </tns:env_binding>
+  
+  <!-- mOverlaps bindings --> 
+  <tns:env_binding>
+  	<tns:uses_port id="91" name="moverlaps-tbl-port-uses" id_component="9"/> 
+  	<tns:provides_port id="33" name="mimgtbl-tbl-port-provides" id_component="2"/>
+  </tns:env_binding>
+  
+  <!-- mDiffExec bindings -->
+  <tns:env_binding>
+  	<tns:uses_port id="71" name="mdiffexec-tbl-port-uses" id_component="7"/> 
+  	<tns:provides_port id="92" name="moverlaps-tbl-port-provides" id_component="9"/>
+  </tns:env_binding>
+  <tns:env_binding>
+  	<tns:uses_port id="72" name="mdiffexec-dir-port-uses-in" id_component="7"/> 
+  	<tns:provides_port id="2011" name="proj-dir-port" id_component="201"/>
+  </tns:env_binding>
+  <tns:env_binding>
+  	<tns:uses_port id="73" name="mdiffexec-dir-port-uses-out" id_component="7"/> 
+  	<tns:provides_port id="2021" name="diff-dir-port" id_component="202"/>
+  </tns:env_binding>
+  <tns:env_binding>
+  	<tns:uses_port id="74" name="mdiffexec-hdr-port-uses" id_component="7"/> 
+  	<tns:provides_port id="12" name="tmpl-hdr-prov" id_component="0"/>
+  </tns:env_binding>
+  
+  <!-- mFitExec bindings -->
+  <tns:env_binding>
+  	<tns:uses_port id="81" name="mfitexec-tbl-port-uses" id_component="8"/> 
+  	<tns:provides_port id="92" name="moverlaps-tbl-port-provides" id_component="9"/>
+  </tns:env_binding>
+  <tns:env_binding>
+  	<tns:uses_port id="82" name="mfitexec-dir-port-uses" id_component="8"/> 
+  	<tns:provides_port id="2021" name="diff-dir-port" id_component="202"/>
+  </tns:env_binding>
+  
+  <!-- mBgModel bindings -->
+  <tns:env_binding>
+  	<tns:uses_port id="51" name="mbgmodel-tbl-port-uses-a" id_component="5"/> 
+  	<tns:provides_port id="33" name="mimgtbl-tbl-port-provides" id_component="2"/>
+  </tns:env_binding>
+  <tns:env_binding>
+  	<tns:uses_port id="52" name="mbgmodel-tbl-port-uses-b" id_component="5"/> 
+  	<tns:provides_port id="83" name="mfitexec-tbl-port-provides" id_component="8"/>
+  </tns:env_binding>
+  
+  <!-- mBgExec bindings -->
+  <tns:env_binding>
+  	<tns:uses_port id="61" name="mbgexec-go-tbl-port-uses-a" id_component="6"/> 
+  	<tns:provides_port id="33" name="mimgtbl-tbl-port-provides" id_component="2"/>
+  </tns:env_binding>
+  <tns:env_binding>
+  	<tns:uses_port id="62" name="mbgexec-go-dir-port-uses-in" id_component="6"/> 
+  	<tns:provides_port id="2021" name="diff-dir-port" id_component="202"/>
+  </tns:env_binding>
+  <tns:env_binding>
+  	<tns:uses_port id="63" name="mbgexec-go-dir-port-uses-out" id_component="6"/> 
+  	<tns:provides_port id="2031" name="corr-dir-port" id_component="203"/>
+  </tns:env_binding>
+  <tns:env_binding>
+  	<tns:uses_port id="64" name="mbgexec-go-tbl-port-uses-b" id_component="6"/> 
+  	<tns:provides_port id="53" name="mbgmodel-tbl-port-provides" id_component="5"/>
+  </tns:env_binding>
+  
+  <!-- mAdd bindings -->
+  <tns:env_binding>
+  	<tns:uses_port id="41" name="madd-tbl-port-uses" id_component="4"/> 
+  	<tns:provides_port id="33" name="mimgtbl-tbl-port-provides" id_component="2"/>
+  </tns:env_binding>
+  <tns:env_binding>
+  	<tns:uses_port id="42" name="madd-dir-port-uses" id_component="4"/> 
+  	<tns:provides_port id="2031" name="corr-dir-port" id_component="203"/>
+  </tns:env_binding>
+  <tns:env_binding>
+  	<tns:uses_port id="43" name="madd-hdr-port-uses" id_component="4"/> 
+  	<tns:provides_port id="12" name="tmpl-hdr-prov" id_component="0"/>
+  </tns:env_binding>
+  
+  <!-- mJpeg bindings --> 
+  <tns:env_binding>
+  	<tns:uses_port id="101" name="mjpeg-fits-port-uses" id_component="10"/> 
+  	<tns:provides_port id="44" name="madd-fits-port-provides" id_component="4"/>
+  </tns:env_binding>
+ 
+ 
+  
+  	 
+  
+  <!-- TASK bindings -->
+  <tns:task_binding>
+  	<tns:left_peer id="23" name="wf-mimgtbl-tsk" id_component="1"/>
+  	<tns:right_peer name="mimgtbl-go" id="34" id_component="2"/>
+  </tns:task_binding>
+  <tns:task_binding>
+  	<tns:left_peer id="24" name="wf-mprojexec-tsk" id_component="1"/>
+  	<tns:right_peer name="mprojexec-go" id="115" id_component="11"/>
+  </tns:task_binding>
+  <tns:task_binding>
+  	<tns:left_peer id="25" name="wf-madd-tsk" id_component="1"/>
+  	<tns:right_peer name="madd-go" id="45" id_component="4"/>
+  </tns:task_binding>
+  <tns:task_binding>
+  	<tns:left_peer id="26" name="wf-mbgmodel-tsk" id_component="1"/>
+  	<tns:right_peer name="mbgmodel-go" id="54" id_component="5"/>
+  </tns:task_binding>
+  <tns:task_binding>
+  	<tns:left_peer id="27" name="wf-mbgexec-tsk" id_component="1"/>
+  	<tns:right_peer name="mbgexec-go" id="65" id_component="6"/>
+  </tns:task_binding>
+  <tns:task_binding>
+  	<tns:left_peer id="28" name="wf-mdiffexec-tsk" id_component="1"/>
+  	<tns:right_peer name="mdiffexec-go" id="75" id_component="7"/>
+  </tns:task_binding>
+  <tns:task_binding>
+  	<tns:left_peer id="29" name="wf-mfitexec-tsk" id_component="1"/>
+  	<tns:right_peer name="mfitexec-go" id="84" id_component="8"/>
+  </tns:task_binding>
+  <tns:task_binding>
+  	<tns:left_peer id="30" name="wf-moverlaps-tsk" id_component="1"/>
+  	<tns:right_peer name="moverlaps-go" id="93" id_component="9"/>
+  </tns:task_binding>
+  <tns:task_binding>
+  	<tns:left_peer id="31" name="wf-mjpeg-tsk" id_component="1"/>
+  	<tns:right_peer name="mjpeg-go" id="103" id_component="10"/>
+  </tns:task_binding>
+   
+ 
+  
+</tns:architecture>

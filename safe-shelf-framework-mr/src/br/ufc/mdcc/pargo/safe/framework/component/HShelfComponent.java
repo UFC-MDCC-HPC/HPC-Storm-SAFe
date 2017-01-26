@@ -66,7 +66,8 @@ public abstract class HShelfComponent {
 			
 			/*5 - ATUALIZA, PARA O CORE, A LISTA ORDENADA DE COMPONENTES PASSANDO O VALORATION SET*/
 			HShelfWorkflowServicesProvidesPort providesPort = (HShelfWorkflowServicesProvidesPort)this.services.getConnectedProvidesPort(this.workflowServicesUsesPort.getName());
-			providesPort.setComponentList(this.valorationSet);
+			//providesPort.setComponentList(this.valorationSet);
+			providesPort.setComponentList(""); //TODO AJEITAR
 			
 		} catch (HShelfException e) {
 			

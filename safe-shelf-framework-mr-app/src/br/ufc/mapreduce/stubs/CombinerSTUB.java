@@ -1,14 +1,14 @@
 package br.ufc.mapreduce.stubs;
 
 import br.ufc.mapreduce.stubs.ports.env.MRStubProvidesPort;
+import br.ufc.mapreduce.stubs.ports.tsk.MRStubTaskPort;
 import br.ufc.mdcc.pargo.safe.framework.component.HShelfComponent;
 import br.ufc.mdcc.pargo.safe.framework.exception.HShelfException;
-import br.ufc.mdcc.pargo.safe.framework.port.HShelfTaskPort;
 import br.ufc.mdcc.pargo.safe.framework.services.IHShelfService;
 
 public class CombinerSTUB extends HShelfComponent{
 
-	private HShelfTaskPort taskChunk;
+	private MRStubTaskPort taskChunk;
 	 
 
 	
@@ -16,7 +16,7 @@ public class CombinerSTUB extends HShelfComponent{
 	public void setServices(IHShelfService services) {
 		this.services = services;
 		
-		this.taskChunk = new HShelfTaskPort();
+		this.taskChunk = new MRStubTaskPort();
 		this.taskChunk.setName("combiner-task-chunk");
 		
 		try {

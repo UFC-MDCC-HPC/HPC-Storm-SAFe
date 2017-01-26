@@ -1,8 +1,8 @@
 package br.ufc.mapreduce.swing.proxies;
 
-import br.ufc.mapreduce.ports.env.MRPort;
-import br.ufc.mapreduce.ports.tsk.TaskChunk;
-import br.ufc.mapreduce.ports.tsk.TaskSourceSink;
+import br.ufc.mapreduce.swing.ports.env.MRPort;
+import br.ufc.mapreduce.swing.ports.tsk.TaskChunk;
+import br.ufc.mapreduce.swing.ports.tsk.TaskSourceSink;
 import br.ufc.mdcc.pargo.safe.framework.component.HShelfComponent;
 import br.ufc.mdcc.pargo.safe.framework.exception.HShelfException;
 import br.ufc.mdcc.pargo.safe.framework.port.HShelfUsesPort;
