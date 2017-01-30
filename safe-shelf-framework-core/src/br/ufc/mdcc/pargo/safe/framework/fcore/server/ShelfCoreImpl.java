@@ -16,6 +16,21 @@ public class ShelfCoreImpl implements IShelfCore{
 		this.databaseMap.put("shuffler", "shuffler-param-values");
 		this.databaseMap.put("reducer", "reducer-param-values");
 		this.databaseMap.put("combiner", "combiner-param-values");
+		
+		this.databaseMap.put("combiner", "combiner-param-values");
+		this.databaseMap.put("corrdir", "corrdir-param-values");
+		this.databaseMap.put("diffdir", "diffdir-param-values");
+		this.databaseMap.put("madd", "madd-param-values");
+		this.databaseMap.put("mbgexec", "mbgexec-param-values");
+		this.databaseMap.put("mbgmodel", "mbgmodel-param-values");
+		this.databaseMap.put("mdiffexec", "mdiffexec-param-values");
+		this.databaseMap.put("mfitexec", "mfitexec-param-values");
+		this.databaseMap.put("mimgtbl", "mimgtbl-param-values");
+		this.databaseMap.put("mjpeg", "mjpeg-param-values");
+		this.databaseMap.put("moverlaps", "moverlaps-param-values");
+		this.databaseMap.put("mprojexec", "mprojexec-param-values");
+		this.databaseMap.put("projdir", "projdir-param-values");
+		this.databaseMap.put("rawdir", "rawdir-param-values");
 	}
 	
 	@Override

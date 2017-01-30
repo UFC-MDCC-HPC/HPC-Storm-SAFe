@@ -7,14 +7,14 @@ import br.ufc.montage.ports.env.MontageProvidesPort;
 
 public class DiffDirSTUB extends HShelfComponent{
 
-	private MontageProvidesPort provides_dir;
+	private MontageProvidesPort diffdir_prov_app;
 	@Override
 	public void setServices(IHShelfService services) {
 		this.services = services;
-		this.provides_dir = new MontageProvidesPort();
-		provides_dir.setName("diff-dir-port");
+		this.diffdir_prov_app = new MontageProvidesPort();
+		diffdir_prov_app.setName("diffdir-prov-app");
 		try {
-			services.setProvidesPort(provides_dir);
+			services.setProvidesPort(this.diffdir_prov_app);
 		} catch (HShelfException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

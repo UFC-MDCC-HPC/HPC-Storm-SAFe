@@ -6,18 +6,17 @@ import br.ufc.mdcc.pargo.safe.framework.services.IHShelfService;
 import br.ufc.montage.ports.env.MontageProvidesPort;
 import br.ufc.montage.ports.tsk.MontageTaskPort;
 
-public class MBgExecSTUB extends HShelfComponent{
-	private MontageProvidesPort mbgexec_prov_app;
+public class MBgModelSTUB extends HShelfComponent{
+	private MontageProvidesPort mbgmodel_prov_app;
 	private MontageTaskPort go;
-
 	@Override
 	public void setServices(IHShelfService services) {
 		this.services = services;
-		this.mbgexec_prov_app = new MontageProvidesPort();
-		mbgexec_prov_app.setName("mbgexec-prov-app");
+		this.mbgmodel_prov_app = new MontageProvidesPort();
+		mbgmodel_prov_app.setName("mbgmodel-prov-app");
 		
 		this.go = new MontageTaskPort();
-		this.go.setName("mbgexec-go");
+		this.go.setName("mbgmodel-go");
 		try {
 			this.services.registerTaskPort(this.go);
 		} catch (HShelfException e1) {
@@ -26,10 +25,12 @@ public class MBgExecSTUB extends HShelfComponent{
 		};
 		
 		try {
-			services.setProvidesPort(mbgexec_prov_app);
+			services.setProvidesPort(mbgmodel_prov_app);
 		} catch (HShelfException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
+	 
 }
+

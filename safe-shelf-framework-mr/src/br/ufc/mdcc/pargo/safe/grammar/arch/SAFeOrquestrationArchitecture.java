@@ -294,6 +294,7 @@ public class SAFeOrquestrationArchitecture {
 			for(ArchEnvBinding env:this.attachmentEnvList){
 				ArchUses uses = env.getUses();
 				if(uses.getName().equals(usesPortName))
+					
 					return env.getProvides().getName();
 			}
 			

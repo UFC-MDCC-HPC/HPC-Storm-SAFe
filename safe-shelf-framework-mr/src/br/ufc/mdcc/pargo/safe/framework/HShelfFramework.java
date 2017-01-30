@@ -238,7 +238,7 @@ public class HShelfFramework extends HShelfBuilderService {
 
 	@Override
 	public void connect(String usesPortName, String providesPortName) {
-
+		 
 		if (usesPortName.startsWith(HShelfWorkflow.SAFE_WORKFLOW_SWL_PORT)
 				|| usesPortName.startsWith(HShelfWorkflow.SAFE_WORKFLOW_GO_PORT)
 				|| usesPortName.startsWith(HShelfWorkflow.SAFE_WORKFLOW_EVENT_PORT)) {
@@ -300,6 +300,8 @@ public class HShelfFramework extends HShelfBuilderService {
 		HShelfTaskPort taskPortA = this.getTaskPort(taskA);
 		if(taskPortA!=null && !taskPortA.isConnected()){
 			HShelfTaskPort taskPortB = this.getTaskPort(taskB);
+			//System.out.println("===>"+taskA);
+			//System.out.println("===>"+taskB);
 			taskPortA.setPartner(taskPortB);
 			taskPortB.setPartner(taskPortA);
 		}

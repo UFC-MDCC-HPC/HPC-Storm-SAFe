@@ -335,9 +335,11 @@ public class HShelfWorkflow extends HShelfComponent {
 		
 		for(ArchUses usesPort: archComponent.getUsesList()){
 			
-			
-			
 			String providesPortName = this.archParser.getProvidesPortNameByUsesPortName(usesPort.getName());
+			
+			
+			
+			
 			this.framework.connect(usesPort.getName(),providesPortName);
 			this.sendMessageToApp(usesPort.getName(), HShelfEventType.Port_Connected);
 		}

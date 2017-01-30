@@ -7,14 +7,14 @@ import br.ufc.montage.ports.env.MontageProvidesPort;
 
 public class CorrDirSTUB extends HShelfComponent{
 
-	private MontageProvidesPort provides_dir;
+	private MontageProvidesPort corrdir_prov_app;
 	@Override
 	public void setServices(IHShelfService services) {
 		this.services = services;
-		this.provides_dir = new MontageProvidesPort();
-		provides_dir.setName("corr-dir-port");
+		this.corrdir_prov_app = new MontageProvidesPort();
+		corrdir_prov_app.setName("corrdir-prov-app");
 		try {
-			services.setProvidesPort(provides_dir);
+			services.setProvidesPort(corrdir_prov_app);
 		} catch (HShelfException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

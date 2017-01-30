@@ -70,12 +70,12 @@ public class MRApplicationNovo extends HShelfApplication{
 			this.getFramework().connectAllEnvironmentPorts();
 			
 			//RUN WORKFLOW
-			Thread t = new Thread(){
+			/*Thread t = new Thread(){
 				public void run() {
 					goPort.go();
 				};
 			};
-			t.start();
+			t.start();*/
 			
 			//TESTING uses->provides from application
 			/*MRStubProvidesPort splitter = (MRStubProvidesPort)this.services.getConnectedProvidesPort("port-A-splitter-uses");
