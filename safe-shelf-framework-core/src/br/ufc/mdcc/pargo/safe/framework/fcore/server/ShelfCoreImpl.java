@@ -16,6 +16,11 @@ public class ShelfCoreImpl implements IShelfCore{
 		this.databaseMap.put("shuffler", "shuffler-param-values");
 		this.databaseMap.put("reducer", "reducer-param-values");
 		this.databaseMap.put("combiner", "combiner-param-values");
+		this.databaseMap.put("cluster_a", "cluster_a-param-values");
+		this.databaseMap.put("datasource", "datasource_a-param-values");
+		this.databaseMap.put("datasink", "datasink-param-values");
+		
+		
 		
 		this.databaseMap.put("combiner", "combiner-param-values");
 		this.databaseMap.put("corrdir", "corrdir-param-values");
@@ -41,13 +46,13 @@ public class ShelfCoreImpl implements IShelfCore{
 	}
 
 	@Override
-	public String deploy(String safeSWLCode, String componentReference) {
+	public String deploy(String wsession, String componentReference) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public String instantiate(String wsession, String reference) {
+	public String instantiate(String wsession, String componentReference) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -67,7 +72,7 @@ public class ShelfCoreImpl implements IShelfCore{
 
 	@Override
 	public void setComponentList(String componentList) {
-		// TODO Auto-generated method stub
+		System.out.println("setComponentList: "+componentList);
 		
 	}
 

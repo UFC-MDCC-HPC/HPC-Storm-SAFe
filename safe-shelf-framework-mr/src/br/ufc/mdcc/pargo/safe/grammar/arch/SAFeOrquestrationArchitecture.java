@@ -43,6 +43,7 @@ public class SAFeOrquestrationArchitecture {
 		public static final String PLATFORM = "platform";
 		public static final String CONNECTOR = "connector";
 		public static final String REPOSITORY = "repository";
+		public static final String DUMMY = "dummy";
 		
 		public static final String ENV_PORTS = "env_ports";
 		public static final String TASK_PORTS = "task_ports";

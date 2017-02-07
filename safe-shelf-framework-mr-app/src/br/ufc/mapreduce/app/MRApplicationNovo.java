@@ -70,15 +70,15 @@ public class MRApplicationNovo extends HShelfApplication{
 			this.getFramework().connectAllEnvironmentPorts();
 			
 			//RUN WORKFLOW
-			/*Thread t = new Thread(){
+			Thread t = new Thread(){
 				public void run() {
 					goPort.go();
 				};
 			};
-			t.start();*/
+			t.start();
 			
 			//TESTING uses->provides from application
-			/*MRStubProvidesPort splitter = (MRStubProvidesPort)this.services.getConnectedProvidesPort("port-A-splitter-uses");
+			MRStubProvidesPort splitter = (MRStubProvidesPort)this.services.getConnectedProvidesPort("port-A-splitter-uses");
 			MRStubProvidesPort mapper = (MRStubProvidesPort)this.services.getConnectedProvidesPort("port-A-mapper-uses");
 			MRStubProvidesPort combiner = (MRStubProvidesPort)this.services.getConnectedProvidesPort("port-A-combiner-uses");
 			MRStubProvidesPort shuffler = (MRStubProvidesPort)this.services.getConnectedProvidesPort("port-A-shuffler-uses");
@@ -92,7 +92,7 @@ public class MRApplicationNovo extends HShelfApplication{
 			shuffler.invoke("TESTE-SHUFFLER " + shuffler.getName());
 			reducer.invoke("TESTE-REDUCER " + reducer.getName());
 			sink.invoke("TESTE-SINK " + sink.getName());
-			source.invoke("TESTE-SOURCE " + source.getName());*/
+			source.invoke("TESTE-SOURCE " + source.getName());
 			
 			
 			
@@ -107,13 +107,12 @@ public class MRApplicationNovo extends HShelfApplication{
 		HShelfConsoleLogger.write("CALLING SELECTION METHOD - APPLICATION SIDE");
 		int n = JOptionPane.showConfirmDialog(null, "SELECT VALORATION SET FOR: "+objects.toString()
 				,"TÍTULO",JOptionPane.YES_NO_OPTION);
+		String res = "";
 		if(n==JOptionPane.YES_OPTION){
-			
-		}else{
-			//nothing
+			res = objects.toString() + "-VALORATION";
 		}
 		
-		return objects;
+		return res;
 	}
 	
 	public static void main(String[] args) {

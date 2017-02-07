@@ -33,11 +33,10 @@ import br.ufc.mdcc.pargo.safe.grammar.util.FileUtil;
 
 public class HShelfWorkflow extends HShelfComponent {
 
-	//default port names
+	// default port names
 	public static final String SAFE_WORKFLOW_SWL_PORT = "port_SAFeSWL";
 	public static final String SAFE_WORKFLOW_GO_PORT = "port_Go";
 	public static final String SAFE_WORKFLOW_EVENT_PORT = "port_Event";
-	
 
 	// ports
 	private HShelfProvidesPort safeSWLPort;
@@ -46,16 +45,14 @@ public class HShelfWorkflow extends HShelfComponent {
 
 	// util refs
 	private HShelfFramework framework;
-	 
 
 	// language
 	private ISAFeSWLArcherParser archParser;
 	private ISAFeSWLFlowParser flowParser;
 	private HShelfWorkflowFacade workflowFacade;
-	
-	//session manipulator
-	private HShelfWorkflowSession workflowSession;
 
+	// session manipulator
+	private HShelfWorkflowSession workflowSession;
 
 	public HShelfWorkflow(String name, HShelfFramework framework) {
 		HShelfConsoleLogger.write("Creating HShelfWorkflow");
@@ -82,11 +79,7 @@ public class HShelfWorkflow extends HShelfComponent {
 			safeWorkflowEventPort
 					.setName(HShelfWorkflow.SAFE_WORKFLOW_EVENT_PORT);
 			this.services.setProvidesPort(safeWorkflowEventPort);
-			 
-			
-			
-			
-			
+
 		} catch (HShelfException e) {
 
 			e.printStackTrace();
@@ -97,16 +90,16 @@ public class HShelfWorkflow extends HShelfComponent {
 	 * loads architecture file.
 	 */
 	public synchronized void loadArchitectureFile() {
-		
+
 		HShelfWorkflowServicesProvidesPort workfloweServicesProvidesPort = null;
 		try {
-			workfloweServicesProvidesPort = (HShelfWorkflowServicesProvidesPort)this.services.getConnectedProvidesPort(HShelfCoreComponent.WORKFLOW_SERVICES_USE);
+			workfloweServicesProvidesPort = (HShelfWorkflowServicesProvidesPort) this.services
+					.getConnectedProvidesPort(HShelfCoreComponent.WORKFLOW_SERVICES_USE);
 		} catch (HShelfException e1) {
-			 
+
 			e1.printStackTrace();
 		}
-		
-		
+
 		this.archParser = null;
 		String filePath = ((HShelfSAFeSWLPort) safeSWLPort)
 				.getSAFeSWLArchFilePath();
@@ -115,31 +108,34 @@ public class HShelfWorkflow extends HShelfComponent {
 			HShelfConsoleLogger.write("Architecture file loaded");
 			this.sendMessageToApp("Architecture file loaded",
 					HShelfEventType.Message);
-			
-			/*A-1 : inicia uma sessão, passando como argumento o código SAFeSWL 
-			 * Arquitetural e recebendo como resultado um manipulador de sessão.*/
+
+			/*
+			 * A-1 : inicia uma sessão, passando como argumento o código SAFeSWL
+			 * Arquitetural e recebendo como resultado um manipulador de sessão.
+			 */
 			String SAFESWLContent = FileUtil.readFileAsString(filePath);
-			this.workflowSession =  (HShelfWorkflowSession)workfloweServicesProvidesPort.openWorkflowSession(SAFESWLContent);
+			this.workflowSession = (HShelfWorkflowSession) workfloweServicesProvidesPort
+					.openWorkflowSession(SAFESWLContent);
 		}
-		
-		if(this.services!=null){
+
+		if (this.services != null) {
 			ArchWorkflow archWorkflow = this.archParser.getArchWorkflow();
-			for(ArchTask task:archWorkflow.getTaskList()){
+			for (ArchTask task : archWorkflow.getTaskList()) {
 				HShelfTaskPort taskPort = new HShelfTaskPort();
 				taskPort.setName(task.getName());
-				//HShelfConsoleLogger.write("TASK-NAME: " + task.getName());
+				// HShelfConsoleLogger.write("TASK-NAME: " + task.getName());
 				try {
 					this.services.registerTaskPort(taskPort);
 				} catch (HShelfException e) {
-					 
+
 					e.printStackTrace();
 				}
 			}
 		}
-		
-		if(this.archParser!=null){
+
+		if (this.archParser != null) {
 			List<ArchComponent> components = this.archParser.getComponents();
-			for(ArchComponent cmp: components){
+			for (ArchComponent cmp : components) {
 				this.createComponentProxie(cmp);
 			}
 		}
@@ -176,98 +172,112 @@ public class HShelfWorkflow extends HShelfComponent {
 			HShelfConsoleLogger.write("**WORKFLOW READING ENDED**");
 			this.sendMessageToApp("**WORKFLOW READING ENDED**",
 					HShelfEventType.Message);
-			
-			/*A-3 : finalizar uma sessão, após o final da execução do workflow*/
+
+			/* A-3 : finalizar uma sessão, após o final da execução do workflow */
 			HShelfWorkflowServicesProvidesPort workfloweServicesProvidesPort = null;
 			try {
-				workfloweServicesProvidesPort = (HShelfWorkflowServicesProvidesPort)
-						this.services.getConnectedProvidesPort(HShelfCoreComponent.WORKFLOW_SERVICES_USE);
+				workfloweServicesProvidesPort = (HShelfWorkflowServicesProvidesPort) this.services
+						.getConnectedProvidesPort(HShelfCoreComponent.WORKFLOW_SERVICES_USE);
 			} catch (HShelfException e1) {
-				 
+
 				e1.printStackTrace();
 			}
-			workfloweServicesProvidesPort.closeWorkflowSession(this.workflowSession.toString());
-			
+			workfloweServicesProvidesPort
+					.closeWorkflowSession(this.workflowSession.toString());
+
 		}
 
-	}
-
-	 	/**
-	 * Resolves a contract from a component
-	 * @param contract, represents the contract in XML
-	 * @param compID, represents the component ID for that contract
-	 */
-	public synchronized void resolve(String compID) {
-		ArchComponent archComponent = this.archParser.getArchComponentByID(Integer.parseInt(compID));
-		if(!archComponent.getKind().equals( SAFeOrquestrationArchitecture.REPOSITORY)){
-			try {
-				String compName = archComponent.getName();
-				HShelfTaskPort task = (HShelfTaskPort) this.services.getTaskPort("lyfe-cycle-"+compName+"-port");
-				if(task!=null){
-					HShelfLifeCyclePort lcPort = (HShelfLifeCyclePort)task;
-					lcPort.resolve();
-				}
-			} catch (HShelfException e) {
-				 
-				e.printStackTrace();
-			}
-		}
-		
-		 
 	}
 
 	/**
-	 * Deploys a component in the Back-end. An ordered list of candidates is sent to Core and he
-	 * send a message to deploy a component. A deployed id is saved.
+	 * Resolves a contract from a component
+	 * 
+	 * @param contract
+	 *            , represents the contract in XML
+	 * @param compID
+	 *            , represents the component ID for that contract
+	 */
+	public synchronized void resolve(String compID) {
+		ArchComponent archComponent = this.archParser
+				.getArchComponentByID(Integer.parseInt(compID));
+		if (!archComponent.getKind().equals(
+				SAFeOrquestrationArchitecture.DUMMY)) {
+			try {
+				String compName = archComponent.getName();
+				HShelfTaskPort task = (HShelfTaskPort) this.services
+						.getTaskPort("lyfe-cycle-" + compName + "-port");
+				if (task != null) {
+					HShelfLifeCyclePort lcPort = (HShelfLifeCyclePort) task;
+					lcPort.resolve();
+				}
+			} catch (HShelfException e) {
+
+				e.printStackTrace();
+			}
+		}
+
+	}
+
+	/**
+	 * Deploys a component in the Back-end. An ordered list of candidates is
+	 * sent to Core and he send a message to deploy a component. A deployed id
+	 * is saved.
+	 * 
 	 * @param compID
 	 */
 	public synchronized void deploy(String compID) {
-		
-		ArchComponent archComponent = this.archParser.getArchComponentByID(Integer.parseInt(compID));
-		if(!archComponent.getKind().equals( SAFeOrquestrationArchitecture.REPOSITORY)){
+
+		ArchComponent archComponent = this.archParser
+				.getArchComponentByID(Integer.parseInt(compID));
+		if (!archComponent.getKind().equals(
+				SAFeOrquestrationArchitecture.DUMMY)) {
 			try {
 				String compName = archComponent.getName();
-				HShelfTaskPort task = (HShelfTaskPort) this.services.getTaskPort("lyfe-cycle-"+compName+"-port");
-				if(task!=null){
-					HShelfLifeCyclePort lcPort = (HShelfLifeCyclePort)task;
+				HShelfTaskPort task = (HShelfTaskPort) this.services
+						.getTaskPort("lyfe-cycle-" + compName + "-port");
+				if (task != null) {
+					HShelfLifeCyclePort lcPort = (HShelfLifeCyclePort) task;
 					lcPort.deploy();
 				}
 			} catch (HShelfException e) {
-				 
+
 				e.printStackTrace();
 			}
 		}
-		 	}
+	}
 
 	public synchronized void instantiate(String compID) {
-		ArchComponent archComponent = this.archParser.getArchComponentByID(Integer.parseInt(compID));
-		if(!archComponent.getKind().equals( SAFeOrquestrationArchitecture.REPOSITORY)){
+		ArchComponent archComponent = this.archParser
+				.getArchComponentByID(Integer.parseInt(compID));
+		if (!archComponent.getKind().equals(
+				SAFeOrquestrationArchitecture.DUMMY)) {
 			try {
 				String compName = archComponent.getName();
-				HShelfTaskPort task = (HShelfTaskPort) this.services.getTaskPort("lyfe-cycle-"+compName+"-port");
-				if(task!=null){
-					HShelfLifeCyclePort lcPort = (HShelfLifeCyclePort)task;
+				HShelfTaskPort task = (HShelfTaskPort) this.services
+						.getTaskPort("lyfe-cycle-" + compName + "-port");
+				if (task != null) {
+					HShelfLifeCyclePort lcPort = (HShelfLifeCyclePort) task;
 					lcPort.instantiate();
 				}
 			} catch (HShelfException e) {
-				 
+
 				e.printStackTrace();
 			}
 		}
-		 
+
 	}
-	
-	private synchronized void createComponentProxie(ArchComponent archComponent){
-		
+
+	private synchronized void createComponentProxie(ArchComponent archComponent) {
+
 		HShelfWorkflowServicesProvidesPort workfloweServicesProvidesPort = null;
 		try {
-			workfloweServicesProvidesPort = (HShelfWorkflowServicesProvidesPort)
-					this.services.getConnectedProvidesPort(HShelfCoreComponent.WORKFLOW_SERVICES_USE);
+			workfloweServicesProvidesPort = (HShelfWorkflowServicesProvidesPort) this.services
+					.getConnectedProvidesPort(HShelfCoreComponent.WORKFLOW_SERVICES_USE);
 		} catch (HShelfException e1) {
-			 
+
 			e1.printStackTrace();
 		}
-		
+
 		if (archComponent != null) {
 			String compName = archComponent.getName();
 			String capCompName = compName.substring(0, 1).toUpperCase()
@@ -280,74 +290,75 @@ public class HShelfWorkflow extends HShelfComponent {
 			HShelfComponent newComponent = this.framework.createComponent(
 					compName, proxiePkgName + "." + capCompName
 							+ proxieClassName);
-			
+
 			this.framework.addComponent(newComponent);
 			this.sendMessageToApp(compName, HShelfEventType.Component_Added);
-			
-			
-			if(archComponent.getContract()!=null){
+
+			if (archComponent.getContract() != null) {
 				String filePath = ((HShelfSAFeSWLPort) safeSWLPort)
 						.getSAFeSWLArchFilePath();
-				
-				
+
 				newComponent.setSafeSWLPath(filePath);
 				newComponent.setKind(archComponent.getKind());
 				newComponent.setContract(archComponent.getContract().getUri());
-				
-				/*A-2 : resgistrar contrato para cada componente*/
-				workfloweServicesProvidesPort.registerContract(newComponent.getContract());
+
+				/* A-2 : resgistrar contrato para cada componente */
+				workfloweServicesProvidesPort.registerContract(newComponent
+						.getContract());
 			}
-			
-			
-			/*System.out.println("-->"+archComponent.getName());
-			for(ArchUses uses:archComponent.getUsesList())
-				System.out.println("---->"+uses.getName());
-			for(ArchProvides prov:archComponent.getProvidesList())
-				System.out.println("---->"+prov.getName());*/
-			
+
+			/*
+			 * System.out.println("-->"+archComponent.getName()); for(ArchUses
+			 * uses:archComponent.getUsesList())
+			 * System.out.println("---->"+uses.getName()); for(ArchProvides
+			 * prov:archComponent.getProvidesList())
+			 * System.out.println("---->"+prov.getName());
+			 */
+
 		}
-		
-		//workflow now need to connect its task ports
+
+		// workflow now need to connect its task ports
 		ArchWorkflow archWorkflow = this.archParser.getArchWorkflow();
-		for(ArchTask wfTask:archWorkflow.getTaskList()){
-			for(ArchTask cTask:archComponent.getTaskList()){
-				if(this.archParser.isThereTaskConnection(wfTask.getName(), cTask.getName())){
-					this.framework.connectPartners(wfTask.getName(), cTask.getName());
-					//HShelfConsoleLogger.write("TASK CONNECTED: " + wfTask.getName() + "<->" + cTask.getName());
+		for (ArchTask wfTask : archWorkflow.getTaskList()) {
+			for (ArchTask cTask : archComponent.getTaskList()) {
+				if (this.archParser.isThereTaskConnection(wfTask.getName(),
+						cTask.getName())) {
+					this.framework.connectPartners(wfTask.getName(),
+							cTask.getName());
+					// HShelfConsoleLogger.write("TASK CONNECTED: " +
+					// wfTask.getName() + "<->" + cTask.getName());
 				}
-					
+
 			}
 		}
 	}
-	
-	//connect env ports
-	public void connect(String compId){
-		
+
+	// connect env ports
+	public void connect(String compId) {
+
 		ArchComponent archComponent = null;
-		
-		if(compId.equals("0")){
+
+		if (compId.equals("0")) {
 			archComponent = this.archParser.getArchApplication();
-		}else
-			archComponent = this.archParser
-				.getArchComponentByID(Integer.parseInt(compId));
-		
-		 
-		
-		for(ArchUses usesPort: archComponent.getUsesList()){
-			
-			String providesPortName = this.archParser.getProvidesPortNameByUsesPortName(usesPort.getName());
-			
-			
-			
-			
-			this.framework.connect(usesPort.getName(),providesPortName);
-			this.sendMessageToApp(usesPort.getName(), HShelfEventType.Port_Connected);
+		} else
+			archComponent = this.archParser.getArchComponentByID(Integer
+					.parseInt(compId));
+
+		for (ArchUses usesPort : archComponent.getUsesList()) {
+
+			System.out.println("TESTE: " + usesPort.getName());
+			String providesPortName = this.archParser
+					.getProvidesPortNameByUsesPortName(usesPort.getName());
+
+			this.framework.connect(usesPort.getName(), providesPortName);
+			this.sendMessageToApp(usesPort.getName(),
+					HShelfEventType.Port_Connected);
 		}
 	}
-	
-	public void connectAllEnvironmentPorts(){
+
+	public void connectAllEnvironmentPorts() {
 		this.connect("0");
-		for(ArchComponent ac:this.archParser.getComponents()){
+		for (ArchComponent ac : this.archParser.getComponents()) {
 			this.connect(ac.getId().toString());
 		}
 	}
@@ -355,11 +366,12 @@ public class HShelfWorkflow extends HShelfComponent {
 	public synchronized Object compute(String method, String portName) {
 		try {
 
-			HShelfTaskPort port = (HShelfTaskPort)this.services.getTaskPort(portName);
-			
+			HShelfTaskPort port = (HShelfTaskPort) this.services
+					.getTaskPort(portName);
+
 			if (port != null && port.isConnected()) {
-				
-				//return HShelfReflectionUtil.invokeMethod(port, method, null);
+
+				// return HShelfReflectionUtil.invokeMethod(port, method, null);
 				port.invoke(method);
 
 			}
@@ -368,17 +380,19 @@ public class HShelfWorkflow extends HShelfComponent {
 		}
 		return null;
 	}
-	
-	public synchronized IHShelfActionFuture computeActionFuture(String method, String portName) {
+
+	public synchronized IHShelfActionFuture computeActionFuture(String method,
+			String portName) {
 		try {
 
-			HShelfTaskPort port = (HShelfTaskPort)this.services.getTaskPort(portName);
-			
+			HShelfTaskPort port = (HShelfTaskPort) this.services
+					.getTaskPort(portName);
+
 			if (port != null && port.isConnected()) {
-				
-				//return HShelfReflectionUtil.invokeMethod(port, method, null);
+
+				// return HShelfReflectionUtil.invokeMethod(port, method, null);
 				IHShelfActionFuture actionFuture = null;
-				port.invoke(method,actionFuture);
+				port.invoke(method, actionFuture);
 				actionFuture = new HShelfActionFutureImpl();
 				return actionFuture;
 
@@ -388,8 +402,6 @@ public class HShelfWorkflow extends HShelfComponent {
 		}
 		return null;
 	}
-	
-	
 
 	private void sendMessageToApp(String message, HShelfEventType eventType) {
 		if (safeWorkflowEventPort != null)

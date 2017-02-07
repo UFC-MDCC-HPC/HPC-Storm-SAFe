@@ -63,6 +63,7 @@ public class HShelfWorkflowServicesProvidesPort extends HShelfProvidesPort imple
 	@Override
 	public void setComponentList(String componentList) {
 		HShelfConsoleLogger.write("CORE SERVICES: setComponentList ");
+		coreClient.setComponentList(componentList);
 		
 	}
 	

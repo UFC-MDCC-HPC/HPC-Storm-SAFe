@@ -19,13 +19,13 @@ public class ShelfCoreClient{
 	}
 
 	
-	public String deploy(String safeSWLCode, String componentReference) {
-		return this.corePort.deploy(safeSWLCode, componentReference);
+	public String deploy(String wsession, String componentReference) {
+		return this.corePort.deploy(wsession, componentReference);
 	}
 
 	
-	public String instantiate(String wsession, String reference) {
-		return this.corePort.instantiate(wsession, reference);
+	public String instantiate(String wsession, String componentReference) {
+		return this.corePort.instantiate(wsession, componentReference);
 	}
 
 	
@@ -41,7 +41,7 @@ public class ShelfCoreClient{
 
 	
 	public void setComponentList(String componentList) {
-		this.setComponentList(componentList);
+		this.corePort.setComponentList(componentList);
 		
 	}
 

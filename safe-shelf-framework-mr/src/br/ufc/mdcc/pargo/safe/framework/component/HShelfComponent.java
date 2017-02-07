@@ -67,7 +67,7 @@ public abstract class HShelfComponent {
 			/*5 - ATUALIZA, PARA O CORE, A LISTA ORDENADA DE COMPONENTES PASSANDO O VALORATION SET*/
 			HShelfWorkflowServicesProvidesPort providesPort = (HShelfWorkflowServicesProvidesPort)this.services.getConnectedProvidesPort(this.workflowServicesUsesPort.getName());
 			//providesPort.setComponentList(this.valorationSet);
-			providesPort.setComponentList(""); //TODO AJEITAR
+			providesPort.setComponentList(this.valorationSet.toString()); //TODO AJEITAR
 			
 		} catch (HShelfException e) {
 			
@@ -102,6 +102,7 @@ public abstract class HShelfComponent {
 			
 			if(this.kind.equals(SAFeOrquestrationArchitecture.PLATFORM)){
 				/*C-1 : CHAMANDO O DEPLOY PASSANDO O WORKFLOW_SESSION E A REFERENCIA DESTE COMPONENTE*/
+				/*APENAS SE FOR DO TIPO PLATAFORMA*/
 				providesWorkflowPort.deploy(null, null);
 				
 			}else{

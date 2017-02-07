@@ -36,10 +36,16 @@
 
 		<tns:repository id="7" name="DataSink">
 			<tns:provides_port id="701" name="sink-provides"/>
+			<tns:contract id="30">
+				<tns:uri>/home/jefferson/moex_data/datasink-contract.cc</tns:uri>
+			</tns:contract>
 		</tns:repository>
 
 		<tns:repository id="8" name="DataSource">
 			<tns:provides_port id="801" name="source-provides"/>
+			<tns:contract id="30">
+				<tns:uri>/home/jefferson/moex_data/datasource-contract.cc</tns:uri>
+			</tns:contract>
 		</tns:repository>
 
 		<tns:connector id="3" name="Splitter">

@@ -1,4 +1,4 @@
-package br.ufc.montage.ports.app;
+package br.ufc.montage.app;
 
 import br.ufc.mdcc.pargo.safe.framework.application.HShelfApplication;
 import br.ufc.mdcc.pargo.safe.framework.exception.HShelfException;
@@ -20,7 +20,7 @@ public class M101Application extends HShelfApplication{
 	@Override
 	public Object selection(Object objects) {
 		// TODO Auto-generated method stub
-		return null;
+		return objects;
 	}
 
 	@Override
@@ -42,7 +42,7 @@ public class M101Application extends HShelfApplication{
 		//GO PORT
 		this.goPort = (HShelfGoPort)this.services.getConnectedProvidesPort(HShelfWorkflow.SAFE_WORKFLOW_GO_PORT);
 		this.goPort.loadArchitectureFile(); //as classes poderiam ser geradas nesse momento...
-		//this.goPort.loadWorkflowFile();
+		this.goPort.loadWorkflowFile();
 		
 		//REGISTER USES PORTS (APPLICATION SIDE)
 	 
@@ -66,6 +66,14 @@ public class M101Application extends HShelfApplication{
 		
 		//CONNECTING ENV PORTS (OBRIGATÓRIO)
 		this.getFramework().connectAllEnvironmentPorts();
+		
+		//RUN WORKFLOW
+		Thread t = new Thread(){
+			public void run() {
+				goPort.go();
+			};
+		};
+		t.start();
 
 	}
 	
