@@ -4,6 +4,17 @@
 	xsi:schemaLocation="http://www.example.org/SAFe_workflow_V4 SAFe_workflow_V4.xsd ">
 	<tns:sequence_oper>
 		
+		<!-- cluster a -->
+		<tns:operation>
+			<tns:invoke_oper action="resolve" id="5555" />
+		</tns:operation>
+		<tns:operation>
+			<tns:invoke_oper action="deploy" id="5555" />
+		</tns:operation>
+		<tns:operation>
+			<tns:invoke_oper action="instantiate" id="5555" />
+		</tns:operation>
+		
 		<!-- DataSink -->
 		<tns:operation>
 			<tns:invoke_oper action="resolve" id="7" />
@@ -26,16 +37,7 @@
 			<tns:invoke_oper action="instantiate" id="8" />
 		</tns:operation>
 		
-		<!-- cluster a -->
-		<tns:operation>
-			<tns:invoke_oper action="resolve" id="5555" />
-		</tns:operation>
-		<tns:operation>
-			<tns:invoke_oper action="deploy" id="5555" />
-		</tns:operation>
-		<tns:operation>
-			<tns:invoke_oper action="instantiate" id="5555" />
-		</tns:operation>
+		
 		
 		<!-- Shuffler -->
 		<tns:operation>

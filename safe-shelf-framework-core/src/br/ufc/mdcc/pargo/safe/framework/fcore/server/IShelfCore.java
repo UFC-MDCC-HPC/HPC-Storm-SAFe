@@ -6,6 +6,14 @@ import javax.jws.WebService;
 @WebService
 public interface IShelfCore {
 	
+	@WebMethod
+	public Object openWorkflowSession(String safeSWLCode);
+	@WebMethod
+	public void registerContract(String contract);
+	@WebMethod
+	public void closeWorkflowSession(String session);
+	
+	/**COMPONENTS**/
 	/**
 	 * 
 	 * @param contract of a component;

@@ -52,7 +52,8 @@ public class HShelfWorkflow extends HShelfComponent {
 	private HShelfWorkflowFacade workflowFacade;
 
 	// session manipulator
-	private HShelfWorkflowSession workflowSession;
+	//private HShelfWorkflowSession workflowSession;
+	private String workflowSession;
 
 	public HShelfWorkflow(String name, HShelfFramework framework) {
 		HShelfConsoleLogger.write("Creating HShelfWorkflow");
@@ -114,8 +115,8 @@ public class HShelfWorkflow extends HShelfComponent {
 			 * Arquitetural e recebendo como resultado um manipulador de sessão.
 			 */
 			String SAFESWLContent = FileUtil.readFileAsString(filePath);
-			this.workflowSession = (HShelfWorkflowSession) workfloweServicesProvidesPort
-					.openWorkflowSession(SAFESWLContent);
+			this.workflowSession =  workfloweServicesProvidesPort
+					.openWorkflowSession(SAFESWLContent).toString();
 		}
 
 		if (this.services != null) {
@@ -301,6 +302,7 @@ public class HShelfWorkflow extends HShelfComponent {
 				newComponent.setSafeSWLPath(filePath);
 				newComponent.setKind(archComponent.getKind());
 				newComponent.setContract(archComponent.getContract().getUri());
+				newComponent.setId(archComponent.getId());
 
 				/* A-2 : resgistrar contrato para cada componente */
 				workfloweServicesProvidesPort.registerContract(newComponent

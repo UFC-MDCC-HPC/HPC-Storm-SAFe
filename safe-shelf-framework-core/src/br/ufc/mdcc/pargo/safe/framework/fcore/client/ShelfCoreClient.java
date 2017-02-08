@@ -14,6 +14,18 @@ public class ShelfCoreClient{
 	}
 	
 	
+	public Object openWorkflowSession(String safeSWLCode){
+		return this.corePort.resolve(safeSWLCode);
+	}
+	
+	public void registerContract(String contract){
+		this.corePort.registerContract(contract);
+	}
+	
+	public void closeWorkflowSession(String session){
+		this.corePort.closeWorkflowSession(session);
+	}
+	
 	public String resolve(String contract) {
 		return this.corePort.resolve(contract);
 	}

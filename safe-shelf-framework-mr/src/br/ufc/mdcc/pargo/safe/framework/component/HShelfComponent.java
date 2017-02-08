@@ -11,6 +11,7 @@ import br.ufc.mdcc.pargo.safe.grammar.util.FileUtil;
 
 public abstract class HShelfComponent {
 
+	private int id;
 	private String name;
 	private String contractPath;
 	private String kind;
@@ -102,8 +103,8 @@ public abstract class HShelfComponent {
 			
 			if(this.kind.equals(SAFeOrquestrationArchitecture.PLATFORM)){
 				/*C-1 : CHAMANDO O DEPLOY PASSANDO O WORKFLOW_SESSION E A REFERENCIA DESTE COMPONENTE*/
-				/*APENAS SE FOR DO TIPO PLATAFORMA*/
-				providesWorkflowPort.deploy(null, null);
+				
+				providesWorkflowPort.deploy(null,this.id+"");
 				
 			}else{
 				
@@ -151,7 +152,7 @@ public abstract class HShelfComponent {
 			HShelfConsoleLogger.write("Calling INSTANTIATE from :"+this.getName()+", KIND: " + this.getKind());
 			//String safeSWLCode = FileUtil.readFileAsString(safeSWLPath);
 			/*D-1 : PASSA COMO ARGUMENTO O MANIPULADOR DE SESSÃO E A REFERENCIA DO COMPONENTENO CÓDIGO */
-			providesWorkflowPort.instantiate(null,null);
+			providesWorkflowPort.instantiate(null,this.id+"");
 		}
 		
 		
@@ -207,6 +208,10 @@ public abstract class HShelfComponent {
 	
 	public String getLifeCyclePortName(){
 		return "lyfe-cycle-"+this.getName()+"-port";
+	}
+	
+	public void setId(int id){
+		this.id = id;
 	}
 	
 	@Override

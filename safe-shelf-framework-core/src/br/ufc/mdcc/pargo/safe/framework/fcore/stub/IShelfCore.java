@@ -103,6 +103,45 @@ public interface IShelfCore {
      * 
      * @param arg0
      * @return
+     *     returns java.lang.Object
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "openWorkflowSession", targetNamespace = "http://server.fcore.framework.safe.pargo.mdcc.ufc.br/", className = "br.ufc.mdcc.pargo.safe.framework.fcore.stub.OpenWorkflowSession")
+    @ResponseWrapper(localName = "openWorkflowSessionResponse", targetNamespace = "http://server.fcore.framework.safe.pargo.mdcc.ufc.br/", className = "br.ufc.mdcc.pargo.safe.framework.fcore.stub.OpenWorkflowSessionResponse")
+    @Action(input = "http://server.fcore.framework.safe.pargo.mdcc.ufc.br/IShelfCore/openWorkflowSessionRequest", output = "http://server.fcore.framework.safe.pargo.mdcc.ufc.br/IShelfCore/openWorkflowSessionResponse")
+    public Object openWorkflowSession(
+        @WebParam(name = "arg0", targetNamespace = "")
+        String arg0);
+
+    /**
+     * 
+     * @param arg0
+     */
+    @WebMethod
+    @RequestWrapper(localName = "registerContract", targetNamespace = "http://server.fcore.framework.safe.pargo.mdcc.ufc.br/", className = "br.ufc.mdcc.pargo.safe.framework.fcore.stub.RegisterContract")
+    @ResponseWrapper(localName = "registerContractResponse", targetNamespace = "http://server.fcore.framework.safe.pargo.mdcc.ufc.br/", className = "br.ufc.mdcc.pargo.safe.framework.fcore.stub.RegisterContractResponse")
+    @Action(input = "http://server.fcore.framework.safe.pargo.mdcc.ufc.br/IShelfCore/registerContractRequest", output = "http://server.fcore.framework.safe.pargo.mdcc.ufc.br/IShelfCore/registerContractResponse")
+    public void registerContract(
+        @WebParam(name = "arg0", targetNamespace = "")
+        String arg0);
+
+    /**
+     * 
+     * @param arg0
+     */
+    @WebMethod
+    @RequestWrapper(localName = "closeWorkflowSession", targetNamespace = "http://server.fcore.framework.safe.pargo.mdcc.ufc.br/", className = "br.ufc.mdcc.pargo.safe.framework.fcore.stub.CloseWorkflowSession")
+    @ResponseWrapper(localName = "closeWorkflowSessionResponse", targetNamespace = "http://server.fcore.framework.safe.pargo.mdcc.ufc.br/", className = "br.ufc.mdcc.pargo.safe.framework.fcore.stub.CloseWorkflowSessionResponse")
+    @Action(input = "http://server.fcore.framework.safe.pargo.mdcc.ufc.br/IShelfCore/closeWorkflowSessionRequest", output = "http://server.fcore.framework.safe.pargo.mdcc.ufc.br/IShelfCore/closeWorkflowSessionResponse")
+    public void closeWorkflowSession(
+        @WebParam(name = "arg0", targetNamespace = "")
+        String arg0);
+
+    /**
+     * 
+     * @param arg0
+     * @return
      *     returns java.lang.String
      */
     @WebMethod
