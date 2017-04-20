@@ -10,21 +10,18 @@ import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
 
 import br.ufc.mdcc.pargo.safe.grammar.arch.ArchAction;
+import br.ufc.mdcc.pargo.safe.grammar.arch.ArchActionPort;
 import br.ufc.mdcc.pargo.safe.grammar.arch.ArchApplication;
-import br.ufc.mdcc.pargo.safe.grammar.arch.ArchBody;
+import br.ufc.mdcc.pargo.safe.grammar.arch.ArchBindingAction;
+import br.ufc.mdcc.pargo.safe.grammar.arch.ArchBindingService;
 import br.ufc.mdcc.pargo.safe.grammar.arch.ArchComponent;
-import br.ufc.mdcc.pargo.safe.grammar.arch.ArchComputation;
-import br.ufc.mdcc.pargo.safe.grammar.arch.ArchConnector;
 import br.ufc.mdcc.pargo.safe.grammar.arch.ArchContract;
-import br.ufc.mdcc.pargo.safe.grammar.arch.ArchEnvBinding;
-import br.ufc.mdcc.pargo.safe.grammar.arch.SAFeOrquestrationArchitecture;
-import br.ufc.mdcc.pargo.safe.grammar.arch.ArchPlatform;
-import br.ufc.mdcc.pargo.safe.grammar.arch.ArchProvides;
-import br.ufc.mdcc.pargo.safe.grammar.arch.ArchRepository;
-import br.ufc.mdcc.pargo.safe.grammar.arch.ArchTask;
-import br.ufc.mdcc.pargo.safe.grammar.arch.ArchTaskBinding;
-import br.ufc.mdcc.pargo.safe.grammar.arch.ArchUses;
+import br.ufc.mdcc.pargo.safe.grammar.arch.ArchPeer;
+import br.ufc.mdcc.pargo.safe.grammar.arch.ArchProviderPort;
+import br.ufc.mdcc.pargo.safe.grammar.arch.ArchSolution;
+import br.ufc.mdcc.pargo.safe.grammar.arch.ArchUserPort;
 import br.ufc.mdcc.pargo.safe.grammar.arch.ArchWorkflow;
+import br.ufc.mdcc.pargo.safe.grammar.arch.SAFeOrquestrationArchitecture;
 import br.ufc.mdcc.pargo.safe.grammar.arch.contract.ArchComponentFunctorApplicationType;
 import br.ufc.mdcc.pargo.safe.grammar.arch.contract.ArchContextArgumentType;
 import br.ufc.mdcc.pargo.safe.grammar.arch.contract.ArchFacetAddressType;
@@ -51,8 +48,6 @@ public class SAFeSWLArchParser implements ISAFeSWLArcherParser{
 			Document doc = builder.build(new File(fileName));
 
 			Element rootArch = doc.getRootElement();
-			this.architectureMain.setApplicationName(rootArch.getAttributeValue(SAFeOrquestrationArchitecture.APPLICATION_NAME));
-			
 			List<Element> children = rootArch.getChildren();
 			// reading root element
 			for (Element child : children) {
@@ -60,32 +55,27 @@ public class SAFeSWLArchParser implements ISAFeSWLArcherParser{
 
 				if (elementName.equalsIgnoreCase(SAFeOrquestrationArchitecture.APPLICATION)) {
 					ArchApplication archApp = this.architectureMain
-							.createArchApplication(child);
+							.createArchApplication();
 					this.readComponentPorts(child, archApp);
-					this.architectureMain.setArchApplication(archApp); 
+					this.architectureMain.setArchApplication(archApp);
 				} else if (elementName.equalsIgnoreCase(SAFeOrquestrationArchitecture.WORKFLOW)) {
 					ArchWorkflow archWorkflow = this.architectureMain
-							.createArchWorkflow(child);
+							.createArchWorkflow();
 					this.readComponentPorts(child, archWorkflow);
 					this.architectureMain.setArchWorkflow(archWorkflow);
-					// BODY
-				} else if (elementName.equalsIgnoreCase(SAFeOrquestrationArchitecture.BODY)) {
-					ArchBody body = this.architectureMain.createArchBody(child);
-					this.readArchBody(child, body);
-					this.architectureMain.setArchBody(body);
-					// BINDING
-				} else if (elementName.equalsIgnoreCase(SAFeOrquestrationArchitecture.ENV_BINDING)) {
-					
-					ArchEnvBinding att = this.architectureMain
-							.createArchEnvAttachement(child);
-					this.readEnvAttchment(child, att);
-					this.architectureMain.addArchEnvAttachment(att);
-				} else if (elementName.equalsIgnoreCase(SAFeOrquestrationArchitecture.TASK_BINDING)) {
+				} else if (elementName.equalsIgnoreCase(SAFeOrquestrationArchitecture.SOLUTION)) {
+					ArchSolution archSolution = this.architectureMain.createArchSolution();
+					this.readArchSolution(child, archSolution);
+					this.architectureMain.setArchSolution(archSolution);
+				} else if (elementName.equalsIgnoreCase(SAFeOrquestrationArchitecture.SERVICE_BINDING)) {
+					ArchBindingService bindingService = this.architectureMain.createArchBindingService();
+					this.readServiceBinding(child, bindingService);
+					this.architectureMain.addBindingService(bindingService);
+				} else if (elementName.equalsIgnoreCase(SAFeOrquestrationArchitecture.ACTION_BINDING)) {
 					 
-					ArchTaskBinding att = this.architectureMain
-							.createArchTaskAttachement(child);
-					this.readTaskAttchment(child, att);
-					this.architectureMain.addArchTaskAttachment(att);
+					ArchBindingAction archBidingAction = this.architectureMain.createArchBindingAction();
+					this.readActionBinding(child, archBidingAction);
+					this.architectureMain.setBindingAction(archBidingAction);
 				}
 			}
 
@@ -100,34 +90,37 @@ public class SAFeSWLArchParser implements ISAFeSWLArcherParser{
 
 	private void readComponentPorts(Element element, ArchComponent comp) {
 		for (Element child : element.getChildren()) {
-			if (child.getName().equalsIgnoreCase(SAFeOrquestrationArchitecture.USES)) {
-				ArchUses uses = this.architectureMain
-						.createArchUses(child);
-				comp.addUsesPort(uses);
-				this.architectureMain.addArchUses(uses);
+			if (child.getName().equalsIgnoreCase(SAFeOrquestrationArchitecture.USER_PORT)) {
+				ArchUserPort user = this.architectureMain
+						.createArchUserPort(child);
+				user.setIdComponent(comp.getIdComponent());
+				comp.addUserPort(user);
+				this.architectureMain.putUserPort(comp.getIdComponent(), user.getIdPort(), user);
+				
 			}else if (child.getName().equalsIgnoreCase(
-					SAFeOrquestrationArchitecture.PROVIDES)){
-				ArchProvides provides = this.architectureMain
-						.createArchProvides(child);
-				comp.addProvidesPort(provides);
-				this.architectureMain.addArchProvides(provides);
-			}else if (child.getName().equalsIgnoreCase(SAFeOrquestrationArchitecture.TASK_PORT)){
-				ArchTask task = this.architectureMain
-						.createArchTask(child);
-				comp.addTaskPort(task);
-				this.architectureMain.addArchTask(task);
+					SAFeOrquestrationArchitecture.PROVIDER_PORT)){
+				ArchProviderPort provider = this.architectureMain
+						.createArchProviderPort(child);
+				provider.setIdComponent(comp.getIdComponent());
+				comp.addProviderPort(provider);
+				this.architectureMain.putProviderPort(comp.getIdComponent(), provider.getIdPort(), provider);
+				
+			}else if (child.getName().equalsIgnoreCase(SAFeOrquestrationArchitecture.ACTION_PORT)){
+				ArchActionPort action = this.architectureMain.createArchActionPort(child);
+				action.setIdComponent(comp.getIdComponent());
+				comp.addActionPort(action);
+				this.architectureMain.putActionPort(comp.getIdComponent(), action.getIdPort(), action);
 			}else if(child.getName().equalsIgnoreCase(
 					SAFeOrquestrationArchitecture.CONTRACT)){
 				ArchContract contract = this.createComponentContract(child);
 				comp.setContract(contract);
-				this.architectureMain.addArchContract(contract);
 			}
 		}
 	}
 	
+	/*BEGIN CONTRACT METHODS*/
 	private ArchContract createComponentContract(Element element){
 		ArchContract contract = new ArchContract();
-		contract.setId(Integer.parseInt(element.getAttributeValue(SAFeOrquestrationArchitecture.att_id)));
 		contract.setName(element.getAttributeValue(SAFeOrquestrationArchitecture.att_name));
 		for (Element child : element.getChildren()) { //exclusive OR
 			if(child.getName().equalsIgnoreCase(
@@ -204,78 +197,64 @@ public class SAFeSWLArchParser implements ISAFeSWLArcherParser{
 		facet.setPort(Integer.parseInt(e.getAttributeValue(SAFeOrquestrationArchitecture.att_port)));
 		return facet;
 	}
-	
+	/*END CONTRACT METHODS*/
 	 
 	
-	private void readEnvAttchment(Element element, ArchEnvBinding att) {
+	private void readServiceBinding(Element element, ArchBindingService att) {
 		for (Element child : element.getChildren()) {
-			if (child.getName().equalsIgnoreCase(SAFeOrquestrationArchitecture.USES)) {
+			String idComponent = child.getAttributeValue(SAFeOrquestrationArchitecture.att_id_component);
+			String idPort = child.getAttributeValue(SAFeOrquestrationArchitecture.att_id_port); 
+			if (child.getName().equalsIgnoreCase(SAFeOrquestrationArchitecture.USER_PORT)) {
 				
-				Integer id = Integer.parseInt(child.getAttributeValue(SAFeOrquestrationArchitecture.att_id));
-				ArchUses uses = this.architectureMain.getArchUsesById(id);
+				ArchUserPort uses = this.architectureMain.getUserPort(idComponent, idPort);
 				
 				if (uses != null)
-					att.setUses(uses);
+					att.setUserPort(uses);
 
-			} else if (child.getName().equalsIgnoreCase(SAFeOrquestrationArchitecture.PROVIDES)) {
+			} else if (child.getName().equalsIgnoreCase(SAFeOrquestrationArchitecture.PROVIDER_PORT)) {
 				
-
-				Integer id = Integer.parseInt(child.getAttributeValue(SAFeOrquestrationArchitecture.att_id));
-				ArchProvides provides = this.architectureMain
-						.getArchProvidesById(id);
+				ArchProviderPort provides = this.architectureMain.getProviderPort(idComponent, idPort);
 				if (provides != null)
-					att.setProvides(provides);
+					att.setProviderPort(provides);
 			}
 		}
 	}
 	
-	private void readTaskAttchment(Element element, ArchTaskBinding att) {
+	private void readActionBinding(Element element, ArchBindingAction att) {
 		for (Element child : element.getChildren()) {
-			if (child.getName().equalsIgnoreCase(SAFeOrquestrationArchitecture.TASK_LEFT_PEER)) {
-				
-				Integer id = Integer.parseInt(child.getAttributeValue(SAFeOrquestrationArchitecture.att_id));
-				ArchTask tsk_a = this.architectureMain.getArchTaskById(id);
-				
-				if (tsk_a != null)
-					att.setTaskA(tsk_a);
-
-			} else if (child.getName().equalsIgnoreCase(SAFeOrquestrationArchitecture.TASK_RIGHT_PEER)) {
-				Integer id = Integer.parseInt(child.getAttributeValue(SAFeOrquestrationArchitecture.att_id));
-				ArchTask tsk_b = this.architectureMain
-						.getArchTaskById(id);
-				if (tsk_b != null)
-					att.setTaskB(tsk_b);
+			if (child.getName().equalsIgnoreCase(SAFeOrquestrationArchitecture.PEER)) {
+				String idComponent = child.getAttributeValue(SAFeOrquestrationArchitecture.att_id_component);
+				String idPort = child.getAttributeValue(SAFeOrquestrationArchitecture.att_id_port); 
+				ArchPeer peer = new ArchPeer();
+				peer.setIdComponent(idComponent);
+				peer.setIdPort(idPort);
+				att.addArchPeer(peer);
 			}
 		}
 	}
 
-	private void readArchBody(Element element, ArchBody body) {
+	private void readArchSolution(Element element, ArchSolution solution) {
 		for (Element child : element.getChildren()) {
 			if (child.getName().equalsIgnoreCase(SAFeOrquestrationArchitecture.COMPUTATION)) {
-				ArchComputation comp = (ArchComputation) this.architectureMain
-						.createArchComputation(child);
+				ArchComponent comp = this.architectureMain
+						.createArchComponent(child, SAFeOrquestrationArchitecture.COMPUTATION);
 				this.readComponentPorts(child, comp);
-				comp.setKind(SAFeOrquestrationArchitecture.COMPUTATION);
-				body.addArchComponent(comp);
+				solution.addArchComponent(comp);
 			} else if (child.getName().equalsIgnoreCase(SAFeOrquestrationArchitecture.CONNECTOR)) {
-				ArchConnector conn = (ArchConnector) this.architectureMain
-						.createArchConnector(child);
-				this.readComponentPorts(child, conn);
-				conn.setKind(SAFeOrquestrationArchitecture.CONNECTOR);
-				body.addArchComponent(conn);
+				ArchComponent comp = this.architectureMain
+						.createArchComponent(child, SAFeOrquestrationArchitecture.CONNECTOR);
+				this.readComponentPorts(child, comp);
+				solution.addArchComponent(comp);
 			} else if (child.getName().equalsIgnoreCase(SAFeOrquestrationArchitecture.PLATFORM)) {
-				
-				ArchPlatform plat = (ArchPlatform) this.architectureMain
-						.createArchPlatform(child);
-				this.readComponentPorts(child, plat);
-				plat.setKind(SAFeOrquestrationArchitecture.PLATFORM);
-				body.addArchComponent(plat);
+				ArchComponent comp = this.architectureMain
+						.createArchComponent(child, SAFeOrquestrationArchitecture.PLATFORM);
+				this.readComponentPorts(child, comp);
+				solution.addArchComponent(comp);
 			} else if (child.getName().equalsIgnoreCase(SAFeOrquestrationArchitecture.REPOSITORY)) {
-				ArchRepository rep = (ArchRepository) this.architectureMain
-						.createArchRepository(child);
-				this.readComponentPorts(child, rep);
-				rep.setKind(SAFeOrquestrationArchitecture.REPOSITORY);
-				body.addArchComponent(rep);
+				ArchComponent comp = this.architectureMain
+						.createArchComponent(child, SAFeOrquestrationArchitecture.REPOSITORY);
+				this.readComponentPorts(child, comp);
+				solution.addArchComponent(comp);
 			}
 
 		}
@@ -285,45 +264,59 @@ public class SAFeSWLArchParser implements ISAFeSWLArcherParser{
 		return this.architectureMain;
 	}
 
-	public ArchComponent getArchComponentByID(Integer id){
-		return this.architectureMain.getArchComponentById(id);
+	@Override
+	public ArchComponent getArchComponentByID(Integer id) {
+		// TODO Auto-generated method stub
+		return null;
 	}
-	
-	public ArchAction getArchActionId(Integer id){
-		return this.architectureMain.getArchActionById(id);
+
+	@Override
+	public ArchAction getArchActionId(Integer id) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
 	public String getProvidesPortNameByUsesPortName(String usesPortName) {
-		return this.architectureMain.getProvidesPortNameByUsesPortName(usesPortName);
-	}
-	
-	public ArchApplication getArchApplication(){
-		return this.architectureMain.getArchApplication();
-	}
-	
-	public ArchWorkflow getArchWorkflow(){
-		return this.architectureMain.getArchWorflow();
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
 	public String getPartnerBByPartnerAName(String partnerAName) {
-		return this.architectureMain.getPartnerBByPartnerAName(partnerAName);
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
 	public boolean isThereEnvironmentConnection(String uses, String provides) {
-		return this.architectureMain.isThereEnvironmentConnection(uses,provides);
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 	@Override
 	public boolean isThereTaskConnection(String partnerA, String partnerB) {
-		 
-		return this.architectureMain.isThereTaskConnection(partnerA,partnerB);
+		// TODO Auto-generated method stub
+		return false;
 	}
-	
+
 	@Override
-	public List<ArchComponent> getComponents(){
-		return this.architectureMain.getComponents();
+	public ArchApplication getArchApplication() {
+		// TODO Auto-generated method stub
+		return null;
 	}
+
+	@Override
+	public ArchWorkflow getArchWorkflow() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<ArchComponent> getComponents() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
 }

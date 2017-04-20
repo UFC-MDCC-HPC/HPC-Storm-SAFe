@@ -1,9 +1,9 @@
 package br.ufc.mdcc.pargo.safe.grammar.xml;
 
-import br.ufc.mdcc.pargo.safe.grammar.arch.ArchBody;
+import br.ufc.mdcc.pargo.safe.grammar.arch.ArchSolution;
 import br.ufc.mdcc.pargo.safe.grammar.arch.ArchComponent;
-import br.ufc.mdcc.pargo.safe.grammar.arch.ArchEnvBinding;
-import br.ufc.mdcc.pargo.safe.grammar.arch.ArchTask;
+import br.ufc.mdcc.pargo.safe.grammar.arch.ArchBindingService;
+import br.ufc.mdcc.pargo.safe.grammar.arch.ArchActionPort;
 
 public class ArchStringGenerator {
 	
@@ -18,15 +18,15 @@ public class ArchStringGenerator {
 		return null;
 	}
 	
-	public String bodyToString(ArchBody body){
+	public String bodyToString(ArchSolution body){
 		return null;
 	}
 	
-	public String environmentToString(ArchEnvBinding envBinding){
+	public String environmentToString(ArchBindingService envBinding){
 		return null;
 	}
 	
-	public String taskToString(ArchTask taskBinding){
+	public String taskToString(ArchActionPort taskBinding){
 		return null;
 	}
 

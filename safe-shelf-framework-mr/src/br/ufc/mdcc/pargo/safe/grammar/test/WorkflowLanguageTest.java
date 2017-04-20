@@ -8,7 +8,7 @@ import br.ufc.mdcc.pargo.safe.grammar.SAFeSWLValidator;
 
 public class WorkflowLanguageTest {
 	
-	public static String fileNameXML = "tutorial-flow.xml";
+	public static String fileNameXML = "flow-v6.xml";
 	
 	public static boolean testValidator(){
 		
@@ -22,10 +22,12 @@ public class WorkflowLanguageTest {
 		
 		String fileName = "src/br/ufc/mdcc/pargo/safe/grammar/xml/"+fileNameXML;
 		ISAFeSWLFlowParser flow = new SAFeSWLFlowParser(fileName);
+		
 		ISAFeSWLArcherParser arch = ArchitectureLanguageTest.testParser();
-		System.out.println(arch.getArchitecture());
+		
 		flow.setISAFeSWLArcherParser(arch);
-		flow.run();
+		//System.out.println(flow.getWorkflow());
+		//flow.run();
 	}
 	
 	

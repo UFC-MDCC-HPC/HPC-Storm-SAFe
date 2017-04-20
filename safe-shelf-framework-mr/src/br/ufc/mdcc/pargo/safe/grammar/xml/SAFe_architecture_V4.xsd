@@ -16,7 +16,7 @@
 			<element name="application" type="tns:Component"
 				maxOccurs="1" minOccurs="1">
 			</element>
-			<element name="workflow" type="tns:Worker" maxOccurs="1"
+			<element name="workflow" type="tns:Workflow" maxOccurs="1"
 				minOccurs="1">
 			</element>
 			<element name="body" type="tns:Body" maxOccurs="1"
@@ -87,7 +87,7 @@
 
 	<complexType name="Computation">
 		<complexContent>
-			<extension base="tns:Worker"></extension>
+			<extension base="tns:Workflow"></extension>
 		</complexContent>
 	</complexType>
 
@@ -101,7 +101,7 @@
 
 	<complexType name="Connector">
 		<complexContent>
-			<extension base="tns:Worker"></extension>
+			<extension base="tns:Workflow"></extension>
 		</complexContent>
 	</complexType>
 
@@ -111,7 +111,7 @@
 		</complexContent>
 	</complexType>
 
-	<complexType name="Worker">
+	<complexType name="Workflow">
 		<complexContent>
 			<extension base="tns:Component">
 				<sequence>

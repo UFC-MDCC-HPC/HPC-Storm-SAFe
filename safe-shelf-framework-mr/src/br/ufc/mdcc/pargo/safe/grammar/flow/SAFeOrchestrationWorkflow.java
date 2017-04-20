@@ -19,7 +19,7 @@ import br.ufc.mdcc.pargo.safe.grammar.flow.visitor.SAFeVisitorImpl;
 
 public class SAFeOrchestrationWorkflow {
 
-	private XMLSAFeOperation workflow;
+	private SAFeSWLOperationBaseType workflow;
 	private SAFeOrchestrationElement root;
 	private ISAFeVisitor safeVisitor;
 	
@@ -44,16 +44,127 @@ public class SAFeOrchestrationWorkflow {
 			Unmarshaller unmarshaller = jc.createUnmarshaller();
 			Object out = unmarshaller.unmarshal(new File(fileName));
 			JAXBElement<?> je = (JAXBElement<?>) out;
-			this.workflow = (XMLSAFeOperation) je.getValue();
-			this.navigate(); // this method constructs the tree node workflow
+			
+			//System.out.println(je);
+			
+			this.workflow = (SAFeSWLOperationBaseType)je.getValue();
+			this.workflow.setOperName("workflow");
+			
+			this.navigate_v6(); // this method constructs the tree node workflow
+		
 		} catch (JAXBException e) {
 
 			e.printStackTrace();
 		}
 	}
 	
-	
+    private void navigate_v6(){
+    	
+    	if(this.workflow ==null) return;
+    	
+    	this.root = new SAFeOrchestrationElement();
+		this.root.accept(this.safeVisitor);
+		this.root.setElement(this.workflow);
+		this.root.setOperation(((SAFeSWLOperationBaseType) this.workflow).getOperName());
+		
+		Stack<Object> elementsStack = new Stack<Object>();
+		Stack<SAFeOrchestrationElement> workflowElementsStack = new Stack<SAFeOrchestrationElement>();
+    	
+		elementsStack.push(this.workflow);
+		workflowElementsStack.push(this.root);
+		while (!elementsStack.isEmpty()) {
+			Object element = elementsStack.pop();
+			SAFeOrchestrationElement workflowElement = workflowElementsStack.pop();
+			
+		    
+			
+			List<Object> elementChildren = this.getChildren_v6(element);
+			for(Object elementChild:elementChildren){
+				elementsStack.push(elementChild);
+				SAFeOrchestrationElement workflowfChild = new SAFeOrchestrationElement();
+				workflowfChild.accept(this.safeVisitor);
+				workflowfChild.setElement((SAFeSWLOperationBaseType) elementChild);
+				String operationName = ((SAFeSWLOperationBaseType) elementChild).getOperName();
+				
+				workflowfChild.setOperation(operationName);
+				workflowElement.addWorflowElement(workflowfChild);
+				workflowElementsStack.push(workflowfChild);
 
+			}
+			
+		}
+    }
+
+    private List<Object> getChildren_v6(Object element){
+       
+    	System.out.println(((SAFeSWLOperationBaseType)element).getOperName());
+    	
+    	Method[] workflowMethods = element.getClass().getMethods();
+		List<Object> children = new ArrayList<Object>();
+		for (Method method : workflowMethods) {
+		
+			if (method.getName().startsWith("get")
+					&& !method.getName().startsWith("getClass")) {
+
+				Object args[] = new Object[0]; //useless..
+				try {
+					Object out = method.invoke(element, args);
+					if(out!=null){
+						String methodName = method.getName().replace("get", "");
+						
+						
+						
+						if(!methodName.equalsIgnoreCase("OperName")){
+							if(((SAFeSWLOperationBaseType)element).getOperName().equals("choice")){
+								System.out.println(methodName);
+							}
+							
+							if(methodName.equalsIgnoreCase("SkipOrBreakOrContinue")){
+								if(out instanceof List)
+								  for(Object o:(List)out){
+									JAXBElement<?> el = (JAXBElement<?>)o;
+									SAFeSWLOperationBaseType child = (SAFeSWLOperationBaseType)el.getValue(); 
+									child.setOperName(el.getName().getLocalPart().toLowerCase());
+									children.add(child);
+								  }
+							}else if(methodName.equalsIgnoreCase("Operation")){
+								for(Object o:(List)out){
+									((SAFeSWLOperationBaseType) o).setOperName(methodName.toLowerCase());
+									children.add(o);
+								}
+							}else if(methodName.equalsIgnoreCase("Select")){
+								for(Object o:(List)out){
+									((SAFeSWLOperationBaseType) o).setOperName(methodName.toLowerCase());
+									children.add(o);
+								}
+							}else{
+								if(out instanceof SAFeSWLOperationBaseType){
+									((SAFeSWLOperationBaseType) out).setOperName(methodName.toLowerCase());
+									children.add(out);
+									
+								}
+								
+							}
+						}
+					}
+					
+				} catch (IllegalAccessException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IllegalArgumentException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (InvocationTargetException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+			}
+		}
+		
+		return children;
+    }
+    
 	private void navigate() {
 		if (this.workflow == null)
 			return;
@@ -67,12 +178,12 @@ public class SAFeOrchestrationWorkflow {
 
 		elementsStack.push(this.workflow);
 
-		((XMLSAFeBase) this.workflow).setLevel(level); // for fun
-		((XMLSAFeBase) this.workflow).setOrder(order);
-		((XMLSAFeBase) this.workflow).setOperName("workflow");
+		((SAFeSWLOperationBaseType) this.workflow).setLevel(level); // for fun
+		((SAFeSWLOperationBaseType) this.workflow).setOrder(order);
+		((SAFeSWLOperationBaseType) this.workflow).setOperName("workflow");
 
 		this.root.setElement(this.workflow);
-		this.root.setOperation(((XMLSAFeBase) this.workflow).getOperName());
+		this.root.setOperation(((SAFeSWLOperationBaseType) this.workflow).getOperName());
 		wfElements.push(this.root);
 
 		while (!elementsStack.isEmpty()) {
@@ -80,22 +191,23 @@ public class SAFeOrchestrationWorkflow {
 			SAFeOrchestrationElement wfElement = wfElements.pop();
 
 			
-			int myLevel = ((XMLSAFeBase) element).getLevel();
+			int myLevel = ((SAFeSWLOperationBaseType) element).getLevel();
 			List<Object> children = this.getChildren(element);
 			int orderCounter = children.size();
 			for (int i = children.size() - 1; i >= 0; i--) {
 				Object child = children.get(i);
 				
-				 
-				if (((XMLSAFeBase) child).getOperName().equalsIgnoreCase(
+				
+				
+				if (((SAFeSWLOperationBaseType) child).getOperName().equalsIgnoreCase(
 						SAFeOrchestrationOperation.OPERATION.name())) {
 
 					child = this.getChildren(child).get(0);
 				}
 
 				// level control, for graphical purpouses
-				((XMLSAFeBase) child).setLevel(myLevel + 1);
-				((XMLSAFeBase) child).setOrder((myLevel + 1) * 100
+				((SAFeSWLOperationBaseType) child).setLevel(myLevel + 1);
+				((SAFeSWLOperationBaseType) child).setOrder((myLevel + 1) * 100
 						+ orderCounter);
 
 				elementsStack.push(child);
@@ -105,8 +217,8 @@ public class SAFeOrchestrationWorkflow {
 				SAFeOrchestrationElement wfChild = new SAFeOrchestrationElement();
 				//adding visitor
 				wfChild.accept(this.safeVisitor);
-				wfChild.setElement((XMLSAFeBase) child);
-				wfChild.setOperation(((XMLSAFeBase) child).getOperName());
+				wfChild.setElement((SAFeSWLOperationBaseType) child);
+				wfChild.setOperation(((SAFeSWLOperationBaseType) child).getOperName());
 				wfElement.addWorflowElement(wfChild);
 				wfElements.push(wfChild);
 			}
@@ -115,6 +227,7 @@ public class SAFeOrchestrationWorkflow {
 	}
 
 	private List<Object> getChildren(Object element) {
+		System.out.println(element);
 		Method[] workflowMethods = element.getClass().getMethods();
 		List<Object> children = new ArrayList<Object>();
 		for (Method method : workflowMethods) {
@@ -124,25 +237,36 @@ public class SAFeOrchestrationWorkflow {
 				try {
 					Object args[] = new Object[0]; //useless..
 					Object child = method.invoke(element, args);
-
+					
+					
 					if (child != null) {
+						System.out.println("-->"+child);
 						String operName = method.getName().replace("get", "");
 						
-						
+						System.out.println(operName);
+						if(operName.equals("SkipOrBreakOrContinue"))
+						{
+							for(Object o:(List)child){
+								JAXBElement<?> el = (JAXBElement<?>)o;
+								System.out.println(el.getName().getLocalPart());
+							
+								
+							}
+						}
 						
 						if (child instanceof List) {
 							
 							List<?> l = (List<?>) child;
 							for (Object o : l){
-								if (o instanceof XMLSAFeBase) {
-									((XMLSAFeBase) o).setOperName(operName);
+								if (o instanceof SAFeSWLOperationBaseType) {
+									((SAFeSWLOperationBaseType) o).setOperName(operName);
 									children.add(o);
 								}
 							}
 
-						} else if (child instanceof XMLSAFeBase) {
+						} else if (child instanceof SAFeSWLOperationBaseType) {
 							
-							((XMLSAFeBase) child).setOperName(operName);
+							((SAFeSWLOperationBaseType) child).setOperName(operName);
 							children.add(child);
 						}
 

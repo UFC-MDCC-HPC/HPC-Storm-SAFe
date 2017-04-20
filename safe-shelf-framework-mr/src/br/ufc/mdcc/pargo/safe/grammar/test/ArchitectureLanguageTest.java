@@ -6,7 +6,7 @@ import br.ufc.mdcc.pargo.safe.grammar.SAFeSWLValidator;
 
 public class ArchitectureLanguageTest {
 
-	public static String fileNameXML = "tutorial-arch.xml";
+	public static String fileNameXML = "arch-v6.xml";
 	
 	public static boolean testValidator(){
 		
@@ -28,10 +28,10 @@ public class ArchitectureLanguageTest {
 	public static void main(String[] args) {
 		if(ArchitectureLanguageTest.testValidator()){
 			ISAFeSWLArcherParser parser = ArchitectureLanguageTest.testParser();
-			System.out.println(parser.getArchApplication());
+			//System.out.println(parser.getArchApplication());
 			//String test = parser.getProvidesPortNameByUsesPortName("server-uses-A");
 			//System.out.println("USES TEST: "+test);
-			//System.out.println(parser.getArchitecture());
+			System.out.println(parser.getArchitecture());
 		}
 			
 	}

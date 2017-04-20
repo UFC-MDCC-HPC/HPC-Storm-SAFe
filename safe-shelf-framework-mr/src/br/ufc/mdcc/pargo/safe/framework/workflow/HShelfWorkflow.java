@@ -25,8 +25,8 @@ import br.ufc.mdcc.pargo.safe.grammar.ISAFeSWLFlowParser;
 import br.ufc.mdcc.pargo.safe.grammar.SAFeSWLArchParser;
 import br.ufc.mdcc.pargo.safe.grammar.SAFeSWLFlowParser;
 import br.ufc.mdcc.pargo.safe.grammar.arch.ArchComponent;
-import br.ufc.mdcc.pargo.safe.grammar.arch.ArchTask;
-import br.ufc.mdcc.pargo.safe.grammar.arch.ArchUses;
+import br.ufc.mdcc.pargo.safe.grammar.arch.ArchActionPort;
+import br.ufc.mdcc.pargo.safe.grammar.arch.ArchUserPort;
 import br.ufc.mdcc.pargo.safe.grammar.arch.ArchWorkflow;
 import br.ufc.mdcc.pargo.safe.grammar.arch.SAFeOrquestrationArchitecture;
 import br.ufc.mdcc.pargo.safe.grammar.util.FileUtil;
@@ -121,7 +121,7 @@ public class HShelfWorkflow extends HShelfComponent {
 
 		if (this.services != null) {
 			ArchWorkflow archWorkflow = this.archParser.getArchWorkflow();
-			for (ArchTask task : archWorkflow.getTaskList()) {
+			for (ArchActionPort task : archWorkflow.getTaskList()) {
 				HShelfTaskPort taskPort = new HShelfTaskPort();
 				taskPort.setName(task.getName());
 				// HShelfConsoleLogger.write("TASK-NAME: " + task.getName());
@@ -303,6 +303,7 @@ public class HShelfWorkflow extends HShelfComponent {
 				newComponent.setKind(archComponent.getKind());
 				newComponent.setContract(archComponent.getContract().getUri());
 				newComponent.setId(archComponent.getId());
+				newComponent.setWorkflowSession(this.workflowSession);
 
 				/* A-2 : resgistrar contrato para cada componente */
 				workfloweServicesProvidesPort.registerContract(newComponent
@@ -321,8 +322,8 @@ public class HShelfWorkflow extends HShelfComponent {
 
 		// workflow now need to connect its task ports
 		ArchWorkflow archWorkflow = this.archParser.getArchWorkflow();
-		for (ArchTask wfTask : archWorkflow.getTaskList()) {
-			for (ArchTask cTask : archComponent.getTaskList()) {
+		for (ArchActionPort wfTask : archWorkflow.getTaskList()) {
+			for (ArchActionPort cTask : archComponent.getTaskList()) {
 				if (this.archParser.isThereTaskConnection(wfTask.getName(),
 						cTask.getName())) {
 					this.framework.connectPartners(wfTask.getName(),
@@ -346,7 +347,7 @@ public class HShelfWorkflow extends HShelfComponent {
 			archComponent = this.archParser.getArchComponentByID(Integer
 					.parseInt(compId));
 
-		for (ArchUses usesPort : archComponent.getUsesList()) {
+		for (ArchUserPort usesPort : archComponent.getUsesList()) {
 
 			System.out.println("TESTE: " + usesPort.getName());
 			String providesPortName = this.archParser

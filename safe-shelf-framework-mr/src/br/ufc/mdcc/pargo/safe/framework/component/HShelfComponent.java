@@ -20,6 +20,7 @@ public abstract class HShelfComponent {
 	private Object valorationSet;
 	private boolean isDeployActivated = false; 
 	private boolean isInstantiateActivated = false;
+	private String workflowSession;
 	
 	
 	
@@ -104,7 +105,7 @@ public abstract class HShelfComponent {
 			if(this.kind.equals(SAFeOrquestrationArchitecture.PLATFORM)){
 				/*C-1 : CHAMANDO O DEPLOY PASSANDO O WORKFLOW_SESSION E A REFERENCIA DESTE COMPONENTE*/
 				
-				providesWorkflowPort.deploy(null,this.id+"");
+				providesWorkflowPort.deploy(this.workflowSession,this.id+"");
 				
 			}else{
 				
@@ -152,7 +153,7 @@ public abstract class HShelfComponent {
 			HShelfConsoleLogger.write("Calling INSTANTIATE from :"+this.getName()+", KIND: " + this.getKind());
 			//String safeSWLCode = FileUtil.readFileAsString(safeSWLPath);
 			/*D-1 : PASSA COMO ARGUMENTO O MANIPULADOR DE SESSÃO E A REFERENCIA DO COMPONENTENO CÓDIGO */
-			providesWorkflowPort.instantiate(null,this.id+"");
+			providesWorkflowPort.instantiate(this.workflowSession,this.id+"");
 		}
 		
 		
@@ -212,6 +213,10 @@ public abstract class HShelfComponent {
 	
 	public void setId(int id){
 		this.id = id;
+	}
+	
+	public void setWorkflowSession(String ws){
+		this.workflowSession = ws;
 	}
 	
 	@Override

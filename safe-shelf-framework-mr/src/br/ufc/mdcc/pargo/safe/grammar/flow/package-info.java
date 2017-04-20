@@ -2,8 +2,8 @@
 // Este arquivo foi gerado pela Arquitetura JavaTM para Implementação de Referência (JAXB) de Bind XML, v2.2.8-b130911.1802 
 // Consulte <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
 // Todas as modificações neste arquivo serão perdidas após a recompilação do esquema de origem. 
-// Gerado em: 2016.02.09 às 01:00:37 PM BRT 
+// Gerado em: 2017.04.20 às 06:33:11 PM BRT 
 //
 
-@javax.xml.bind.annotation.XmlSchema(namespace = "http://www.example.org/SAFe_workflow_V4", elementFormDefault = javax.xml.bind.annotation.XmlNsForm.QUALIFIED)
+@javax.xml.bind.annotation.XmlSchema(namespace = "http://www.example.org/SAFe_workflow_V6", elementFormDefault = javax.xml.bind.annotation.XmlNsForm.QUALIFIED)
 package br.ufc.mdcc.pargo.safe.grammar.flow;

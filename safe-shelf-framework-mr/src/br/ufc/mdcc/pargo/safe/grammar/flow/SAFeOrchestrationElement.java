@@ -12,7 +12,7 @@ import br.ufc.mdcc.pargo.safe.grammar.flow.visitor.ISAFeVisitor;
  */
 public class SAFeOrchestrationElement {
 
-	private XMLSAFeBase element; //Value of the node. This object is JAXB auto generated.
+	private SAFeSWLOperationBaseType element; //Value of the node. This object is JAXB auto generated.
 	private SAFeOrchestrationOperation operation; //operation related to the node
 	private String operationStr;
 	private List<SAFeOrchestrationElement> children; //list o children node
@@ -26,11 +26,11 @@ public class SAFeOrchestrationElement {
 		this.children.add(wf);
 	}
 	
-	public XMLSAFeBase getElement() {
+	public SAFeSWLOperationBaseType getElement() {
 		return element;
 	}
 
-	public void setElement(XMLSAFeBase element) {
+	public void setElement(SAFeSWLOperationBaseType element) {
 		this.element = element;
 	}
 	

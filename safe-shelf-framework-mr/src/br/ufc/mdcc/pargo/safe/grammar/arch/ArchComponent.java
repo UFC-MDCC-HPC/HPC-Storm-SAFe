@@ -3,70 +3,35 @@ package br.ufc.mdcc.pargo.safe.grammar.arch;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ArchComponent implements IArchObject{
+public class ArchComponent implements IArchObject {
 
-	private String name;
+	private String idComponent;
 	private String kind;
-	private Integer id;
-	private String address;
 	private ArchContract contract;
-	private List<ArchUses> usesList;
-	private List<ArchProvides> providesList;
-	private List<ArchTask> taskList;
-	
-	
+	private List<ArchUserPort> userPortList;
+	private List<ArchProviderPort> providerPortList;
+	private List<ArchActionPort> actionPortList;
+
 	public ArchComponent() {
-		this.usesList = new ArrayList<ArchUses>();
-		this.providesList = new ArrayList<ArchProvides>();
-		this.taskList = new ArrayList<ArchTask>();
-	}
-	
-	public void addUsesPort(ArchUses uses){
-		this.usesList.add(uses);
-	}
-	
-	public void addProvidesPort(ArchProvides provides){
-		this.providesList.add(provides);
-	}
-	
-	public void addTaskPort(ArchTask task){
-		this.taskList.add(task);
-	}
-	
-	public String getName() {
-		return name;
+		this.userPortList = new ArrayList<ArchUserPort>();
+		this.providerPortList = new ArrayList<ArchProviderPort>();
+		this.actionPortList = new ArrayList<ArchActionPort>();
 	}
 
-	public void setName(String name) {
-		this.name = name;
-	}
-	
-	public Integer getId() {
-		return id;
+	public String getIdComponent() {
+		return idComponent;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+	public void setIdComponent(String idComponent) {
+		this.idComponent = idComponent;
 	}
-	
+
 	public ArchContract getContract() {
 		return contract;
 	}
 
 	public void setContract(ArchContract contract) {
 		this.contract = contract;
-	}
-
-	public List<ArchUses> getUsesList() {
-		return usesList;
-	}
-
-	public List<ArchProvides> getProvidesList() {
-		return providesList;
-	}
-
-	public List<ArchTask> getTaskList() {
-		return taskList;
 	}
 
 	public String getKind() {
@@ -77,63 +42,94 @@ public class ArchComponent implements IArchObject{
 		this.kind = kind;
 	}
 
-	public String getAddress() {
-		return address;
+	public List<ArchUserPort> getUsesPortList() {
+		return userPortList;
 	}
 
-	public void setAddress(String address) {
-		this.address = address;
-	}
-
-	public ArchAction getArchActionById(Integer id){
-		ArchAction action = null;
-		for(ArchTask task:this.taskList){
-			action = task.getArchActionById(id);
-			if(action!=null) return action;
-		}
-		
-		//OLD
-		/*for(ArchUses uses:this.usesList){
-			action = uses.getArchActionById(id);
-			if(action!=null) return action;
-		}
-		
-		for(ArchProvides provides:this.providesList){
-			action = provides.getArchActionById(id);
-			if(action!=null) return action;
-		}*/
-		
-		
-		return action;
+	public void setUserPortList(List<ArchUserPort> userPortList) {
+		this.userPortList = userPortList;
 	}
 	
+	public void addUserPort(ArchUserPort userPort){
+		this.userPortList.add(userPort);
+	}
+
+	public List<ArchProviderPort> getProviderPortList() {
+		return providerPortList;
+	}
+
+	public void setProviderPortList(List<ArchProviderPort> providerPortList) {
+		this.providerPortList = providerPortList;
+	}
+	
+	public void addProviderPort(ArchProviderPort providerPort){
+		this.providerPortList.add(providerPort);
+	}
+
+	public List<ArchActionPort> getActionPortList() {
+		return actionPortList;
+	}
+
+	public void setActionPortList(List<ArchActionPort> actionPortList) {
+		this.actionPortList = actionPortList;
+	}
+
+	public void addActionPort(ArchActionPort action) {
+		this.actionPortList.add(action);
+	}
+
+	public ArchAction getArchActionByName(String idActionPort, String name) {
+		ArchActionPort actionPortDummy = new ArchActionPort();
+		actionPortDummy.setIdPort(idActionPort);
+		Integer index = this.actionPortList.indexOf(actionPortDummy);
+		if (index >= 0) {
+			ArchActionPort actionPort = this.actionPortList.get(index);
+			if (actionPort != null) {
+				return actionPort.getArchActionByName(name);
+			}
+		}
+		return null;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((idComponent == null) ? 0 : idComponent.hashCode());
+		return result;
+	}
+
 	@Override
 	public boolean equals(Object obj) {
-		
-		if(!(obj instanceof ArchComponent)) return false;
-		ArchComponent comp = (ArchComponent)obj;
-		if(comp.getId().intValue()!=this.getId().intValue()) return false;
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ArchComponent other = (ArchComponent) obj;
+		if (idComponent == null) {
+			if (other.idComponent != null)
+				return false;
+		} else if (!idComponent.equals(other.idComponent))
+			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		String res = "ArchComponent [name=" + name + ", id=" + id + "]";
-		if(this.contract!=null)
-			res+="\n\t"+this.contract;
-		
-		for(ArchPort port:this.usesList){
-			res += "\n\t"+port.toString();
+		String res = "ArchComponent [idComponent=" + idComponent + "]";
+		for (ArchUserPort uses : userPortList) {
+			res += "\n\t" + uses.toString();
 		}
-		for(ArchPort port:this.providesList){
-			res += "\n\t"+port.toString();
+		for (ArchProviderPort provides : providerPortList) {
+			res += "\n\t" + provides.toString();
 		}
-		for(ArchPort port:this.taskList){
-			res += "\n\t"+port.toString();
+		for (ArchActionPort action : actionPortList) {
+			res += "\n\t" + action.toString();
 		}
-		
 		return res;
 	}
-	
-	
+
 }
