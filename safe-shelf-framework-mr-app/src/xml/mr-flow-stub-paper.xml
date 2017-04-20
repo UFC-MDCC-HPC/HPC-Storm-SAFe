@@ -95,84 +95,82 @@
 		</tns:operation>
 
 		<!-- LOGIC -->
+		<tns:operation>
+		<tns:parallel_oper>
 		
-		<!--Splitter -->
-		<tns:operation>
-			<tns:invoke_oper action="compute" id="341" /> <!-- Splitter read_source -->
-		</tns:operation>
-		<tns:operation>
-			<tns:invoke_oper action="compute" id="352" /> <!-- Splitter perform -->
-		</tns:operation>
-
-		<tns:operation>
-			<tns:iterate_oper max="-1" iter_label="LABEL_A">
 				<tns:operation>
-					<tns:choice_oper>
-
-						<!--Mapper -->
-						<tns:select action_id="353"> <!-- Splitter - chunk_ready -->
-							<tns:operation>
-								<tns:invoke_oper action="compute" id="551" /> <!-- Mapper read_chunk -->
-							</tns:operation>
-							<tns:operation>
-								<tns:invoke_oper action="compute" id="552" /> <!-- Mapper perform -->
-							</tns:operation>
-						</tns:select>
-
-						<!--Combiner -->
-						<tns:select action_id="553"> <!-- Mapper chunk_ready -->
-							<tns:operation>
-								<tns:invoke_oper action="compute" id="1051" /> <!-- Combiner read_chunk -->
-							</tns:operation>
-							<tns:operation>
-								<tns:invoke_oper action="compute" id="1052" /> <!-- Combiner perform -->
-							</tns:operation>
-						</tns:select>
-
-						<!--Shuffler -->
-						<tns:select action_id="1053"> <!-- Combiner chunk_ready -->
-							<tns:operation>
-								<tns:invoke_oper action="compute" id="451" /> <!-- Shuffler read_chunk -->
-							</tns:operation>
-							<tns:operation>
-								<tns:invoke_oper action="compute" id="452" /> <!-- Shuffler perform -->
-							</tns:operation>
-						</tns:select>
-
-						<!--Reducer -->
-						<tns:select action_id="453"> <!-- Shuffler chunk_ready -->
-							<tns:operation>
-								<tns:invoke_oper action="compute" id="651" /> <!-- Reducer read_chunk -->
-							</tns:operation>
-							<tns:operation>
-								<tns:invoke_oper action="compute" id="652" /> <!-- Reducer perform -->
-							</tns:operation>
-						</tns:select>
-
-						<!--Splitter -->
-						<tns:select action_id="653"> <!-- Reducer chunk_ready -->
-							<tns:operation>
-								<tns:invoke_oper action="compute" id="351" /> <!-- Splitter read_chunk -->
-							</tns:operation>
-							<tns:operation>
-								<tns:invoke_oper action="compute" id="352" /> <!-- Splitter perform -->
-							</tns:operation>
-						</tns:select>
-
-
-						<tns:select action_id="342"> <!-- Splitter terminate -->
-							<tns:operation>
-								<tns:invoke_oper action="compute" id="343" /> <!-- Splitter write_sink -->
-							</tns:operation>
-							<tns:operation>
-								<tns:break_oper base_label="LABEL_A" /> <!-- END LOOP -->
-							</tns:operation>
-						</tns:select>
-
-
-					</tns:choice_oper>
+					<tns:invoke_oper action="compute" id="Task_binding_data.READ_SOURCE" />
 				</tns:operation>
-			</tns:iterate_oper>
+				
+				<tns:operation>
+					<tns:iterate_oper max="-1" iter_label="LABEL_A">
+						<tns:operation>
+							<tns:invoke_oper action="compute" id="Task_binding_split_first.READ_CHUNK" /> 
+						</tns:operation>
+						<tns:operation>
+							<tns:invoke_oper action="compute" id="Task_binding_split_first.PERFORM" /> 
+						</tns:operation>
+					</tns:iterate_oper>
+				</tns:operation>
+		
+				<tns:operation>
+					<tns:iterate_oper max="-1" iter_label="LABEL_B">
+					
+						<tns:operation>
+							<tns:choice_oper>
+		
+								<tns:select action_id="Task_binding_split_first.CHUNK_READY"> 
+									<tns:operation>
+										<tns:invoke_oper action="compute" id="Task_map.READ_CHUNK" /> 
+									</tns:operation>
+									<tns:operation>
+										<tns:invoke_oper action="compute" id="Task_map.PERFORM" /> 
+									</tns:operation>
+								</tns:select>
+		
+								<tns:select action_id="Task_map.CHUNK_READY"> 
+									<tns:operation>
+										<tns:invoke_oper action="compute" id="Task_shuffle.READ_CHUNK" /> 
+									</tns:operation>
+									<tns:operation>
+										<tns:invoke_oper action="compute" id="Task_shuffle.PERFORM" />
+									</tns:operation>
+								</tns:select>
+		
+								<tns:select action_id="Task_shuffle.CHUNK_READY"> 
+									<tns:operation>
+										<tns:invoke_oper action="compute" id="Task_reduce.READ_CHUNK" /> 
+									</tns:operation>
+									<tns:operation>
+										<tns:invoke_oper action="compute" id="Task_reduce.PERFORM" /> 
+									</tns:operation>
+								</tns:select>
+		
+								<tns:select action_id="Task_reduce.CHUNK_READY">
+									<tns:operation>
+										<tns:invoke_oper action="compute" id="Task_binding_split_next.READ_CHUNK" />
+									</tns:operation>
+									<tns:operation>
+										<tns:invoke_oper action="compute" id="Task_binding_split_next.PERFORM" /> 
+									</tns:operation>
+								</tns:select>
+		
+								<tns:select action_id="Task_binding_split_next.CHUNK_READY"> 
+									<tns:operation>
+										<tns:invoke_oper action="compute" id="Task_map.perform.READ_CHUNK" />
+									</tns:operation>
+									<tns:operation>
+										<tns:invoke_oper action="compute" id="Task_map.PERFORM" />
+									</tns:operation>
+								</tns:select>
+		
+							</tns:choice_oper>
+						</tns:operation>
+						
+					</tns:iterate_oper>
+				</tns:operation>
+				
+			</tns:parallel_oper>
 		</tns:operation>
 
 	</tns:sequence_oper>

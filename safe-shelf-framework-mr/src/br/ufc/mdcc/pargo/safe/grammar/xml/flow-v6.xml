@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tns:workflow xmlns:tns="http://www.example.org/SAFe_workflow_V6"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.example.org/SAFe_workflow_V6 SAFe_workflow_V6.xsd ">
+	<tns:sequence>
+	
+		<tns:parallel>
+			<tns:sequence>
+				<tns:invoke id_port="life-cycle-L" action="RESOLVE" />
+				<tns:invoke id_port="life-cycle-L" action="DEPLOY" />
+				<tns:invoke id_port="life-cycle-L" action="INSTANTIATE" />
+			</tns:sequence>
+			<tns:sequence>
+				<tns:invoke id_port="life-cycle-R" action="RESOLVE" />
+				<tns:invoke id_port="life-cycle-R" action="DEPLOY" />
+				<tns:invoke id_port="life-cycle-R" action="INSTANTIATE" />
+			</tns:sequence>
+		</tns:parallel>
+
+		<tns:invoke id_port="compute-step" action="INITIALIZE" />
+
+		<tns:iterate>
+			<tns:operation>
+				<tns:choice>
+					<tns:select id_port="compute-step" action="COMPUTE-STEP">
+						<tns:skip />
+					</tns:select>
+					<tns:select id_port="compute-step" action="TERMINATION_FLAG">
+						<tns:break />
+					</tns:select>
+				</tns:choice>
+			</tns:operation>
+		</tns:iterate>
+
+		<tns:invoke id_port="compute-step" action="FINALIZE" />
+
+		<tns:parallel>
+			<tns:invoke id_port="life-cycle-L" action="RELEASE" />
+			<tns:invoke id_port="life-cycle-R" action="RELEASE" />
+		</tns:parallel>
+	</tns:sequence>
+</tns:workflow>

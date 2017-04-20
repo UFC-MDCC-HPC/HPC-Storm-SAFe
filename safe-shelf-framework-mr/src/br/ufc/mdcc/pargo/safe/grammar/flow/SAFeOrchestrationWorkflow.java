@@ -62,6 +62,12 @@ public class SAFeOrchestrationWorkflow {
     	
     	if(this.workflow ==null) return;
     	
+    	int level = 1;
+		int order = 100;
+		((SAFeSWLOperationBaseType) this.workflow).setLevel(level);
+		((SAFeSWLOperationBaseType) this.workflow).setOrder(order);
+		
+    	
     	this.root = new SAFeOrchestrationElement();
 		this.root.accept(this.safeVisitor);
 		this.root.setElement(this.workflow);
@@ -77,9 +83,17 @@ public class SAFeOrchestrationWorkflow {
 			SAFeOrchestrationElement workflowElement = workflowElementsStack.pop();
 			
 		    
-			
+			int myLevel = ((SAFeSWLOperationBaseType) element).getLevel();
 			List<Object> elementChildren = this.getChildren_v6(element);
-			for(Object elementChild:elementChildren){
+			int orderCounter = elementChildren.size();
+
+			for(int i=elementChildren.size()-1;i>=0;i--){ 
+				Object elementChild = elementChildren.get(i);
+				((SAFeSWLOperationBaseType) elementChild).setLevel(myLevel + 1);
+				((SAFeSWLOperationBaseType) elementChild).setOrder((myLevel + 1) * 100
+						+ orderCounter);
+
+				
 				elementsStack.push(elementChild);
 				SAFeOrchestrationElement workflowfChild = new SAFeOrchestrationElement();
 				workflowfChild.accept(this.safeVisitor);
@@ -97,7 +111,7 @@ public class SAFeOrchestrationWorkflow {
 
     private List<Object> getChildren_v6(Object element){
        
-    	System.out.println(((SAFeSWLOperationBaseType)element).getOperName());
+    	//System.out.println(((SAFeSWLOperationBaseType)element).getOperName());
     	
     	Method[] workflowMethods = element.getClass().getMethods();
 		List<Object> children = new ArrayList<Object>();
@@ -115,9 +129,7 @@ public class SAFeOrchestrationWorkflow {
 						
 						
 						if(!methodName.equalsIgnoreCase("OperName")){
-							if(((SAFeSWLOperationBaseType)element).getOperName().equals("choice")){
-								System.out.println(methodName);
-							}
+						
 							
 							if(methodName.equalsIgnoreCase("SkipOrBreakOrContinue")){
 								if(out instanceof List)

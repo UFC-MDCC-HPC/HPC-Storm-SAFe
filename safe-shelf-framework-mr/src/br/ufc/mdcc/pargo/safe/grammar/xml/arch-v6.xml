@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tns:architecture xmlns:tns="http://www.example.org/SAFe_architecture_V6" 
+xmlns:tns1="http://www.example.org/instantiator" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:schemaLocation="http://www.example.org/SAFe_architecture_V6 SAFe_architecture_V6.xsd ">
+  
+  <tns:application>
+  	<tns:user_port id_port="state-L"/>
+  	<tns:user_port id_port="state-R"/>
+  	<tns:provider_port id_port="event-L"/>
+  	<tns:provider_port id_port="event-R"/>
+  </tns:application>
+  
+  <tns:workflow>
+  	<tns:action_port id_port="compute-step">
+  		<tns:action name="INITIALIZE"/>
+  		<tns:action name="COMPUTE_STEP"/>
+  		<tns:action name="TERMINATE_FLAG"/>
+  		<tns:action name="FINALIZE"/>
+  	</tns:action_port>
+  </tns:workflow>
+  
+  <tns:solution>
+    
+    <tns:computation id_component="component-L">
+    	<tns:user_port id_port="event"/>
+    	<tns:provider_port id_port="state"/>
+    	<tns:action_port id_port="compute-step">
+    		<tns:action name="life-cycle"/>
+    		<tns:action name="compute-step"/>
+    	</tns:action_port>
+    </tns:computation>
+    
+    <tns:computation id_component="component-R">
+    	<tns:user_port id_port="event"/>
+    	<tns:provider_port id_port="state"/>
+    	<tns:action_port id_port="compute-step">
+    		<tns:action name="life-cycle"/>
+    		<tns:action name="compute-step"/>
+    	</tns:action_port>
+    </tns:computation>
+    
+  </tns:solution>
+  
+  <tns:service_binding>
+  		<tns:user_port id_component="application" id_port="state-L"/>
+  		<tns:provider_port id_component="component-L" id_port="state"/>
+  </tns:service_binding>
+  
+  <tns:service_binding>
+  		<tns:user_port id_component="application" id_port="state-R"/>
+  		<tns:provider_port id_component="component-R" id_port="state"/>
+  </tns:service_binding>
+  
+  <tns:service_binding>
+  		<tns:user_port id_component="component-L" id_port="event"/>
+  		<tns:provider_port id_component="application" id_port="event-L"/>
+  </tns:service_binding>
+  
+  <tns:service_binding>
+  		<tns:user_port id_component="component-R" id_port="event"/>
+  		<tns:provider_port id_component="application" id_port="event-R"/>
+  </tns:service_binding>
+  
+  <tns:action_binding>
+  		<tns:peer id_component="workflow" id_port="compute-step"/>
+  		<tns:peer id_component="component-L" id_port="compute-step"/>
+  		<tns:peer id_component="component-R" id_port="compute-step"/>
+  </tns:action_binding>
+  
+</tns:architecture>

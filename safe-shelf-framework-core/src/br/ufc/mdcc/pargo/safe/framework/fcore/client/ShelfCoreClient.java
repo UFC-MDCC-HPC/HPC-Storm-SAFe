@@ -15,7 +15,7 @@ public class ShelfCoreClient{
 	
 	
 	public Object openWorkflowSession(String safeSWLCode){
-		return this.corePort.resolve(safeSWLCode);
+		return this.corePort.openWorkflowSession(safeSWLCode);
 	}
 	
 	public void registerContract(String contract){

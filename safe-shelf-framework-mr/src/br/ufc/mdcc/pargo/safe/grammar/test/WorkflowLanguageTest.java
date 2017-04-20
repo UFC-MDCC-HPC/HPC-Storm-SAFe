@@ -26,7 +26,7 @@ public class WorkflowLanguageTest {
 		ISAFeSWLArcherParser arch = ArchitectureLanguageTest.testParser();
 		
 		flow.setISAFeSWLArcherParser(arch);
-		//System.out.println(flow.getWorkflow());
+		System.out.println(flow.getWorkflow());
 		//flow.run();
 	}
 	
