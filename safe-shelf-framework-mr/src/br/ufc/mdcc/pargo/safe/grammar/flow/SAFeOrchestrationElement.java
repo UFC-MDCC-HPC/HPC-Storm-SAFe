@@ -39,9 +39,12 @@ public class SAFeOrchestrationElement {
 	}
 
 	public void setOperation(String oper) {
-		this.operationStr = oper;
+		 
+		this.operationStr =  oper.substring(0, 1).toUpperCase() + oper.substring(1);
 		oper = oper.toUpperCase();
 		this.operation = SAFeOrchestrationOperation.valueOf(oper);
+		 
+		
 	}
 	
 	public List<SAFeOrchestrationElement> getChildren() {
@@ -58,6 +61,7 @@ public class SAFeOrchestrationElement {
 	}
 	
 	public String getOperationStr(){
+		//String output = input.substring(0, 1).toUpperCase()
 		return this.operationStr;
 	}
 	

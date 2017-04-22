@@ -1,17 +1,20 @@
 package br.ufc.mdcc.pargo.safe.grammar.flow.visitor.logic;
 
 import br.ufc.mdcc.pargo.safe.grammar.flow.SAFeOrchestrationElement;
-import br.ufc.mdcc.pargo.safe.grammar.flow.SAFeOrchestrationOperation;
-import br.ufc.mdcc.pargo.safe.grammar.flow.XMLSAFeOperation.IterateOper;
 import br.ufc.mdcc.pargo.safe.grammar.flow.visitor.AbstractSAFeElementLogic;
 import br.ufc.mdcc.pargo.safe.grammar.util.SAFeConsoleLogger;
 
-public class LogicIterateOper extends AbstractSAFeElementLogic {
+public class LogicIterate extends AbstractSAFeElementLogic {
 
 	@Override
 	public void logic(SAFeOrchestrationElement element) {
-		
-		int max = 0;
+		SAFeConsoleLogger.write("STARTING ITERATE TASKS");
+		for(int i=element.getChildren().size()-1;i>=0;i--){
+			SAFeOrchestrationElement child = element.getChildren().get(i);
+			child.run();
+		}
+		SAFeConsoleLogger.write("ENDED ITERATE TASKS");
+		/*int max = 0;
 		String myLabel = null;
 
 		if (element.getElement() instanceof IterateOper) {
@@ -51,6 +54,6 @@ public class LogicIterateOper extends AbstractSAFeElementLogic {
 			}
 		}
 		SAFeConsoleLogger.write("END ITERATOR MAX="+max);
-
+		*/
 	}
 }

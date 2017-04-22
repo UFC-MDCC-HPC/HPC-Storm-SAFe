@@ -4,7 +4,7 @@ import br.ufc.mdcc.pargo.safe.grammar.flow.SAFeOrchestrationElement;
 import br.ufc.mdcc.pargo.safe.grammar.flow.visitor.AbstractSAFeElementLogic;
 import br.ufc.mdcc.pargo.safe.grammar.util.SAFeConsoleLogger;
 
-public class LogicParallelOper extends AbstractSAFeElementLogic{
+public class LogicParallel extends AbstractSAFeElementLogic{
 
 	@Override
 	public void logic(SAFeOrchestrationElement element) {

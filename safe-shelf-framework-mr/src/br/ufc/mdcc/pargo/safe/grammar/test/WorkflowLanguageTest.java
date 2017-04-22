@@ -27,7 +27,7 @@ public class WorkflowLanguageTest {
 		
 		flow.setISAFeSWLArcherParser(arch);
 		System.out.println(flow.getWorkflow());
-		//flow.run();
+		flow.run();
 	}
 	
 	
