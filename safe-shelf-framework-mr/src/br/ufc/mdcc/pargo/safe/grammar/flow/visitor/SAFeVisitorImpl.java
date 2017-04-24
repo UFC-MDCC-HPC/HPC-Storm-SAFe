@@ -39,6 +39,7 @@ public class SAFeVisitorImpl implements ISAFeVisitor{
 				logicClass.setISAFeSWLArcherParser(sAFeSWLArcherParser);
 				logicClass.setHShelfWorkflowFacade(workflowFacade);
 				logicClass.logic(element);
+				
 			} catch (ClassNotFoundException e) {
 				//SAFeConsoleLogger.write(logicFullClassName+" NOT FOUND");
 				e.printStackTrace();

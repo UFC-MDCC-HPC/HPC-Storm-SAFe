@@ -8,7 +8,7 @@ public class LogicParallel extends AbstractSAFeElementLogic{
 
 	@Override
 	public void logic(SAFeOrchestrationElement element) {
-		
+		element.setLogicClass(this);
 		ParallelJob[] threads = new ParallelJob[element.getChildren().size()];
 		
 		//creating threads

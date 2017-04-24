@@ -8,6 +8,7 @@ public class LogicSequence extends AbstractSAFeElementLogic{
 
 	@Override
 	public void logic(SAFeOrchestrationElement element) {
+		element.setLogicClass(this);
 		SAFeConsoleLogger.write("STARTING SEQUENCE TASKS");
 		for(int i=element.getChildren().size()-1;i>=0;i--){
 			SAFeOrchestrationElement child = element.getChildren().get(i);

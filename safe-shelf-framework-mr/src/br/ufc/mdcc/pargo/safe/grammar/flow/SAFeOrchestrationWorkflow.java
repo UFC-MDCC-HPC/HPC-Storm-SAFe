@@ -69,6 +69,7 @@ public class SAFeOrchestrationWorkflow {
 		
     	
     	this.root = new SAFeOrchestrationElement();
+    	this.root.setParent(null);
 		this.root.accept(this.safeVisitor);
 		this.root.setElement(this.workflow);
 		this.root.setOperation(((SAFeSWLOperationBaseType) this.workflow).getOperName());
@@ -99,8 +100,8 @@ public class SAFeOrchestrationWorkflow {
 				workflowfChild.accept(this.safeVisitor);
 				workflowfChild.setElement((SAFeSWLOperationBaseType) elementChild);
 				String operationName = ((SAFeSWLOperationBaseType) elementChild).getOperName();
-				
 				workflowfChild.setOperation(operationName);
+				workflowfChild.setParent(workflowElement);
 				workflowElement.addWorflowElement(workflowfChild);
 				workflowElementsStack.push(workflowfChild);
 

@@ -75,7 +75,7 @@ public class SAFeSWLArchParser implements ISAFeSWLArcherParser{
 					 
 					ArchBindingAction archBidingAction = this.architectureMain.createArchBindingAction();
 					this.readActionBinding(child, archBidingAction);
-					this.architectureMain.setBindingAction(archBidingAction);
+					this.architectureMain.addBindingAction(archBidingAction);
 				}
 			}
 

@@ -16,15 +16,17 @@ public class LogicInvoke extends AbstractSAFeElementLogic {
 	String idPort;
 	@Override
 	public void logic(SAFeOrchestrationElement element) {
-
+		element.setLogicClass(this);
 		SAFeConsoleLogger.write("STARTING INVOKE TASKS");
 		
 		if(element.getElement() instanceof SAFeSWLOperationPrimitiveInvokeActionType){
 			SAFeSWLOperationPrimitiveInvokeActionType sopit = (SAFeSWLOperationPrimitiveInvokeActionType)element.getElement();
 			action = sopit.getAction();
 			idPort = sopit.getIdPort();
+			//System.out.println("action: " + action + " id_port: "+idPort);
 		}
 		SAFeConsoleLogger.write("ENDED INVOKE TASKS");
 	}
+	
 	
 }

@@ -13,7 +13,7 @@ public class SAFeOrquestrationArchitecture {
 	private ArchWorkflow archWorkflow;
 	private ArchSolution archSolution;
 	private List<ArchBindingService> bindingService;
-	private ArchBindingAction bindingAction;
+	private List<ArchBindingAction> bindingAction;
 
 	private Map<String, ArchUserPort> userPortMap;
 	private Map<String, ArchProviderPort> providerPortMap;
@@ -63,6 +63,7 @@ public class SAFeOrquestrationArchitecture {
 
 	public SAFeOrquestrationArchitecture() {
 		this.bindingService = new ArrayList<ArchBindingService>();
+		this.bindingAction = new ArrayList<ArchBindingAction>();
 		this.actionPortMap = new Hashtable<String, ArchActionPort>();
 		this.userPortMap = new Hashtable<String, ArchUserPort>();
 		this.providerPortMap = new Hashtable<String, ArchProviderPort>();
@@ -100,40 +101,46 @@ public class SAFeOrquestrationArchitecture {
 		this.bindingService = bindingService;
 	}
 
-	public ArchBindingAction getBindingAction() {
+	public List<ArchBindingAction> getBindingAction() {
 		return bindingAction;
 	}
 
-	public void setBindingAction(ArchBindingAction bindingAction) {
+	public void setBindingAction(List<ArchBindingAction> bindingAction) {
 		this.bindingAction = bindingAction;
+	}
+
+	public void addBindingAction(ArchBindingAction bindingAction) {
+		this.bindingAction.add(bindingAction);
 	}
 
 	public void addBindingService(ArchBindingService bindingService) {
 		this.bindingService.add(bindingService);
 	}
 
-	public void putActionPort(String idComponent, String idPort, ArchActionPort port) {
-		this.actionPortMap.put(idComponent+"$"+idPort,port);
+	public void putActionPort(String idComponent, String idPort,
+			ArchActionPort port) {
+		this.actionPortMap.put(idComponent + "$" + idPort, port);
 	}
 
 	public void putUserPort(String idComponent, String idPort, ArchUserPort port) {
-		this.userPortMap.put(idComponent+"$"+idPort,port);
+		this.userPortMap.put(idComponent + "$" + idPort, port);
 	}
 
-	public void putProviderPort(String idComponent, String idPort, ArchProviderPort port) {
-		this.providerPortMap.put(idComponent+"$"+idPort,port);
+	public void putProviderPort(String idComponent, String idPort,
+			ArchProviderPort port) {
+		this.providerPortMap.put(idComponent + "$" + idPort, port);
 	}
-	
+
 	public ArchActionPort getActionPort(String idComponent, String idPort) {
-		return this.actionPortMap.get(idComponent+"$"+idPort);
+		return this.actionPortMap.get(idComponent + "$" + idPort);
 	}
 
 	public ArchUserPort getUserPort(String idComponent, String idPort) {
-		return this.userPortMap.get(idComponent+"$"+idPort);
+		return this.userPortMap.get(idComponent + "$" + idPort);
 	}
 
 	public ArchProviderPort getProviderPort(String idComponent, String idPort) {
-		return this.providerPortMap.get(idComponent+"$"+idPort);
+		return this.providerPortMap.get(idComponent + "$" + idPort);
 	}
 
 	// create methods
@@ -177,7 +184,7 @@ public class SAFeOrquestrationArchitecture {
 	}
 
 	public ArchActionPort createArchActionPort(Element e) {
-		ArchActionPort archActionPort = new ArchActionPort();	
+		ArchActionPort archActionPort = new ArchActionPort();
 		archActionPort.setIdPort(e.getAttributeValue(att_id_port));
 
 		for (Element child : e.getChildren()) {
@@ -199,23 +206,26 @@ public class SAFeOrquestrationArchitecture {
 		return archComponent;
 	}
 
-
 	@Override
 	public String toString() {
 		String res = "";
-		
-		res+=this.archApplication;
-		res+="\n\n";
-		res+=this.archWorkflow;
-		res+="\n\n";
-		res+=this.archSolution;
-		res+="\n\n";
-		for(ArchBindingService service:this.bindingService){
-			res+=service;res+="\n";
+
+		res += this.archApplication;
+		res += "\n\n";
+		res += this.archWorkflow;
+		res += "\n\n";
+		res += this.archSolution;
+		res += "\n\n";
+		for (ArchBindingService service : this.bindingService) {
+			res += service;
+			res += "\n";
 		}
-		res+="\n\n";
-		res+=this.bindingAction;
+		res += "\n\n";
+		for (ArchBindingAction action : this.bindingAction) {
+			res += action;
+			res += "\n";
+		}
 		return res;
-		
+
 	}
 }
