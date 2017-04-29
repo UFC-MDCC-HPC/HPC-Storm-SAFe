@@ -1,8 +1,8 @@
 package br.ufc.mapreduce.stubs.ports.tsk;
 
-import br.ufc.mdcc.pargo.safe.framework.port.HShelfTaskPort;
+import br.ufc.mdcc.pargo.safe.framework.port.HShelfActionPort;
 
-public class MRStubTaskPort extends HShelfTaskPort{
+public class MRStubTaskPort extends HShelfActionPort{
 
 	@Override
 	public void invoke(Object action) {

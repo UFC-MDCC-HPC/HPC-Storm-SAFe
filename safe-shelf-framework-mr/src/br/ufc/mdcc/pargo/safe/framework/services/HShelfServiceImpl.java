@@ -9,7 +9,7 @@ import br.ufc.mdcc.pargo.safe.framework.exception.HShelfException;
 import br.ufc.mdcc.pargo.safe.framework.exception.HShelfTaskPortNotFoundException;
 import br.ufc.mdcc.pargo.safe.framework.port.HShelfPort;
 import br.ufc.mdcc.pargo.safe.framework.port.HShelfProvidesPort;
-import br.ufc.mdcc.pargo.safe.framework.port.HShelfTaskPort;
+import br.ufc.mdcc.pargo.safe.framework.port.HShelfActionPort;
 import br.ufc.mdcc.pargo.safe.framework.port.HShelfUsesPort;
 import br.ufc.mdcc.pargo.safe.framework.util.HShelfConsoleLogger;
 
@@ -19,14 +19,14 @@ public class HShelfServiceImpl implements IHShelfService{
 	private HShelfComponent component;
 	private Map<String, HShelfProvidesPort> providesPortMap;
 	private Map<String, HShelfUsesPort> usesPortMap; 
-	private Map<String, HShelfTaskPort> taskPortMap;
+	private Map<String, HShelfActionPort> taskPortMap;
 	
 	
 	public HShelfServiceImpl() {
 		
 		this.providesPortMap = new HashMap<String, HShelfProvidesPort>();
 		this.usesPortMap = new HashMap<String, HShelfUsesPort>();
-		this.taskPortMap = new HashMap<String, HShelfTaskPort>();
+		this.taskPortMap = new HashMap<String, HShelfActionPort>();
 	}
 	
 	@Override
@@ -56,7 +56,7 @@ public class HShelfServiceImpl implements IHShelfService{
 	}
 	
 	@Override
-	public void registerTaskPort(HShelfTaskPort port) throws HShelfException {
+	public void registerTaskPort(HShelfActionPort port) throws HShelfException {
 		this.taskPortMap.put(port.getName(), port);
 		this.framework.addTaskPort(port);
 		port.setParentComponent(component);
@@ -86,7 +86,7 @@ public class HShelfServiceImpl implements IHShelfService{
 	
 	@Override
 	public HShelfPort getTaskPort(String name) throws HShelfException {
-		HShelfTaskPort taskImpl = this.framework.getTaskPort(name);
+		HShelfActionPort taskImpl = this.framework.getTaskPort(name);
 		if(taskImpl !=null){
 			return taskImpl;
 		}else{

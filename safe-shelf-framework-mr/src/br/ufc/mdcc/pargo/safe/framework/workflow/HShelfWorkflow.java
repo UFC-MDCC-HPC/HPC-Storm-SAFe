@@ -8,7 +8,7 @@ import br.ufc.mdcc.pargo.safe.framework.core.HShelfCoreComponent;
 import br.ufc.mdcc.pargo.safe.framework.exception.HShelfException;
 import br.ufc.mdcc.pargo.safe.framework.port.HShelfActionFutureImpl;
 import br.ufc.mdcc.pargo.safe.framework.port.HShelfProvidesPort;
-import br.ufc.mdcc.pargo.safe.framework.port.HShelfTaskPort;
+import br.ufc.mdcc.pargo.safe.framework.port.HShelfActionPort;
 import br.ufc.mdcc.pargo.safe.framework.port.IHShelfActionFuture;
 import br.ufc.mdcc.pargo.safe.framework.port.dflt.HShelfGoWorkflowPortImpl;
 import br.ufc.mdcc.pargo.safe.framework.port.dflt.HShelfLifeCyclePort;
@@ -122,7 +122,7 @@ public class HShelfWorkflow extends HShelfComponent {
 		if (this.services != null) {
 			ArchWorkflow archWorkflow = this.archParser.getArchWorkflow();
 			for (ArchActionPort task : archWorkflow.getTaskList()) {
-				HShelfTaskPort taskPort = new HShelfTaskPort();
+				HShelfActionPort taskPort = new HShelfActionPort();
 				taskPort.setName(task.getName());
 				// HShelfConsoleLogger.write("TASK-NAME: " + task.getName());
 				try {
@@ -205,7 +205,7 @@ public class HShelfWorkflow extends HShelfComponent {
 				SAFeOrquestrationArchitecture.DUMMY)) {
 			try {
 				String compName = archComponent.getName();
-				HShelfTaskPort task = (HShelfTaskPort) this.services
+				HShelfActionPort task = (HShelfActionPort) this.services
 						.getTaskPort("lyfe-cycle-" + compName + "-port");
 				if (task != null) {
 					HShelfLifeCyclePort lcPort = (HShelfLifeCyclePort) task;
@@ -234,7 +234,7 @@ public class HShelfWorkflow extends HShelfComponent {
 				SAFeOrquestrationArchitecture.DUMMY)) {
 			try {
 				String compName = archComponent.getName();
-				HShelfTaskPort task = (HShelfTaskPort) this.services
+				HShelfActionPort task = (HShelfActionPort) this.services
 						.getTaskPort("lyfe-cycle-" + compName + "-port");
 				if (task != null) {
 					HShelfLifeCyclePort lcPort = (HShelfLifeCyclePort) task;
@@ -254,7 +254,7 @@ public class HShelfWorkflow extends HShelfComponent {
 				SAFeOrquestrationArchitecture.DUMMY)) {
 			try {
 				String compName = archComponent.getName();
-				HShelfTaskPort task = (HShelfTaskPort) this.services
+				HShelfActionPort task = (HShelfActionPort) this.services
 						.getTaskPort("lyfe-cycle-" + compName + "-port");
 				if (task != null) {
 					HShelfLifeCyclePort lcPort = (HShelfLifeCyclePort) task;
@@ -369,7 +369,7 @@ public class HShelfWorkflow extends HShelfComponent {
 	public synchronized Object compute(String method, String portName) {
 		try {
 
-			HShelfTaskPort port = (HShelfTaskPort) this.services
+			HShelfActionPort port = (HShelfActionPort) this.services
 					.getTaskPort(portName);
 
 			if (port != null && port.isConnected()) {
@@ -388,7 +388,7 @@ public class HShelfWorkflow extends HShelfComponent {
 			String portName) {
 		try {
 
-			HShelfTaskPort port = (HShelfTaskPort) this.services
+			HShelfActionPort port = (HShelfActionPort) this.services
 					.getTaskPort(portName);
 
 			if (port != null && port.isConnected()) {

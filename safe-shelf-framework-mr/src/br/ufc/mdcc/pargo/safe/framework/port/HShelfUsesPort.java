@@ -1,6 +1,6 @@
 package br.ufc.mdcc.pargo.safe.framework.port;
 
-public class HShelfUsesPort extends HShelfEnvironmentPort{
+public class HShelfUsesPort extends HShelfServicePort{
 
 	protected HShelfProvidesPort providesPort;
 	

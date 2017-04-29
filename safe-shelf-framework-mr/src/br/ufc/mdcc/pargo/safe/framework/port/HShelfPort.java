@@ -28,8 +28,11 @@ public abstract class HShelfPort {
 	public boolean equals(Object obj) {
 		if(!(obj instanceof HShelfPort))
 			return false;
+		
 		HShelfPort ref = (HShelfPort)obj;
-		if(ref.getName().equals(this.name))
+		String parentName = this.parentComponent.getName();
+		String refParentName = ref.getParentComponent().getName();
+		if(ref.getName().equals(this.name) && refParentName.equals(parentName))
 			return true;
 		return false;
 	}

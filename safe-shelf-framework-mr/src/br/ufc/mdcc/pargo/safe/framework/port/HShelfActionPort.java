@@ -1,10 +1,17 @@
 package br.ufc.mdcc.pargo.safe.framework.port;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import br.ufc.mdcc.pargo.safe.framework.util.HShelfConsoleLogger;
 
-public class HShelfTaskPort extends HShelfPort{
+public class HShelfActionPort extends HShelfPort{
 
-	private HShelfTaskPort partner;
+	private List<HShelfActionPort> partners;
+	
+	public HShelfActionPort() {
+		this.partners = new ArrayList<HShelfActionPort>();
+	}
 	
 	public void invoke(Object action){
 		/*if(action.toString().equals("perform")){
@@ -22,16 +29,5 @@ public class HShelfTaskPort extends HShelfPort{
 		HShelfConsoleLogger.write(action.toString());
 	}
 	
-	public boolean isConnected(){
-		if(partner==null) return false;
-		return true;
-	}
-
-	public HShelfTaskPort getPartner() {
-		return partner;
-	}
-
-	public void setPartner(HShelfTaskPort partner) {
-		this.partner = partner;
-	}
+	
 }

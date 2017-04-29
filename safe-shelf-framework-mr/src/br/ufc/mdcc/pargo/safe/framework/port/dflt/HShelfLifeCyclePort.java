@@ -1,10 +1,10 @@
 package br.ufc.mdcc.pargo.safe.framework.port.dflt;
 
 import br.ufc.mdcc.pargo.safe.framework.component.HShelfComponent;
-import br.ufc.mdcc.pargo.safe.framework.port.HShelfTaskPort;
+import br.ufc.mdcc.pargo.safe.framework.port.HShelfActionPort;
 
 
-public class HShelfLifeCyclePort extends HShelfTaskPort{
+public class HShelfLifeCyclePort extends HShelfActionPort{
 
 	private HShelfComponent component;
 	

@@ -10,11 +10,11 @@ import br.ufc.mdcc.pargo.safe.framework.application.HShelfApplication;
 import br.ufc.mdcc.pargo.safe.framework.component.HShelfComponent;
 import br.ufc.mdcc.pargo.safe.framework.core.HShelfCoreComponent;
 import br.ufc.mdcc.pargo.safe.framework.exception.HShelfException;
+import br.ufc.mdcc.pargo.safe.framework.port.HShelfActionPort;
 import br.ufc.mdcc.pargo.safe.framework.port.HShelfBuilderService;
 import br.ufc.mdcc.pargo.safe.framework.port.HShelfPort;
 import br.ufc.mdcc.pargo.safe.framework.port.HShelfProvidesPort;
 import br.ufc.mdcc.pargo.safe.framework.port.HShelfSelectionPort;
-import br.ufc.mdcc.pargo.safe.framework.port.HShelfTaskPort;
 import br.ufc.mdcc.pargo.safe.framework.port.HShelfUsesPort;
 import br.ufc.mdcc.pargo.safe.framework.port.IHShelfPortTypes;
 import br.ufc.mdcc.pargo.safe.framework.port.dflt.HShelfLifeCyclePort;
@@ -25,28 +25,23 @@ import br.ufc.mdcc.pargo.safe.framework.workflow.HShelfWorkflow;
 
 public class HShelfFramework extends HShelfBuilderService {
 
+	private static final String separator = "$";
+	
 	private Map<String, HShelfProvidesPort> providesPortMap;
 	private Map<String, HShelfUsesPort> usesPortMap;
-	private Map<String, HShelfTaskPort> taskPortMap;
 	private Map<String, HShelfComponent> componentMap;
-	private Map<String, Semaphore> semaphoreUses;
-	private Map<String, String> envConnections;
+	//private Map<String, Semaphore> semaphoreUses;
+	private Map<String, String> serviceConnections;
 	private HShelfWorkflow workflow;
-
-	//private HShelfWorkflow workflow;
 	private HShelfApplication application;
-
-
-	// private ISAFeSWLArcherParser archParser;
 
 	public HShelfFramework() {
 		HShelfConsoleLogger.write("Creating HShelfFramework");
 		this.providesPortMap = new HashMap<String, HShelfProvidesPort>();
 		this.usesPortMap = new HashMap<String, HShelfUsesPort>();
 		this.componentMap = new HashMap<String, HShelfComponent>();
-		this.taskPortMap = new HashMap<String, HShelfTaskPort>();
-		this.semaphoreUses = new HashMap<String, Semaphore>();
-		this.envConnections = new HashMap<String, String>();
+		//this.semaphoreUses = new HashMap<String, Semaphore>();
+		this.serviceConnections = new HashMap<String, String>();
 		
 	}
 
@@ -59,7 +54,7 @@ public class HShelfFramework extends HShelfBuilderService {
 		IHShelfService serviceApp = new HShelfServiceImpl();
 		serviceApp.initialize(this, this.application);
 		
-		//default ports
+		//default ports service application USES
 		try {
 			serviceApp.registerUsesPort(HShelfWorkflow.SAFE_WORKFLOW_SWL_PORT,IHShelfPortTypes.DEFAULT);
 			serviceApp.registerUsesPort(HShelfWorkflow.SAFE_WORKFLOW_GO_PORT,IHShelfPortTypes.DEFAULT);
@@ -71,7 +66,7 @@ public class HShelfFramework extends HShelfBuilderService {
 		}
 		
 		
-		//selection port
+		//selection port service application PROVIDES
 		HShelfSelectionPort selectionPort = new HShelfSelectionPort(this.application);
 		selectionPort.setName(HShelfApplication.SELECTION_PORT_PRV);
 		try {
@@ -82,7 +77,7 @@ public class HShelfFramework extends HShelfBuilderService {
 		}
 		this.application.setServices(serviceApp);
 
-		// adding
+		// adding application
 		this.addComponent(this.application);
 		
 		//Core Component
@@ -91,232 +86,10 @@ public class HShelfFramework extends HShelfBuilderService {
 		IHShelfService serviceImpl = new HShelfServiceImpl();
 		serviceImpl.initialize(this, coreComponent);
 		coreComponent.setServices(serviceImpl);
+		
 		this.addComponent(coreComponent);
 		
 
-	}
-
-	@Override
-	public HShelfComponent createComponent(String name, String className) {
-		HShelfComponent component = null;
-		try {
-			component = (HShelfComponent) Class.forName(className)
-					.newInstance();
-			component.setName(name);
-		} catch (InstantiationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return component;
-	}
-
-	@Override
-	public HShelfComponent getComponent(String name) {
-		return this.componentMap.get(name);
-	}
-
-	@Override
-	public List<HShelfComponent> getComponents() {
-		List<HShelfComponent> list = new ArrayList<HShelfComponent>();
-		for (HShelfComponent component : this.componentMap.values())
-			list.add(component);
-		return list;
-	}
-
-	@Override
-	public List<HShelfProvidesPort> getProvidesPortList() {
-		List<HShelfProvidesPort> list = new ArrayList<HShelfProvidesPort>();
-		for (HShelfProvidesPort port : this.providesPortMap.values())
-			list.add(port);
-		return list;
-	}
-
-	@Override
-	public List<HShelfUsesPort> getUsesPortList() {
-		List<HShelfUsesPort> list = new ArrayList<HShelfUsesPort>();
-		for (HShelfUsesPort port : this.usesPortMap.values())
-			list.add(port);
-		return list;
-	}
-
-	@Override
-	public List<HShelfTaskPort> getTaskPortList() {
-		List<HShelfTaskPort> list = new ArrayList<HShelfTaskPort>();
-		for (HShelfTaskPort port : this.taskPortMap.values())
-			list.add(port);
-		return list;
-	}
-
-	public void addComponent(HShelfComponent component) {
-
-		this.componentMap.put(component.getName(), component);
-		if (!component.hasServices()) {
-			IHShelfService serviceImpl = new HShelfServiceImpl();
-			serviceImpl.initialize(this, component);
-			/*LifeCyclePort*/
-			HShelfLifeCyclePort lcPort = new HShelfLifeCyclePort(component);
-			lcPort.setName(component.getLifeCyclePortName());
-			try {
-				serviceImpl.registerTaskPort(lcPort);
-			} catch (HShelfException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			/*Selection*/
-			try {
-				serviceImpl.registerUsesPort(component.getSelectionPortName(),"DEFAULT");
-				this.connect(component.getSelectionPortName(), HShelfApplication.SELECTION_PORT_PRV);
-			} catch (HShelfException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-			/*Workflow*/
-			try {
-				serviceImpl.registerUsesPort(component.getWorkflowServicesPortName(),"DEFAULT");
-				this.connect(component.getWorkflowServicesPortName(), HShelfCoreComponent.WORKFLOW_SERVICES_PRV);
-			} catch (HShelfException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-			component.setServices(serviceImpl);
-		}
-
-		HShelfConsoleLogger
-				.write("Component " + component.getName() + " added");
-	}
-
-	public void addProvidesPort(HShelfProvidesPort port) {
-		
-		this.providesPortMap.put(port.getName(), port);
-
-	}
-
-	 
-	public HShelfPort getPort(String portName) {
-		
-		if(this.usesPortMap.containsKey(portName))
-			return this.usesPortMap.get(portName);
-		
-		
-		if(this.providesPortMap.containsKey(portName))
-			return this.providesPortMap.get(portName);
-		
-		return null;
-	}
-
-	public void addTaskPort(HShelfTaskPort port) {
-		//System.out.println("ADDING: " + port.getName());
-		this.taskPortMap.put(port.getName(), port);
-
-	}
-
-	public HShelfTaskPort getTaskPort(String name) {
-		return this.taskPortMap.get(name);
-	}
-
-	 
-	
-	public Map<String, String> getEnvConnections() {
-		return envConnections;
-	}
-
-	public Map<String, HShelfProvidesPort> getProvidesPortMap() {
-		return providesPortMap;
-	}
-
-	public Map<String, HShelfUsesPort> getUsesPortMap() {
-		return usesPortMap;
-	}
-
-	@Override
-	public void connect(String usesPortName, String providesPortName) {
-		 
-		if (usesPortName.startsWith(HShelfWorkflow.SAFE_WORKFLOW_SWL_PORT)
-				|| usesPortName.startsWith(HShelfWorkflow.SAFE_WORKFLOW_GO_PORT)
-				|| usesPortName.startsWith(HShelfWorkflow.SAFE_WORKFLOW_EVENT_PORT)) {
-			
-			
-			
-			Semaphore s = this.semaphoreUses.get(usesPortName);
-			if(s!=null) s.release();
-			
-			
-		}
-
-		
-		HShelfPort uses = this.usesPortMap.get(usesPortName);
-		if (uses != null && uses instanceof HShelfUsesPort) {
-			
-			
-			HShelfConsoleLogger.write(usesPortName+"<->"+providesPortName);
-			
-			Semaphore s = this.semaphoreUses.get(usesPortName);
-			if(s!=null) s.release();
-		}
-		
-		this.envConnections.put(usesPortName,providesPortName);
-	}
-
-	public void registerUsesPort(HShelfUsesPort port) {
-		this.usesPortMap.put(port.getName(), port);
-	}
-
-	public void waitPort(String name) {
-		HShelfUsesPort uses = this.usesPortMap.get(name);
-		if(uses==null) return; // throw exception here!
-		
-		if(this.envConnections.get(name)!=null) return;
-		
-		Semaphore s = this.semaphoreUses.get(name);
-		if(s==null){
-			s = new Semaphore(0);
-			this.semaphoreUses.put(name, s);
-		}
-		
-		try {
-			s.acquire();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-	}
-
-	public boolean testPort(String name) {
-		HShelfUsesPort uses = this.usesPortMap.get(name);
-		if(uses==null) return false;
-		return this.envConnections.get(name)!=null;
-	}
-
-	
-	public void connectPartners(String taskA, String taskB) {
-		
-		HShelfTaskPort taskPortA = this.getTaskPort(taskA);
-		if(taskPortA!=null && !taskPortA.isConnected()){
-			HShelfTaskPort taskPortB = this.getTaskPort(taskB);
-			//System.out.println("===>"+taskA);
-			//System.out.println("===>"+taskB);
-			taskPortA.setPartner(taskPortB);
-			taskPortB.setPartner(taskPortA);
-		}
-		
-	}
-	
-	public void clear(){
-		
-		this.providesPortMap.clear();
-		this.usesPortMap.clear();
-		this.taskPortMap.clear();
-		this.componentMap.clear();
-		this.componentMap.clear();
-		 
-		 
 	}
 
 	@Override
@@ -338,8 +111,256 @@ public class HShelfFramework extends HShelfBuilderService {
 		
 	}
 	
-	public void connectAllEnvironmentPorts(){
-		this.workflow.connectAllEnvironmentPorts();
+	@Override
+	public HShelfComponent createComponent(String name, String className) {
+		HShelfComponent component = null;
+		try {
+			component = (HShelfComponent) Class.forName(className)
+					.newInstance();
+			component.setName(name);
+		} catch (InstantiationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return component;
 	}
+	
+	public void addComponent(HShelfComponent component) {
+
+		this.componentMap.put(component.getName(), component);
+		if (!component.hasServices()) {
+			IHShelfService serviceImpl = new HShelfServiceImpl();
+			serviceImpl.initialize(this, component);
+			
+			/*LifeCyclePort ACTION*/
+			HShelfLifeCyclePort lcPort = new HShelfLifeCyclePort(component);
+			lcPort.setName(component.getLifeCyclePortName());
+			try {
+				serviceImpl.registerTaskPort(lcPort);
+			} catch (HShelfException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			/*Selection USES*/
+			try {
+				serviceImpl.registerUsesPort(component.getSelectionPortName(),"DEFAULT");
+				this.connect(component.getSelectionPortName(), HShelfApplication.SELECTION_PORT_PRV);
+			} catch (HShelfException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			/*Workflow USES*/
+			try {
+				serviceImpl.registerUsesPort(component.getWorkflowServicesPortName(),"DEFAULT");
+				this.connect(component.getWorkflowServicesPortName(), HShelfCoreComponent.WORKFLOW_SERVICES_PRV);
+			} catch (HShelfException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			//services
+			component.setServices(serviceImpl);
+		}
+
+		HShelfConsoleLogger
+				.write("Component " + component.getName() + " added");
+	}
+
+	
+	@Override
+	public void connect(String componentUsesName, String usesPortName,
+			            String componentProvidesName, String providesPortName) {
+		 
+		/*if (usesPortName.startsWith(HShelfWorkflow.SAFE_WORKFLOW_SWL_PORT)
+				|| usesPortName.startsWith(HShelfWorkflow.SAFE_WORKFLOW_GO_PORT)
+				|| usesPortName.startsWith(HShelfWorkflow.SAFE_WORKFLOW_EVENT_PORT)) {
+			
+			
+			
+			Semaphore s = this.semaphoreUses.get(usesPortName);
+			if(s!=null) s.release();
+			
+			
+		}*/
+
+		
+		/*HShelfPort uses = this.usesPortMap.get(usesPortName);
+		if (uses != null && uses instanceof HShelfUsesPort) {
+			
+			
+			HShelfConsoleLogger.write(usesPortName+"<->"+providesPortName);
+			
+			Semaphore s = this.semaphoreUses.get(usesPortName);
+			if(s!=null) s.release();
+		}*/
+		String sideUses = componentUsesName+separator+usesPortName;
+		String sideProvides = componentProvidesName+separator+providesPortName;
+		this.serviceConnections.put(sideUses,sideProvides);
+	}
+	
+	
+	
+	@Override
+	public HShelfComponent getComponent(String name) {
+		return this.componentMap.get(name);
+	}
+	
+	public void registerUsesPort(HShelfUsesPort port) {
+		this.usesPortMap.put(port.getName(), port);
+	}
+	
+	/*public void connectPartners(String workflowPortName, String componentName, String componentPortName) {
+	
+	String sideComponent = componentName+separator+componentPortName;
+	HShelfActionPort workflowPort = this.actionPortMap
+	HShelfActionPort actionPortComponent = this.actionPortMap.get(sideComponent);
+	HShelfActionPort taskPortA = this.getTaskPort(taskA);
+	if(taskPortA!=null && !taskPortA.isConnected()){
+		HShelfActionPort taskPortB = this.getTaskPort(taskB);
+		//System.out.println("===>"+taskA);
+		//System.out.println("===>"+taskB);
+		taskPortA.setPartner(taskPortB);
+		taskPortB.setPartner(taskPortA);
+	}
+	
+	}*/
+
+	/*
+	@Override
+	public List<HShelfComponent> getComponents() {
+		List<HShelfComponent> list = new ArrayList<HShelfComponent>();
+		for (HShelfComponent component : this.componentMap.values())
+			list.add(component);
+		return list;
+	}
+
+	
+	@Override
+	public List<HShelfProvidesPort> getProvidesPortList() {
+		List<HShelfProvidesPort> list = new ArrayList<HShelfProvidesPort>();
+		for (HShelfProvidesPort port : this.providesPortMap.values())
+			list.add(port);
+		return list;
+	}
+
+	@Override
+	public List<HShelfUsesPort> getUsesPortList() {
+		List<HShelfUsesPort> list = new ArrayList<HShelfUsesPort>();
+		for (HShelfUsesPort port : this.usesPortMap.values())
+			list.add(port);
+		return list;
+	}
+
+	@Override
+	public List<HShelfActionPort> getTaskPortList() {
+		List<HShelfActionPort> list = new ArrayList<HShelfActionPort>();
+		for (HShelfActionPort port : this.actionPortMap.values())
+			list.add(port);
+		return list;
+	}*/
+
+	
+
+	
+
+	 
+	/*public HShelfPort getPort(String portName) {
+		
+		if(this.usesPortMap.containsKey(portName))
+			return this.usesPortMap.get(portName);
+		
+		
+		if(this.providesPortMap.containsKey(portName))
+			return this.providesPortMap.get(portName);
+		
+		return null;
+	}
+	
+	public void addProvidesPort(HShelfProvidesPort port) {
+		
+		this.providesPortMap.put(port.getName(), port);
+
+	}
+
+	public void addTaskPort(HShelfActionPort port) {
+		//System.out.println("ADDING: " + port.getName());
+		this.actionPortMap.put(port.getName(), port);
+
+	}
+
+	public HShelfActionPort getTaskPort(String name) {
+		return this.actionPortMap.get(name);
+	}
+
+	 
+	
+	public Map<String, String> getEnvConnections() {
+		return serviceConnections;
+	}
+
+	public Map<String, HShelfProvidesPort> getProvidesPortMap() {
+		return providesPortMap;
+	}
+
+	public Map<String, HShelfUsesPort> getUsesPortMap() {
+		return usesPortMap;
+	}*/
+
+	
+
+	
+
+	/*public void waitPort(String name) {
+		HShelfUsesPort uses = this.usesPortMap.get(name);
+		if(uses==null) return; // throw exception here!
+		
+		if(this.serviceConnections.get(name)!=null) return;
+		
+		Semaphore s = this.semaphoreUses.get(name);
+		if(s==null){
+			s = new Semaphore(0);
+			this.semaphoreUses.put(name, s);
+		}
+		
+		try {
+			s.acquire();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}*/
+
+	/*public boolean testPort(String name) {
+		HShelfUsesPort uses = this.usesPortMap.get(name);
+		if(uses==null) return false;
+		return this.serviceConnections.get(name)!=null;
+	}*/
+
+	
+	
+	
+	public void clear(){
+		
+		this.providesPortMap.clear();
+		this.usesPortMap.clear();
+		this.actionPortMap.clear();
+		this.componentMap.clear();
+		this.componentMap.clear();
+		 
+		 
+	}
+
+	
+	
+	/*public void connectAllEnvironmentPorts(){
+		this.workflow.connectAllEnvironmentPorts();
+	}*/
 
 }

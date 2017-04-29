@@ -5,7 +5,7 @@ import br.ufc.mdcc.pargo.safe.framework.component.HShelfComponent;
 import br.ufc.mdcc.pargo.safe.framework.exception.HShelfException;
 import br.ufc.mdcc.pargo.safe.framework.port.HShelfPort;
 import br.ufc.mdcc.pargo.safe.framework.port.HShelfProvidesPort;
-import br.ufc.mdcc.pargo.safe.framework.port.HShelfTaskPort;
+import br.ufc.mdcc.pargo.safe.framework.port.HShelfActionPort;
 
 public interface IHShelfService {
 	
@@ -14,7 +14,7 @@ public interface IHShelfService {
 	public void setProvidesPort(HShelfProvidesPort port) throws HShelfException;
 	
 	public void registerUsesPort(String name, String type) throws HShelfException;
-	public void registerTaskPort(HShelfTaskPort port) throws HShelfException;
+	public void registerTaskPort(HShelfActionPort port) throws HShelfException;
 	
 	public HShelfPort getPort(String name) throws HShelfException;
 	public HShelfProvidesPort getConnectedProvidesPort(String usesPortName) throws HShelfException;

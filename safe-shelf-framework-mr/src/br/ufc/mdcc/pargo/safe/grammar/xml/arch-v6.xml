@@ -17,18 +17,11 @@
 			<tns:action name="TERMINATE_FLAG" />
 			<tns:action name="FINALIZE" />
 		</tns:action_port>
-		<tns:action_port id_port="life-cycle-L">
-			<tns:action name="RESOLVE" />
-			<tns:action name="DEPLOY" />
-			<tns:action name="INSTANTIATE" />
-			<tns:action name="RELEASE" />
-		</tns:action_port>
-		<tns:action_port id_port="life-cycle-R">
-			<tns:action name="RESOLVE" />
-			<tns:action name="DEPLOY" />
-			<tns:action name="INSTANTIATE" />
-			<tns:action name="RELEASE" />
-		</tns:action_port>
+		<!-- <tns:action_port id_port="life-cycle-L"> <tns:action name="RESOLVE" 
+			/> <tns:action name="DEPLOY" /> <tns:action name="INSTANTIATE" /> <tns:action 
+			name="RELEASE" /> </tns:action_port> <tns:action_port id_port="life-cycle-R"> 
+			<tns:action name="RESOLVE" /> <tns:action name="DEPLOY" /> <tns:action name="INSTANTIATE" 
+			/> <tns:action name="RELEASE" /> </tns:action_port> -->
 	</tns:workflow>
 
 	<tns:solution>
@@ -42,12 +35,9 @@
 				<tns:action name="TERMINATE_FLAG" />
 				<tns:action name="FINALIZE" />
 			</tns:action_port>
-			<tns:action_port id_port="life-cycle">
-				<tns:action name="RESOLVE" />
-				<tns:action name="DEPLOY" />
-				<tns:action name="INSTANTIATE" />
-				<tns:action name="RELEASE" />
-			</tns:action_port>
+			<!-- <tns:action_port id_port="life-cycle"> <tns:action name="RESOLVE" 
+				/> <tns:action name="DEPLOY" /> <tns:action name="INSTANTIATE" /> <tns:action 
+				name="RELEASE" /> </tns:action_port> -->
 		</tns:computation>
 
 		<tns:computation id_component="component-R">
@@ -59,12 +49,9 @@
 				<tns:action name="TERMINATE_FLAG" />
 				<tns:action name="FINALIZE" />
 			</tns:action_port>
-			<tns:action_port id_port="life-cycle">
-				<tns:action name="RESOLVE" />
-				<tns:action name="DEPLOY" />
-				<tns:action name="INSTANTIATE" />
-				<tns:action name="RELEASE" />
-			</tns:action_port>
+			<!-- <tns:action_port id_port="life-cycle"> <tns:action name="RESOLVE" 
+				/> <tns:action name="DEPLOY" /> <tns:action name="INSTANTIATE" /> <tns:action 
+				name="RELEASE" /> </tns:action_port> -->
 		</tns:computation>
 
 	</tns:solution>
@@ -98,17 +85,10 @@
 		<tns:peer id_component="component-L" id_port="compute-step" />
 		<tns:peer id_component="component-R" id_port="compute-step" />
 	</tns:action_binding>
-	
-	<tns:action_binding>
-		<tns:peer id_component="workflow" id_port="life-cycle-L" />
-		<tns:peer id_component="component-L" id_port="life-cycle" />
-	</tns:action_binding>
-	
-	<tns:action_binding>
-		<tns:peer id_component="workflow" id_port="life-cycle-R" />
-		<tns:peer id_component="component-R" id_port="life-cycle" />
-	</tns:action_binding>
-	
-	
+	<!-- <tns:action_binding> <tns:peer id_component="workflow" id_port="life-cycle-L" 
+		/> <tns:peer id_component="component-L" id_port="life-cycle" /> </tns:action_binding> 
+		<tns:action_binding> <tns:peer id_component="workflow" id_port="life-cycle-R" 
+		/> <tns:peer id_component="component-R" id_port="life-cycle" /> </tns:action_binding> -->
+
 
 </tns:architecture>
