@@ -15,9 +15,11 @@ public interface ISAFeBuilderServicePort extends ISAFePort {
 										   String slaveActionId);
 	
 	public List<String> getComponentIds();
-	public List<String> getUsePortIds(String usesId);
-	public List<String> getProviderPortIds(String providerId);
-	public List<String> getActionPorts(String componentId);
+	public List<String> getUsePortIds(String componentId);
+	public List<String> getProviderPortIds(String componentId);
+	public List<String> getActionPortIdsRegistered(String componentId);
+	public List<String> getActionPortIds(String componentId);
+
 	public ISAFeComponent getComponent(String componentId);
 	
 	public List<ISAFeServiceConnection> getServiceConnections(String componentId);

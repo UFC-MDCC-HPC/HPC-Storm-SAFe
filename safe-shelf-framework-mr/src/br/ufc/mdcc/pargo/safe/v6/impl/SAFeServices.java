@@ -75,4 +75,26 @@ public class SAFeServices implements ISAFeServices{
 		this.slaveActionPorts.remove(i);
 	}
 
+	@Override
+	public List<String> getUsesPortIds() {
+		return this.usesPort;
+	}
+
+	@Override
+	public List<ISAFePort> getProvidesPorts() {
+		return this.providesPort;
+	}
+
+	@Override
+	public List<String> getActionPortIdsRegistered() {
+		return this.masterActionPorts;
+	}
+
+	@Override
+	public List<ISAFePort> getActionPorts() {
+		return this.slaveActionPorts;
+	}
+	
+	
+
 }
