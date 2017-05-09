@@ -1,5 +1,13 @@
 package br.ufc.mdcc.pargo.safe.v6.impl;
 
-public class SAFeWorkflow {
+import br.ufc.mdcc.pargo.safe.grammar.ISAFeSWLFlowParser;
+
+public class SAFeWorkflow extends SAFeGenericComponent{
+	
+	private ISAFeSWLFlowParser flow;
+
+	public void setFlow(ISAFeSWLFlowParser flow) {
+		this.flow = flow;
+	}
 
 }

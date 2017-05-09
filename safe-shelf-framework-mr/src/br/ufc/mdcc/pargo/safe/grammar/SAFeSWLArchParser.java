@@ -9,7 +9,6 @@ import org.jdom2.Element;
 import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
 
-import br.ufc.mdcc.pargo.safe.grammar.arch.ArchAction;
 import br.ufc.mdcc.pargo.safe.grammar.arch.ArchActionPort;
 import br.ufc.mdcc.pargo.safe.grammar.arch.ArchApplication;
 import br.ufc.mdcc.pargo.safe.grammar.arch.ArchBindingAction;
@@ -264,59 +263,6 @@ public class SAFeSWLArchParser implements ISAFeSWLArcherParser{
 		return this.architectureMain;
 	}
 
-	@Override
-	public ArchComponent getArchComponentByID(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public ArchAction getArchActionId(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String getProvidesPortNameByUsesPortName(String usesPortName) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String getPartnerBByPartnerAName(String partnerAName) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public boolean isThereEnvironmentConnection(String uses, String provides) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean isThereTaskConnection(String partnerA, String partnerB) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public ArchApplication getArchApplication() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public ArchWorkflow getArchWorkflow() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<ArchComponent> getComponents() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+	 
 	
 }

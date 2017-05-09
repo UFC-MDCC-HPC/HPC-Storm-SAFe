@@ -3,24 +3,39 @@ package br.ufc.mdcc.pargo.safe.v6.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.ufc.mdcc.pargo.safe.v6.ISAFeActionConnection;
+import br.ufc.mdcc.pargo.safe.grammar.ISAFeSWLArcherParser;
+import br.ufc.mdcc.pargo.safe.grammar.ISAFeSWLFlowParser;
+import br.ufc.mdcc.pargo.safe.grammar.SAFeSWLArchParser;
+import br.ufc.mdcc.pargo.safe.grammar.SAFeSWLFlowParser;
 import br.ufc.mdcc.pargo.safe.v6.ISAFeAbstractFramework;
+import br.ufc.mdcc.pargo.safe.v6.ISAFeActionConnection;
 import br.ufc.mdcc.pargo.safe.v6.ISAFeBuilderServicePort;
 import br.ufc.mdcc.pargo.safe.v6.ISAFeComponent;
 import br.ufc.mdcc.pargo.safe.v6.ISAFePort;
-import br.ufc.mdcc.pargo.safe.v6.ISAFeServices;
 import br.ufc.mdcc.pargo.safe.v6.ISAFeServiceConnection;
+import br.ufc.mdcc.pargo.safe.v6.ISAFeServices;
 
 public class SAFeFramework implements ISAFeBuilderServicePort,ISAFeAbstractFramework{
 
 	private List<ISAFeActionConnection> actionConnections;
 	private List<ISAFeServiceConnection> serviceConnections;
 	private List<ISAFeComponent> components;
+	private SAFeApplication safeApplication;
+	private SAFeWorkflow safeWorkflow;
+	private ISAFeSWLArcherParser archParser;
 	
-	public SAFeFramework() {
+	public SAFeFramework(SAFeApplication application) {
 		this.serviceConnections = new ArrayList<ISAFeServiceConnection>();
 		this.actionConnections = new ArrayList<ISAFeActionConnection>();
 		this.components = new ArrayList<ISAFeComponent>();
+		
+		this.safeApplication = application;
+		this.safeApplication.setServices(new SAFeServices());
+		this.safeApplication.setComponentId("application");
+		
+		this.safeWorkflow = new SAFeWorkflow();
+		this.safeWorkflow.setServices(new SAFeServices());
+		this.safeWorkflow.setComponentId("workflow");
 	}
 	
 	@Override
@@ -109,20 +124,12 @@ public class SAFeFramework implements ISAFeBuilderServicePort,ISAFeAbstractFrame
 
 	@Override
 	public List<ISAFeServiceConnection> getServiceConnections(String componentId) {
-		ISAFeComponent dummy = new SAFeComponent();
-		dummy.setComponentId(componentId);
-		Integer index = this.components.indexOf(dummy);
-		if(index <= 0) return null;
-		ISAFeComponent component = this.components.get(index);
-		if(component==null) return null;
-		if(component.getServices() == null) return null;
-		return component.getServices().get
+		return this.serviceConnections;
 	}
 
 	@Override
-	public List<ISAFeServiceConnection> getActionConnections(String componentId) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<ISAFeActionConnection> getActionConnections(String componentId) {
+		return this.actionConnections;
 	}
 
 	@Override
@@ -159,4 +166,35 @@ public class SAFeFramework implements ISAFeBuilderServicePort,ISAFeAbstractFrame
 		return actionIds;
 	}
 
+	@Override
+	public void loadArchitecturalLanguageFile(String pathToFile) {
+		this.archParser = new SAFeSWLArchParser(pathToFile);
+		Architecture2SAFeComponentUtil.archApplication2SAFeComponent(this.archParser, this.safeApplication);
+		Architecture2SAFeComponentUtil.archWorkflow2SAFeComponent(this.archParser,this.safeWorkflow);
+		Architecture2SAFeComponentUtil.archComponent2SAFeComponentList(this.archParser, this.components, this.safeWorkflow);
+		Architecture2SAFeComponentUtil.archServiceConnection2SAFeServiceConnectionList(this.archParser, this);
+		Architecture2SAFeComponentUtil.archActionConnection2SAFeActionConnectionList(this.archParser, this);
+		 
+	}
+
+	@Override
+	public void loadOrchestrationLanguageFile(String pathToFile) {
+		ISAFeSWLFlowParser flow = new SAFeSWLFlowParser(pathToFile);
+		flow.setISAFeSWLArcherParser(this.archParser);
+		this.safeWorkflow.setFlow(flow);
+	}
+
+	@Override
+	public void setApplication(SAFeApplication safeApplication) {
+		this.safeApplication = safeApplication;
+	}
+
+	@Override
+	public ISAFeComponent getParent() {
+		return null;
+	}
+
+	
+
+	
 }

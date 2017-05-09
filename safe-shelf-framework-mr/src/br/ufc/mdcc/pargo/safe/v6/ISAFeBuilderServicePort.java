@@ -23,6 +23,6 @@ public interface ISAFeBuilderServicePort extends ISAFePort {
 	public ISAFeComponent getComponent(String componentId);
 	
 	public List<ISAFeServiceConnection> getServiceConnections(String componentId);
-	public List<ISAFeServiceConnection> getActionConnections(String componentId);
+	public List<ISAFeActionConnection> getActionConnections(String componentId);
 
 }
