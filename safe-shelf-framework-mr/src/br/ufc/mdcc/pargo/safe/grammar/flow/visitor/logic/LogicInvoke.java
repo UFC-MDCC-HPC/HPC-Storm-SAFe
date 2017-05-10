@@ -3,7 +3,7 @@ package br.ufc.mdcc.pargo.safe.grammar.flow.visitor.logic;
 import br.ufc.mdcc.pargo.safe.grammar.flow.SAFeOrchestrationElement;
 import br.ufc.mdcc.pargo.safe.grammar.flow.SAFeSWLOperationPrimitiveInvokeActionType;
 import br.ufc.mdcc.pargo.safe.grammar.flow.visitor.AbstractSAFeElementLogic;
-import br.ufc.mdcc.pargo.safe.grammar.util.SAFeConsoleLogger;
+import br.ufc.mdcc.pargo.safe.framework.util.SAFeConsoleLogger;
 
 /**
  * 
@@ -23,7 +23,9 @@ public class LogicInvoke extends AbstractSAFeElementLogic {
 			SAFeSWLOperationPrimitiveInvokeActionType sopit = (SAFeSWLOperationPrimitiveInvokeActionType)element.getElement();
 			action = sopit.getAction();
 			idPort = sopit.getIdPort();
-			//System.out.println("action: " + action + " id_port: "+idPort);
+			
+			this.workflow.invoke(idPort,action);
+			
 		}
 		SAFeConsoleLogger.write("ENDED INVOKE TASKS");
 	}

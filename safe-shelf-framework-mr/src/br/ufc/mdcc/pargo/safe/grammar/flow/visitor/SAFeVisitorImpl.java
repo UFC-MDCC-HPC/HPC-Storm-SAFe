@@ -1,23 +1,23 @@
 package br.ufc.mdcc.pargo.safe.grammar.flow.visitor;
 
-import br.ufc.mdcc.pargo.safe.framework.workflow.HShelfWorkflowFacade;
 import br.ufc.mdcc.pargo.safe.grammar.ISAFeSWLArcherParser;
 import br.ufc.mdcc.pargo.safe.grammar.flow.SAFeOrchestrationElement;
 import br.ufc.mdcc.pargo.safe.grammar.flow.SAFeOrchestrationOperation;
+import br.ufc.mdcc.pargo.safe.v6.impl.SAFeWorkflow;
 
 public class SAFeVisitorImpl implements ISAFeVisitor{
 
 	//logic package.
 	private String logicPkg = "br.ufc.mdcc.pargo.safe.grammar.flow.visitor.logic";
 	private ISAFeSWLArcherParser sAFeSWLArcherParser;
-	private HShelfWorkflowFacade workflowFacade;
+	private SAFeWorkflow workflow;
 	
 	public void setISAFeSWLArcherParser(ISAFeSWLArcherParser sAFeSWLArcherParser){
 		this.sAFeSWLArcherParser = sAFeSWLArcherParser;
 	}
 	
-	public void setHShelfWorkflowFacade(HShelfWorkflowFacade workflowFacade){
-		this.workflowFacade = workflowFacade;
+	public void setWorkflow(SAFeWorkflow workflow){
+		this.workflow = workflow;
 	}
 	
 	@Override
@@ -37,7 +37,7 @@ public class SAFeVisitorImpl implements ISAFeVisitor{
 				Class<?> c = Class.forName(logicFullClassName);
 				AbstractSAFeElementLogic logicClass = (AbstractSAFeElementLogic)c.newInstance();
 				logicClass.setISAFeSWLArcherParser(sAFeSWLArcherParser);
-				logicClass.setHShelfWorkflowFacade(workflowFacade);
+				logicClass.setHShelfWorkflowFacade(this.workflow);
 				logicClass.logic(element);
 				
 			} catch (ClassNotFoundException e) {

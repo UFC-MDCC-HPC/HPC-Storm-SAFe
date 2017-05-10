@@ -30,11 +30,13 @@ public class Architecture2SAFeComponentUtil {
 			services.addProvidesPort(port);
 		}
 
+		//go port uses
+		services.registerUsesPort("go");
 		return application;
 	}
 
 	public static ISAFeComponent archWorkflow2SAFeComponent(
-			ISAFeSWLArcherParser archerParser, SAFeWorkflow workflow) {
+			ISAFeSWLArcherParser archerParser, SAFeWorkflow workflow, SAFeFramework framework) {
 
 		ISAFeServices services = workflow.getServices();
 		for (ArchUserPort user : archerParser.getArchitecture()
@@ -52,18 +54,21 @@ public class Architecture2SAFeComponentUtil {
 			services.registerActionPort(actionPort.getIdPort());
 		}
 		
-		ISAFePort lf_port = new SAFePort(workflow, "life-cycle");
-		services.addActionPort(lf_port);
+		//go port provides
+		SAFeGoPort goPort = new SAFeGoPort(workflow, "go");
+		services.addProvidesPort(goPort);
+		//binding
+		framework.connectService("application", "go", "workflow", "go");
 		
 		return workflow;
 	}
 
 	public static void archComponent2SAFeComponentList(
-			ISAFeSWLArcherParser archerParser, List<ISAFeComponent> components, SAFeWorkflow workflow) {
+			ISAFeSWLArcherParser archerParser, List<ISAFeComponent> components, SAFeWorkflow workflow, SAFeFramework framework) {
 
 		for (ArchComponent component : archerParser.getArchitecture()
 				.getArchSolution().getComponents()) {
-			ISAFeComponent safeComponent = new SAFeGenericComponent();
+			ISAFeComponent safeComponent = new SAFeComponent();
 			ISAFeServices services = new SAFeServices();
 			safeComponent.setServices(services);
 			safeComponent.setComponentId(component.getIdComponent());
@@ -78,19 +83,23 @@ public class Architecture2SAFeComponentUtil {
 
 			
 			for (ArchActionPort actionPort : component.getActionPortList()) {
-				ISAFePort port = new SAFePort(safeComponent,
+				ISAFePort port = new SAFeTaskPort(safeComponent,
 						actionPort.getIdPort());
 				services.addActionPort(port);
 
 			}
 			
 			//life-cycle for workflow
-			ISAFePort lf_port_wf = new SAFePort(safeComponent, "life-cycle-"+safeComponent.getComponentId());
-			workflow.getServices().addActionPort(lf_port_wf);
+			workflow.getServices().registerActionPort("life-cycle-"+safeComponent.getComponentId());
 			
 			//life-cycle for each component
-			ISAFePort lf_port = new SAFePort(safeComponent, "life-cycle");
+			ISAFePort lf_port = new SAFeLifeCycle(safeComponent, "life-cycle");
 			services.addActionPort(lf_port);
+			
+			//life-cycle binding
+			framework.connectAction(workflow.getComponentId(), "life-cycle-"+safeComponent.getComponentId(), safeComponent.getComponentId(), lf_port.getId());
+			
+			components.add(safeComponent);
 		}
 	}
 

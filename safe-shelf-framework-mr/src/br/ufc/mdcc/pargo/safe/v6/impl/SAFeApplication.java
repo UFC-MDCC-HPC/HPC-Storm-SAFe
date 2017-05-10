@@ -2,20 +2,20 @@ package br.ufc.mdcc.pargo.safe.v6.impl;
 
 import br.ufc.mdcc.pargo.safe.v6.ISAFeAbstractFramework;
 
-public class SAFeApplication extends SAFeGenericComponent{
+public class SAFeApplication extends SAFeComponent{
 
-	ISAFeAbstractFramework framework;
+	protected ISAFeAbstractFramework safeFramework;
 	
 	public SAFeApplication() {
-		this.framework = new SAFeFramework(this);
+		this.safeFramework = new SAFeFramework(this);
 	}
 	
-	public void loadArchitecturalLanguageFile(String pathToFile) {
-		this.framework.loadArchitecturalLanguageFile(pathToFile);
+/*	public void loadArchitecturalLanguageFile(String pathToFile) {
+		this.safeFramework.loadArchitecturalLanguageFile(pathToFile);
 	}
 
 	public void loadOrchestrationLanguageFile(String pathToFile) {
-		this.framework.loadOrchestrationLanguageFile(pathToFile);
+		this.safeFramework.loadOrchestrationLanguageFile(pathToFile);
 		
-	}
+	}*/
 }

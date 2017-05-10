@@ -1,4 +1,4 @@
-package br.ufc.mdcc.pargo.safe.grammar.util;
+package br.ufc.mdcc.pargo.safe.framework.util;
 
 public class SAFeConsoleLogger {
 

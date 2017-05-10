@@ -12,10 +12,10 @@ import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 
-import br.ufc.mdcc.pargo.safe.framework.workflow.HShelfWorkflowFacade;
 import br.ufc.mdcc.pargo.safe.grammar.ISAFeSWLArcherParser;
 import br.ufc.mdcc.pargo.safe.grammar.flow.visitor.ISAFeVisitor;
 import br.ufc.mdcc.pargo.safe.grammar.flow.visitor.SAFeVisitorImpl;
+import br.ufc.mdcc.pargo.safe.v6.impl.SAFeWorkflow;
 
 public class SAFeOrchestrationWorkflow {
 
@@ -33,8 +33,8 @@ public class SAFeOrchestrationWorkflow {
 		this.safeVisitor.setISAFeSWLArcherParser(sAFeSWLArcherParser);
 	}
 	
-	public void setHShelfWorkflowFacade(HShelfWorkflowFacade workflowFacade){
-		this.safeVisitor.setHShelfWorkflowFacade(workflowFacade);
+	public void setWorkflow(SAFeWorkflow workflow){
+		this.safeVisitor.setWorkflow(workflow);
 	}
 
 	public void parseWorkflow(String fileName) {

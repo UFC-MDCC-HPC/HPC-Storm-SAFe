@@ -1,7 +1,7 @@
 package br.ufc.mdcc.pargo.safe.grammar;
 
-import br.ufc.mdcc.pargo.safe.framework.workflow.HShelfWorkflowFacade;
 import br.ufc.mdcc.pargo.safe.grammar.flow.SAFeOrchestrationWorkflow;
+import br.ufc.mdcc.pargo.safe.v6.impl.SAFeWorkflow;
 
 /**
  * From this class, I create the SAFeOrchestrationWorkflow object via XML file.
@@ -37,8 +37,8 @@ public class SAFeSWLFlowParser implements ISAFeSWLFlowParser{
 	}
 
 	@Override
-	public void setHShelfWorkflowFacade(HShelfWorkflowFacade workflowFacade) {
-		this.safeOrchestrationWorkflow.setHShelfWorkflowFacade(workflowFacade);
+	public void setWorkflow(SAFeWorkflow workflowFacade) {
+		this.safeOrchestrationWorkflow.setWorkflow(workflowFacade);
 		
 	}
 	

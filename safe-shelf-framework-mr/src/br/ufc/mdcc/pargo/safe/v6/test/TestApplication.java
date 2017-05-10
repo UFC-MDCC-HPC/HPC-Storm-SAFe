@@ -1,6 +1,8 @@
 package br.ufc.mdcc.pargo.safe.v6.test;
 
+import br.ufc.mdcc.pargo.safe.framework.util.SAFeConsoleLogger;
 import br.ufc.mdcc.pargo.safe.v6.impl.SAFeApplication;
+import br.ufc.mdcc.pargo.safe.v6.impl.SAFeGoPort;
 
 public class TestApplication extends SAFeApplication{
 
@@ -8,8 +10,16 @@ public class TestApplication extends SAFeApplication{
 	public static String fileNameaORCHXML = "flow-v6.xml";
 	
 	public TestApplication() {
-		String fileName = "src/br/ufc/mdcc/pargo/safe/grammar/xml/"+fileNameaARCHXML;
-		this.loadArchitecturalLanguageFile(fileName);
+		//SAFeConsoleLogger.ON = false;
+		String fileNameA = "src/br/ufc/mdcc/pargo/safe/grammar/xml/"+fileNameaARCHXML;
+		String fileNameB = "src/br/ufc/mdcc/pargo/safe/grammar/xml/"+fileNameaORCHXML;
+		this.safeFramework.loadArchitecturalLanguageFile(fileNameA);
+		this.safeFramework.loadOrchestrationLanguageFile(fileNameB);
+		
+		SAFeGoPort go = (SAFeGoPort)this.safeFramework.lookUpServicePort("application", "go");
+		go.go();
+		
+		
 	}
 	
 	public static void main(String[] args) {

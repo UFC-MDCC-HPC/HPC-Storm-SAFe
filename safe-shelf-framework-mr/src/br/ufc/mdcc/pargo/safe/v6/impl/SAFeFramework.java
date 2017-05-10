@@ -14,6 +14,7 @@ import br.ufc.mdcc.pargo.safe.v6.ISAFeComponent;
 import br.ufc.mdcc.pargo.safe.v6.ISAFePort;
 import br.ufc.mdcc.pargo.safe.v6.ISAFeServiceConnection;
 import br.ufc.mdcc.pargo.safe.v6.ISAFeServices;
+import br.ufc.mdcc.pargo.safe.v6.ISAFeTaskPort;
 
 public class SAFeFramework implements ISAFeBuilderServicePort,ISAFeAbstractFramework{
 
@@ -170,8 +171,10 @@ public class SAFeFramework implements ISAFeBuilderServicePort,ISAFeAbstractFrame
 	public void loadArchitecturalLanguageFile(String pathToFile) {
 		this.archParser = new SAFeSWLArchParser(pathToFile);
 		Architecture2SAFeComponentUtil.archApplication2SAFeComponent(this.archParser, this.safeApplication);
-		Architecture2SAFeComponentUtil.archWorkflow2SAFeComponent(this.archParser,this.safeWorkflow);
-		Architecture2SAFeComponentUtil.archComponent2SAFeComponentList(this.archParser, this.components, this.safeWorkflow);
+		this.components.add(this.safeApplication);
+		Architecture2SAFeComponentUtil.archWorkflow2SAFeComponent(this.archParser,this.safeWorkflow, this);
+		this.components.add(this.safeWorkflow);
+		Architecture2SAFeComponentUtil.archComponent2SAFeComponentList(this.archParser, this.components, this.safeWorkflow, this);
 		Architecture2SAFeComponentUtil.archServiceConnection2SAFeServiceConnectionList(this.archParser, this);
 		Architecture2SAFeComponentUtil.archActionConnection2SAFeActionConnectionList(this.archParser, this);
 		 
@@ -182,8 +185,52 @@ public class SAFeFramework implements ISAFeBuilderServicePort,ISAFeAbstractFrame
 		ISAFeSWLFlowParser flow = new SAFeSWLFlowParser(pathToFile);
 		flow.setISAFeSWLArcherParser(this.archParser);
 		this.safeWorkflow.setFlow(flow);
+		this.safeWorkflow.setSAFeFramework(this);
 	}
 
+	private ISAFePort findProviderServiceSAFePortFromUsesPort(String usesId, String usesPortId){
+	
+		for(ISAFeServiceConnection serviceConn:this.serviceConnections){
+			if(serviceConn.getUserComponentId().equals(usesId) && serviceConn.getUserPortId().equals(usesPortId)){
+				String providerId = serviceConn.getProviderComponentId();
+				String providerPortId = serviceConn.getProviderPortId();
+				for(ISAFeComponent component: this.components){
+					if(component.getComponentId().equals(providerId)){
+						for(ISAFePort port:component.getServices().getProvidesPorts()){
+							if(port.getId().equals(providerPortId))
+								return port;
+						}
+					}
+				}
+			}
+		}
+		return null;
+	}
+	
+	private List<ISAFeTaskPort> findProviderActionSAFePortFromMasterPort(String masterId, String portId){
+		//System.out.println(masterId+"-"+portId);
+		List<ISAFeTaskPort> res = new ArrayList<ISAFeTaskPort>();
+		//System.out.println(actionConnections.size());
+		for(ISAFeActionConnection actionConn:this.actionConnections){
+			if(actionConn.getMasterComponentId().equals(masterId) && actionConn.getMasterActionPortId().equals(portId)){
+				String slaveId = actionConn.getSlaveComponentId();
+				String slavePortId = actionConn.getSlaveActionPortId();
+				//System.out.println(slaveId+":"+slavePortId);
+				//System.out.println(this.components.size());
+				for(ISAFeComponent component: this.components){
+					//System.out.println(slaveId+":"+component.getComponentId());
+					if(component.getComponentId().equals(slaveId)){
+						for(ISAFePort port:component.getServices().getActionPorts()){
+							if(port.getId().equals(slavePortId))
+								res.add((ISAFeTaskPort)port);
+						}
+					}
+				}
+			}
+		}
+		return res;
+	}
+	
 	@Override
 	public void setApplication(SAFeApplication safeApplication) {
 		this.safeApplication = safeApplication;
@@ -192,6 +239,16 @@ public class SAFeFramework implements ISAFeBuilderServicePort,ISAFeAbstractFrame
 	@Override
 	public ISAFeComponent getParent() {
 		return null;
+	}
+
+	@Override
+	public ISAFePort lookUpServicePort(String usesId, String portId) {
+		return findProviderServiceSAFePortFromUsesPort(usesId, portId);
+	}
+
+	@Override
+	public List<ISAFeTaskPort> lookUpActionPort(String masterId, String portId) {
+		return findProviderActionSAFePortFromMasterPort(masterId, portId);
 	}
 
 	

@@ -2,7 +2,7 @@ package br.ufc.mdcc.pargo.safe.grammar.flow.visitor.logic;
 
 import br.ufc.mdcc.pargo.safe.grammar.flow.SAFeOrchestrationElement;
 import br.ufc.mdcc.pargo.safe.grammar.flow.visitor.AbstractSAFeElementLogic;
-import br.ufc.mdcc.pargo.safe.grammar.util.SAFeConsoleLogger;
+import br.ufc.mdcc.pargo.safe.framework.util.SAFeConsoleLogger;
 
 public class LogicParallel extends AbstractSAFeElementLogic{
 
@@ -21,8 +21,8 @@ public class LogicParallel extends AbstractSAFeElementLogic{
 		//starting threads
 		SAFeConsoleLogger.write("STARTING PARALLEL TASKS");
 		for(ParallelJob job:threads){
-			job.run(); //NOT PARALLEL (TESTING)
-			//job.start(); // IN PARALLEL
+			//job.run(); //NOT PARALLEL (TESTING)
+			job.start(); // IN PARALLEL
 		}
 			
 		

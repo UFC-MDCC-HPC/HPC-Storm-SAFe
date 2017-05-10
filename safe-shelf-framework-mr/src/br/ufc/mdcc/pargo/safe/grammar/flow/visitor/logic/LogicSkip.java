@@ -3,7 +3,7 @@ package br.ufc.mdcc.pargo.safe.grammar.flow.visitor.logic;
 import br.ufc.mdcc.pargo.safe.grammar.flow.SAFeOrchestrationElement;
 import br.ufc.mdcc.pargo.safe.grammar.flow.SAFeOrchestrationOperation;
 import br.ufc.mdcc.pargo.safe.grammar.flow.visitor.AbstractSAFeElementLogic;
-import br.ufc.mdcc.pargo.safe.grammar.util.SAFeConsoleLogger;
+import br.ufc.mdcc.pargo.safe.framework.util.SAFeConsoleLogger;
 
 public class LogicSkip extends AbstractSAFeElementLogic{
 
@@ -11,7 +11,7 @@ public class LogicSkip extends AbstractSAFeElementLogic{
 	public void logic(SAFeOrchestrationElement element) {
 		element.setLogicClass(this);
 		SAFeConsoleLogger.write("STARTING SKIP TASKS");
-		//searchParent(element);
+		searchParent(element);
 		SAFeConsoleLogger.write("ENDED SKIP TASKS");
 		
 	}
