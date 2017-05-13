@@ -1,18 +1,17 @@
-package br.ufc.mdcc.pargo.safe.v6.test;
+package br.ufc.mdcc.pargo.safe.grammar.xml.examples.simple;
 
-import br.ufc.mdcc.pargo.safe.framework.util.SAFeConsoleLogger;
 import br.ufc.mdcc.pargo.safe.v6.impl.SAFeApplication;
 import br.ufc.mdcc.pargo.safe.v6.impl.SAFeGoPort;
 
-public class TestApplication extends SAFeApplication{
+public class SimpleApplication extends SAFeApplication{
 
 	public static String fileNameaARCHXML = "arch-v6.xml";
 	public static String fileNameaORCHXML = "flow-v6.xml";
 	
-	public TestApplication() {
+	public SimpleApplication() {
 		//SAFeConsoleLogger.ON = false;
-		String fileNameA = "src/br/ufc/mdcc/pargo/safe/grammar/xml/"+fileNameaARCHXML;
-		String fileNameB = "src/br/ufc/mdcc/pargo/safe/grammar/xml/"+fileNameaORCHXML;
+		String fileNameA = "src/br/ufc/mdcc/pargo/safe/grammar/xml/examples/simple/"+fileNameaARCHXML;
+		String fileNameB = "src/br/ufc/mdcc/pargo/safe/grammar/xml/examples/simple/"+fileNameaORCHXML;
 		this.safeFramework.loadArchitecturalLanguageFile(fileNameA);
 		this.safeFramework.loadOrchestrationLanguageFile(fileNameB);
 		
@@ -23,6 +22,6 @@ public class TestApplication extends SAFeApplication{
 	}
 	
 	public static void main(String[] args) {
-		new TestApplication();
+		new SimpleApplication();
 	}
 }

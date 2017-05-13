@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tns:architecture xmlns:tns="http://www.example.org/SAFe_architecture_V6"
+	xmlns:tns1="http://www.example.org/instantiator" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.example.org/SAFe_architecture_V6 ../../SAFe_architecture_V6.xsd ">
+	<tns:application>
+		<tns:user_port id_port="state-shuffler" />
+		<tns:user_port id_port="state-splitter" />
+		<tns:user_port id_port="state-mapper" />
+		<tns:user_port id_port="state-reducer" />
+		
+		<tns:provider_port id_port="event-shuffler" />
+		<tns:provider_port id_port="event-splitter" />
+		<tns:provider_port id_port="event-mapper" />
+		<tns:provider_port id_port="event-reducer" />
+	</tns:application>
+
+	<tns:workflow>
+		<tns:action_port id_port="task_splitter_first">
+			<tns:action name="READ_CHUNK" />
+			<tns:action name="PERFORM" />
+			<tns:action name="CHUNK_READY" />
+		</tns:action_port>
+		<tns:action_port id_port="task_splitter_next">
+			<tns:action name="READ_CHUNK" />
+			<tns:action name="PERFORM" />
+			<tns:action name="CHUNK_READY" />
+		</tns:action_port>
+		<tns:action_port id_port="task_data">
+			<tns:action name="READ_SOURCE" />
+			<tns:action name="TERMINATE" />
+			<tns:action name="WRITE_SINK" />
+		</tns:action_port>
+		<tns:action_port id_port="task_mapper">
+			<tns:action name="READ_CHUNK" />
+			<tns:action name="PERFORM" />
+			<tns:action name="CHUNK_READY" />
+		</tns:action_port>
+		<tns:action_port id_port="task_shuffler">
+			<tns:action name="READ_CHUNK" />
+			<tns:action name="PERFORM" />
+			<tns:action name="CHUNK_READY" />
+		</tns:action_port>
+		<tns:action_port id_port="task_reducer">
+			<tns:action name="READ_CHUNK" />
+			<tns:action name="PERFORM" />
+			<tns:action name="CHUNK_READY" />
+		</tns:action_port>
+	</tns:workflow>
+
+	<tns:solution>
+	
+
+		<tns:connector id_component="splitter">
+			<tns:user_port id_port="source" />
+			<tns:user_port id_port="collect_pairs" />
+			<tns:user_port id_port="sink" />
+			<tns:user_port id_port="event"/>
+			<tns:provider_port id_port="state"/>
+			<tns:provider_port id_port="feed_pairs" />
+			<tns:contract>
+				<tns:uri>../cc.cc</tns:uri>
+			</tns:contract>
+			<tns:action_port id_port="task_splitter_first">
+				<tns:action name="READ_CHUNK" />
+				<tns:action name="PERFORM" />
+				<tns:action name="CHUNK_READY" />
+			</tns:action_port>
+			<tns:action_port id_port="task_splitter_next">
+				<tns:action name="READ_CHUNK" />
+				<tns:action name="PERFORM" />
+				<tns:action name="CHUNK_READY" />
+			</tns:action_port>
+			<tns:action_port id_port="task_data">
+				<tns:action name="READ_SOURCE" />
+				<tns:action name="TERMINATE" />
+				<tns:action name="WRITE_SINK" />
+			</tns:action_port>
+		</tns:connector>
+
+		<tns:computation id_component="mapper">
+			<tns:user_port id_port="collect_pairs" />
+			<tns:user_port id_port="event"/>
+			<tns:provider_port id_port="state"/>
+			<tns:provider_port id_port="feed_pairs" />
+			<tns:contract>
+				<tns:uri>../cc.cc</tns:uri>
+			</tns:contract>
+			<tns:action_port id_port="task_mapper">
+				<tns:action name="READ_CHUNK" />
+				<tns:action name="PERFORM" />
+				<tns:action name="CHUNK_READY" />
+			</tns:action_port>
+		</tns:computation>
+
+		<tns:computation id_component="shuffler">
+			<tns:user_port id_port="collect_pairs" />
+			<tns:user_port id_port="event"/>
+			<tns:provider_port id_port="state"/>
+			<tns:provider_port id_port="feed_pairs" />
+			<tns:contract>
+				<tns:uri>../cc.cc</tns:uri>
+			</tns:contract>
+			<tns:action_port id_port="task_shuffler">
+				<tns:action name="READ_CHUNK" />
+				<tns:action name="PERFORM" />
+				<tns:action name="CHUNK_READY" />
+			</tns:action_port>
+		</tns:computation>
+
+		<tns:computation id_component="reducer">
+			<tns:user_port id_port="collect_pairs" />
+			<tns:user_port id_port="event"/>
+			<tns:provider_port id_port="state"/>
+			<tns:provider_port id_port="feed_pairs" />
+			<tns:contract>
+				<tns:uri>../cc.cc</tns:uri>
+			</tns:contract>
+			<tns:action_port id_port="task_reducer">
+				<tns:action name="READ_CHUNK" />
+				<tns:action name="PERFORM" />
+				<tns:action name="CHUNK_READY" />
+			</tns:action_port>
+		</tns:computation>
+		
+		<tns:datasource id_component="source">
+			<tns:provider_port id_port="reader" />
+		</tns:datasource>
+		
+		<tns:datasource id_component="sink">
+			<tns:provider_port id_port="writer" />
+		</tns:datasource>
+		
+		<tns:platform id_component="platform">
+			<tns:provider_port id_port="platform" />
+		</tns:platform>
+
+	</tns:solution>
+	
+	
+	<tns:service_binding>
+		<tns:user_port id_port="state-shuffler" id_component="application"/>
+		<tns:provider_port id_port="state" id_component="shuffler"/>
+	</tns:service_binding>
+	
+	<tns:service_binding>
+		<tns:user_port id_port="state-splitter" id_component="application"/>
+		<tns:provider_port id_port="state" id_component="splitter"/>
+	</tns:service_binding>
+	
+	<tns:service_binding>
+		<tns:user_port id_port="state-mapper" id_component="application"/>
+		<tns:provider_port id_port="state" id_component="mapper"/>
+	</tns:service_binding>
+	
+	<tns:service_binding>
+		<tns:user_port id_port="state-reducer" id_component="application"/>
+		<tns:provider_port id_port="state" id_component="reducer"/>
+	</tns:service_binding>
+	
+	<tns:service_binding>
+		<tns:user_port id_port="event" id_component="shuffler"/>
+		<tns:provider_port id_port="event-shuffler" id_component="application"/>
+	</tns:service_binding>
+	
+	<tns:service_binding>
+		<tns:user_port id_port="event" id_component="splitter"/>
+		<tns:provider_port id_port="event-splitter" id_component="application"/>
+	</tns:service_binding>
+	
+	<tns:service_binding>
+		<tns:user_port id_port="event" id_component="mapper"/>
+		<tns:provider_port id_port="event-mapper" id_component="application"/>
+	</tns:service_binding>
+	
+	<tns:service_binding>
+		<tns:user_port id_port="event" id_component="shuffler"/>
+		<tns:provider_port id_port="event-shuffler" id_component="application"/>
+	</tns:service_binding>
+	
+	
+
+	<tns:action_binding>
+		<tns:peer id_component="workflow" id_port="task_splitter_first" />
+		<tns:peer id_component="splitter" id_port="task_splitter_first" />
+	</tns:action_binding>
+
+	<tns:action_binding>
+		<tns:peer id_component="workflow" id_port="task_splitter_next" />
+		<tns:peer id_component="splitter" id_port="task_splitter_next" />
+	</tns:action_binding>
+
+	<tns:action_binding>
+		<tns:peer id_component="workflow" id_port="task_data" />
+		<tns:peer id_component="splitter" id_port="task_data" />
+	</tns:action_binding>
+
+	<tns:action_binding>
+		<tns:peer id_component="workflow" id_port="task_mapper" />
+		<tns:peer id_component="mapper" id_port="task_mapper" />
+	</tns:action_binding>
+	<tns:action_binding>
+		<tns:peer id_component="workflow" id_port="task_shuffler" />
+		<tns:peer id_component="shuffler" id_port="task_shuffler" />
+	</tns:action_binding>
+	<tns:action_binding>
+		<tns:peer id_component="workflow" id_port="task_reducer" />
+		<tns:peer id_component="reducer" id_port="task_reducer" />
+	</tns:action_binding>
+
+</tns:architecture>

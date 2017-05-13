@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tns:workflow xmlns:tns="http://www.example.org/SAFe_workflow_V6"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.example.org/SAFe_workflow_V6 ../../SAFe_workflow_V6.xsd ">
+	<tns:sequence>
+		<tns:parallel>
+			<tns:sequence>
+				<tns:invoke id_port="life-cycle-splitter" action="RESOLVE" />
+				<tns:invoke id_port="life-cycle-splitter" action="DEPLOY" />
+				<tns:invoke id_port="life-cycle-splitter" action="INSTANTIATE" />
+			</tns:sequence>
+			<tns:sequence>
+				<tns:invoke id_port="life-cycle-shuffler" action="RESOLVE" />
+				<tns:invoke id_port="life-cycle-shuffler" action="DEPLOY" />
+				<tns:invoke id_port="life-cycle-shuffler" action="INSTANTIATE" />
+			</tns:sequence>
+			<tns:sequence>
+				<tns:invoke id_port="life-cycle-mapper" action="RESOLVE" />
+				<tns:invoke id_port="life-cycle-mapper" action="DEPLOY" />
+				<tns:invoke id_port="life-cycle-mapper" action="INSTANTIATE" />
+			</tns:sequence>
+			<tns:sequence>
+				<tns:invoke id_port="life-cycle-reducer" action="RESOLVE" />
+				<tns:invoke id_port="life-cycle-reducer" action="DEPLOY" />
+				<tns:invoke id_port="life-cycle-reducer" action="INSTANTIATE" />
+			</tns:sequence>
+		</tns:parallel>
+
+		<tns:parallel>
+		
+			<tns:invoke id_port="task_data" action="READ_SOURCE" />
+			
+			<tns:iterate>
+				<tns:operation>
+					<tns:invoke id_port="task_splitter_first" action="READ_CHUNK" />
+					<tns:invoke id_port="task_splitter_first" action="PERFORM" />
+					<tns:break/>
+				</tns:operation>
+			</tns:iterate>
+			
+			<tns:iterate>
+				<tns:operation>
+					<tns:choice>
+
+						<tns:select id_port="task_splitter_first" action="CHUNK_READY">
+							<tns:sequence>
+								<tns:invoke id_port="task_mapper" action="READ_CHUNK" />
+								<tns:invoke id_port="task_mapper" action="PERFORM" />
+							</tns:sequence>
+						</tns:select>
+						<tns:select id_port="task_mapper" action="CHUNK_READY">
+							<tns:sequence>
+								<tns:invoke id_port="task_shuffler" action="READ_CHUNK" />
+								<tns:invoke id_port="task_shuffler" action="PERFORM" />
+							</tns:sequence>
+						</tns:select>
+						<tns:select id_port="task_shuffler" action="CHUNK_READY">
+							<tns:sequence>
+								<tns:invoke id_port="task_reducer" action="READ_CHUNK" />
+								<tns:invoke id_port="task_reducer" action="PERFORM" />
+							</tns:sequence>
+						</tns:select>
+						<tns:select id_port="task_reducer" action="CHUNK_READY">
+							<tns:sequence>
+								<tns:invoke id_port="task_splitter_next" action="READ_CHUNK" />
+								<tns:invoke id_port="task_splitter_next" action="PERFORM" />
+							</tns:sequence>
+						</tns:select>
+						<tns:select id_port="task_data" action="TERMINATE">
+							<tns:sequence>
+								<tns:invoke id_port="task_data" action="WRITE_SINK" />
+								<tns:break/>
+							</tns:sequence>
+						</tns:select>
+						
+					</tns:choice>
+				</tns:operation>
+			</tns:iterate>
+		</tns:parallel>
+
+	</tns:sequence>
+
+</tns:workflow>

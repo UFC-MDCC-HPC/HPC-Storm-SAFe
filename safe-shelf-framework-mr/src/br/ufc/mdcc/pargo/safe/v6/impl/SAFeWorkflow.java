@@ -35,6 +35,7 @@ public class SAFeWorkflow extends SAFeComponent{
 
 	
 	public void invoke(String portId, String actionId, ISAFeActionFuture actionFuture) {
+		
 		Random rand = new Random();
 		int  n = rand.nextInt(2);
 		actionFuture.setValue(n);

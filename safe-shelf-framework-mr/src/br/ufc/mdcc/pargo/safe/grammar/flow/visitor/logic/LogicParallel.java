@@ -21,8 +21,8 @@ public class LogicParallel extends AbstractSAFeElementLogic{
 		//starting threads
 		SAFeConsoleLogger.write("STARTING PARALLEL TASKS");
 		for(ParallelJob job:threads){
-			//job.run(); //NOT PARALLEL (TESTING)
-			job.start(); // IN PARALLEL
+			job.run(); //NOT PARALLEL (TESTING)
+			//job.start(); // IN PARALLEL
 		}
 			
 		
